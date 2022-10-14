@@ -1,6 +1,5 @@
-import { GiPhotoCamera } from "react-icons/gi";
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import Image from "next/image";
 
 
 const IconContainer = styled.div`
@@ -10,25 +9,44 @@ const IconContainer = styled.div`
   color : ${props => props.isSelected ? '#EB4C60' : '#939393'};
   align-items: center;
   border-bottom : ${props => props.isSelected ? '1px solid #EB4C60' : ''};
+  
+  .icon-img-box img{
+    filter:${props => props.isSelected ? 'grayscale(100%) brightness(50%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8)' : ''};
 
+  }
+
+  &:hover .icon-img-box img{
+    filter: ${props => props.isSelected ? 'grayscale(100%) brightness(50%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8)' : 'grayscale(100%) brightness(40%)'};
+  }
 
   &:hover{
     color: ${props => props.isSelected ? '#EB4C60' : '#525252'};
   }
-`
-const Icon = styled(GiPhotoCamera)`
-  font-size: 30px;
 `
 const Label = styled.span`
   text-align: center;
   font-size: 12px;
   margin-bottom: 4px;
 `
+const ImageContainer = styled.div`
+    width: 2.5rem;
+    height: 2.5rem;
+    position: relative;
+`
 
 function CategoryIcon({data, isSelected}) {
+  const imgsrc = '/assets/img/categories/'+data.icon;
   return (
     <IconContainer isSelected={isSelected}>
-      <Icon/>
+       <ImageContainer className='icon-img-box'>
+            <Image
+            src={imgsrc}
+            layout="fill"
+            width="2.5rem"
+            height="2.5rem"
+            className='icon-img'
+            />
+        </ImageContainer>
       <Label>{data.title}</Label>
     </IconContainer>
   )

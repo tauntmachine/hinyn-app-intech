@@ -4,24 +4,24 @@ import Image from "next/image";
 import {GoLocation} from "react-icons/go";
 import StarRating from "./StarRating";
 import Button from "./Button";
-import SampleImage from "../../assets/img/man.jpeg";
+import headerImage from "/public/assets/img/bg@1x.png";
 
 const StyledCard = styled.div`
-    min-height:22rem;
+    min-height:24rem;
     box-shadow:1px 1px 10px #aaaaaa20;
     border-radius: 10px;
     display:flex;
     flex-direction:column;
     align-items: center;
     justify-content: space-evenly;
-    padding: 2rem 0;
-    row-gap: 0.4rem;
+    padding: 4rem 0 2rem;
+    row-gap: 0.2rem;
     background-repeat: no-repeat;
     background-position: bottom right;
     user-select:none;
-    /* margin:1.5rem; */
     height:100%;
     background-color: #F8F8F8;
+    position: relative;
 
     @media ${breakpoint.device.lg}{
         margin:0 1rem;
@@ -35,8 +35,8 @@ const StyledCard = styled.div`
     }
 `;
 const ImageContainer = styled.div`
-    width: 4rem;
-    height: 4rem;
+    width: 5rem;
+    height: 5rem;
     position: relative;
     background: #ffffff;
     border: 5px solid #ffffff;
@@ -48,6 +48,7 @@ const StyledImage = styled(Image)`
 `
 const Title = styled.span`
     font-size: 17px;
+    text-transform: capitalize;
 `
 const Label = styled.span`
     font-size: 13px;
@@ -59,17 +60,27 @@ const StyledButton = styled(Button)`
     font-size: 13px;
     margin-top: 1.5rem;
 `
+const HeaderBackground = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 5.5rem;
+    top:0;
+`
 
 function CustomCard({data}) {
+    let imgsrc = '/assets/img/avatars/'+data.img;
   return (
     <StyledCard>
+        <HeaderBackground>
+            <Image src={headerImage} layout="fill"/>
+        </HeaderBackground>
         <ImageContainer>
             <StyledImage
-            src={SampleImage}
-            layout="responsive"
+            src={imgsrc}
+            layout="fill"
             />
         </ImageContainer>
-        <Title>{data.name}</Title>
+        <Title>{data.firstName} {data.lastName}</Title>
         <Label variant="green">{data.job}</Label>
         <StarRating data={data.rating}/>
         <Label>

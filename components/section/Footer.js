@@ -7,7 +7,7 @@ const FooterContainer = styled.div`
     color: #555555;
     box-shadow: 0px 3px 30px #00000029;
     height: 4rem;
-    position: sticky;
+    position: fixed;
     bottom:0;
     left:0;
     right: 0;

@@ -1,182 +1,65 @@
 import {Container} from "@mui/material";
 import CategoryList from "../shared/categories/CategoryList";
 import CardsSection from "./CardsSection";
+import { useFreelancer } from "../../src/store";
+import { useEffect } from "react";
 
 const categories = {
     data : [
         {
-            key : "photography",
-            icon : "",
-            title: "Photography"
+            key:"all",
+            icon:"icn-all.svg",
+            title:"All Categories"
+        },
+        {
+            key : "photographer",
+            icon : "icn-photographer.svg",
+            title: "Photographer"
         },
         {
             key : "videographer",
-            icon : "",
+            icon : "icn-videographer.svg",
             title: "Videographer"
         },
         {
             key : "editor",
-            icon : "",
+            icon : "icn-editor.svg",
             title: "Editor"
         },
         {
             key : "stylist",
-            icon : "",
+            icon : "icn-stylist.svg",
             title: "Stylist"
         },
         {
             key : "makeup-artist",
-            icon : "",
+            icon : "icn-makeupArtist.svg",
             title: "Makeup Artists"
         },
         {
             key : "hair-stylist",
-            icon : "",
+            icon : "icn-makeupArtist-1.svg",
             title: "Hair Stylists"
         },
         {
-            key : "models",
-            icon : "",
+            key : "model",
+            icon : "icn-hairStylist.svg",
             title: "Models"
         },
         {
-            key : "studio",
-            icon : "",
+            key : "studio-location",
+            icon : "icn-models.svg",
             title: "Studio/Location"
         },
     ]
 }
 
-const freelancers = {
-    data:[
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-        {
-            id:1,
-            img:'../../assets/img/man.jpeg',
-            name:'John Doe',
-            job:'Photographer',
-            location:'Dubai, UAE',
-            rating: 4
-        },
-    ]
-}
-
 function Main() {
+  const {freelancer, filter, setFilter} = useFreelancer();
   return (
-    <Container  maxWidth="xl" sx={{padding:"30px 10px"}}>
+    <Container  maxWidth="xl" sx={{padding:"30px 10px", marginBottom:"50px"}}>
         <CategoryList categories={categories}/>
-        <CardsSection cards={freelancers}/>
+        <CardsSection cards={freelancer[0]}/>
     </Container>
   )
 }

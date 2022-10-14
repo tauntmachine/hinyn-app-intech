@@ -3,8 +3,8 @@ import type { NextPage } from 'next';
 import Header from '../components/section/Header';
 import Main from '../components/section/Main';
 import Footer from '../components/section/Footer';
-
-
+import { useFreelancer } from '../src/store';
+export {getServerSideProps} from "../src/store";
 
 const Home: NextPage = () => {
   return (
@@ -16,7 +16,7 @@ const Home: NextPage = () => {
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet" />
       </Head>
       <Header />
-      <Main />
+      <Main/>
       <Footer/>
     </>
   );

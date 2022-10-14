@@ -4,6 +4,8 @@ import SearchBar from "../shared/SearchBar";
 import { Box } from "@mui/material";
 import {FiGlobe} from "react-icons/fi";
 import { Container } from "@mui/system";
+import Image from "next/image";
+import LogoImage from "/public/assets/img/logo-hinyn.svg";
 
 const CustomGlobeIcon = styled(FiGlobe)`
   margin-top:4px;
@@ -37,8 +39,9 @@ const LoginContainer = styled.div`
   justify-content: space-evenly;
 `
 const Logo = styled.div`
-  font-size: 40px;
-  font-weight: 600;
+  position: relative;
+  width: 8rem;
+  height: auto;
 `
 
 
@@ -46,7 +49,9 @@ function Header() {
   return (
     <CustomBox>
       <Head maxWidth="xl">
-        <Logo>hinyn.</Logo>
+        <Logo>
+          <Image src={LogoImage} layout="responsive" />
+        </Logo>
         <SearchBar />
         <LoginContainer>
           <Button>Create an account</Button>

@@ -11,6 +11,14 @@ const FilterContainer = styled.div`
     display: flex;
     align-items: center;
 `
+const NotFoundContainer = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50vh;
+    justify-content: center;
+    color: #EB4C60;
+`
 
 function CardsSection({cards}) {
   return (
@@ -19,14 +27,19 @@ function CardsSection({cards}) {
             <Filter/>
             <Dropdown />
         </FilterContainer>
-        
+        {cards.length > 0 
+        ? 
         <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 5, lg:8 }}>
-        {cards.data.map( (card,idx) => (
+        {cards.map( (card,idx) => (
             <Grid key={idx} item xs={12} sm={6} lg={3} sx={{position:'relative', marginTop:"3rem"}}>
                 <CustomCard data={card} />
             </Grid>
-        ))}
+            ))       
+        }
         </Grid>
+        :
+        <NotFoundContainer>No freelancers available for this category.</NotFoundContainer>
+    }
     </GridContainer>
   )
 }
