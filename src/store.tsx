@@ -173,20 +173,20 @@ export async function getServerSideProps(){
 
 const useFreelancerController = (freelancer : Freelancer[]) =>{
     const [filter,setFilter] = useState("");
-    console.log('in freelance controller', filter, freelancer)
-    const filteredFreelancer = useMemo(
+
+      const filteredFreelancer = useMemo(
         () =>
-            freelancer.map( (f) => {
+            freelancer && freelancer.map( (f) => {
                     return Object.values(f).filter(val=> (val.jobcategory.toLowerCase()).includes(filter.toLowerCase()))
             }
                 ),
         [filter, freelancer]
     );
     return {
-        filter,
-        setFilter,
-        freelancer : filteredFreelancer
-    }
+      filter,
+      setFilter,
+      freelancer : filteredFreelancer
+  }
 }
 
 const FreelancerContext = createContext<ReturnType<typeof useFreelancerController>>({

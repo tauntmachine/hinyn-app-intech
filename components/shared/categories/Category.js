@@ -42,8 +42,6 @@ function CategoryIcon({data, isSelected}) {
             <Image
             src={imgsrc}
             layout="fill"
-            width="2.5rem"
-            height="2.5rem"
             className='icon-img'
             />
         </ImageContainer>
