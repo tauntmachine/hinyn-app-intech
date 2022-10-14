@@ -177,13 +177,11 @@ const useFreelancerController = (freelancer : Freelancer[]) =>{
     const filteredFreelancer = useMemo(
         () =>
             freelancer.map( (f) => {
-                console.log("this is F",f)
                     return Object.values(f).filter(val=> (val.jobcategory.toLowerCase()).includes(filter.toLowerCase()))
             }
                 ),
         [filter, freelancer]
     );
-    console.log('filteredFreelancer', filteredFreelancer)
     return {
         filter,
         setFilter,

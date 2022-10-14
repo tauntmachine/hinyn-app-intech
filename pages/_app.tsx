@@ -6,6 +6,7 @@ import {FreelancerProvider} from "../src/store"
 ;
 function MyApp({ Component, pageProps }: AppProps) {
   return(
+    //@ts-ignore
       <FreelancerProvider freelancer={pageProps.freelancer}>
         <ThemeProvider theme={theme}>
 
