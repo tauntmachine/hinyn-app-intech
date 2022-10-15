@@ -13,8 +13,7 @@
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
-    "prepare": "husky install",
-    "export": "next export"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/css": "^11.10.0",
