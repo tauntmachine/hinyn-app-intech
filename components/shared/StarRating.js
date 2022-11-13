@@ -13,10 +13,10 @@ const StarContainer = styled.div`
   display: flex;
   column-gap: 5px;
 `
-
+const MAX_STARS =  5;
 
 function StarRating({data}) {
-  const remaining = 5 - data;
+  const remaining = MAX_STARS - data;
   return (
     <StarContainer>
     { [...Array(data)].map((elem, i) => ( 

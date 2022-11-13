@@ -4,6 +4,25 @@ import Filter from "../shared/Filter";
 import CustomCard from "../shared/CustomCard";
 import Dropdown from "../shared/Dropdown";
 
+const sortOptions = [
+    {
+        title: 'Ranking',
+        value: 'ranking'
+    },
+    {
+        title: 'Newly Added',
+        value: 'newly-added'
+    },
+    {
+        title: 'Ascending',
+        value: 'ascending'
+    },
+    {
+        title: 'Descending',
+        value: 'descending'
+    }
+]
+
 const GridContainer = styled(Box)`
     margin-top: 2.5rem;
 `
@@ -20,12 +39,13 @@ const NotFoundContainer = styled.div`
     color: #EB4C60;
 `
 
+
 function CardsSection({cards}) {
   return (
     <GridContainer>
         <FilterContainer>
             <Filter/>
-            <Dropdown />
+            <Dropdown hasLabel={true} label="Sort By" items={sortOptions}/>
         </FilterContainer>
         {cards.length > 0 
         ? 

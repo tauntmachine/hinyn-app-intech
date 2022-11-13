@@ -12,7 +12,6 @@ const IconContainer = styled.div`
   
   .icon-img-box img{
     filter:${props => props.isSelected ? 'grayscale(100%) brightness(50%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8)' : ''};
-
   }
 
   &:hover .icon-img-box img{

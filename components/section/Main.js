@@ -2,7 +2,6 @@ import {Container} from "@mui/material";
 import CategoryList from "../shared/categories/CategoryList";
 import CardsSection from "./CardsSection";
 import { useFreelancer } from "../../src/store";
-import { useEffect } from "react";
 
 const categories = {
     data : [

@@ -10,6 +10,11 @@ const SearchContainer = styled.div`
     border-radius: 30px;
     margin:auto;
     padding: 10px 25px;
+    opacity: ${props => props.isExpanded ? 0 : 1};
+
+    &:hover{
+        cursor: pointer;
+    }
 `
 const VerticalDivider = styled.div`
     height:25px;
@@ -26,9 +31,9 @@ const SearchIconContainer = styled.div`
     padding:4px 4px 0;
 `
 
-function SearchBar() {
+function SearchBar({toggleIsExpanded, isExpanded}) {
   return (
-    <SearchContainer>
+    <SearchContainer onClick={()=>toggleIsExpanded()} isExpanded={isExpanded}>
         <div>I am looking for</div>
         <VerticalDivider />
         <div>Where</div>
