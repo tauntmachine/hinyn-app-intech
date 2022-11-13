@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { Container } from "@mui/material";
-import Logo from "../../components/shared/Logo";
-import ProgressBar from "../../components/shared/ProgressBar";
-import ProfessionalForm1 from "../../components/forms/ProfessionalForm1";
+import Logo from "../components/shared/Logo";
+import ProgressBar from "../components/shared/ProgressBar";
+import ProfessionalForm1 from "../components/forms/ProfessionalForm1";
 
 const MainContainer = styled(Container)`
     background-color: #F0F0F0;

@@ -55,7 +55,7 @@ function AccountTypeForm(){
        //call next one here
     }
     function createAccount(type){
-      if(type === 'professional')  router.push("/create-account/professional");
+      if(type === 'professional')  router.push("/professional");
     }
       
 

@@ -16,8 +16,7 @@ const StyledLinearProgress = styled(LinearProgress)`
 `
 
 export default function LinearDeterminate() {
-  const [progress, setProgress] = useState(0);
-  setProgress(10)
+  const [progress, setProgress] = useState(10);
 
   return (
     <Box sx={{ width: '100%' }}>
