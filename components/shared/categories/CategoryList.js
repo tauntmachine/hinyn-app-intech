@@ -1,7 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import "swiper/swiper-bundle.min.css";
-import SwiperCore,{ Navigation, Pagination, Autoplay } from 'swiper';
 import { useState } from 'react';
 import Category from "./Category";
 import { useFreelancer } from '../../../src/store';

@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
-import { useState, useEffect } from 'react';
+import LinearProgress from '@mui/material/LinearProgress';
+import { useState } from 'react';
 import styled from '@emotion/styled';
 
 const StyledLinearProgress = styled(LinearProgress)`
@@ -16,7 +16,8 @@ const StyledLinearProgress = styled(LinearProgress)`
 `
 
 export default function LinearDeterminate() {
-  const [progress, setProgress] = useState(10);
+  const [progress, setProgress] = useState(0);
+  setProgress(10)
 
   return (
     <Box sx={{ width: '100%' }}>

@@ -42,6 +42,7 @@ function CategoryIcon({data, isSelected}) {
             src={imgsrc}
             layout="fill"
             className='icon-img'
+            alt="icon-img"
             />
         </ImageContainer>
       <Label>{data.title}</Label>

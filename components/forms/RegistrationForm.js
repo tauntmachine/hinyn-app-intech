@@ -45,7 +45,7 @@ const Error = styled.p`
   font-family: "Roboto", sans-serif;
 `;
 
-function RegistrationForm({onClientRegister}){
+function RegistrationForm(){
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const handleClose = () => {
@@ -74,7 +74,7 @@ function RegistrationForm({onClientRegister}){
     const confirmPasswordInputRef = useRef();
     
     const checkIsEmail = (event) => {
-      var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      var regex = /^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if(!regex.test(event.target.value)){
         event.target.style.border = "1px solid red";
         setErrorMessage((prevState) => ({
@@ -96,7 +96,7 @@ function RegistrationForm({onClientRegister}){
 
     const checkIsPassword = (event) => {
       //at least 8 chars long, at least  one uppercase at least one number
-      var regex = /^(?=.*\d)(?=.*[A-Z])(?!.*[^a-zA-Z0-9!@#$&()\\-`.+,/\"])(.{8,})$/;
+      var regex = /^(?=.*\d)(?=.*[A-Z])(?!.*[^a-zA-Z0-9!@#$&()\\-`.+,/"])(.{8,})$/;
       if(!regex.test(event.target.value)){
         event.target.style.border = "1px solid red";
         if(event.target.id === "password"){
@@ -166,10 +166,6 @@ function RegistrationForm({onClientRegister}){
       event.preventDefault();
     };
 
-    const handleConfirmPWChange = (prop) => (event) => {
-      setPWValues({ ...pwValues, [prop]: event.target.value });
-    };
-
     const handleClickShowConfirmPassword = () => {
       setPWValues({
         ...pwValues,
@@ -185,8 +181,6 @@ function RegistrationForm({onClientRegister}){
         event.preventDefault();
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
-        const enteredConfirmPassword = confirmPasswordInputRef.current.value;
-
         
         if(enteredEmail && isValid.email && enteredPassword){
             isValid.form = true; 
@@ -200,6 +194,7 @@ function RegistrationForm({onClientRegister}){
             isNewUser:1
         };
           router.push("/registration")
+          console.log('clientdat',clientData)
         }else{
             setOpen(true)
         }

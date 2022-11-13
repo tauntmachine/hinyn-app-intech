@@ -3,7 +3,6 @@ import { CssBaseline, TextField, Grid, Box, Typography, Container} from '@mui/ma
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
-import { useRouter } from "next/router";
 import Modal from '../shared/Modal';
 import { LeftArrowIcon } from '../shared/Icon';
 
@@ -89,7 +88,7 @@ function ProfessionalForm1(){
           <CssBaseline />
           <FormContainer>
             <Typography component="h1" variant="h4">
-              <b>Let's make your account</b>
+              <b>Let&aposs make your account</b>
             </Typography>
             <Avatar> <Text color="green">Upload a photo</Text> </Avatar>
             <Typography component="p" align="center">

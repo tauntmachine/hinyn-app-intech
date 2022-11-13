@@ -1,13 +1,14 @@
-import {useRef, useState, forwardRef} from 'react';
-import { CssBaseline, TextField,  InputAdornment, IconButton, Grid, Box, Typography, Container} from '@mui/material';
+import {useRef, useState} from 'react';
+import { CssBaseline, TextField, Grid, Box, Typography, Container} from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
 import Image from "next/image";
-import { useRouter } from "next/router";
 import LogoImage from "/public/assets/img/logo-hinyn.svg";
 import { BackIcon } from '../shared/Icon';
 import Modal from '../shared/Modal';
+import { useRouter } from "next/router";
+
 
 const Logo = styled.div`
   position: relative;
@@ -35,7 +36,6 @@ const Error = styled.p`
 `;
 
 function UsernameForm({onUsernameSubmit}){
-  const router = useRouter();
 
   const [open, setOpen] = useState(false);
   const handleClose = () => {
@@ -55,7 +55,7 @@ function UsernameForm({onUsernameSubmit}){
     });
     const usernameInputRef = useRef();
     
-    const checkIsUsername = (event) => {
+    const checkIsUsername = () => {
         setValid((prevState) => ({
             ...prevState,
             ['username']:true

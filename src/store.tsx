@@ -9,6 +9,7 @@ interface Freelancer {
 
 export async function getServerSideProps(){
     const res = await fetch("https://react-getting-started-94c45-default-rtdb.firebaseio.com/get-freelancers.json");
+    console.log('res',res)
     return {
         props: {
             freelancer: [{

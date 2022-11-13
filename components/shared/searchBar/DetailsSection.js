@@ -344,6 +344,7 @@ const CategoriesDetailsContainer = ({handleSelectedCategory}) => {
                             src={imgsrc+category.icon}
                             layout="fill"
                             className='icon-img'
+                            alt="icon-img-box"
                             />
                         </ImageContainer>
                         <Text className='secondary'>{category.title}</Text>
@@ -370,7 +371,7 @@ const SkillsDetailsContainer = ({category, handleSelectedSkills}) => {
         <DetailsContainer>
           { data ?
                 <>
-                    <div>Skills related to <Text className='secondary'>'{category.title}'</Text></div>
+                    <div>Skills related to <Text className='secondary'>{category.title}</Text></div>
                     <FlexContainer>
                         {data && data.skills.map((item,idx) => {
                             return <Pill key={"skill-id"+idx} onClick={()=>{ handleSelectedSkills(selectedSkills); togglePillActive(item)}} className={checkIsActive(item) ? 'active' : ''} > {item} <span>+</span></Pill>
@@ -417,7 +418,7 @@ const handleSelectedCategory = (category) =>{
     onHandleUserSelectedDetails({'categories':category});
 }
 
-const handleSelectedSkills = (skill) =>{
+const handleSelectedSkills = () =>{
     onHandleUserSelectedDetails({'skills':selectedSkills});
 }
 

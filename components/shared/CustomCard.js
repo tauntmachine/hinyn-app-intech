@@ -78,6 +78,7 @@ function CustomCard({data}) {
             <StyledImage
             src={imgsrc}
             layout="fill"
+            alt="icon-img"
             />
         </ImageContainer>
         <Title>{data.firstName} {data.lastName}</Title>

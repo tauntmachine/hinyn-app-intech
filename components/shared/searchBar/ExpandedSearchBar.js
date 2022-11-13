@@ -1,10 +1,8 @@
 import styled from "@emotion/styled";
 import {FiSearch} from "react-icons/fi";
-import breakpoint from "../../utils/Breakpoints";
 import { useState } from "react";
 import DetailsSection from "./DetailsSection";
 import { Box } from "@mui/material";
-import { Pill } from "./DetailsSection";
 
 const SearchContainer = styled.div`
     display: flex;

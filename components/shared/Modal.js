@@ -20,25 +20,7 @@ const StyledButton = styled(Button)`
         padding: 0.5rem 1rem;
       }
 `;
-
-const StyledGreenButton = styled(Button)`
-    background:green;
-    color: #fff;
-    border-radius: 10px;
-    padding:1rem 2rem;
-
-    &:hover{
-        background:white;
-        color:maroon;
-        border: 1px solid maroon;
-    }
-
-    @media ${breakpoint.device.md}{
-        padding: 0.5rem;
-      }
-`;
-
-const Modal = ({isOpen,handleClose,handleSubmit,title,userType,btnText,hasHeader,hasFooter,children}) => {
+const Modal = ({isOpen,handleClose,handleSubmit,title,btnText,hasHeader,hasFooter,children}) => {
     return ( 
         <>
         <CustomDialog
