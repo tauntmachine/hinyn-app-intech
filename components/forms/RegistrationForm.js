@@ -243,7 +243,6 @@ function RegistrationForm({onClientRegister}){
                     fullWidth
                     name="password"
                     label="Password"
-                    type="password"
                     id="password"
                     type={pwValues.showPassword ? 'text' : 'password'}
                     onKeyUp={checkIsPassword}
@@ -273,7 +272,6 @@ function RegistrationForm({onClientRegister}){
                     fullWidth
                     name="confirmPassword"
                     label="Confirm Password"
-                    type="password"
                     id="confirmPassword"
                     type={pwValues.showConfirmPassword ? 'text' : 'password'}
                     onKeyUp={checkIsConfirmPassword}
