@@ -33,7 +33,7 @@ const ImageContainer = styled.div`
     position: relative;
 `
 
-function CategoryIcon({data, isSelected}) {
+function CategoryIcon({data, isSelected = false, hasLabel=true}) {
   const imgsrc = '/assets/img/categories/'+data.icon;
   return (
     <IconContainer isSelected={isSelected}>
@@ -45,7 +45,7 @@ function CategoryIcon({data, isSelected}) {
             alt="icon-img"
             />
         </ImageContainer>
-      <Label>{data.title}</Label>
+      {hasLabel ? <Label>{data.title}</Label> : null }
     </IconContainer>
   )
 }

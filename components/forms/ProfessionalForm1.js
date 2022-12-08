@@ -1,10 +1,12 @@
 import {useRef, useState} from 'react';
-import { CssBaseline, TextField, Grid, Box, Typography, Container} from '@mui/material';
+import { CssBaseline, Grid, Box, Typography, Container} from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
 import Modal from '../shared/Modal';
-import { LeftArrowIcon } from '../shared/Icon';
+import StyledTextField from '../shared/Textfield';
+import { BackIcon } from '../shared/Icon';
+import { WebcamCapture } from '../shared/WebcamCapture';
 
 
 const StyledButton = styled(Button)`
@@ -18,7 +20,7 @@ const FormContainer = styled(Box)`
   border-radius: 20px;
 `;
 
-const Avatar = styled.div`
+const AvatarUpload = styled.div`
     background: #ffffff;
     width: 10rem;
     height: 10rem;
@@ -28,6 +30,7 @@ const Avatar = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 `
 
 const Error = styled.p`
@@ -38,16 +41,27 @@ const Error = styled.p`
 
 const ButtonContainer = styled.div`
     display: flex;
+    align-items:center;
     justify-content: space-between;
 `
 
-function ProfessionalForm1(){
+
+
+function ProfessionalForm1({handleNextClick}){
 
   const [open, setOpen] = useState(false);
+  const [openCameraModal, setOpenCameraModal] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
- 
+  const handleCloseCameraModal = () => {
+    setOpenCameraModal(false);
+  };
+  const toggleOpenCameraModal = () => {
+    setOpenCameraModal(!openCameraModal);
+  }
+
+
     const [isValid, setValid] = useState({
       "firstname":false,
       "lastname":false,
@@ -66,7 +80,7 @@ function ProfessionalForm1(){
         const enteredFirstname = firstnameInputRef.current.value;
         const enteredLastname = lastnameInputRef.current.value;
         
-        if(enteredFirstname && enteredLastname){
+        if(enteredFirstname && enteredLastname && (enteredFirstname !== '' && enteredLastname !== '')){
             isValid.form = true; 
         }
 
@@ -74,8 +88,9 @@ function ProfessionalForm1(){
           const clientData = {
             firstname: enteredFirstname,
             lastname: enteredLastname,
-        };
-        // onUsernameSubmit(clientData)
+            };
+            console.log('clientdat',clientData)
+            handleNextClick(true);
         }else{
             setOpen(true)
         }
@@ -88,16 +103,17 @@ function ProfessionalForm1(){
           <CssBaseline />
           <FormContainer>
             <Typography component="h1" variant="h4">
-              <b>Let&aposs make your account</b>
+              <b>Let&apos;s make your account</b>
             </Typography>
-            <Avatar> <Text color="green">Upload a photo</Text> </Avatar>
+            <AvatarUpload onClick={toggleOpenCameraModal}> <Text color="green">Upload a photo</Text> </AvatarUpload>
+            <Text color="green">What is your name? </Text>
             <Typography component="p" align="center">
                 Please use your real name as this will be required for identity verification.
             </Typography>
             <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3, width:"100%"}}>
               <Grid container spacing={2} sx={{marginBottom:"2rem"}}>
                 <Grid item xs={12}>
-                  <TextField
+                  <StyledTextField
                     required
                     fullWidth
                     id="firstname"
@@ -112,7 +128,7 @@ function ProfessionalForm1(){
               </Grid>
               <Grid container spacing={2} sx={{marginBottom:'2rem'}}>
                 <Grid item xs={12}>
-                  <TextField
+                  <StyledTextField
                     required
                     fullWidth
                     id="lastname"
@@ -127,7 +143,7 @@ function ProfessionalForm1(){
               </Grid>
               <ButtonContainer>
                 <Text>
-                    <LeftArrowIcon />
+                    <BackIcon isAbsolute={false}/>
                     <span style={{marginLeft:'1rem'}}>Go Back</span>
                 </Text>
                 <StyledButton>
@@ -140,6 +156,10 @@ function ProfessionalForm1(){
 
      <Modal handleClose={handleClose} isOpen={open} hasHeader={false} hasFooter={false}>
       <div>Oops! All fields are required.</div>
+     </Modal>
+     <Modal handleClose={handleCloseCameraModal} isOpen={openCameraModal} hasHeader={false} hasFooter={false}>
+      <div>CAMERA MODAL HERE</div>
+      <WebcamCapture />
      </Modal>
 </>
     );

@@ -1,13 +1,11 @@
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
-import { useState } from 'react';
 import styled from '@emotion/styled';
 
 const StyledLinearProgress = styled(LinearProgress)`
     border-radius: 5;
     height: 8px;
     margin: 1rem 0;
-   
     background-color: #ffffff;
 
     .MuiLinearProgress-bar{
@@ -15,9 +13,8 @@ const StyledLinearProgress = styled(LinearProgress)`
     }
 `
 
-export default function LinearDeterminate() {
-  const [progress, setProgress] = useState(10);
-
+export default function LinearDeterminate({progress}) {
+    console.log('porgress inside', progress)
   return (
     <Box sx={{ width: '100%' }}>
       <StyledLinearProgress variant="determinate" value={progress}/>
