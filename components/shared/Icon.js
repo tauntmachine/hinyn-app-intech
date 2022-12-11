@@ -28,7 +28,6 @@ export const RightChevronIcon = styled(BsChevronRight)`
 `
 
 
-
 export const SearchIcon = styled(FaSearch)`
     color: ${props => props.variant === 'red' ? '#EB4C60' : props.variant === 'green' ? '#4AA398' : '#525252' };
 `

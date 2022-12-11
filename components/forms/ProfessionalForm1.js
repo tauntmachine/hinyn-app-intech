@@ -159,7 +159,7 @@ function ProfessionalForm1({handleNextClick}){
      </Modal>
      <Modal handleClose={handleCloseCameraModal} isOpen={openCameraModal} hasHeader={false} hasFooter={false}>
       <div>CAMERA MODAL HERE</div>
-      <WebcamCapture />
+      {/* <WebcamCapture /> */}
      </Modal>
 </>
     );

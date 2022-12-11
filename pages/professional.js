@@ -17,12 +17,12 @@ const MainBox = styled(Box)`
 
 function CreateProfessionalAccount() {
   const [progressPercent, setProgressPercent] = useState(10);
-  let [currentActiveForm, setCurrentActiveForm] = useState(1);
+  const [currentActiveForm, setCurrentActiveForm] = useState(1);
 
   const handleNextClick = (value) => {
     if(value){
       setProgressPercent(progressPercent+10)
-      setCurrentActiveForm(()=> currentActiveForm++);
+      setCurrentActiveForm((prev)=> prev + 1);
     }
   }
 
