@@ -1,0 +1,186 @@
+import {useRef, useState} from 'react';
+import { CssBaseline, Grid, Box, Typography, Container, Autocomplete} from '@mui/material';
+import styled from '@emotion/styled';
+import Text from '../shared/Typography';
+import Button from '../shared/Button';
+import Modal from '../shared/Modal';
+import { BackIcon } from '../shared/Icon';
+import PhoneInput from 'react-phone-number-input';
+import { isPossiblePhoneNumber , parsePhoneNumber} from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import {css} from '@emotion/css';
+
+
+const StyledButton = styled(Button)`
+`
+
+const FormContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  width: 100%;
+  border-radius: 20px;
+`;
+
+
+const Error = styled.p`
+  color:red;
+  font-size:0.75rem;
+  font-family: "Roboto", sans-serif;
+`;
+
+const ButtonContainer = styled.div`
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+`
+const VerticalDivider = styled.div`
+    height: 2rem;
+    width:100%;
+`
+
+
+
+function ProfessionalForm6({handleNextClick}){
+
+  const [open, setOpen] = useState(false);
+  const [mobileNumber, setMobileNumber] = useState(null);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
+    const [isValid, setValid] = useState({
+      "mobileNumber":false,
+      "form":false,
+    });
+    const [errorMessage, setErrorMessage] = useState({
+        "mobileNumber":null,
+    });
+
+
+  const checkMobileNumber = (number) => {
+    if(number){
+      const parsedNumber = parsePhoneNumber(number);
+     
+      if(parsedNumber){
+        if((parsedNumber.country === "AE" && parsedNumber.nationalNumber.length > 8) || (parsedNumber.country !== "AE" && isPossiblePhoneNumber(number))){
+          setValid((prevState) => ({
+            ...prevState,
+            ['mobileNumber']:true
+          }))
+          setErrorMessage((prevState) => ({
+            ...prevState,
+            ['mobileNumber']:null
+          }))
+          setMobileNumber(number)
+        }else{
+            setValid((prevState) => ({
+              ...prevState,
+              ['mobileNumber']:false
+            }))
+            setErrorMessage((prevState) => ({
+              ...prevState,
+              ['mobileNumber']:"Invalid Mobile Number"
+            }))
+        }
+      }
+    
+    }
+  }
+
+    function submitHandler(event){
+        event.preventDefault();
+        console.log('the selected', mobileNumber)
+
+        
+        if(mobileNumber && mobileNumber !== null){
+            isValid.form = true; 
+        }
+
+        if(isValid.form){
+          const clientData = {
+            mobileNumber: mobileNumber
+            };
+            console.log('clientdat',clientData)
+            handleNextClick(true);
+        }else{
+            setOpen(true)
+        }
+    }
+      
+
+    return (
+      <>
+        <Container maxWidth="sm" sx={{marginBottom:"2rem",marginTop:"5rem"}}>
+          <CssBaseline />
+          <FormContainer>
+            <Typography component="h1" variant="h4">
+              <b>Let&apos;s make your profile</b>
+            </Typography>
+            <Typography component="p" align="center">
+                Fill out your profile for clients to better understand your services.
+            </Typography>
+            <VerticalDivider/>
+            <Text color="green">What is your phone number?</Text>
+            
+            <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3, width:"100%"}}>
+              <Grid container spacing={2} sx={{marginBottom:"2rem"}}>
+                <Grid item xs={12} sx={{width:'100%'}}>
+                <PhoneInput 
+                      defaultCountry="AE" 
+                      placeholder='e.g. 501234537' 
+                      value={mobileNumber} 
+                      onChange={checkMobileNumber}
+                      className={css`
+                        .PhoneInputInput{
+                          border: 1px solid #00000040;
+                          border-radius:23px;
+                          padding: 0.8rem;
+                          line-height:1.25rem;
+                          font:inherit;
+                          &:focus{
+                            outline: 1.5px solid #1976d2;
+                          }
+                          &:hover{
+                            border: 1px solid #00000090;
+                          }
+                        }
+                        .PhoneInputCountry{
+                          width: 4rem;
+                        }
+                        .PhoneInputCountryIcon{
+                          width:100%;
+                          height:2rem;
+                          box-shadow: unset;
+                        }
+                    `}>
+                    </PhoneInput>
+                    {errorMessage.mobileNumber && (
+                        <Error >{errorMessage.mobileNumber}</Error>
+                    )}
+                </Grid>       
+              </Grid>
+             
+              <ButtonContainer>
+                <Text>
+                    <BackIcon isabsolute={false}/>
+                    <span style={{marginLeft:'1rem'}}>Go Back</span>
+                </Text>
+                <StyledButton>
+                    NEXT
+                </StyledButton>
+               </ButtonContainer>
+            </Box>
+          </FormContainer>
+        </Container>
+
+     <Modal handleClose={handleClose} isOpen={open} hasHeader={false} hasFooter={false}>
+      <div>Oops! All fields are required.</div>
+     </Modal>
+</>
+    );
+
+}
+
+export default ProfessionalForm6;

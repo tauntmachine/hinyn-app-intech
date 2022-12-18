@@ -216,7 +216,7 @@ const category_skills = {
 }
 
 
-function ProfessionalForm2(){
+function ProfessionalForm2({handleNextClick}){
   
   const [open, setOpen] = useState(false);
   const handleClose = () => {
@@ -239,7 +239,7 @@ function ProfessionalForm2(){
     const [isValid, setValid] = useState({
       "category":false,
     //   "lastname":false,
-      "form":false,
+      "form":true,
     });
     const [errorMessage, setErrorMessage] = useState({
         "category":null,
@@ -262,6 +262,8 @@ function ProfessionalForm2(){
           const clientData = {
             category: enteredCategory
         };
+        handleNextClick(true);
+        console.log('ia am here')
         // onUsernameSubmit(clientData)
         // router.push("/registration")
         }else{
@@ -334,7 +336,7 @@ function ProfessionalForm2(){
                     <BackIcon isAbsolute={false}/>
                     <span style={{marginLeft:'1rem'}}>Go Back</span>
                 </Text>
-                <StyledButton>
+                <StyledButton onClick={submitHandler}>
                     NEXT
                 </StyledButton>
                </ButtonContainer>
