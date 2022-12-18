@@ -7,6 +7,7 @@ import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
 import { BackIcon } from '../shared/Icon';
 import { WebcamCapture } from '../shared/WebcamCapture';
+import AvatarUpload from '../shared/AvatarUpload';
 
 
 const StyledButton = styled(Button)`
@@ -19,19 +20,6 @@ const FormContainer = styled(Box)`
   width: 100%;
   border-radius: 20px;
 `;
-
-const AvatarUpload = styled.div`
-    background: #ffffff;
-    width: 10rem;
-    height: 10rem;
-    border-radius: 50%;
-    box-shadow: 0px 3px 6px #00000029;
-    margin: 2rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-`
 
 const Error = styled.p`
   color:red;
@@ -143,7 +131,7 @@ function ProfessionalForm1({handleNextClick}){
               </Grid>
               <ButtonContainer>
                 <Text>
-                    <BackIcon isAbsolute={false}/>
+                    <BackIcon isabsolute={false}/>
                     <span style={{marginLeft:'1rem'}}>Go Back</span>
                 </Text>
                 <StyledButton>

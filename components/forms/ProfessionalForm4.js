@@ -151,7 +151,7 @@ function ProfessionalForm4({handleNextClick}){
                   inputFormat="dd/MM/yyyy"
                   value={dobValue}
                   onChange={checkDOB}
-                  renderInput={(params) => <StyledTextField {...params} sx={{width:'inherit'}} />}
+                  renderInput={(params) => <StyledTextField {...params} sx={{width:'inherit'}}/>}
                 />
                 </LocalizationProvider>
                 {errorMessage.dob && (

@@ -333,7 +333,7 @@ function ProfessionalForm2({handleNextClick}){
         <Container>
         <ButtonContainer>
                 <Text>
-                    <BackIcon isAbsolute={false}/>
+                    <BackIcon isabsolute={false}/>
                     <span style={{marginLeft:'1rem'}}>Go Back</span>
                 </Text>
                 <StyledButton onClick={submitHandler}>
