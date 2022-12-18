@@ -97,7 +97,7 @@ function UnverifiedAccountForm({handleNextClick}){
               <b>Hello, {firstName}!</b>
             </Typography>
             <VerticalDivider/>
-            <Text color="red">It seems that you haven't verified your email yet.</Text>
+            <Text color="red">It seems that you haven&apos;t verified your email yet.</Text>
             <Text color="green">Check your email to verify your account.</Text>
             <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3, width:"100%"}}>
               <Grid container spacing={2} sx={{marginBottom:"2rem"}}>
