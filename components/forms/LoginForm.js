@@ -47,7 +47,7 @@ function LoginForm(props){
             alert("Please provide your registered username and password.");
             return;
         }else{
-            if(loginData.emailAddress === 'username' && loginData.password === '1234') router.push("/dashboard/newsfeed");
+            if(loginData.emailAddress === 'username' && loginData.password === '1234') router.push("/dashboard");
             else alert('wrong username and password')
         }
     } 
