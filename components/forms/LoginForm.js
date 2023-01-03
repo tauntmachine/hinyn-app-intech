@@ -1,22 +1,32 @@
 import {useRef, useState} from 'react';
-import {Avatar, Button, CssBaseline, TextField, Grid, Box, Typography, Container, InputAdornment, IconButton} from '@mui/material';
-import {Link} from 'react-router-dom';
-import { PersonOutline, Visibility, VisibilityOff } from '@mui/icons-material';
+import {CssBaseline, TextField, Grid, Box, Typography, Container, InputAdornment, IconButton} from '@mui/material';
+import Link from 'next/link';
 import styled from '@emotion/styled';
+import Logo from '../shared/Logo';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
+import LogoImage from "/public/assets/img/logo-hinyn.svg";
+import { useRouter } from 'next/router';
+import Button from '../shared/Button';
+import Image from 'next/image';
+
 
 const FormContainer = styled(Box)`
-  display: flex;
-  font-family: 'Roboto', sans-serif;
+   display: flex;
   flex-direction: column;
   align-items:center;
-  background-color: #eee;
-  padding: 2rem;
   border-radius: 20px;
-  box-shadow: 0 0 10px 3px #555;
-  margin-top: 7rem;
+  color: #444;
 `;
 
+const StyledButton = styled(Button)`
+  margin: auto;
+  width: 100%;
+  margin-top: 2rem;
+`
+
+
 function LoginForm(props){
+    const router = useRouter();
     const emailInputRef = useRef();
     const passwordInputRef = useRef(); 
     const [values, setValues] = useState({
@@ -33,7 +43,13 @@ function LoginForm(props){
             emailAddress: enteredEmail,
             password: enteredPassword,
         };
-        props.onUserLogin(loginData);
+        if(!loginData.emailAddress || !loginData.password){
+            alert("Please provide your registered username and password.");
+            return;
+        }else{
+            if(loginData.emailAddress === 'username' && loginData.password === '1234') router.push("/dashboard/newsfeed");
+            else alert('wrong username and password')
+        }
     } 
 
   
@@ -66,12 +82,12 @@ function LoginForm(props){
             }}
           >
             <FormContainer>
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <PersonOutline />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                {props.formTitle}
-              </Typography>
+            <Logo>
+              <Image src={LogoImage} alt="hinyn logo" />
+            </Logo>
+            <Typography component="h1" variant="h5">
+              <b>Login</b>
+            </Typography>
               <Box component="form" noValidate onSubmit={loginHandler} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
@@ -104,27 +120,24 @@ function LoginForm(props){
                             onMouseDown={handleMouseDownPassword}
                             edge="end"
                           >
-                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                            {values.showPassword ? <FiEyeOff/> : <FiEye/>}
                           </IconButton>
                         </InputAdornment>,
                       }}
                     />
                   </Grid>
                 </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Login
-                </Button>
-                {props.formType === 'member'
+                <StyledButton>
+                    Login
+                </StyledButton>
+                {props.formType === 'professional'
                 ? <>
                   <Grid container justifyContent="flex-end">
                   <Grid item>
-                    <Link to="/register">
-                      Dont have an account yet? Register
+                    <Link href="/register">
+                        <a>
+                         Dont have an account yet? Register
+                      </a>
                     </Link>
                   </Grid>
                 </Grid>

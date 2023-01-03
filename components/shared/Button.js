@@ -6,7 +6,7 @@ const Button = styled.button`
   color: ${props => props.variant === 'outlined' ? "#EB4C60" : "#ffffff"};
   border-radius: 21px;
   border:1px solid ${props => props.variant === 'outlined' ? "#EB4C60" : "red"};
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: ${props => props.size === "small" ? '10px' : "14px" };
   cursor: ${props => props.disabled === 'disabled' ? 'not-allowed' : 'pointer'};
   text-decoration: none;
@@ -24,5 +24,62 @@ const Button = styled.button`
   &:active{
   }
 `;
+
+export const GreenButton = styled.button`
+  outline: none;
+  background: ${props => props.variant === 'outlined' ? "transparent" : 'linear-gradient(96deg, #4AA398 0%, #12584F 100%)'};
+  color: ${props => props.variant === 'outlined' ? "#EB4C60" : "#ffffff"};
+  border-radius: 21px;
+  border:1px solid ${props => props.variant === 'outlined' ? "#EB4C60" : "#4AA398"};
+  font-family: 'DM Sans', sans-serif;
+  font-size: ${props => props.size === "small" ? '10px' : "14px" };
+  cursor: ${props => props.disabled === 'disabled' ? 'not-allowed' : 'pointer'};
+  text-decoration: none;
+  display:block;
+  padding: ${props => props.variant === 'outlined' ? "0.75rem 2.5rem" : props.size === 'small' ? "0.75rem 1.5rem": "0.75rem 2.5rem"};
+  pointer-events: ${props => props.disabled === 'disabled' ? 'none' : ''};
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+
+  &:hover{
+      filter: drop-shadow(0 0 3px #4AA398);
+      color: #ffffff;
+  }
+  &:active{
+  }
+`
+
+export const GrayButton = styled(Button)`
+  background: ${props => props.variant === 'outlined' ? "transparent" : 'linear-gradient(96deg, #4AA398 0%, #12584F 100%)'};
+  color: ${props => props.variant === 'outlined' ? "#707070" : "#ffffff"};
+  border:1px solid ${props => props.variant === 'outlined' ? "#707070" : "#4AA398"};
+  font-size: ${props => props.size === "small" ? '10px' : "12px" };
+
+  &:hover{
+      box-shadow : 0 0 3px #707070;
+      background: white;
+      color: ${props => props.variant === 'outlined' ? "#707070" : "#ffffff"};
+      border:1px solid ${props => props.variant === 'outlined' ? "#707070" : "#4AA398"};
+  }
+  &:active{
+  }
+`
+
+
+export const RedButton = styled(Button)`
+  background: ${props => props.variant === 'outlined' ? "transparent" : '#EB4C60'};
+  color: ${props => props.variant === 'outlined' ? "#EB4C60" : "#ffffff"};
+  border:1px solid #EB4C60;
+  font-size: ${props => props.size === "small" ? '10px' : "12px" };
+
+  &:hover{
+      box-shadow : 0 0 3px #EB4C60;
+      background: white;
+      border: 1px solid ${props => props.variant === 'outlined' ? "#EB4C60" : "#4AA398"};
+      color: ${props => props.variant === 'outlined' ? "#EB4C60" : "#ffffff"};
+  }
+  &:active{
+  }
+`
 
 export default Button;

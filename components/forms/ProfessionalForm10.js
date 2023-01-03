@@ -94,7 +94,7 @@ function ProfessionalForm10({handleNextClick}){
 
     return (
       <>
-        <Container maxWidth="sm" sx={{marginBottom:"2rem",marginTop:"5rem"}}>
+        <Container maxWidth="md" sx={{marginBottom:"2rem",marginTop:"5rem"}}>
           <CssBaseline />
             <Typography component="h1" variant="h4" align="center">
               <b>Verify your payment method</b>

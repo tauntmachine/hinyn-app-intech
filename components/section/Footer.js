@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Container } from "@mui/material";
+import Link from "next/link";
 
 const FooterContainer = styled.div`
     display: flex;
@@ -17,15 +17,56 @@ const List = styled.ul`
     display: flex;
     justify-content: space-evenly;
     width: 100%;
-
 `
+
+const Item = styled.li`
+    list-style-type: none;
+
+    &:hover{
+        color: #EB4C60;
+        cursor: pointer;
+    }
+`
+
+const footerData = [
+    {
+        name:'@2022 Hey I Need You Now',
+        link:'/'
+    },
+    {
+        name:'Privacy',
+        link:'/'
+    },
+    {
+        name:'Terms and Conditions',
+        link:'/'
+    }, 
+    {
+        name:'User Agreement',
+        link:'/'
+    }, 
+    {
+        name:'Why HINYN',
+        link:'/whyHinyn'
+    },
+    {
+        name:'Contact Us',
+        link: '/'
+    }
+]
 
 function Footer() {
   return (
     <FooterContainer>
         <List>
-            {['@2022 Hey I Need You Now','Privacy','Terms and Conditions', 'User Agreement', 'Why HINYN','Contact Us'].map((item,idx)=>(
-                idx > 0 ? <li key={idx}>{item}</li> : <span key={idx}>{item}</span>
+            {footerData.map((item,idx)=>(
+                idx > 0 
+                ? <Link href={item.link} key={idx}  passHref legacyBehavior>
+                    <a>
+                    <Item>{item.name}</Item>
+                    </a>
+                  </Link>
+                : <span key={idx}>{item.name}</span>
             ))}
         </List>
     </FooterContainer>

@@ -9,6 +9,7 @@ import ExpandedSearchBar from "../shared/searchBar/ExpandedSearchBar";
 import RegistrationForm from "../forms/RegistrationForm";
 import Modal from "../shared/Modal";
 import Logo from "../shared/Logo";
+import LoginForm from "../forms/LoginForm";
 
 
 const CustomGlobeIcon = styled(FiGlobe)`
@@ -43,6 +44,13 @@ const LoginContainer = styled.div`
   align-items: center;
   justify-content: space-evenly;
 `
+const LinkText = styled.div`
+  cursor: pointer;
+
+  &:hover{
+    color: #EB4C60;
+  }
+`
 
 
 function Header() {
@@ -51,6 +59,7 @@ function Header() {
     setIsExpanded(()=> !isExpanded);
   }
   const [open, setOpen] = useState(false);
+  const [currentForm, setCurrentForm] = useState(null);
   const handleClose = () => {
     setOpen(false);
   };
@@ -59,6 +68,13 @@ function Header() {
     handleClose();
   }
 
+  const showForm = (form) => {
+    setOpen(true);
+    setCurrentForm(form);
+  }
+
+
+
   return (
     <>
     <CustomBox>
@@ -66,8 +82,8 @@ function Header() {
         <Logo />
         <SearchBar toggleIsExpanded={toggleIsExpanded} isExpanded={isExpanded}/>
         <LoginContainer>
-          <Button onClick={()=>setOpen(true)}>Create an account</Button>
-          <span>Login</span>
+          <Button onClick={()=>showForm('register')}>Create an account</Button>
+          <LinkText onClick={()=> showForm('login')}>Login</LinkText>
           <span><CustomGlobeIcon /></span>
         </LoginContainer>
       </Head>
@@ -77,7 +93,7 @@ function Header() {
       }
     </CustomBox>
     <Modal handleClose={handleClose} handleSubmit={handleSubmit} isOpen={open} hasHeader={false} hasFooter={false}>
-          <RegistrationForm />
+          {currentForm === 'register' ? <RegistrationForm /> : <LoginForm />}
     </Modal>
     </>
   )

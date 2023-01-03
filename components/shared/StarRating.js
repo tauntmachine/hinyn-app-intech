@@ -3,11 +3,11 @@ import styled from '@emotion/styled';
 
 const FilledStar = styled(AiFillStar)`
   color: #E96E3F;
-  font-size:10px;
+  font-size: ${props => props.sz==="lg" ? '16px' : '10px'};
 `
 const OutlinedStar = styled(AiOutlineStar)`
   color: #E96E3F;
-  font-size:10px;
+  font-size: ${props => props.sz==="lg" ? '16px' : '10px'};
 `
 const StarContainer = styled.div`
   display: flex;
@@ -15,17 +15,17 @@ const StarContainer = styled.div`
 `
 const MAX_STARS =  5;
 
-function StarRating({data}) {
+function StarRating({data,sz}) {
   const remaining = MAX_STARS - data;
   return (
     <StarContainer>
     { [...Array(data)].map((elem, i) => ( 
-        <FilledStar key={i}/>
+        <FilledStar key={i} sz={sz}/>
       ))
     }
     {remaining > 0 ? 
       [...Array(remaining)].map((elem, i) => ( 
-        <OutlinedStar key={i}/>
+        <OutlinedStar key={i} sz={sz}/>
       )) 
       :
       null

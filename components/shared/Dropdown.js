@@ -17,9 +17,10 @@ const Option = styled(MenuItem)`
 const CustomSelect = styled(Select)`
   background: ${props => props.type === 'standard' ? "#ffffff" : 'transparent'};
   color: #0F7669;
+  border: ${props => props.type === 'outlined' ? '1px solid #94949470' : 'none'};
   border-bottom: ${props => props.type === 'standard' ? 'none' : '1px solid #94949470'};
   padding: 0.5rem 1rem;
-  border-radius: ${props => props.type === 'standard' ? '4px' : 'none'};
+  border-radius: ${props => (props.type === 'standard' || props.type === 'outlined') ? '4px' : 'none'};
 
   &:before{
     border-bottom: 0;
@@ -30,12 +31,13 @@ const CustomSelect = styled(Select)`
   }
 `
 
-export default function Dropdown({hasLabel,label,items, width,type}) {
+export default function Dropdown({hasLabel,label,items, width,type,setHandleOnChange}) {
   const [selected, setSelected] = useState(null);
 
   const handleChange = (event) => {
     setSelected(event.target.value);
     console.log(event.target.value);
+    if(setHandleOnChange) setHandleOnChange(event.target.value);
   };
 
   return (
