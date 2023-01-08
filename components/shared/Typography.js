@@ -6,4 +6,8 @@ const Text = styled.div`
   text-align: ${props => props.align === 'center' ? 'center' : 'left'};
 `;
 
+export const SmallText = styled(Text)`
+    font-size: 10px;
+`
+
 export default Text;

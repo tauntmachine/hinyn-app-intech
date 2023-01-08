@@ -1,14 +1,34 @@
 import {useRef, useState} from 'react';
-import { CssBaseline, Grid, Box} from '@mui/material';
+import { CssBaseline, Grid, Box, InputAdornment, IconButton, TextField, Container} from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button, { GreenButton } from '../shared/Button';
-import StyledTextField from '../shared/Textfield';
-import { BackIcon } from '../shared/Icon';
 import Dropdown from "../shared/Dropdown";
+import { SearchIcon } from '../shared/Icon';
+
 
 
 const StyledButton = styled(Button)`
+`
+
+const CustomTextField = styled(TextField)`
+  background: transparent;
+  border-radius: 4px;
+  padding: 8px;
+
+  input{
+    padding: 12px;
+    color: #4AA398;
+  }
+
+  &:focus, &:focus-visible{
+    outline: none;
+  }
+
+  &:hover{
+    background: ${props => props.type === 'standard' ? "#ffffff" : 'transparent'};
+  }
+
 `
 
 const FormContainer = styled(Box)`
@@ -279,8 +299,13 @@ const category_skills = {
     const firstnameInputRef = useRef();
     const lastnameInputRef = useRef();
 
+    const handleSearchSkills = (e) => {
+        e.preventDefault();
+        console.log('the skills',e.target.value)
+    }
 
-    function submitHandler(event){
+
+    const submitHandler = (event) => {
         event.preventDefault();
         const enteredFirstname = firstnameInputRef.current.value;
         const enteredLastname = lastnameInputRef.current.value;
@@ -336,8 +361,27 @@ const category_skills = {
                     <Box sx={{display:'flex',justifyContent:'space-between'}}>
                       <Text>{category_skills?.title}</Text>  
                       <Text color='green'>Clear</Text>  
-                    </Box> 
-                    {/* <Dropdown hasLabel={false} items={currentCategorySkills} width="100%" type="outlined" setHandleOnChange={getOnChangeVal}/>        */}
+                    </Box>
+                    <Box>
+                      <CustomTextField
+                        required
+                        fullWidth
+                        id="searchInput"
+                        label=""
+                        name="searchInput"
+                        placeholder="Search skills"
+                        onChange={handleSearchSkills}
+                        InputProps={{
+                            endAdornment: <InputAdornment position="end">
+                              <IconButton
+                                edge="end"
+                              >
+                                  <SearchIcon className="icon"/>
+                              </IconButton>
+                            </InputAdornment>,
+                          }}
+                      />
+                    </Box>
                     </>
                   }
                    

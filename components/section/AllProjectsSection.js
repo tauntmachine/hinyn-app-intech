@@ -22,6 +22,8 @@ const VerticalDivider = styled.div`
 const ResultsBox = styled(Box)`
   display:flex;
   flex-direction:column;
+  overflow:auto;
+  max-height: 85vh;
 `
 
 const CustomContentBox = styled(ContentBox)`
@@ -35,7 +37,7 @@ const CustomPagination = styled(Pagination)`
 `
 
 
-const AllProjectsSection = () => {
+const AllProjectsSection = ({handleScreenChange}) => {
   const [searchInput, setSearchInput] = useState("");
   const handleSearchValue = (e) => {
     e.preventDefault();

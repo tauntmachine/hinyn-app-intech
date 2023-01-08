@@ -208,13 +208,13 @@ const NewsfeedSection = () => {
         return <ContentBox hasHeader={true} headerTitle="Your Account" headerColor={"gray"} headerIcon={<UsersIcon/>} hasBodyIcon={false}>
         <Box sx={{display:'flex',flexDirection:'column'}}>
             {userProjects.length > 0 
-            ? userProjects.map((project) => 
+            ? userProjects.map((project,idx) => 
             <>
-            <ListItem>{project?.title}<RightChevronIcon className="right-caret"/></ListItem>
+            <ListItem key={"userprojects-"+idx}>{project?.title}<RightChevronIcon className="right-caret"/></ListItem>
             <HR/>
             </>
             )
-            : 'No Projects Available.'
+            : <div>No Projects Available.</div>
             }     
         </Box>
         </ContentBox>
@@ -228,11 +228,11 @@ const NewsfeedSection = () => {
                     {
                         newsfeedData && newsfeedData.map((item,idx) => {
                             return idx === 0 
-                            ? <ContentBox hasHeader={true} headerTitle="Newsfeed" headerColor={"gray"} headerIcon={<RssIcon/>} hasBodyIcon={true}>
+                            ? <ContentBox key={"newsfeed-"+idx} hasHeader={true} headerTitle="Newsfeed" headerColor={"gray"} headerIcon={<RssIcon/>} hasBodyIcon={true}>
                                 {getNewsFeedByType(item)}
                             </ContentBox>
                             :
-                            <ContentBox hasBodyIcon={true}>
+                            <ContentBox key={"newsfeed-"+idx} hasBodyIcon={true}>
                                 {getNewsFeedByType(item)}
                             </ContentBox>
                         })
