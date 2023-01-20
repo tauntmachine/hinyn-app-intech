@@ -3,11 +3,11 @@ import styled from '@emotion/styled';
 
 const FilledStar = styled(AiFillStar)`
   color: #E96E3F;
-  font-size: ${props => props.sz==="lg" ? '16px' : '10px'};
+  font-size: ${props => props.sz==="lg" ? '16px' : (props.sz === 'xl' ? '25px' : '10px')};
 `
 const OutlinedStar = styled(AiOutlineStar)`
   color: #E96E3F;
-  font-size: ${props => props.sz==="lg" ? '16px' : '10px'};
+  font-size: ${props => props.sz==="lg" ? '16px' : (props.sz === 'xl' ? '25px' : '10px')};
 `
 const StarContainer = styled.div`
   display: flex;

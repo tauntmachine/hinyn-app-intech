@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import breakpoint from "../utils/Breakpoints";
 import Image from "next/image";
-import {GoLocation} from "react-icons/go";
+import {LocationIcon} from "../shared/Icon";
 import StarRating from "./StarRating";
 import Button from "./Button";
 import headerImage from "/public/assets/img/bg@1x.png";
@@ -85,7 +85,7 @@ function CustomCard({data}) {
         <Label variant="green">{data.job}</Label>
         <StarRating data={data.rating}/>
         <Label>
-            <GoLocation />
+            <LocationIcon/>
             <span>{data.location}</span>
         </Label>
         <StyledButton variant="outlined">Hire me</StyledButton>

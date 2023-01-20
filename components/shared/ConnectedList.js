@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { Box, Container } from "@mui/material";
 import Text from "./Typography";
@@ -41,6 +42,7 @@ const Desc = styled.div`
 const ConnectedList = () => {
   const projects = [
     {
+        id:1,
         title: 'Lorem Ipsum Dolor sit Amet 1',
         desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         timestamp:'1 minute ago',
@@ -57,6 +59,7 @@ const ConnectedList = () => {
         rating: 4
     },
     {
+        id:2,
         title: 'Lorem Ipsum Dolor sit Amet 2',
         desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         timestamp:'1 minute ago',
@@ -73,6 +76,7 @@ const ConnectedList = () => {
         rating: 5
     },
     {
+        id:3,
         title: 'Lorem Ipsum Dolor sit Amet 3',
         desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         timestamp:'1 minute ago',
@@ -90,6 +94,7 @@ const ConnectedList = () => {
         rating: 3
     },
     {
+        id:4,
         title: 'Lorem Ipsum Dolor sit Amet 4',
         desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         timestamp:'1 minute ago',
@@ -106,6 +111,7 @@ const ConnectedList = () => {
         rating: 2
     },
     {
+        id:5,
         title: 'Lorem Ipsum Dolor sit Amet 5',
         desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
         timestamp:'1 minute ago',
@@ -121,6 +127,13 @@ const ConnectedList = () => {
         rating: 5
     },
   ];  
+
+  const router = useRouter();
+
+  const showProjectDetails = (projectId) => {
+    console.log('project id',projectId)
+    router.push('/dashboard?screen=details&project='+projectId)
+  }
   return (
     <Box>
         {projects.map((project,idx)=> {
@@ -154,7 +167,7 @@ const ConnectedList = () => {
                         <SmallText>{project?.timestamp}</SmallText>
                     </Row>
                     <Row>
-                        <GreenButton size="small">Place a bid</GreenButton>
+                        <GreenButton size="small" onClick={()=>showProjectDetails(project.id)}>Place a bid</GreenButton>
                     </Row>
                 </Row>
             </ProjectContainer>

@@ -7,6 +7,7 @@ import { BellIcon, ChatIcon } from "../shared/Icon";
 import { GreenButton } from "../shared/Button";
 import Text from "../shared/Typography";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 
 const CustomBox = styled(Box)`
@@ -68,6 +69,7 @@ const ImageContainer = styled.div`
     background: #ffffff;
     border-radius: 50%;
     box-shadow: 0px 3px 6px #00000029;
+    cursor: pointer;
 `
 const StyledImage = styled(Image)`
     border-radius: 50%;
@@ -91,6 +93,15 @@ function DashboardHeader({currentTab,setTabChange}) {
     currency: 'USD',
     photo:'img-avatar1.png'
   }
+  const router = useRouter();
+
+  const showProfessionalProfile = () => {
+    router.push('/dashboard/professionalProfile');
+  }
+
+  const showBrowseProjects = () => {
+    router.push('/dashboard?screen=browse');
+  }
 
   return (
     <>
@@ -112,9 +123,9 @@ function DashboardHeader({currentTab,setTabChange}) {
             </Box>            
         </Box>
         <LoginContainer>
-            <GreenButton>Place a bid</GreenButton>
+            <GreenButton onClick={()=>showBrowseProjects()}>Place a bid</GreenButton>
             <Box sx={{display:'flex', alignItems:'center', gap:'20px'}}>
-                <ImageContainer>
+                <ImageContainer onClick={()=>showProfessionalProfile()}>
                     <StyledImage
                     src={imgpath+userData?.photo}
                     layout="fill"

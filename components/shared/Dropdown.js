@@ -55,7 +55,7 @@ export default function Dropdown({hasLabel,label,items, width,type,setHandleOnCh
         >
         {items && items.map((item,idx) => (
             <Option key={item.value+"-"+idx} value={item.value}>
-              {item.title}
+              {item?.title ?? item}
             </Option>
         )
           )}

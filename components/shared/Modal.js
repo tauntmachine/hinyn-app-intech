@@ -20,7 +20,7 @@ const StyledButton = styled(Button)`
         padding: 0.5rem 1rem;
       }
 `;
-const Modal = ({isOpen,handleClose,handleSubmit,title,btnText,hasHeader,hasFooter,children}) => {
+const Modal = ({isOpen,handleClose,handleSubmit,title,btnText,hasHeader,hasFooter,maxWidth,children}) => {
     return ( 
         <>
         <CustomDialog
@@ -29,7 +29,7 @@ const Modal = ({isOpen,handleClose,handleSubmit,title,btnText,hasHeader,hasFoote
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             fullWidth = {true}
-            maxWidth='xs'
+            maxWidth= {maxWidth ? maxWidth : 'xs'}
         >
             {hasHeader===true ? 
                 <DialogTitle id="alert-dialog-title" sx={{fontSize:'15px',color:'#525252',textAlign:'center',fontWeight:'bold'}}>

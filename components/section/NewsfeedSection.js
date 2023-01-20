@@ -8,7 +8,7 @@ import AlertBox from "../../components/shared/AlertBox";
 import ClickableStarRating from "../../components/shared/ClickableStarRating";
 import ProgressBar from "../../components/shared/ProgressBar";
 import Text from "../../components/shared/Typography";
-
+import { useRouter } from "next/router";
 
 
 const Title = styled(Typography)`
@@ -62,6 +62,9 @@ const HR = styled.hr`
 `
 
 const NewsfeedSection = () => {
+
+    const router = useRouter();
+  
 
     const newsfeedData = [
         {

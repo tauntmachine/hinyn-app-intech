@@ -28,9 +28,9 @@ const Button = styled.button`
 export const GreenButton = styled.button`
   outline: none;
   background: ${props => props.variant === 'outlined' ? "transparent" : 'linear-gradient(96deg, #4AA398 0%, #12584F 100%)'};
-  color: ${props => props.variant === 'outlined' ? "#EB4C60" : "#ffffff"};
+  color: ${props => props.variant === 'outlined' ? "#4AA398" : "#ffffff"};
   border-radius: 21px;
-  border:1px solid ${props => props.variant === 'outlined' ? "#EB4C60" : "#4AA398"};
+  border:1px solid ${props => props.variant === 'outlined' ? "#4AA398" : "#4AA398"};
   font-family: 'DM Sans', sans-serif;
   font-size: ${props => props.size === "small" ? '10px' : "14px" };
   cursor: ${props => props.disabled === 'disabled' ? 'not-allowed' : 'pointer'};
@@ -42,8 +42,7 @@ export const GreenButton = styled.button`
   transition: all 0.3s ease-in-out;
 
   &:hover{
-      filter: drop-shadow(0 0 3px #4AA398);
-      color: #ffffff;
+      filter: drop-shadow(0 0 2px #4AA398);
   }
   &:active{
   }
