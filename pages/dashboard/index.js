@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import NewsfeedSection from "../../components/section/NewsfeedSection";
 import BrowseProjectsSection from "../../components/section/BrowseProjectsSection";
 import MyProjectsSection from "../../components/section/MyProjectsSection";
+export {getServerSideProps} from "../../src/store";
 
 const Index = () => {
   const router = useRouter();

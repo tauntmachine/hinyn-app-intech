@@ -7,6 +7,8 @@ import ConnectedList from "../shared/ConnectedList";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import ProjectFilterForm from '../forms/ProjectFilterForm';
+import {useProject} from '../../src/store';
+
 
 const SearchBarContainer = styled.div`
   background: #D8D8D8;
@@ -39,10 +41,14 @@ const CustomPagination = styled(Pagination)`
 
 const AllProjectsSection = ({handleScreenChange}) => {
   const [searchInput, setSearchInput] = useState("");
+  const {project, filter, setFilter} = useProject();
+
   const handleSearchValue = (e) => {
     e.preventDefault();
     setSearchInput(e.target.value);
+    setFilter(e.target.value)
   };
+
   return (
     <Box sx={{background:'#EBEBEB', height:'auto'}}>
       <SearchBarContainer>
@@ -63,7 +69,7 @@ const AllProjectsSection = ({handleScreenChange}) => {
                 <Grid item xs={8}>
                   <CustomContentBox hasHeader={true} headerTitle="Results" hasBodyIcon={false} noPadding={true}>
                       <ResultsBox>
-                        <ConnectedList />
+                        <ConnectedList projects={project}/>
                       </ResultsBox>
                   </CustomContentBox>
                   <Box sx={{display:'flex', justifyContent:'flex-end',marginBottom:'2rem'}}>

@@ -39,99 +39,11 @@ const Desc = styled.div`
     color : ${props => props.color === 'green' ? "#4AA398" : "#949494"};
 `
 
-const ConnectedList = () => {
-  const projects = [
-    {
-        id:1,
-        title: 'Lorem Ipsum Dolor sit Amet 1',
-        desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        timestamp:'1 minute ago',
-        bids:21,
-        bidPrice:{
-            average: 92,
-            max: 100,
-            currency: 'USD'
-        },
-        categories:[
-            'Photography',
-            'Make-up Artist',
-        ],
-        rating: 4
-    },
-    {
-        id:2,
-        title: 'Lorem Ipsum Dolor sit Amet 2',
-        desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        timestamp:'1 minute ago',
-        bids:21,
-        bidPrice:{
-            average: 92,
-            max: 100,
-            currency: 'USD'
-        },
-        categories:[
-            'Photography',
-            'Make-up Artist',
-        ],
-        rating: 5
-    },
-    {
-        id:3,
-        title: 'Lorem Ipsum Dolor sit Amet 3',
-        desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        timestamp:'1 minute ago',
-        bids:21,
-        bidPrice:{
-            average: 92,
-            max: 100,
-            currency: 'USD'
-        },
-        categories:[
-            'Photography',
-            'Make-up Artist',
-            'Videography',
-        ],
-        rating: 3
-    },
-    {
-        id:4,
-        title: 'Lorem Ipsum Dolor sit Amet 4',
-        desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        timestamp:'1 minute ago',
-        bids:21,
-        bidPrice:{
-            average: 92,
-            max: 100,
-            currency: 'USD'
-        },
-        categories:[
-            'Photography',
-            'Videography',
-        ],
-        rating: 2
-    },
-    {
-        id:5,
-        title: 'Lorem Ipsum Dolor sit Amet 5',
-        desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-        timestamp:'1 minute ago',
-        bids:21,
-        bidPrice:{
-            average: 92,
-            max: 100,
-            currency: 'USD'
-        },
-        categories:[
-            'Photography',
-        ],
-        rating: 5
-    },
-  ];  
+const ConnectedList = ({projects}) => {
 
   const router = useRouter();
 
   const showProjectDetails = (projectId) => {
-    console.log('project id',projectId)
     router.push('/dashboard?screen=details&project='+projectId)
   }
   return (
@@ -148,7 +60,7 @@ const ConnectedList = () => {
                             <SmallText><b>{project?.bids} Bids</b></SmallText>
                         </Column>
                         <Column sx={{alignItems:'flex-end'}}>
-                            <Text color="green">${project?.bidPrice.average} {project?.bidPrice?.currency}</Text>
+                            <Text color="green">${project?.bidPrice?.average} {project?.bidPrice?.currency}</Text>
                             <SmallText color="green">Average Bid</SmallText>
                         </Column>
                     </Box>

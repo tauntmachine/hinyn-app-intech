@@ -55,6 +55,7 @@ const categories = {
 
 function Main() {
   const {freelancer, filter, setFilter} = useFreelancer();
+
   return (
     <Container  maxWidth="xl" sx={{padding:"30px 10px", marginBottom:"50px"}}>
         <CategoryList categories={categories}/>

@@ -12,7 +12,8 @@ export async function getServerSideProps(){
     console.log('res',res)
     return {
         props: {
-            freelancer: [{
+            "freelancer": [
+              {
                 "-MpYAC-RXmd7ks9Mxlkw": {
                   "dateOfBirth": "1991-12-11",
                   "emailAddress": "user2@user.com",
@@ -167,7 +168,95 @@ export async function getServerSideProps(){
                   "rating": 3,
                   "img":"img-avatar1.png"
                 }
-              }]
+              }
+            ],
+            "project" : [
+              {
+                      id:"1235670808850",
+                      title: 'Ipsum Dolor sit Amet 1',
+                      desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                      timestamp:'1 minute ago',
+                      bids:21,
+                      bidPrice:{
+                          average: 92,
+                          max: 100,
+                          currency: 'USD'
+                      },
+                      categories:[
+                          'Photography',
+                          'Make-up Artist',
+                      ],
+                      rating: 4
+                  },
+                 {
+                      id:"1235670808851",
+                      title: 'Lorem Ipsum Dolor sit Amet 2',
+                      desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                      timestamp:'1 minute ago',
+                      bids:21,
+                      bidPrice:{
+                          average: 92,
+                          max: 100,
+                          currency: 'USD'
+                      },
+                      categories:[
+                          'Photography',
+                          'Make-up Artist',
+                      ],
+                      rating: 5
+                  },
+                 {
+                      id:"1235670808852",
+                      title: 'Lorem Ipsum Dolor sit Amet 3',
+                      desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                      timestamp:'1 minute ago',
+                      bids:21,
+                      bidPrice:{
+                          average: 92,
+                          max: 100,
+                          currency: 'USD'
+                      },
+                      categories:[
+                          'Photography',
+                          'Make-up Artist',
+                          'Videography',
+                      ],
+                      rating: 3
+                  },
+                 {
+                      id:"1235670808853",
+                      title: 'Lorem Ipsum Dolor sit Amet 4',
+                      desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                      timestamp:'1 minute ago',
+                      bids:21,
+                      bidPrice:{
+                          average: 92,
+                          max: 100,
+                          currency: 'USD'
+                      },
+                      categories:[
+                          'Photography',
+                          'Videography',
+                      ],
+                      rating: 2
+                  },
+                 {
+                      id:"1235670808854",
+                      title: 'Lorem Ipsum Dolor sit Amet 5',
+                      desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
+                      timestamp:'1 minute ago',
+                      bids:21,
+                      bidPrice:{
+                          average: 92,
+                          max: 100,
+                          currency: 'USD'
+                      },
+                      categories:[
+                          'Photography',
+                      ],
+                      rating: 5
+                  },
+            ]
         },
     }
 }
@@ -203,3 +292,48 @@ export const FreelancerProvider = ({freelancer, children}) => (
 );
 
 export const useFreelancer = () => useContext(FreelancerContext);
+
+
+
+interface Project {
+  id: string,
+  title: string,
+  desc: string,
+  categories: []
+}
+
+const useProjectController = (project : Project[]) =>{
+  const [filter,setFilter] = useState("");
+
+    const checkCategory = (val) => {
+      return val?.categories.some(category=> category.toLowerCase().includes(filter.toLowerCase()))
+    }
+    
+    const filteredProject = useMemo(
+      () =>
+      project && project.filter( val => { 
+        return (val.title.toLowerCase()).includes(filter.toLowerCase()) || (val.desc.toLowerCase()).includes(filter.toLowerCase()) || checkCategory(val)
+        }
+      ),
+      [filter, project]
+  );
+  return {
+    filter,
+    setFilter,
+    project : filteredProject
+}
+}
+
+const ProjectContext = createContext<ReturnType<typeof useProjectController>>({
+  filter: "",
+  setFilter:()=>{},
+  project:[],
+});
+
+export const ProjectProvider = ({project, children}) => (
+  <ProjectContext.Provider value={useProjectController(project)}>
+      {children}
+  </ProjectContext.Provider>
+);
+
+export const useProject = () => useContext(ProjectContext);

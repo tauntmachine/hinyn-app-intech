@@ -231,11 +231,11 @@ const NewsfeedSection = () => {
                     {
                         newsfeedData && newsfeedData.map((item,idx) => {
                             return idx === 0 
-                            ? <ContentBox key={"newsfeed-"+idx} hasHeader={true} headerTitle="Newsfeed" headerColor={"gray"} headerIcon={<RssIcon/>} hasBodyIcon={true}>
+                            ? <ContentBox hasHeader={true} headerTitle="Newsfeed" headerColor={"gray"} headerIcon={<RssIcon/>} hasBodyIcon={true}>
                                 {getNewsFeedByType(item)}
                             </ContentBox>
                             :
-                            <ContentBox key={"newsfeed-"+idx} hasBodyIcon={true}>
+                            <ContentBox hasBodyIcon={true}>
                                 {getNewsFeedByType(item)}
                             </ContentBox>
                         })

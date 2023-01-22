@@ -10,29 +10,28 @@ export const SCREENS = {
 }
 const BrowseProjectsSection = ({mainScreen}) => {
   const router = useRouter();
-  const { project } = router.query;
+  const { projectId } = router.query;
   
   const [currentScreen, setCurrentScreen] = useState(SCREENS.list);
 
   useEffect(() => {
-    console.log('inside browse', mainScreen, currentScreen)
     if(mainScreen === SCREENS.details) setCurrentScreen(() => SCREENS.details);
     else setCurrentScreen(() => SCREENS.list);
 
   });
   
-  const handleScreenChange = (screen, projectId) => {
+  const handleScreenChange = (screen) => {
     setCurrentScreen(() => screen);
   }
 
 
   return (
-    <Box sx={{background:'#EBEBEB', height:'auto'}}>
-    {currentScreen === SCREENS.list
-        ? <AllProjectsSection handleScreenChange={handleScreenChange}/>
-        :  <ProjectDetailsSection projectId={project} />
-    }
-    </Box>
+      <Box sx={{background:'#EBEBEB', height:'auto'}}>
+      {currentScreen === SCREENS.list
+          ? <AllProjectsSection handleScreenChange={handleScreenChange}/>
+          :  <ProjectDetailsSection projectId={projectId} />
+      }
+      </Box>
   )
 }
 
