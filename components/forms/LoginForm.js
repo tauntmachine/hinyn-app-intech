@@ -7,8 +7,14 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import LogoImage from "/public/assets/img/logo-hinyn.svg";
 import { useRouter } from 'next/router';
 import Button from '../shared/Button';
+import Modal from '../shared/Modal';
 import Image from 'next/image';
+import Axios from "axios";
+Axios.defaults.withCredentials = true;
+import { loginUser } from './formService';
 
+
+const origin = "https://ancient-crag-30921.herokuapp.com/api"
 
 const FormContainer = styled(Box)`
    display: flex;
@@ -29,27 +35,42 @@ function LoginForm(props){
     const router = useRouter();
     const emailInputRef = useRef();
     const passwordInputRef = useRef(); 
+    const [message,setMessage] = useState(null);
+    const [open,setOpen] = useState(false);
     const [values, setValues] = useState({
       password: '',
       showPassword: false,
     });
 
-    function loginHandler(event){
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const loginHandler = (event) => {
         event.preventDefault();
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
 
         const loginData = {
-            emailAddress: enteredEmail,
+            email: enteredEmail,
             password: enteredPassword,
         };
-        if(!loginData.emailAddress || !loginData.password){
-            alert("Please provide your registered username and password.");
+        if(!loginData.email || !loginData.password){
+            setMessage("Please provide your registered username and password.");
+            setOpen(true);
             return;
-        }else{
-            if(loginData.emailAddress === 'username' && loginData.password === '1234') router.push("/dashboard");
-            else alert('wrong username and password')
         }
+
+        loginUser(loginData).then((response)=>{
+          if(response.status === true && response?.data?.jwt){ 
+            router.push('/dashboard');
+          }
+          else{
+            setMessage(response.data);
+            setOpen(true);
+          }
+          return false;
+        })
     } 
 
   
@@ -70,6 +91,7 @@ function LoginForm(props){
     };
 
     return (
+      <>
         <Container component="main" maxWidth="xs" sx={{marginBottom:"10rem"}}>
           <CssBaseline />
           <Box
@@ -149,6 +171,11 @@ function LoginForm(props){
               </FormContainer>
           </Box>
         </Container>
+
+        <Modal handleClose={handleClose} isOpen={open} hasHeader={false} hasFooter={false}>
+        <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',height:'100%'}}>{message ?? 'Oops! All fields are required.'}</Box>
+        </Modal>
+        </>
     );
 
 }

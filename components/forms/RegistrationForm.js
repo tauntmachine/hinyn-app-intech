@@ -7,6 +7,10 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import LogoImage from "/public/assets/img/logo-hinyn.svg";
 import Modal from '../shared/Modal';
+import Axios from 'axios';
+Axios.defaults.withCredentials = true;
+import {origin} from "../../src/config";
+import {loginUser, registerUser} from "../forms/formService";
 
 const Logo = styled.div`
   position: relative;
@@ -48,6 +52,7 @@ const Error = styled.p`
 function RegistrationForm(){
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
   const handleClose = () => {
     setOpen(false);
   };
@@ -177,7 +182,33 @@ function RegistrationForm(){
       event.preventDefault();
     };
 
-    function submitHandler(event){
+    const handleRegisterUser = async (clientData) => {
+      return registerUser(clientData).then((response)=>{
+        if(response.status === true){ 
+          handleLoginUser(clientData).then((res)=>{
+            if(res?.jwt) router.push("/registration");
+          });
+        }
+        else{
+          setMessage(response.data);
+          setOpen(true);
+        }
+        return false;
+      })
+    }
+    
+    const handleLoginUser = async (clientData) => {
+      return loginUser(clientData).then((response)=>{
+        if(response.status === true) return response.data;
+        else{
+          setMessage(response.data);
+          setOpen(true);
+        }
+        return false;
+      })
+    }
+
+    const submitHandler = (event) => {
         event.preventDefault();
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
@@ -188,19 +219,13 @@ function RegistrationForm(){
 
         if(isValid.form){
           const clientData = {
-            emailAddress: enteredEmail,
-            password: enteredPassword,
-            isVerified: false,
-            isNewUser:1
-        };
-          router.push("/registration")
-          console.log('clientdat',clientData)
+            email: enteredEmail,
+            password: enteredPassword
+          }
+          handleRegisterUser(clientData);
         }else{
-            setOpen(true)
+            setOpen(true);
         }
-
-
-        
     }
       
 
@@ -312,7 +337,7 @@ function RegistrationForm(){
         </Container>
 
     <Modal handleClose={handleClose} isOpen={open} hasHeader={false} hasFooter={false}>
-      <div>Oops! All fields are required.</div>
+      <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',height:'100%'}}>{message ?? 'Oops! All fields are required.'}</Box>
      </Modal>
 </>
     );

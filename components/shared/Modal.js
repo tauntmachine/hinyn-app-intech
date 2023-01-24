@@ -13,6 +13,7 @@ const CustomDialog = styled(Dialog)`
         background-color: #F8F8F8;
         box-shadow: 0px 3px 20px #0000003C;
         border-radius: 20px;
+        min-height: 15rem;
     }
 `
 const StyledButton = styled(Button)`

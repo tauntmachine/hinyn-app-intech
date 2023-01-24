@@ -1,0 +1,1 @@
+export const origin = "https://ancient-crag-30921.herokuapp.com/api"

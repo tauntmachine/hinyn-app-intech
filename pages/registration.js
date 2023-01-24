@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../components/shared/Modal";
 import UsernameForm from "../components/forms/UsernameForm";
 import AccountTypeForm from "../components/forms/AccountTypeForm";
@@ -10,6 +10,26 @@ function Registration() {
   const handleClose = (e,reason) => {
     if(reason !== 'backdropClick') setOpen(false);
   };
+
+  // const handleLoginUser = async (clientData) => {
+  //   return loginUser(clientData).then((response)=>{
+  //     if(response.status === true) return response.data;
+  //     else{
+  //       setMessage(response.data);
+  //       setOpen(true);
+  //     }
+  //     return false;
+  //   })
+  // }
+
+
+  // useEffect(()=>{
+  //   handleLoginUser(clientData).then((res)=>{
+  //     if(res?.jwt) router.push("/registration&id="+res.user.id);
+  //   });  
+  // },[])
+
+
 
   const handleSubmit = () => {
     console.log('submitted')
