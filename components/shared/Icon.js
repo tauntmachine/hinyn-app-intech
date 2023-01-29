@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import {FaChevronLeft, FaSearch} from "react-icons/fa";
 import {MdOutlinePhotoSizeSelectActual} from "react-icons/md";
-import {FiUploadCloud,FiRss,FiAlertCircle,FiUsers,FiCheckSquare,FiXSquare, FiAward} from "react-icons/fi";
-import {AiOutlineMail, AiTwotoneLock,AiOutlineBell,AiOutlineCheck} from "react-icons/ai";
+import {FiUploadCloud,FiRss,FiAlertCircle,FiUsers,FiCheckSquare,FiXSquare, FiAward, FiChevronDown} from "react-icons/fi";
+import {AiOutlineMail, AiTwotoneLock,AiOutlineBell,AiOutlineCheck,AiOutlineClose,AiOutlineSearch} from "react-icons/ai";
 import {BsArrowRight, BsArrowLeft, BsChevronRight,BsChatLeft,BsExclamationOctagon,BsChat} from "react-icons/bs";
 import {BiUser} from "react-icons/bi";
 import {RiSuitcaseLine} from "react-icons/ri";
@@ -48,6 +48,14 @@ export const CheckSquareIcon = styled(FiCheckSquare)`
     color: ${props => props.variant === 'red' ? '#EB4C60' : props.variant === 'green' ? '#4AA398' : '#525252' };
 `
 
+export const ChevronDownIcon = styled(FiChevronDown)`
+    color: ${props => props.variant === 'red' ? '#EB4C60' : props.variant === 'green' ? '#4AA398' : '#525252' };
+`
+
+export const CloseIcon = styled(AiOutlineClose)`
+    color: ${props => props.variant === 'red' ? '#EB4C60' : props.variant === 'green' ? '#4AA398' : '#525252' };
+`
+
 export const EmailIcon = styled(AiOutlineMail)`
     color: ${props => props.variant === 'red' ? '#EB4C60' : props.variant === 'green' ? '#4AA398' : '#525252' };
 `
@@ -61,6 +69,10 @@ export const LocationIcon = styled(GoLocation)`
 `
 
 export const LockIcon = styled(AiTwotoneLock)`
+    color: ${props => props.variant === 'red' ? '#EB4C60' : props.variant === 'green' ? '#4AA398' : '#525252' };
+`
+
+export const OutlineSearchIcon = styled(AiOutlineSearch)`
     color: ${props => props.variant === 'red' ? '#EB4C60' : props.variant === 'green' ? '#4AA398' : '#525252' };
 `
 

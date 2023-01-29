@@ -40,19 +40,22 @@ const NotFoundContainer = styled.div`
 `
 
 
-function CardsSection({cards}) {
+function CardsSection({cards, hasTools=true, cardText, handleButtonClick}) {
   return (
     <GridContainer>
-        <FilterContainer>
-            <Filter/>
-            <Dropdown hasLabel={true} label="Sort By" items={sortOptions}/>
-        </FilterContainer>
+        {hasTools ? 
+            <FilterContainer>
+                <Filter/>
+                <Dropdown hasLabel={true} label="Sort By" items={sortOptions}/>
+            </FilterContainer>
+            : null
+        }
         {cards.length > 0 
         ? 
         <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 5, lg:8 }}>
         {cards.map( (card,idx) => (
             <Grid key={idx} item xs={12} sm={6} lg={3} sx={{position:'relative', marginTop:"3rem"}}>
-                <CustomCard data={card} />
+                <CustomCard data={card} cardText={cardText} handleButtonClick={handleButtonClick}/>
             </Grid>
             ))       
         }

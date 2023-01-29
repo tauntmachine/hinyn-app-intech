@@ -1,4 +1,7 @@
 import {useState, useMemo, createContext, useContext} from 'react';
+import axios from 'axios';
+axios.defaults.withCredentials = true;
+
 
 interface Freelancer {
     id: string,
@@ -15,6 +18,7 @@ export async function getServerSideProps(){
             "freelancer": [
               {
                 "-MpYAC-RXmd7ks9Mxlkw": {
+                  "id":1,
                   "dateOfBirth": "1991-12-11",
                   "emailAddress": "user2@user.com",
                   "firstName": "taylor",
@@ -29,6 +33,7 @@ export async function getServerSideProps(){
                   "img":"img-avatar1.png"
                 },
                 "-MpYAPEt06Rj0735EiW9": {
+                  "id":2,
                   "dateOfBirth": "1991-12-11",
                   "emailAddress": "user2@user.com",
                   "firstName": "adam",
@@ -43,6 +48,7 @@ export async function getServerSideProps(){
                   "img":"img-avatar2.png"
                 },
                 "-MtZVvCYJt1AMwbpJ6P4": {
+                  "id":3,
                   "dateOfBirth": "1991-12-11",
                   "emailAddress": "user2@user.com",
                   "firstName": "taylor",
@@ -57,6 +63,7 @@ export async function getServerSideProps(){
                   "img":"img-avatar3.png"
                 },
                 "-MtZWD1k0gdS9CG77iPg": {
+                  "id":4,
                   "dateOfBirth": "1991-12-11",
                   "emailAddress": "user2@user.com",
                   "firstName": "Edward",
@@ -71,6 +78,7 @@ export async function getServerSideProps(){
                   "img":"img-avatar4.png"
                 },
                 "-MtZWRTccIn3ziu610xx": {
+                  "id":5,
                   "dateOfBirth": "1991-12-11",
                   "emailAddress": "user2@user.com",
                   "firstName": "Paul",
@@ -85,6 +93,7 @@ export async function getServerSideProps(){
                   "img":"img-avatar5.png"
                 },
                 "-MtZWRTccIn3ziu611xg": {
+                  "id":6,
                   "dateOfBirth": "1991-12-11",
                   "emailAddress": "user2@user.com",
                   "firstName": "Ariana",
@@ -99,6 +108,7 @@ export async function getServerSideProps(){
                   "img":"img-avatar6.png"
                 },
                 "-MtZWRTccIn3ziu611xz": {
+                  "id":7,
                   "dateOfBirth": "1991-12-11",
                   "emailAddress": "user2@user.com",
                   "firstName": "Selena",
@@ -113,6 +123,7 @@ export async function getServerSideProps(){
                   "img":"img-avatar7.png"
                 },
                 "-MtZWRTccIn3ziu612xx": {
+                  "id":8,
                   "dateOfBirth": "1991-12-11",
                   "emailAddress": "user2@user.com",
                   "firstName": "Arthur",
@@ -127,6 +138,7 @@ export async function getServerSideProps(){
                   "img":"img-avatar8.png"
                 },
                 "-MtZWRTccIn3ziu613xx": {
+                  "id":9,
                   "dateOfBirth": "1991-12-11",
                   "emailAddress": "user2@user.com",
                   "firstName": "Tom",
@@ -141,6 +153,7 @@ export async function getServerSideProps(){
                   "img":"img-avatar9.png"
                 },
                 "-MtZWRTccIn3ziu614xx": {
+                  "id":10,
                   "dateOfBirth": "1991-12-11",
                   "emailAddress": "user2@user.com",
                   "firstName": "Jared",
@@ -155,6 +168,7 @@ export async function getServerSideProps(){
                   "img":"img-avatar10.png"
                 },
                 "-MtZWRTccIn3ziu615xx": {
+                  "id":11,
                   "dateOfBirth": "1991-12-11",
                   "emailAddress": "user2@user.com",
                   "firstName": "Steve",
@@ -292,8 +306,6 @@ export const FreelancerProvider = ({freelancer, children}) => (
 );
 
 export const useFreelancer = () => useContext(FreelancerContext);
-
-
 
 interface Project {
   id: string,

@@ -11,7 +11,7 @@ import Modal from '../shared/Modal';
 import Image from 'next/image';
 import Axios from "axios";
 Axios.defaults.withCredentials = true;
-import { loginUser } from './formService';
+import { loginUser, getClientData} from './formService';
 
 
 const origin = "https://ancient-crag-30921.herokuapp.com/api"
@@ -63,7 +63,18 @@ function LoginForm(props){
 
         loginUser(loginData).then((response)=>{
           if(response.status === true && response?.data?.jwt){ 
-            router.push('/dashboard');
+            console.log('response', response)
+            localStorage.setItem('hinyn-cid',response.data.user.id);
+            localStorage.setItem('hinyn-cjwt',response?.data?.jwt);
+            localStorage.setItem('hinyn-usertype',response?.data?.user.accountType);
+            const clientData = {
+              id: response.data.user.id,
+              jwt: response.data.jwt
+            }
+            getClientData(clientData).then((res)=>{
+              // console.log('the client data',res)
+              router.push('/dashboard');
+            })
           }
           else{
             setMessage(response.data);

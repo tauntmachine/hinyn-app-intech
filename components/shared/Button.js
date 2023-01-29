@@ -15,6 +15,7 @@ const Button = styled.button`
   pointer-events: ${props => props.disabled === 'disabled' ? 'none' : ''};
   text-align: center;
   transition: all 0.5s ease-in-out;
+  width:  ${props => props.width ?? 'auto'};
 
   &:hover{
       border: 1px solid ${props => props.variant === 'outlined' ? "#0F7669" : "#EB4C60"};;

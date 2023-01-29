@@ -186,7 +186,11 @@ function RegistrationForm(){
       return registerUser(clientData).then((response)=>{
         if(response.status === true){ 
           handleLoginUser(clientData).then((res)=>{
-            if(res?.jwt) router.push("/registration");
+            if(res?.jwt){ 
+              localStorage.setItem('hinyn-cid',res.user.id);
+              localStorage.setItem('hinyn-cjwt',res.jwt);
+              router.push("/registration");
+            }
           });
         }
         else{

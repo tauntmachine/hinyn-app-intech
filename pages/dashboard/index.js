@@ -12,6 +12,8 @@ const Index = () => {
   const { screen,project } = router.query;
   const [currentTab, setCurrentTab] = useState(0);
 
+  const userType = 2;   //1=professional 2=client
+
   useEffect(() => {
     if(project && screen) setCurrentTab(1);
     if(screen === 'browse') setCurrentTab(1);
@@ -23,10 +25,12 @@ const Index = () => {
     }
   return (
     <Box sx={{background:'#EBEBEB', height:'auto'}}>
-        <DashboardHeader setTabChange={handleChangeTab} currentTab={currentTab}/>
-        {currentTab === 0 ? <NewsfeedSection /> : null }
+        <DashboardHeader setTabChange={handleChangeTab} currentTab={currentTab} userType={userType} />
+        {currentTab === 0 ? <NewsfeedSection userType={userType} /> : null }
         {currentTab === 1 ? <BrowseProjectsSection mainScreen={screen} /> : null }
-        {currentTab === 2 ? <MyProjectsSection /> : null }
+        {currentTab === 2 && userType === 1 ? <MyProjectsSection /> : null }
+        {currentTab === 2 && userType === 2 ? null : null }
+        {currentTab === 3 && userType === 2 ? <MyProjectsSection /> : null }
     </Box>
   )
 }

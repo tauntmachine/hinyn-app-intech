@@ -22,6 +22,7 @@ const StyledCard = styled.div`
     height:100%;
     background-color: #F8F8F8;
     position: relative;
+    overflow: hidden;
 
     @media ${breakpoint.device.lg}{
         margin:0 1rem;
@@ -67,8 +68,12 @@ const HeaderBackground = styled.div`
     top:0;
 `
 
-function CustomCard({data}) {
+function CustomCard({data, cardText, handleButtonClick}) {
     let imgsrc = '/assets/img/avatars/'+data.img;
+
+    const handleClick = (data) => {
+        handleButtonClick(data)
+    }
   return (
     <StyledCard>
         <HeaderBackground>
@@ -88,7 +93,7 @@ function CustomCard({data}) {
             <LocationIcon/>
             <span>{data.location}</span>
         </Label>
-        <StyledButton variant="outlined">Hire me</StyledButton>
+        <StyledButton variant="outlined" onClick={()=>handleClick(data)}> {cardText ?? 'Hire me'} </StyledButton>
     </StyledCard>
   )
 }

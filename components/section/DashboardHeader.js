@@ -4,7 +4,7 @@ import { Container } from "@mui/system";
 import { useState } from "react";
 import Logo from "../shared/Logo";
 import { BellIcon, ChatIcon } from "../shared/Icon";
-import { GreenButton } from "../shared/Button";
+import Button, { GreenButton } from "../shared/Button";
 import Text from "../shared/Typography";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -45,7 +45,7 @@ const LinkText = styled.div`
 
 const Tabs = styled.div`
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(4,1fr);
     text-align: center;
     gap:50px;
     bottom: -1rem;
@@ -75,15 +75,9 @@ const StyledImage = styled(Image)`
     border-radius: 50%;
 `
 
-const professionalTabs = [
-    'Dashboard',
-    'Browse',
-    'My Projects'
-]
 
 
-
-function DashboardHeader({currentTab,setTabChange}) {
+function DashboardHeader({currentTab,setTabChange, userType}) {
   
   let imgpath = '/assets/img/avatars/';
 
@@ -103,6 +97,40 @@ function DashboardHeader({currentTab,setTabChange}) {
     router.push('/dashboard?screen=browse');
   }
 
+  const showPostProject = () => {
+    router.push('/dashboard/client/postProject');
+  }
+
+
+  const professionalTabs = [
+    'Dashboard',
+    'Browse',
+    'My Projects'
+  ];
+
+  const clientTabs = [
+    'Dashboard',
+    'Browse',
+    'My Freelancers',
+    'My Projects'
+  ];
+
+  const showTabs = () => {
+    const tabs = userType === 1 ? professionalTabs : clientTabs; 
+    return  <Tabs>    
+    { tabs.map((tabName,idx) => (
+        <TabItem key={'tab-'+idx} className={idx===currentTab ? "active" : ""} onClick={()=>setTabChange(idx)}>{ tabName} </TabItem>
+    ))
+    }
+    </Tabs>
+  }
+
+  const showCTAButton = () => {
+    if(userType === 1) return <GreenButton onClick={()=>showBrowseProjects()}>Place a bid</GreenButton>
+    else if(userType === 2) return <Button width="10rem" onClick={()=>showPostProject()}>Post a Project</Button>
+  }
+
+
   return (
     <>
     <CustomBox>
@@ -110,12 +138,7 @@ function DashboardHeader({currentTab,setTabChange}) {
         <Box sx={{display:'flex',justifyContent:'space-between',borderRight:'1px solid #E3E3E3'}}>
             <Box sx={{display:'flex'}}>
                 <Logo />
-                <Tabs>
-                { professionalTabs.map((tabName,idx) => (
-                    <TabItem key={'tab-'+idx} className={idx===currentTab ? "active" : ""} onClick={()=>setTabChange(idx)}>{ tabName} </TabItem>
-                ))
-                }
-                </Tabs>
+                {showTabs()}
             </Box>
             <Box sx={{display:'flex',alignItems:'center',fontSize:'20px',gap:'20px',paddingRight:'20px'}}>
                 <BellIcon/>
@@ -123,7 +146,7 @@ function DashboardHeader({currentTab,setTabChange}) {
             </Box>            
         </Box>
         <LoginContainer>
-            <GreenButton onClick={()=>showBrowseProjects()}>Place a bid</GreenButton>
+            {showCTAButton()}
             <Box sx={{display:'flex', alignItems:'center', gap:'20px'}}>
                 <ImageContainer onClick={()=>showProfessionalProfile()}>
                     <StyledImage

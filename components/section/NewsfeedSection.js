@@ -1,15 +1,20 @@
 import { Box,Grid,Container, Typography } from "@mui/material";
 import ContentBox from "../../components/shared/ContentBox";
-import DashboardHeader from "../../components/section/DashboardHeader";
 import {  RightChevronIcon, RssIcon, UsersIcon } from "../../components/shared/Icon";
 import {GrayButton,RedButton} from "../../components/shared/Button";
 import styled from "@emotion/styled";
 import AlertBox from "../../components/shared/AlertBox";
 import ClickableStarRating from "../../components/shared/ClickableStarRating";
 import ProgressBar from "../../components/shared/ProgressBar";
-import Text from "../../components/shared/Typography";
+import Text, { GrayText } from "../../components/shared/Typography";
 import { useRouter } from "next/router";
 
+const ProjectsBox = styled(Box)`
+    display:'flex';
+    flex-direction:'column';
+    max-height: 25rem;
+    overflow: auto;
+` 
 
 const Title = styled(Typography)`
     font-family: 'DM Sans', sans-serif;
@@ -34,7 +39,6 @@ const UploadIdBox = styled.div`
     justify-content: space-between;
     padding: 20px 25px;
 `
-
 const ListItem = styled.div`
     color : #555555;
     display: flex;
@@ -61,12 +65,29 @@ const HR = styled.hr`
     position: relative;
 `
 
-const NewsfeedSection = () => {
+
+const StyledPill = styled.div`
+    background: ${props => props.status === 'upcoming' ? '#ECF6F5' 
+                            : props.status === 'active' ? '#FFEBAA' 
+                            : props.status === 'completed' ? '#FFEEEF' 
+                            :'#4CC0EB'};
+    color: #555555;
+    border-radius: 13px;
+    display: flex;
+    padding: 0.5rem 1.25rem;
+    font-size: 12px;
+`
+
+const StatusText = styled.div`
+    text-transform: capitalize;
+`
+
+const NewsfeedSection = ({userType}) => {
 
     const router = useRouter();
   
 
-    const newsfeedData = [
+    const professionalNewsfeedData = [
         {
             type: 'action-required',
             desc: 'Welcome to HINYN! We’re happy you’re here. Please upload a valid identification card to finalize your registration.' ,
@@ -99,6 +120,50 @@ const NewsfeedSection = () => {
             },
         }
     ];
+
+    const clientNewsfeedData = [
+        {
+            type: 'action-required',
+            desc: 'Hi! Please upload a valid identification card' ,
+            time: 'about 16 hours ago',
+            alert: {
+                title: 'ID is required',
+                desc: 'Kindly upload a valid ID for verification. It can be your passport, drivers license, or country ID.',
+                type: 'action-button',
+                actionText:'Upload an ID'
+            },
+        },
+        {
+            type: 'action-required',
+            desc: 'Hi! Please verify your email address to continue posting your project Wedding day photography' ,
+            time: 'about 16 hours ago',
+            alert: {
+                title: 'Email verification required',
+                desc: 'Please click ‘Verify email address’ on the email address we sent to samantha.doe@domain.com to complete your verification.',
+                type: 'action-button',
+                actionText:'Resend Email'
+            },
+        },
+        {
+            type:'bid-reply',
+            project: 'Wedding Day Photography',
+            professional: 'Andrea Levine',
+            time: 'about 13 hours ago',
+        },
+        {
+            type:'bid-reply',
+            project: 'Wedding Day Photography',
+            professional: 'Andrea Levine',
+            time: 'about 13 hours ago',
+        },
+        {
+            type:'bid-reply',
+            project: 'Wedding Day Photography',
+            professional: 'Andrea Levine',
+            time: 'about 13 hours ago',
+        },
+      
+    ];
     
     const userData = {
         progress: 50,
@@ -109,19 +174,27 @@ const NewsfeedSection = () => {
     const userProjects = [
         {
             id:10001,
-            title: 'Wedding Day Photography in Abu Dhabi'
+            title: 'Wedding Day Photography in Abu Dhabi',
+            bids: 23,
+            status: 'active'
         },
         {
             id:10002,
-            title: 'Models required for fitness app'
+            title: 'Models required for fitness app',
+            bids: 23,
+            status: 'done'
         },
         {
             id:10003,
-            title: 'Hand models required for jewelry shoot'
+            title: 'Hand models required for jewelry shoot',
+            bids: 23,
+            status: 'done'
         },
         {
             id:10004,
-            title: 'Bridal make-up artist required'
+            title: 'Bridal make-up artist required',
+            bids: 23,
+            status: 'done'
         },
         
     ]
@@ -157,10 +230,16 @@ const NewsfeedSection = () => {
         }
         else if(item.type === 'bid-fail'){
             return <>
-                <Title>Sorry, your bid on ‘<span className="green-text">{item.project}</span>’  was rejected.</Title>
+                <Title>Sorry, your bid on ‘<Text color="green" component="span">{item.project}</Text>’  was rejected.</Title>
                 <TimeStamp>{item?.time}</TimeStamp>
             </>
         }
+        else if(item.type === 'bid-reply'){
+            return <>
+                <Title><Text color="green" component="span">{item.professional}</Text> replied to your bid on your project <Text color="red" component="span">{item.project}</Text></Title>
+                <TimeStamp>{item?.time}</TimeStamp>
+            </>
+        } 
         else if(item.type === 'project-complete'){
             return <>
                 <Title>Your project  ‘<span className="green-text">{item.project}</span>’ is completed!</Title>
@@ -201,27 +280,51 @@ const NewsfeedSection = () => {
                      <Text><b>Account Balance</b></Text>
                      <Typography component="p" sx={{color:'#949494'}}>{userData.balance.toLocaleString()} {userData?.currency ?? 'AED' }</Typography>
                  </Box>
-                 <RedButton variant="outlined"> Withdraw </RedButton>
+                 <RedButton variant="outlined">
+                    {
+                        userType === 1 ? 'Withdraw' : 'Deposit Funds'
+                    } 
+                 </RedButton>
              </Box>
         </Box>
      </ContentBox>
     }
 
     const getUserProjects = () => {
-        return <ContentBox hasHeader={true} headerTitle="Your Account" headerColor={"gray"} headerIcon={<UsersIcon/>} hasBodyIcon={false}>
-        <Box sx={{display:'flex',flexDirection:'column'}}>
+        return <ContentBox hasHeader={true} headerTitle="Your Projects" headerColor={"gray"} headerIcon={<UsersIcon/>} hasBodyIcon={false}>
+        <ProjectsBox >
             {userProjects.length > 0 
             ? userProjects.map((project,idx) => 
-            <>
-            <ListItem key={"userprojects-"+idx}>{project?.title}<RightChevronIcon className="right-caret"/></ListItem>
-            <HR/>
-            </>
+                <>  
+                {userType === 1
+                ?  <ListItem key={"userprojects-"+idx}>
+                        {project?.title} <RightChevronIcon className="right-caret"/>
+                    </ListItem>
+                :   <ListItem key={"userprojects-"+idx}>
+                        <Box sx={{display:'flex',flexDirection:'column'}}>
+                            {project?.title} 
+                            {userType === 2
+                               ? <Box sx={{display:'flex',gap:'1rem',alignItems:'center',marginTop:'8px'}}>
+                                    <GrayText size="small"><Text component="span">{project?.bids}</Text> Total Bids</GrayText>
+                                    <StyledPill status={project?.status}><StatusText>{project?.status}</StatusText></StyledPill>
+                                </Box>
+                                : null 
+                            }
+                            
+                        </Box>
+                       
+                    </ListItem>
+                }
+                    <HR/>
+                </>
             )
             : <div>No Projects Available.</div>
             }     
-        </Box>
-        </ContentBox>
+        </ProjectsBox>
+        </ContentBox> 
     }
+
+  const newsfeedData = userType === 1 ? professionalNewsfeedData : clientNewsfeedData;
 
   return (
     <Box sx={{background:'#EBEBEB', height:'auto'}}>
@@ -242,12 +345,8 @@ const NewsfeedSection = () => {
                     }
                 </Grid>
                 <Grid item xs={4}>
-                    { userData && 
-                        getUserData()     
-                    }
-                    {
-                        userProjects && getUserProjects()
-                    }
+                    { userData &&  getUserData() }
+                    { userProjects && getUserProjects() }
                 </Grid>       
             </Grid>
         </Container>
