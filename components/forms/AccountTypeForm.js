@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import LogoImage from "/public/assets/img/logo-hinyn.svg";
 import { BackIcon, PhotoIcon, RightArrowIcon } from '../shared/Icon';
+import { updateClientData } from './formService';
 
 const Logo = styled.div`
   position: relative;
@@ -55,6 +56,13 @@ function AccountTypeForm(){
        //call next one here
     }
     function createAccount(type){
+      let accountType = type === 'professional' ? 1 : 2;
+      const clientId = localStorage.getItem('hinyn-cid');
+      const userData = {
+        accountType : accountType
+      }
+      updateClientData(userData,clientId);
+      
       if(type === 'professional')  router.push("/professional");
     }
       
@@ -72,7 +80,7 @@ function AccountTypeForm(){
               <b>Select Account Type</b>
             </Typography>
             <Typography component="p" align="center">
-              Don’t worry, this can be changed later.
+              Don&apos;t worry, this can be changed later.
             </Typography>
             <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3, width:'100%'}}>
               <Grid container spacing={2} sx={{marginBottom:'2rem'}}>

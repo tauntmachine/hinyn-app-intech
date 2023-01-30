@@ -4,12 +4,13 @@ import SearchBar from "../shared/searchBar/SearchBar";
 import { Box } from "@mui/material";
 import {FiGlobe} from "react-icons/fi";
 import { Container } from "@mui/system";
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import ExpandedSearchBar from "../shared/searchBar/ExpandedSearchBar";
 import RegistrationForm from "../forms/RegistrationForm";
 import Modal from "../shared/Modal";
 import Logo from "../shared/Logo";
 import LoginForm from "../forms/LoginForm";
+import { logoutUser } from "../forms/formService";
 
 
 const CustomGlobeIcon = styled(FiGlobe)`
@@ -55,6 +56,7 @@ const LinkText = styled.div`
 
 function Header() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isLoggedIn,setIsLoggedIn] = useState(false);
   const toggleIsExpanded = () => {
     setIsExpanded(()=> !isExpanded);
   }
@@ -73,6 +75,16 @@ function Header() {
     setCurrentForm(form);
   }
 
+  const handleLogging = () => {
+    if(isLoggedIn) logoutUser();
+    else showForm('login');
+    setIsLoggedIn(()=> !isLoggedIn)
+      // return localStorage.getItem('hinyn-cjwt') ? true : false;
+  }
+
+  useEffect(() => {
+  }, [isLoggedIn])
+  
 
 
   return (
@@ -83,7 +95,11 @@ function Header() {
         <SearchBar toggleIsExpanded={toggleIsExpanded} isExpanded={isExpanded}/>
         <LoginContainer>
           <Button onClick={()=>showForm('register')}>Create an account</Button>
-          <LinkText onClick={()=> showForm('login')}>Login</LinkText>
+          {isLoggedIn
+          ? <LinkText onClick={()=> handleLogging() }>Logout</LinkText>
+          : <LinkText onClick={()=> handleLogging() }>Login</LinkText>
+          }
+          
           <span><CustomGlobeIcon /></span>
         </LoginContainer>
       </Head>

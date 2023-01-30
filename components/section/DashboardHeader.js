@@ -3,11 +3,12 @@ import { Box } from "@mui/material";
 import { Container } from "@mui/system";
 import { useState } from "react";
 import Logo from "../shared/Logo";
-import { BellIcon, ChatIcon } from "../shared/Icon";
+import { BellIcon, ChatIcon, LogoutIcon } from "../shared/Icon";
 import Button, { GreenButton } from "../shared/Button";
 import Text from "../shared/Typography";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { logoutUser } from "../forms/formService";
 
 
 const CustomBox = styled(Box)`
@@ -75,6 +76,11 @@ const StyledImage = styled(Image)`
     border-radius: 50%;
 `
 
+const StyledLogoutIcon = styled(LogoutIcon)`
+    font-size: 1.5rem;
+    cursor: pointer;  
+`
+
 
 
 function DashboardHeader({currentTab,setTabChange, userType}) {
@@ -99,6 +105,11 @@ function DashboardHeader({currentTab,setTabChange, userType}) {
 
   const showPostProject = () => {
     router.push('/dashboard/client/postProject');
+  }
+
+  const handleLogoutUser = () => {
+    logoutUser();
+    router.push('/');
   }
 
 
@@ -158,6 +169,9 @@ function DashboardHeader({currentTab,setTabChange, userType}) {
                 <Box sx={{display:'flex',flexDirection:'column',gap:'6px'}}>
                     <Text color="green">Hi, {userData?.name}</Text>
                     <Text>{userData.cash.toLocaleString()} {userData.currency ?? 'AED'}</Text>
+                </Box>
+                <Box>
+                  <StyledLogoutIcon onClick={handleLogoutUser}/>
                 </Box>
             </Box>
         </LoginContainer>

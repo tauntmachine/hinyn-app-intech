@@ -42,7 +42,6 @@ function Registration() {
             data
         }
     });
-    console.log('client', clientData)
     setCurrentActiveForm('accountType')
   }
 

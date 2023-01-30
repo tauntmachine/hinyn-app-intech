@@ -8,6 +8,7 @@ import StyledTextField from '../shared/Textfield';
 import { BackIcon } from '../shared/Icon';
 import { WebcamCapture } from '../shared/WebcamCapture';
 import AvatarUpload from '../shared/AvatarUpload';
+import { updateClientData } from './formService';
 
 
 const StyledButton = styled(Button)`
@@ -73,12 +74,14 @@ function ProfessionalForm1({handleNextClick}){
         }
 
         if(isValid.form){
-          const clientData = {
-            firstname: enteredFirstname,
-            lastname: enteredLastname,
+          const clientId = localStorage.getItem('hinyn-cid');
+          const userData = {
+            firstName: enteredFirstname,
+            lastName: enteredLastname,
             };
-            console.log('clientdat',clientData)
-            handleNextClick(true);
+            updateClientData(userData,clientId).then((res)=>{
+              if(res) handleNextClick(true);
+            });
         }else{
             setOpen(true)
         }

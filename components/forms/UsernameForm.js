@@ -14,7 +14,7 @@ import Image from 'next/image';
 import LogoImage from '/public/assets/img/logo-hinyn.svg';
 import { BackIcon } from '../shared/Icon';
 import Modal from '../shared/Modal';
-import {updateUserUsername} from "../../components/forms/formService";
+import {updateUserUsername, addProfessionalUser, addClientData} from "../../components/forms/formService";
 
 const Logo = styled.div`
   position: relative;
@@ -73,17 +73,25 @@ function UsernameForm({ onUsernameSubmit }) {
     }
 
     if (isValid.form) {
-      const clientId = localStorage.getItem('hinyn-cid');
+      const userId = localStorage.getItem('hinyn-uid');
       const jwt =  localStorage.getItem('hinyn-cjwt');
       const clientData = {
-        id: clientId,
+        id: userId,
         username: enteredUsername,
         jwt: jwt
       };
+      const userData = {
+        uuid : 'client-'+userId,
+        user: userId,
+      }
+      addClientData(userData, jwt).then((result)=>{
+        if(result?.data) localStorage.setItem('hinyn-cid',result?.data?.id);
+      });
       updateUserUsername(clientData).then((result)=>{
-        if(result.status) onUsernameSubmit(clientData);
+        if(result.status){ 
+          onUsernameSubmit(clientData);
+        }
       })
-      
     } else {
       setOpen(true);
     }

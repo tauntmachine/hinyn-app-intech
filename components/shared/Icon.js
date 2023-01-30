@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import {FaChevronLeft, FaSearch} from "react-icons/fa";
 import {MdOutlinePhotoSizeSelectActual} from "react-icons/md";
-import {FiUploadCloud,FiRss,FiAlertCircle,FiUsers,FiCheckSquare,FiXSquare, FiAward, FiChevronDown} from "react-icons/fi";
+import {FiUploadCloud,FiRss,FiAlertCircle,FiUsers,FiCheckSquare,FiXSquare, FiAward, FiChevronDown,FiLogOut} from "react-icons/fi";
 import {AiOutlineMail, AiTwotoneLock,AiOutlineBell,AiOutlineCheck,AiOutlineClose,AiOutlineSearch} from "react-icons/ai";
 import {BsArrowRight, BsArrowLeft, BsChevronRight,BsChatLeft,BsExclamationOctagon,BsChat} from "react-icons/bs";
 import {BiUser} from "react-icons/bi";
@@ -65,6 +65,10 @@ export const LeftArrowIcon = styled(BsArrowLeft)`
 `
 
 export const LocationIcon = styled(GoLocation)`
+    color: ${props => props.variant === 'red' ? '#EB4C60' : props.variant === 'green' ? '#4AA398' : '#525252' };
+`
+
+export const LogoutIcon = styled(FiLogOut)`
     color: ${props => props.variant === 'red' ? '#EB4C60' : props.variant === 'green' ? '#4AA398' : '#525252' };
 `
 

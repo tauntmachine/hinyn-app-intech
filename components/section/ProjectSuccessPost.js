@@ -1,5 +1,5 @@
 import { Container, Typography, CssBaseline, Stack, Box } from '@mui/material';
-import Text from '../shared/Typography';
+import Text, {GrayText} from '../shared/Typography';
 import styled from '@emotion/styled';
 import { CheckIcon } from '../shared/Icon';
 import { useFreelancer } from '../../src/store';
@@ -7,6 +7,8 @@ import CardsSection from '../section/CardsSection';
 import Modal from '../shared/Modal';
 import { useState } from 'react';
 import BidFreelancerForm from '../forms/BidFreelancerForm';
+import Button from '../shared/Button';
+import { useRouter } from 'next/router';
 
 const VerticalDivider = styled.div`
   height: 2rem;
@@ -18,20 +20,23 @@ const IconContainer = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 100%;
-  background-color: #c16f7a;
+  background-color: ${props => props.variant === 'bid' ? '#FFEEEF' : '#c16f7a'} ;
   width: 6rem;
   height: 6rem;
 `;
 
 const StyledCheckIcon = styled(CheckIcon)`
   font-size: 4rem;
-  color: #ffffff;
+  color: ${props => props.variant === 'bid' ? '#FF5A5F' : '#ffffff'};
 `;
 
 const ProjectSuccessPost = () => {
   const { freelancer, filter, setFilter } = useFreelancer();
   const [open, setOpen] = useState(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [selectedFreelancer, setSelectedFreelancer] = useState(null);
+  const router = useRouter();
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -44,6 +49,12 @@ const ProjectSuccessPost = () => {
 
   const handleBidSubmit = () => {
     console.log('bid submitted')
+    setOpenSuccessModal(true);
+    setOpen(()=>false)
+  }
+
+  const handleBackClick = () => {
+    router.push('/dashboard')
   }
 
   return (
@@ -93,6 +104,35 @@ const ProjectSuccessPost = () => {
       <Modal handleClose={handleClose} isOpen={open} maxWidth="md">
         <BidFreelancerForm handleBidSubmit={handleBidSubmit} data={selectedFreelancer}/>
      </Modal>
+     <Modal handleClose={handleClose} isOpen={openSuccessModal} maxWidth="md">
+                <Box sx={{ padding: '5rem 0' }}>
+                    <Stack
+                      direction="column"
+                      justifyContent="center"
+                      alignItems="center"
+                      spacing={2}>
+                        <Box>
+                            <IconContainer variant="bid">
+                                <StyledCheckIcon variant="bid"/>
+                            </IconContainer>
+                        </Box>
+                        <Box>
+                            <Text color="red" size="large">
+                                <b>Bid Successfully Sent!</b>
+                            </Text>
+                        </Box>
+                        <Box>
+                            <Container maxWidth="sm">
+                                <GrayText align="center">This is to let you know that your bid is successfully placed and we have sent it to the professional. We will be notifying you if your bid is approved or not.</GrayText>
+                            </Container>
+                        </Box>
+                        <VerticalDivider />
+                        <Box>
+                            <Button onClick={()=>handleBackClick()}> Back to home </Button>
+                        </Box>
+                    </Stack>
+                </Box>
+            </Modal>
     </>
   );
 };

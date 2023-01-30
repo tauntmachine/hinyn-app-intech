@@ -10,7 +10,7 @@ import Modal from '../shared/Modal';
 import Axios from 'axios';
 Axios.defaults.withCredentials = true;
 import {origin} from "../../src/config";
-import {loginUser, registerUser} from "../forms/formService";
+import {getLoggedInUserData, loginUser, registerUser,addClientData} from "../forms/formService";
 
 const Logo = styled.div`
   position: relative;
@@ -81,7 +81,6 @@ function RegistrationForm(){
     const checkIsEmail = (event) => {
       var regex = /^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if(!regex.test(event.target.value)){
-        event.target.style.border = "1px solid red";
         setErrorMessage((prevState) => ({
           ...prevState,
           ['email']:"Invalid email"
@@ -103,7 +102,6 @@ function RegistrationForm(){
       //at least 8 chars long, at least  one uppercase at least one number
       var regex = /^(?=.*\d)(?=.*[A-Z])(?!.*[^a-zA-Z0-9!@#$&()\\-`.+,/"])(.{8,})$/;
       if(!regex.test(event.target.value)){
-        event.target.style.border = "1px solid red";
         if(event.target.id === "password"){
           setErrorMessage((prevState) => ({
             ...prevState,
@@ -187,7 +185,7 @@ function RegistrationForm(){
         if(response.status === true){ 
           handleLoginUser(clientData).then((res)=>{
             if(res?.jwt){ 
-              localStorage.setItem('hinyn-cid',res.user.id);
+              localStorage.setItem('hinyn-uid',res.user.id);
               localStorage.setItem('hinyn-cjwt',res.jwt);
               router.push("/registration");
             }
@@ -251,7 +249,7 @@ function RegistrationForm(){
                     required
                     fullWidth
                     id="emailAddress"
-                    label="Email Address"
+                    placeholder="Email Address"
                     name="emailAddress"
                     autoComplete="email"
                     onKeyUp={checkIsEmail}
@@ -266,7 +264,7 @@ function RegistrationForm(){
                     required
                     fullWidth
                     name="password"
-                    label="Password"
+                    placeholder="Password"
                     id="password"
                     type={pwValues.showPassword ? 'text' : 'password'}
                     onKeyUp={checkIsPassword}
@@ -295,7 +293,7 @@ function RegistrationForm(){
                     required
                     fullWidth
                     name="confirmPassword"
-                    label="Confirm Password"
+                    placeholder="Confirm Password"
                     id="confirmPassword"
                     type={pwValues.showConfirmPassword ? 'text' : 'password'}
                     onKeyUp={checkIsConfirmPassword}
