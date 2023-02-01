@@ -7,7 +7,9 @@ import AlertBox from "../../components/shared/AlertBox";
 import ClickableStarRating from "../../components/shared/ClickableStarRating";
 import ProgressBar from "../../components/shared/ProgressBar";
 import Text, { GrayText } from "../../components/shared/Typography";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { getLoggedInUserData } from "../forms/formService";
 
 const ProjectsBox = styled(Box)`
     display:'flex';
@@ -82,9 +84,20 @@ const StatusText = styled.div`
     text-transform: capitalize;
 `
 
-const NewsfeedSection = ({userType}) => {
-
+const NewsfeedSection = () => {
+    const [accountType, setAccountType] = useState();
     const router = useRouter();
+
+    useEffect(() => {
+        const clientId = localStorage.getItem('hinyn-cid');
+        if(clientId){
+          getLoggedInUserData().then((res)=>{
+            if(res.data){ 
+              setAccountType(()=>res.data?.client?.accountType);
+            }
+          })
+        }
+      }, [])
   
 
     const professionalNewsfeedData = [
@@ -282,7 +295,7 @@ const NewsfeedSection = ({userType}) => {
                  </Box>
                  <RedButton variant="outlined">
                     {
-                        userType === 1 ? 'Withdraw' : 'Deposit Funds'
+                        accountType === 1 ? 'Withdraw' : 'Deposit Funds'
                     } 
                  </RedButton>
              </Box>
@@ -296,14 +309,14 @@ const NewsfeedSection = ({userType}) => {
             {userProjects.length > 0 
             ? userProjects.map((project,idx) => 
                 <>  
-                {userType === 1
+                {accountType === 1
                 ?  <ListItem key={"userprojects-"+idx}>
                         {project?.title} <RightChevronIcon className="right-caret"/>
                     </ListItem>
                 :   <ListItem key={"userprojects-"+idx}>
                         <Box sx={{display:'flex',flexDirection:'column'}}>
                             {project?.title} 
-                            {userType === 2
+                            {accountType === 2
                                ? <Box sx={{display:'flex',gap:'1rem',alignItems:'center',marginTop:'8px'}}>
                                     <GrayText size="small"><Text component="span">{project?.bids}</Text> Total Bids</GrayText>
                                     <StyledPill status={project?.status}><StatusText>{project?.status}</StatusText></StyledPill>
@@ -324,7 +337,7 @@ const NewsfeedSection = ({userType}) => {
         </ContentBox> 
     }
 
-  const newsfeedData = userType === 1 ? professionalNewsfeedData : clientNewsfeedData;
+  const newsfeedData = accountType === 1 ? professionalNewsfeedData : clientNewsfeedData;
 
   return (
     <Box sx={{background:'#EBEBEB', height:'auto'}}>

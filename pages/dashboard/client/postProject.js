@@ -13,6 +13,7 @@ const MainBox = styled(Box)`
       : '#EBEBEB'};
   width: 100%;
   height: auto;
+  min-height: 100vh;
   padding-bottom: 5%;
   position: relative;
 `;
@@ -36,6 +37,7 @@ const LogoBox = styled.div`
 const PostProject = () => {
   const [currentActiveForm, setCurrentActiveForm] = useState(1);
 
+
   const handleNextClick = (value) => {
     setCurrentActiveForm((prev) => prev + 1);
   };
@@ -51,7 +53,7 @@ const PostProject = () => {
       <Container maxWidth="xl" sx={{ position: 'relative' }}>
         {currentActiveForm === 1 ? (
           <Box sx={{ position: 'absolute',left:'0',right:'0' }}>
-            <PostProjectForm1 handleNextClick={handleNextClick} />{' '}
+            <PostProjectForm1 handleNextClick={handleNextClick}/>{' '}
           </Box>
         ) : null}
         {currentActiveForm === 2 ? (

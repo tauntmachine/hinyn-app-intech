@@ -10,7 +10,7 @@ import Modal from '../shared/Modal';
 import Axios from 'axios';
 Axios.defaults.withCredentials = true;
 import {origin} from "../../src/config";
-import {getLoggedInUserData, loginUser, registerUser,addClientData} from "../forms/formService";
+import {loginUser, registerUser,addClientData} from "../forms/formService";
 
 const Logo = styled.div`
   position: relative;

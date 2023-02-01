@@ -10,7 +10,7 @@ import RegistrationForm from "../forms/RegistrationForm";
 import Modal from "../shared/Modal";
 import Logo from "../shared/Logo";
 import LoginForm from "../forms/LoginForm";
-import { logoutUser } from "../forms/formService";
+import { getClientData, logoutUser } from "../forms/formService";
 
 
 const CustomGlobeIcon = styled(FiGlobe)`
@@ -57,6 +57,15 @@ const LinkText = styled.div`
 function Header() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLoggedIn,setIsLoggedIn] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState({});
+
+  useEffect(() => {
+    console.log(localStorage.getItem('hinyn-cjwt'), 'local')
+    if(localStorage.getItem('hinyn-cjwt')){ setIsLoggedIn(()=>true);}
+    else setIsLoggedIn(()=>false);
+  }, [])
+
+
   const toggleIsExpanded = () => {
     setIsExpanded(()=> !isExpanded);
   }
@@ -82,8 +91,7 @@ function Header() {
       // return localStorage.getItem('hinyn-cjwt') ? true : false;
   }
 
-  useEffect(() => {
-  }, [isLoggedIn])
+  
   
 
 

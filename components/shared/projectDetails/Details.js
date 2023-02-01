@@ -236,7 +236,7 @@ const Details = ({ projectId,userDetails }) => {
                 </Row>
                 <Row sx={{ display: 'flex', justifyContent: 'center' }}>
                    
-                    {userDetails?.isLoggedIn 
+                    {userDetails?.isProposedProject  
                         ?  <GreenButton onClick={() => setOpenFinishModal(true)}>Complete Project</GreenButton>
                         : <GreenButton onClick={() => setOpen(true)}>Apply</GreenButton>
                     }
@@ -256,12 +256,12 @@ const Details = ({ projectId,userDetails }) => {
                         </Row>
                         <Row>
                             <Text color="green" size="large">
-                                <b>{userDetails?.isLoggedIn ? modalTexts.projComplete.title : modalTexts.projBid.title}</b>
+                                <b>{userDetails?.isProposedProject ? modalTexts.projComplete.title : modalTexts.projBid.title}</b>
                             </Text>
                         </Row>
                         <Row>
                             <Container maxWidth="sm">
-                                <GrayText align="center">{userDetails?.isLoggedIn ? modalTexts.projComplete.desc : modalTexts.projBid.desc}</GrayText>
+                                <GrayText align="center">{userDetails?.isProposedProject ? modalTexts.projComplete.desc : modalTexts.projBid.desc}</GrayText>
                             </Container>
                         </Row>
                         <VerticalDivider />

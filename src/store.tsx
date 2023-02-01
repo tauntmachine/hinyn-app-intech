@@ -277,6 +277,7 @@ export async function getServerSideProps(){
 
 const useFreelancerController = (freelancer : Freelancer[]) =>{
     const [filter,setFilter] = useState("");
+    console.log('use freelance controller',freelancer,filter)
 
       const filteredFreelancer = useMemo(
         () =>

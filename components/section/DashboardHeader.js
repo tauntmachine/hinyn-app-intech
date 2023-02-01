@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
 import { Container } from "@mui/system";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Logo from "../shared/Logo";
 import { BellIcon, ChatIcon, LogoutIcon } from "../shared/Icon";
 import Button, { GreenButton } from "../shared/Button";
@@ -9,6 +9,7 @@ import Text from "../shared/Typography";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { logoutUser } from "../forms/formService";
+import { getLoggedInUserData } from "../forms/formService";
 
 
 const CustomBox = styled(Box)`
@@ -83,16 +84,10 @@ const StyledLogoutIcon = styled(LogoutIcon)`
 
 
 
-function DashboardHeader({currentTab,setTabChange, userType}) {
-  
-  let imgpath = '/assets/img/avatars/';
-
-  const userData = {
-    name: 'Samantha',
-    cash: 123456,
-    currency: 'USD',
-    photo:'img-avatar1.png'
-  }
+function DashboardHeader({currentTab,setTabChange}) {
+  const imgpath = '/assets/img/avatars/';
+  const [userData, setUserData] = useState({});
+  const [accountType,setAccountType] = useState();
   const router = useRouter();
 
   const showProfessionalProfile = () => {
@@ -113,6 +108,19 @@ function DashboardHeader({currentTab,setTabChange, userType}) {
   }
 
 
+  useEffect(() => {
+    const clientId = localStorage.getItem('hinyn-cid');
+    if(clientId){
+      getLoggedInUserData().then((res)=>{
+        if(res.data){ 
+          setUserData(()=>res.data?.client)
+          setAccountType(()=>res.data?.client?.accountType)
+        }
+      })
+    }
+  }, [])
+
+
   const professionalTabs = [
     'Dashboard',
     'Browse',
@@ -127,7 +135,7 @@ function DashboardHeader({currentTab,setTabChange, userType}) {
   ];
 
   const showTabs = () => {
-    const tabs = userType === 1 ? professionalTabs : clientTabs; 
+    const tabs = accountType === 1 ? professionalTabs : clientTabs; 
     return  <Tabs>    
     { tabs.map((tabName,idx) => (
         <TabItem key={'tab-'+idx} className={idx===currentTab ? "active" : ""} onClick={()=>setTabChange(idx)}>{ tabName} </TabItem>
@@ -137,8 +145,8 @@ function DashboardHeader({currentTab,setTabChange, userType}) {
   }
 
   const showCTAButton = () => {
-    if(userType === 1) return <GreenButton onClick={()=>showBrowseProjects()}>Place a bid</GreenButton>
-    else if(userType === 2) return <Button width="10rem" onClick={()=>showPostProject()}>Post a Project</Button>
+    if(accountType === 1) return <GreenButton onClick={()=>showBrowseProjects()}>Place a bid</GreenButton>
+    else if(accountType === 2) return <Button width="10rem" onClick={()=>showPostProject()}>Post a Project</Button>
   }
 
 
@@ -161,14 +169,14 @@ function DashboardHeader({currentTab,setTabChange, userType}) {
             <Box sx={{display:'flex', alignItems:'center', gap:'20px'}}>
                 <ImageContainer onClick={()=>showProfessionalProfile()}>
                     <StyledImage
-                    src={imgpath+userData?.photo}
+                    src={userData?.photo ? imgpath+userData?.photo : imgpath+'img-avatar1.png'}
                     layout="fill"
                     alt="icon-img"
                     />
                 </ImageContainer>
                 <Box sx={{display:'flex',flexDirection:'column',gap:'6px'}}>
-                    <Text color="green">Hi, {userData?.name}</Text>
-                    <Text>{userData.cash.toLocaleString()} {userData.currency ?? 'AED'}</Text>
+                    <Text color="green">Hi, {userData?.firstName}</Text>
+                    <Text>{userData?.cash?.toLocaleString() ?? '0'} {userData?.currency ?? 'AED'}</Text>
                 </Box>
                 <Box>
                   <StyledLogoutIcon onClick={handleLogoutUser}/>

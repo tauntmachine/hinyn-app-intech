@@ -2,6 +2,39 @@ import axios from 'axios';
 import { origin } from '../../src/config';
 axios.defaults.withCredentials = true;
 
+
+/* BIDS */
+  export const addBidData = async (bidData) => {
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    return axios.post(
+        origin + '/bids',
+        {
+          data: bidData,
+        },
+        {
+          headers:{
+            'Accept' : 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwt}`
+          },
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then((response) => {
+        if (response.data) {
+          return { status: true, data: response.data.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error.response.data.error.message };
+      });
+  };
+
+
+
 export const registerUser = async (clientData) => {
   return axios.post(
       origin + '/auth/local/register',
@@ -51,12 +84,12 @@ export const loginUser = async (clientData) => {
     });
 };
 
-export const logoutUser = async () => {
+export const logoutUser = () => {
   if(localStorage.getItem('hinyn-cjwt')){
     localStorage.removeItem('hinyn-cjwt');
     localStorage.removeItem('hinyn-cid');
     localStorage.removeItem('hinyn-uid');
-    localStorage.removeItem('usertype');
+    localStorage.removeItem('hinyn-usertype');
   }
 };
 
@@ -66,13 +99,14 @@ export const logoutUser = async () => {
 
 
 export const getClientData = async (clientData) => {
+    const jwt = localStorage.getItem('hinyn-cjwt');
     return axios.get(
         origin + '/clients/'+clientData.id,
         {
             headers:{
                 'Accept' : 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${clientData.jwt}`
+                'Authorization': `Bearer ${jwt}`
               },
         },
         {
@@ -82,7 +116,6 @@ export const getClientData = async (clientData) => {
         }
       )
       .then(async (response) => {
-        console.log('the client data', response)
         if (response.data) {
           return { status: true, data: response.data };
         } else {
@@ -156,16 +189,15 @@ export const getClientData = async (clientData) => {
 
 
   /* USERS */
-
-
 export const getLoggedInUserData = async (clientData) => {
+  const jwt = localStorage.getItem('hinyn-cjwt') ?? '';
   return axios.get(
       origin + '/users/me?populate=client',
       {
           headers:{
               'Accept' : 'application/json',
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${clientData.jwt}`
+              'Authorization': `Bearer ${jwt}`
             },
       },
       {
@@ -215,4 +247,36 @@ export const updateUserUsername = async (clientData) => {
       });
   };
 
+
+
+
+  /* professional category */
+  export const addProfessionalCategoriesData = async (userData) => {
+    const jwt = localStorage.getItem('hinyn-cjwt') ?? '';
+    return axios.post(
+        origin + '/professional-categories',
+        {
+          data: userData,
+        },
+        {
+          headers:{
+            'Accept' : 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwt}`
+          },
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then((response) => {
+        if (response.data) {
+          return { status: true, data: response.data.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error.response.data.error.message };
+      });
+  };
 

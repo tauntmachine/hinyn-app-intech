@@ -30,6 +30,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import moment from 'moment';
 import {Button as CustomButton} from '@mui/material';
 import { useFreelancer } from '../../src/store';
+import { addBidData } from './formService';
 
 
 const FormContainer = styled(Box)`
@@ -510,7 +511,7 @@ function PostProjectForm1({ handleNextClick }) {
 
   const getCategorySkills = (category) => {
     setSelectedCategory(() => category.key);
-    setFilter(category);
+    setFilter(category.key);
     setCategorySkills(
       () =>
         category_skills.data.filter((res) => res.key === category.key)[0]
@@ -815,7 +816,21 @@ function PostProjectForm1({ handleNextClick }) {
     event.preventDefault();
 
     if(isValid.title && isValid.category && isValid.location && isValid.projectDate && isValid.projectBudget && isValid.projectDescription && isValid.deliverables && isValid.deliveryDays){
-      console.log('push to api')
+      const clientId = localStorage.getItem('hinyn-cid');
+      const bidData = {
+        title: projectData.title,
+        description: projectData.projectDescription,
+        budget: parseInt(projectData.projectBudget),
+        status: 1,
+        client: clientId
+      }
+      console.log('push to api',bidData)
+      if(clientId){
+        addBidData(bidData).then((res)=>{
+          if(res.data) console.log(res.data)
+        })
+      }
+      
       handleNextClick(true);
     }else {
       setOpen(true);

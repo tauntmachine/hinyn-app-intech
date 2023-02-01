@@ -66,18 +66,14 @@ function LoginForm(props){
             console.log('response', response)
             localStorage.setItem('hinyn-uid',response.data.user.id);
             localStorage.setItem('hinyn-cjwt',response?.data?.jwt);
-            const clientData = {
-              id: response.data.user.id,
-              jwt: response.data.jwt
-            }
-            getLoggedInUserData(clientData).then((res)=>{
-              console.log('the client id', res.data)
-              // localStorage.setItem('hinyn-cid',response.data.user.id);
-            })
-            getClientData(clientData).then((res)=>{
-              // console.log('the client data',res)
+            getLoggedInUserData().then((res)=>{
+              if(res.data) localStorage.setItem('hinyn-cid',res.data?.client?.id);
               router.push('/dashboard');
             })
+            // getClientData(clientData).then((res)=>{
+            //   // console.log('the client data',res)
+            //   router.push('/dashboard');
+            // })
           }
           else{
             setMessage(response.data);

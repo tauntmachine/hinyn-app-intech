@@ -213,6 +213,7 @@ const ProjectDetailsSection = ({projectId}) => {
 
  const userDetails = {
   isLoggedIn : true,
+  isProposedProject: false,
   paymentStatus: 'On-hold',
   paymentDescription: 'HINYN have received the payment from the client and we will release it to your account once the client confirmed that the project is complete.'
  }
@@ -306,7 +307,7 @@ const ProjectDetailsSection = ({projectId}) => {
                   </ContentBox>
                   <VerticalDivider/>
                   {
-                    userDetails?.isLoggedIn 
+                    userDetails?.isProposedProject 
                     ?  <ContentBox>
                         <BidBoxWrapper>
                           <Column>

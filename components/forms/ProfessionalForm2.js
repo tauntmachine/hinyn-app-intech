@@ -14,7 +14,7 @@ import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
 import { BackIcon, SearchIcon, RightArrowIcon } from '../shared/Icon';
 import ScrollableTable from '../shared/ScrollableTable';
-import { updateClientData } from './formService';
+import { addProfessionalCategoriesData, updateClientData } from './formService';
 
 const StyledButton = styled(Button)``;
 
@@ -255,14 +255,17 @@ function ProfessionalForm2({ handleNextClick }) {
     }
 
     if (isValid.form) {
-      const clientData = {
-        categories: selectedCategory
-      };
-      const clientId = localStorage.getItem('hinyn-cid');
-      updateClientData(clientData,clientId).then((res)=>{
-        console.log('res',res)
-        // if(res) handleNextClick(true);
-      });
+        const clientId = localStorage.getItem('hinyn-cid');
+        const data = {
+            headline: selectedCategory.key,
+            skills: "fashion,beauty",
+            client: clientId,
+        };
+     
+        addProfessionalCategoriesData(data).then((res)=>{
+            console.log('res',res)
+            if(res) handleNextClick(true);
+        });
     } else {
       setOpen(true);
     }
