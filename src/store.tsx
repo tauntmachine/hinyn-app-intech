@@ -87,10 +87,9 @@ const useProjectController = (project : Project[]) =>{
     const filteredProject = useMemo(
       () =>
       project && project.map( (p) => { 
-        let temp = {"id":p.id, ...p.attributes}
-        return temp
+        return {"id":p.id, ...p.attributes}
       }).filter((val)=>{
-        return val?.title?.toLowerCase().includes(filter.toLowerCase()) || val?.description?.toLowerCase().includes(filter.toLowerCase())
+        return val //val?.title?.toLowerCase().includes(filter.toLowerCase()) || val?.description?.toLowerCase().includes(filter.toLowerCase())
         }),
       [filter, project]
   );
