@@ -33,7 +33,7 @@ function CreateProfessionalAccount() {
 
   const handleNextClick = (value) => {
     if(value){
-      setProgressPercent(progressPercent+7)
+      setProgressPercent(progressPercent+9)
       setCurrentActiveForm((prev)=> prev + 1);
     }
   }

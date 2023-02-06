@@ -33,6 +33,121 @@ axios.defaults.withCredentials = true;
       });
   };
 
+  export const getBids= async (bidId) => {
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    return axios.get(
+        origin + "/bids/?populate=*",
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+        },
+        {
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error };
+      });
+  };
+
+  export const getBidData = async (bidId) => {
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    return axios.get(
+        origin + '/bids/'+bidId+"?populate=*",
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+        },
+        {
+           
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error };
+      });
+  };
+
+
+  export const getBidProposals= async (bidId) => {
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    return axios.get(
+        origin + '/bids/'+bidId+"?populate=proposals",
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+        },
+        {
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error };
+      });
+  };
+
+  export const updateBidData = async (proposalData,bidId) => {
+    const jwt = localStorage.getItem('hinyn-cjwt') ?? '';
+    return axios.put(
+        origin + '/bids/'+bidId,
+        {
+          data: proposalData         
+        },
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error.response.data };
+      });
+  };
+
 
 
 export const registerUser = async (clientData) => {
@@ -96,6 +211,29 @@ export const logoutUser = () => {
 
 
 /* CLIENTS */
+
+
+export const getClients = async () => {
+  return axios.get(
+      origin + '/clients/',
+      {
+      },
+      {
+        withCredentials: true,
+        crossDomain: true,
+      }
+    )
+    .then(async (response) => {
+      if (response.data) {
+        return { status: true, data: response.data };
+      } else {
+        return { status: false, data: response.data.message };
+      }
+    })
+    .catch(function (error) {
+      return { status: false, data: error };
+    });
+};
 
 
 export const getClientData = async (clientData) => {
@@ -189,7 +327,7 @@ export const getClientData = async (clientData) => {
 
 
   /* USERS */
-export const getLoggedInUserData = async (clientData) => {
+export const getLoggedInUserData = async () => {
   const jwt = localStorage.getItem('hinyn-cjwt') ?? '';
   return axios.get(
       origin + '/users/me?populate=client',
@@ -207,7 +345,6 @@ export const getLoggedInUserData = async (clientData) => {
       }
     )
     .then(async (response) => {
-      console.log('the loggedin user data', response)
       if (response.data) {
         return { status: true, data: response.data };
       } else {
@@ -218,6 +355,7 @@ export const getLoggedInUserData = async (clientData) => {
       return { status: false, data: error };
     });
 };
+
 
 export const updateUserUsername = async (clientData) => {
     return axios.put(
@@ -246,6 +384,99 @@ export const updateUserUsername = async (clientData) => {
         return { status: false, data: error.response.data };
       });
   };
+
+
+export const updateUserData= async (clientId) => {
+  const userId = localStorage.getItem('hinyn-uid');
+  const jwt = localStorage.getItem('hinyn-cjwt');
+    return axios.put(
+        origin + '/users/'+userId,
+        {
+          client: clientId        
+        },
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error.response.data };
+      });
+  };
+
+
+  /* Categories */
+  export const getCategories = async () => {
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    return axios.get(
+        origin + '/categories',
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+        },
+        {
+           
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error };
+      });
+  };
+
+
+  /* skills */
+  export const getSkills= async (categoryId) => {
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    return axios.get(
+        origin + '/categories/'+categoryId+"?populate=*",
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+        },
+        {
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error };
+      });
+  };
+
 
 
 
@@ -279,4 +510,66 @@ export const updateUserUsername = async (clientData) => {
         return { status: false, data: error.response.data.error.message };
       });
   };
+
+
+  /* PROPOSALS */
+  export const addProposal = async (proposalData) => {
+    const jwt = localStorage.getItem('hinyn-cjwt') ?? '';
+    return axios.post(
+        origin + '/proposals',
+        {
+          data: proposalData,
+        },
+        {
+          headers:{
+            'Accept' : 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwt}`
+          },
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then((response) => {
+        if (response.data) {
+          return { status: true, data: response.data.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error.response.data.error.message };
+      });
+  };
+
+  export const getProposals= async () => {
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    return axios.get(
+        origin + "/proposals?populate=*",
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+        },
+        {
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error };
+      });
+  };
+
+  
+
 

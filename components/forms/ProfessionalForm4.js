@@ -9,6 +9,7 @@ import { BackIcon } from '../shared/Icon';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import moment from 'moment';
+import { updateClientData } from './formService';
 
 
 const StyledButton = styled(Button)`
@@ -94,12 +95,13 @@ function ProfessionalForm4({handleNextClick}){
         }
 
         if(isValid.form){
-          const clientData = {
-            languages: enteredLanguages,
-            dob: dobValue,
+            const clientId = localStorage.getItem('hinyn-cid');
+            const clientData = {
+              dateOfBirth: dobValue,
             };
-            console.log('clientdat',clientData)
-            handleNextClick(true);
+              updateClientData(clientData, clientId).then((result)=>{
+                if(result?.data) handleNextClick(true);
+              });
         }else{
             setOpen(true)
         }

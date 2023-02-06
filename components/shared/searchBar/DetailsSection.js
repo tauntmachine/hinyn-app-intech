@@ -362,7 +362,6 @@ const SkillsDetailsContainer = ({category, handleSelectedSkills}) => {
         const isActive = selectedSkills.find(data => data === item) ? true : false;
         if(!isActive) setSelectedSkills((prev => prev.concat(item)));
         else setSelectedSkills(prev => prev.filter(data => data !== item))
-        console.log('its here', isActive, selectedSkills)
     }
     const checkIsActive = (item) =>{
         return selectedSkills.find(data => data === item) ? true : false;

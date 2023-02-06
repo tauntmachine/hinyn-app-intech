@@ -56,10 +56,13 @@ const categories = {
 function Main() {
   const {freelancer, filter, setFilter} = useFreelancer();
 
+  const handleButtonClick = () =>{
+  }
+
   return (
     <Container  maxWidth="xl" sx={{padding:"30px 10px", marginBottom:"50px"}}>
         <CategoryList categories={categories}/>
-        <CardsSection cards={freelancer[0]}/>
+        <CardsSection cards={freelancer} handleButtonClick={handleButtonClick}/>
     </Container>
   )
 }

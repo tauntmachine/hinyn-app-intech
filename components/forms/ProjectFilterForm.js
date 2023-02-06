@@ -301,7 +301,6 @@ const category_skills = {
 
     const handleSearchSkills = (e) => {
         e.preventDefault();
-        console.log('the skills',e.target.value)
     }
 
 
@@ -319,11 +318,9 @@ const category_skills = {
             firstname: enteredFirstname,
             lastname: enteredLastname,
             };
-            console.log('clientdat',clientData)
         }
     }
      const getOnChangeVal = (curr) =>{
-      console.log('ahsdfkjasdfasd', curr)
       setCurrentCategory(curr);
       const skills = category_skills.options.find((val)=> val.key === curr)
       setCurrentCategorySkills(skills);

@@ -19,8 +19,6 @@ function CategoryList({categories}) {
     spaceBetween={40}
     slidesPerView={9}
     loop={true}
-    onSlideChange={() => console.log('slide change')}
-    onSwiper={(swiper) => console.log(swiper)}
   >
     {categories.data.map((category,idx)=> (
         <SwiperSlide key={idx} onClick={()=>handleSelectedCategory(category.key)}>

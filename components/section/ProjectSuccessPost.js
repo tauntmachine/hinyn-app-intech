@@ -1,7 +1,7 @@
 import { Container, Typography, CssBaseline, Stack, Box } from '@mui/material';
 import Text, {GrayText} from '../shared/Typography';
 import styled from '@emotion/styled';
-import { CheckIcon } from '../shared/Icon';
+import { CheckIcon, RightArrowIcon } from '../shared/Icon';
 import { useFreelancer } from '../../src/store';
 import CardsSection from '../section/CardsSection';
 import Modal from '../shared/Modal';
@@ -25,9 +25,30 @@ const IconContainer = styled.div`
   height: 6rem;
 `;
 
+const HomeLabelBox = styled(Box)`
+  display:flex;
+  align-items:center;
+  position:absolute;
+  right:0;
+  cursor: pointer;
+  transition: all ease-in-out 0.5s;
+
+  &:hover{
+    span,svg{
+      transform: scale(1.05)
+    }
+  }
+`
+
 const StyledCheckIcon = styled(CheckIcon)`
   font-size: 4rem;
   color: ${props => props.variant === 'bid' ? '#FF5A5F' : '#ffffff'};
+`;
+
+const StyledRightArrowIcon = styled(RightArrowIcon)`
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #ffffff;
 `;
 
 const ProjectSuccessPost = () => {
@@ -42,13 +63,11 @@ const ProjectSuccessPost = () => {
   };
 
   const handleButtonClick = (data) => {
-    console.log('this is clicked outside', data)
     setSelectedFreelancer(()=> data);
     setOpen(()=> true )
   }
 
   const handleBidSubmit = () => {
-    console.log('bid submitted')
     setOpenSuccessModal(true);
     setOpen(()=>false)
   }
@@ -60,14 +79,21 @@ const ProjectSuccessPost = () => {
   return (
     <>
       <Container
-        maxWidth="md"
+        maxWidth="lg"
         sx={{
           marginBottom: '2rem',
           marginTop: '5rem',
           background: 'transparent',
+          position:'relative'
         }}
       >
         <CssBaseline />
+        <HomeLabelBox onClick={()=>handleBackClick()}>
+          <Typography component="span" align="right" sx={{ color: '#ffffff',paddingRight:'1rem' }}>
+                Go Home
+          </Typography>
+          <StyledRightArrowIcon />
+        </HomeLabelBox>
         <Stack
           direction="column"
           justifyContent="center"
@@ -99,7 +125,7 @@ const ProjectSuccessPost = () => {
         maxWidth="xl"
         sx={{marginBottom: '50px' }}
       >
-        <CardsSection cards={freelancer[0]} hasTools={false} cardText="Send a bid" handleButtonClick={handleButtonClick} />
+        <CardsSection cards={freelancer} hasTools={false} cardText="Send a bid" handleButtonClick={handleButtonClick} />
       </Container>
       <Modal handleClose={handleClose} isOpen={open} maxWidth="md">
         <BidFreelancerForm handleBidSubmit={handleBidSubmit} data={selectedFreelancer}/>

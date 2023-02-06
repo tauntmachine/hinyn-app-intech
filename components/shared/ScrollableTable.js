@@ -7,7 +7,8 @@ const StyledBox = styled(Box)`
     display : flex;
     flex-direction: column;
     overflow: auto;
-    max-height:350px;
+    height:350px;
+    background: #ffffff;
 `
 
 const Row = styled.div`
@@ -41,21 +42,21 @@ const iconMap = {
 }
 
 
-function ScrollableTable({data ,title, startAdornment, endAdornment, type, onCategoryClick, onSkillClick}) {
+const ScrollableTable = ({data ,title, startAdornment, endAdornment, type, onCategoryClick, onSkillClick}) => {
   return (
     <>
     <Row className='header'>{title}</Row>
     { type && type === 'categories' ? 
         <StyledBox >
             {data && data.map((category,idx) => (
-                <Row key={'category-'+idx} onClick={()=>onCategoryClick(category)}>
+                <Row key={'category-'+idx} onClick={()=>onCategoryClick(category?.id)}>
                     {
                         startAdornment === 'icon' 
                         ?  <TextWithIcon>
                                 <CategoryIcon data={category} hasLabel={false}/>
-                                <span> {category.title}</span>
+                                <span> {category?.title}</span>
                             </TextWithIcon>
-                        :<span> {category.title} </span>    
+                        :<span> {category?.title} </span>    
                     }
                     {endAdornment && iconMap[endAdornment]}
                 </Row>
@@ -65,7 +66,7 @@ function ScrollableTable({data ,title, startAdornment, endAdornment, type, onCat
         <StyledBox >
         {data && data.map((skill,idx) => (
             <Row key={'category-skill-'+idx} onClick={()=>onSkillClick(skill)}>
-                <span> {skill} </span>
+                <span> {skill?.title} </span>
             </Row>
         ))}
         </StyledBox>       
@@ -73,7 +74,7 @@ function ScrollableTable({data ,title, startAdornment, endAdornment, type, onCat
         <StyledBox>
         {data && data.map((skill,idx) => (
             <Row key={'skill-'+idx}>
-                <span> {skill} </span>
+                <span> {skill?.title} </span>
             </Row>
         ))}
         </StyledBox>       

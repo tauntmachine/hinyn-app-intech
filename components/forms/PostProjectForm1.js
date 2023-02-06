@@ -30,7 +30,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import moment from 'moment';
 import {Button as CustomButton} from '@mui/material';
 import { useFreelancer } from '../../src/store';
-import { addBidData } from './formService';
+import { addBidData,getCategories, getSkills } from './formService';
 
 
 const FormContainer = styled(Box)`
@@ -181,166 +181,50 @@ const StyledCheckbox = styled(Checkbox)`
       color: #4AA398;
   }
 `
+//   data: [
+//     {
+//       key: 'photographer',
+//       icon: 'icn-photographer.svg',
+//       title: 'Photographer',
+//     },
+//     {
+//       key: 'videographer',
+//       icon: 'icn-videographer.svg',
+//       title: 'Videographer',
+//     },
+//     {
+//       key: 'editor',
+//       icon: 'icn-editor.svg',
+//       title: 'Editor',
+//     },
+//     {
+//       key: 'stylist',
+//       icon: 'icn-stylist.svg',
+//       title: 'Stylist',
+//     },
+//     {
+//       key: 'makeup-artist',
+//       icon: 'icn-makeupArtist.svg',
+//       title: 'Makeup Artists',
+//     },
+//     {
+//       key: 'hair-stylist',
+//       icon: 'icn-makeupArtist-1.svg',
+//       title: 'Hair Stylists',
+//     },
+//     {
+//       key: 'model',
+//       icon: 'icn-hairStylist.svg',
+//       title: 'Models',
+//     },
+//     {
+//       key: 'studio-location',
+//       icon: 'icn-models.svg',
+//       title: 'Studio/Location',
+//     },
+//   ],
+// };
 
-const categories = {
-  data: [
-    {
-      key: 'photographer',
-      icon: 'icn-photographer.svg',
-      title: 'Photographer',
-    },
-    {
-      key: 'videographer',
-      icon: 'icn-videographer.svg',
-      title: 'Videographer',
-    },
-    {
-      key: 'editor',
-      icon: 'icn-editor.svg',
-      title: 'Editor',
-    },
-    {
-      key: 'stylist',
-      icon: 'icn-stylist.svg',
-      title: 'Stylist',
-    },
-    {
-      key: 'makeup-artist',
-      icon: 'icn-makeupArtist.svg',
-      title: 'Makeup Artists',
-    },
-    {
-      key: 'hair-stylist',
-      icon: 'icn-makeupArtist-1.svg',
-      title: 'Hair Stylists',
-    },
-    {
-      key: 'model',
-      icon: 'icn-hairStylist.svg',
-      title: 'Models',
-    },
-    {
-      key: 'studio-location',
-      icon: 'icn-models.svg',
-      title: 'Studio/Location',
-    },
-  ],
-};
-
-const category_skills = {
-  data: [
-    {
-      key: 'photographer',
-      skills: [
-        'Fashion',
-        'Beauty',
-        'Lifestyle',
-        'Corporate',
-        'E-commerce',
-        'Watches / Jewelry',
-        'Products',
-        'Cars',
-        'Sports',
-        'Wedding',
-        'Event',
-        'Kids / Baby',
-        'Animal',
-        'Architecture / Real estate',
-        'Food',
-        'Other',
-      ],
-    },
-    {
-      key: 'videographer',
-      skills: [
-        'Drone operator',
-        'Fashion',
-        'Beauty',
-        'Lifestyle',
-        'Corporate',
-        'E-commerce',
-        'Watches / Jewelry',
-        'Products',
-        'Cars',
-        'Sports',
-        'Wedding',
-        'Event',
-        'Kids / Baby',
-        'Animal',
-        'Architecture / Real estate',
-        'Food',
-        'Other',
-      ],
-    },
-    {
-      key: 'editor',
-      skills: ['General', 'Special effects', 'Animation / 3D', 'Other'],
-    },
-    {
-      key: 'stylist',
-      skills: [
-        'Fashion',
-        'Beauty',
-        'Lifestyle',
-        'Sports',
-        'E-commerce',
-        'Watches / Jewelry',
-        'Wedding',
-        'Event',
-        'Kids / Baby',
-        'Other',
-      ],
-    },
-    {
-      key: 'makeup-artist',
-      skills: [
-        'Cinema',
-        'Fashion',
-        'Beauty',
-        'Lifestyle',
-        'E-commerce',
-        'Wedding',
-        'Event',
-        'Kids / Baby',
-        'Other',
-      ],
-    },
-    {
-      key: 'hair-stylist',
-      skills: [
-        'Cinema',
-        'Fashion',
-        'Beauty',
-        'Lifestyle',
-        'E-Commerce',
-        'Wedding',
-        'Event',
-        'Kids / Baby',
-        'Other',
-      ],
-    },
-    {
-      key: 'model',
-      skills: [
-        'Fashion',
-        'Beauty',
-        'Lifestyle',
-        'E-commerce',
-        'Watches / Jewelry',
-        'Cars',
-        'Sports',
-        'Wedding',
-        'Event',
-        'Kids / Baby',
-        'Other',
-      ],
-    },
-    {
-      key: 'studio-location',
-      skills: ['Studio', 'House', 'Restaurant', 'Other'],
-    },
-  ],
-};
 
 const languages = ['English', 'Arabic'];
 
@@ -420,6 +304,7 @@ function PostProjectForm1({ handleNextClick }) {
     setOpen(false);
   };
   const {freelancer, filter, setFilter} = useFreelancer();
+  const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categorySkills, setCategorySkills] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
@@ -430,6 +315,7 @@ function PostProjectForm1({ handleNextClick }) {
   const [projectDescription, setProjectDescription] = useState(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [filename, setFilename] = useState(null);
+  const [isFetched,setIsFetched] = useState(false);
   const [upgrades, setUpgrades] = useState({
     featured: true,
     urgent: false,
@@ -479,13 +365,13 @@ function PostProjectForm1({ handleNextClick }) {
   const deliveryDaysInputRef = useRef();
   const { featured, urgent } = upgrades;
 
-  const onSkillClick = (clickedSkill) => {
+  const onSkillClick = (clickedSkillId) => {
     let temp = [];
-    if (selectedSkills.find((skill) => skill === clickedSkill)) {
-      temp = selectedSkills.filter((skill) => skill !== clickedSkill)
+    if (selectedSkills.find((skill) => skill?.id === clickedSkillId)) {
+      temp = selectedSkills.filter((skill) => skill?.id !== clickedSkillId)
       setSelectedSkills(() => temp);
     } else {
-      temp = selectedSkills.concat(clickedSkill);
+      temp = selectedSkills.concat(clickedSkillId);
     }
     setProjectData((prevState) => ({
       ...prevState,
@@ -506,23 +392,37 @@ function PostProjectForm1({ handleNextClick }) {
       ...prevState,
       ['languages']:  temp
     }));
-
   };
 
-  const getCategorySkills = (category) => {
-    setSelectedCategory(() => category.key);
-    setFilter(category.key);
-    setCategorySkills(
-      () =>
-        category_skills.data.filter((res) => res.key === category.key)[0]
-          ?.skills ?? []
-    );
-    setSelectedSkills(
-      () =>
-        category_skills.data.filter((res) => res.key === category.key)[0]
-          ?.skills ?? []
-    );
+
+  useEffect(()=>{
+      setCategories(()=>[]);
+      getCategories().then((result)=>{
+        if(result?.data?.data && !isFetched){
+          result?.data?.data.map((item)=>{
+            let temp = {"id":item.id}
+            setCategories((prev => prev.concat({...item.attributes,...temp})));
+          })
+          setIsFetched(true);
+        }
+      });
+      
+  },[isFetched])
+
+  function getCategorySkills2(category) {
+    setSelectedCategory(() => category);
+    setCategorySkills(()=>[]);
+    setSelectedSkills(()=>[]);
+    getSkills(category?.id).then((result)=>{
+      const temp = result?.data?.data?.attributes?.skills?.data ?? [];
+        temp.map((item)=>{
+          let skillId = {"id":item.id}
+          setCategorySkills((prev => prev.concat({...item.attributes, ...skillId})));
+          setSelectedSkills((prev => prev.concat({...item.attributes, ...skillId})));
+        });
+    })
     setSelectedLanguages(() => languages);
+
     setErrorMessage((prevState) => ({
       ...prevState,
       ['category']: null,
@@ -533,18 +433,53 @@ function PostProjectForm1({ handleNextClick }) {
     }));
     setProjectData((prevState) => ({
       ...prevState,
-      ['category']: category.key,
+      ['category']: category.slug,
     }));
     setProjectData((prevState) => ({
       ...prevState,
-      ['skills']:  category_skills.data.filter((res) => res.key === category.key)[0]
-      ?.skills,
+      ['skills']:  selectedSkills.map((skill)=>skill?.id),//category_skills.data.filter((res) => res.key === category.key)[0]?.skills
     }));
     setProjectData((prevState) => ({
       ...prevState,
       ['languages']: languages,
     }));
-  };
+  }
+  //   setCategories(()=>[])
+  //   setSelectedCategory(() => category.key);
+  //   setFilter(category.key);
+  //   setCategorySkills(
+  //     () =>
+  //       category_skills.data.filter((res) => res.key === category.key)[0]
+  //         ?.skills ?? []
+  //   );
+  //   setSelectedSkills(
+  //     () =>
+  //       category_skills.data.filter((res) => res.key === category.key)[0]
+  //         ?.skills ?? []
+  //   );
+  //   setSelectedLanguages(() => languages);
+  //   setErrorMessage((prevState) => ({
+  //     ...prevState,
+  //     ['category']: null,
+  //   }));
+  //   setValid((prevState) => ({
+  //     ...prevState,
+  //     ['category']: true,
+  //   }));
+  //   setProjectData((prevState) => ({
+  //     ...prevState,
+  //     ['category']: category.key,
+  //   }));
+  //   setProjectData((prevState) => ({
+  //     ...prevState,
+  //     ['skills']:  category_skills.data.filter((res) => res.key === category.key)[0]
+  //     ?.skills,
+  //   }));
+  //   setProjectData((prevState) => ({
+  //     ...prevState,
+  //     ['languages']: languages,
+  //   }));
+  // };
 
   const onSkillsSearchChange = (e) => {
     onSkillClick(e.target.textContent);
@@ -572,6 +507,7 @@ function PostProjectForm1({ handleNextClick }) {
 
   const onBudgetSearchChange = (e) => {
     setProjectBudget(() => e.target.textContent);
+    let budgetArr = e.target.textContent.split('-');
     setErrorMessage((prevState) => ({
       ...prevState,
       ['projectBudget']: null,
@@ -582,7 +518,7 @@ function PostProjectForm1({ handleNextClick }) {
     }));
     setProjectData((prevState) => ({
       ...prevState,
-      ['projectBudget']: e.target.textContent,
+      ['projectBudget']: budgetArr,
     }));
   };
 
@@ -602,10 +538,10 @@ function PostProjectForm1({ handleNextClick }) {
         ...prevState,
         ['projectDate']: true,
       }));
-      setProjectDate(() => moment(date).format('YYYY-MM-DD'));
+      setProjectDate(() => moment(date).format('DD-MMM-YYYY'));
       setProjectData((prevState) => ({
         ...prevState,
-        ['projectDate']: moment(date).format('YYYY-MM-DD'),
+        ['projectDate']: moment(date).format('DD-MMM-YYYY'),
       }));
     } else {
       setErrorMessage((prevState) => ({
@@ -624,7 +560,6 @@ function PostProjectForm1({ handleNextClick }) {
     let filenames = Object.entries(files).map((file)=>file[1]?.name);
     setUploadedFiles(()=> {filenames});
     setFilename(()=>filenames)
-    console.log('name of file', filenames)
   };
 
   const handleUpgradeChange = (event) => {
@@ -661,7 +596,7 @@ function PostProjectForm1({ handleNextClick }) {
         }));
       }
 
-      if(selectedCategory === null){
+      if(selectedCategory?.slug === null){
         setErrorMessage((prevState) => ({
           ...prevState,
           ['category']: 'Please select a category',
@@ -716,6 +651,7 @@ function PostProjectForm1({ handleNextClick }) {
       }
 
       if(projectBudget !== null){
+        let budgetArr = projectBudget.split('-');
         setErrorMessage((prevState) => ({
           ...prevState,
           ['projectBudget']: null,
@@ -726,7 +662,7 @@ function PostProjectForm1({ handleNextClick }) {
         }));
         setProjectData((prevState) => ({
           ...prevState,
-          ['projectBudget']: projectBudget,
+          ['projectBudget']: budgetArr,
         }));
       }
       else{
@@ -820,18 +756,29 @@ function PostProjectForm1({ handleNextClick }) {
       const bidData = {
         title: projectData.title,
         description: projectData.projectDescription,
-        budget: parseInt(projectData.projectBudget),
+        city: projectData.location,
+        country: 'United Arab Emirates',
+        // deliveryDate: projectData.projectDate,
+        minBudget: projectData.projectBudget[0],
+        maxBudget: projectData.projectBudget.length > 1 ? projectData.projectBudget[1] : '',
+        deliveryDays: projectData.deliveryDays,
+        numDeliverables: projectData.deliverables,
+        isFeatured: projectData.upgrades.featured,
+        isUrgent: projectData.upgrades.urgent,
         status: 1,
+        categories: [selectedCategory?.id],
+        skills: projectData.skills,
         client: clientId
       }
-      console.log('push to api',bidData)
       if(clientId){
         addBidData(bidData).then((res)=>{
-          if(res.data) console.log(res.data)
+          if(res.data){ 
+            handleNextClick(true);
+          }
         })
       }
       
-      handleNextClick(true);
+      // 
     }else {
       setOpen(true);
     }
@@ -876,12 +823,12 @@ function PostProjectForm1({ handleNextClick }) {
         </Text>
         <Grid item xs={12}>
           <CategoriesList>
-            {categories.data.map((category, id) => {
+            {categories.map((category, id) => {
               return (
                 <CategoryItem
                   key={'category-item-' + id}
-                  className={selectedCategory === category.key ? 'active' : ''}
-                  onClick={() => getCategorySkills(category)}
+                  className={selectedCategory?.slug === category.slug ? 'active' : ''}
+                  onClick={() => getCategorySkills2(category)}
                 >
                   <ImageContainer className="icon-img-box">
                     <Image
@@ -912,10 +859,10 @@ function PostProjectForm1({ handleNextClick }) {
               {selectedSkills.map((skill, id) => {
                 return (
                   <StyledStaticPill key={'category-skill-' + id}>
-                    {skill}
+                    {skill?.title}
                     <StyledCloseIcon
                       variant="red"
-                      onClick={() => onSkillClick(skill)}
+                      onClick={() => onSkillClick(skill?.id)}
                     />
                   </StyledStaticPill>
                 );

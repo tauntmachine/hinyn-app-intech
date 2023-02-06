@@ -11,25 +11,6 @@ function Registration() {
     if(reason !== 'backdropClick') setOpen(false);
   };
 
-  // const handleLoginUser = async (clientData) => {
-  //   return loginUser(clientData).then((response)=>{
-  //     if(response.status === true) return response.data;
-  //     else{
-  //       setMessage(response.data);
-  //       setOpen(true);
-  //     }
-  //     return false;
-  //   })
-  // }
-
-
-  // useEffect(()=>{
-  //   handleLoginUser(clientData).then((res)=>{
-  //     if(res?.jwt) router.push("/registration&id="+res.user.id);
-  //   });  
-  // },[])
-
-
 
   const handleSubmit = () => {
     console.log('submitted')

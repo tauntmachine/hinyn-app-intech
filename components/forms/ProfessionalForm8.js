@@ -111,7 +111,6 @@ function ProfessionalForm8({handleNextClick}){
           const clientData = {
             uploadedFiles: isValid.form
             };
-            console.log('clientdat',clientData)
             handleNextClick(true);
         }else{
             setOpen(true)

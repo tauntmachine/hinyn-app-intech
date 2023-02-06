@@ -10,7 +10,7 @@ import RegistrationForm from "../forms/RegistrationForm";
 import Modal from "../shared/Modal";
 import Logo from "../shared/Logo";
 import LoginForm from "../forms/LoginForm";
-import { getClientData, logoutUser } from "../forms/formService";
+import { getClientData, getClients, logoutUser } from "../forms/formService";
 
 
 const CustomGlobeIcon = styled(FiGlobe)`
@@ -60,10 +60,10 @@ function Header() {
   const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
-    console.log(localStorage.getItem('hinyn-cjwt'), 'local')
     if(localStorage.getItem('hinyn-cjwt')){ setIsLoggedIn(()=>true);}
     else setIsLoggedIn(()=>false);
-  }, [])
+
+  }, [isLoggedIn])
 
 
   const toggleIsExpanded = () => {
@@ -75,7 +75,6 @@ function Header() {
     setOpen(false);
   };
   const handleSubmit = () => {
-    console.log('Submitted form!'); 
     handleClose();
   }
 

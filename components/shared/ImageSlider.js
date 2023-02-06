@@ -21,8 +21,6 @@ const ImageSlider = ({images}) => {
     spaceBetween={40}
     slidesPerView={4}
     loop={true}
-    onSlideChange={() => console.log('slide change')}
-    onSwiper={(swiper) => console.log(swiper)}
   >
     {images.map((image,idx)=> (
         <SwiperSlide key={"img-"+idx}>

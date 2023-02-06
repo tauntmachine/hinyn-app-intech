@@ -157,8 +157,6 @@ const BidFreelancerForm = ({handleBidSubmit,data}) => {
             isValid.form = true; 
         }
 
-        console.log(enteredBidAmount,enteredBidDescription,isValid.form)
-
         if(isValid.form){
           const clientData = {
             bidAmount: enteredBidAmount,

@@ -1,5 +1,5 @@
 import { Box,Grid, Container} from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { MdKeyboardBackspace } from "react-icons/md";
 import Text, { SmallText } from "../shared/Typography";
@@ -9,6 +9,9 @@ import StarRating from "../shared/StarRating";
 import Details from "../shared/projectDetails/Details";
 import Proposals from "../shared/projectDetails/Proposals";
 import Link from "next/link";
+import { getBidData } from "../forms/formService";
+import { useRouter } from "next/router";
+import moment from "moment";
 
 const HeaderContainer = styled.div`
   background: #4AA398;
@@ -151,7 +154,21 @@ const CustomGreenButton = styled(GreenButton)`
 
 
 const ProjectDetailsSection = ({projectId}) => {
+  const router = useRouter();
   const [currentTab, setCurrentTab] = useState(0);
+  const [bidData, setBidData] = useState({});
+  const [clientData, setClientData] = useState({});
+  const { project } = router.query
+
+  useEffect(()=>{
+    getBidData(project).then((res)=>{
+      if(res?.data?.data){ 
+        let temp = {"id":res?.data?.data?.id, ...res?.data?.data?.attributes};
+        setBidData(()=> temp)
+        setClientData(()=> temp?.client?.data?.attributes)
+      }
+    })
+  },[])
 
   const tabs = ['Details', 'Proposals'];
 
@@ -239,15 +256,15 @@ const ProjectDetailsSection = ({projectId}) => {
                     <TitleWrapper>
                       <Box>
                           <Row sx={{justifyContent:'space-between'}}>
-                              <Title color="red">{projectDetails?.title}</Title>
+                              <Title color="red">{bidData?.title}</Title>
                               <Column>
-                                  <Text color="green">{projectDetails?.bid?.min} - {projectDetails?.bid?.max} {projectDetails?.bid?.currency}</Text>
-                                  <Text>{projectDetails?.bid.endDate}</Text>
+                                  <Text color="green">{bidData?.minBudget} - {bidData?.maxBudget === 0 ? '' : bidData?.maxBudget } {bidData?.currency ?? 'AED'}</Text>
+                                  <Text>{moment(bidData?.createdDate).format('DD-MMM-YYYY')}</Text>
                               </Column>
                           </Row>
                           <VerticalDivider />
                           <Row>
-                            <SmallText>Project ID {projectDetails?.id}</SmallText>
+                            <SmallText>Project ID {bidData?.id}</SmallText>
                           </Row>
                       </Box>
                       <Row>
@@ -262,8 +279,8 @@ const ProjectDetailsSection = ({projectId}) => {
                   </ContentBox>
                   <ContentBox className="main-wrapper">
                     {currentTab === 0 
-                    ? <Details projectId={projectDetails?.id} userDetails={userDetails}></Details>
-                    : <Proposals projectId={projectDetails?.id}></Proposals>
+                    ? <Details userDetails={userDetails} bidData={bidData}></Details>
+                    : <Proposals projectId={bidData?.id}></Proposals>
                     }
                   </ContentBox>
                 </Grid> 
@@ -276,18 +293,18 @@ const ProjectDetailsSection = ({projectId}) => {
                   <ContentBox className="main-wrapper">
                     <SideboxWrapper>
                       <Row>
-                        <Text color="red">{projectDetails?.client?.name}</Text>
+                        <Text color="red">{clientData?.firstName} {clientData?.lastName}</Text>
                       </Row>
                       <Row sx={{alignItems:"center"}}>
                         <CustomLocationIcon color="green"/>
-                        <Text>{projectDetails?.client?.location}</Text>
+                        <Text>{clientData?.city} {clientData?.country ?? 'United Arab Emirates'}</Text>
                       </Row>
                       <Row sx={{gap:'1rem'}}>
                         <StarRating data={projectDetails?.client?.rating} sz="lg"/>
                         <div>( {projectDetails?.client?.ratingNUmber} )</div>
                       </Row>
                       <Row>
-                        <Text>Member since {projectDetails?.client?.memberSince}</Text>
+                        <Text>Member since {moment(clientData?.createdDate).format('MMM YYYY')}</Text>
                       </Row>
                       <VerticalDivider />
                       <Text color="green" sx={{fontSize:'16px'}}>Client Verification</Text>

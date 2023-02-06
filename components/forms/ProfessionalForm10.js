@@ -5,6 +5,7 @@ import Text from '../shared/Typography';
 import Button from '../shared/Button';
 import Modal from '../shared/Modal';
 import { BackIcon, LockIcon } from '../shared/Icon';
+import { useRouter } from 'next/router';
 
 
 const StyledButton = styled(Button)`
@@ -52,44 +53,15 @@ const PaymentContainer = styled.div`
 function ProfessionalForm10({handleNextClick}){
 
   const [open, setOpen] = useState(false);
+  const router = useRouter();
   const handleClose = () => {
     setOpen(false);
   };
 
-  const data = {
-    firstName : 'Samanta',
-    email: 'test@email.com'
+  const submitHandler = (e) =>{
+    e.preventDefault();
   }
 
-    const [isValid, setValid] = useState({
-      "description":false,
-      "form":false,
-    });
-    const [errorMessage, setErrorMessage] = useState({
-        "description":null,
-    });
-    const descriptionInputRef = useRef();
-
-
-    function submitHandler(event){
-        event.preventDefault();
-        const enteredDescription = descriptionInputRef.current.value;
-
-        
-        if(enteredDescription && enteredDescription !== ''){
-            isValid.form = true; 
-        }
-
-        if(isValid.form){
-          const clientData = {
-            description: enteredDescription,
-            };
-            console.log('clientdat',clientData)
-            handleNextClick(true);
-        }else{
-            setOpen(true)
-        }
-    }
       
 
     return (

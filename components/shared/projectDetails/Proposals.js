@@ -6,6 +6,10 @@ import { LocationIcon } from "../Icon";
 import StarRating from "../StarRating";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { useEffect, useState } from "react";
+import { getBidData, getBidProposals, getProposals } from "../../forms/formService";
+import { useRouter } from "next/router";
+
 
 const MainWrapper = styled.div`
   padding: 2.5rem 5rem;
@@ -64,6 +68,7 @@ const GrayText = styled(Text)`
 `
 
 const Proposals = ({projectId}) => {
+    const router = useRouter();
  const projectDetails = {
     id: "1235670808857",
     bidders:[
@@ -165,13 +170,13 @@ const Proposals = ({projectId}) => {
 
   return (    
     <MainWrapper>
-        {projectDetails?.bidders.map((bidder,idx)=> {
+        {projectDetails.bidders.map((bidder,idx)=> {
             return <ProjectContainer key={'project-bid-'+idx}>
                 <Row sx={{gap:'2rem'}}>
                     <Column>
                         <ImageContainer>
                             <StyledImage
-                            src={imgPath+bidder?.photo}
+                            src={bidder?.client?.displayPhoto ? imgPath+bidder?.client?.displayPhoto : imgPath+'img-avatar2.png'}
                             layout="fill"
                             alt="icon-img"
                             />

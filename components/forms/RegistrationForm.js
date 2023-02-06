@@ -10,7 +10,7 @@ import Modal from '../shared/Modal';
 import Axios from 'axios';
 Axios.defaults.withCredentials = true;
 import {origin} from "../../src/config";
-import {loginUser, registerUser,addClientData} from "../forms/formService";
+import {loginUser, registerUser,addClientData, logoutUser} from "../forms/formService";
 
 const Logo = styled.div`
   position: relative;
@@ -181,8 +181,9 @@ function RegistrationForm(){
     };
 
     const handleRegisterUser = async (clientData) => {
+      logoutUser();
       return registerUser(clientData).then((response)=>{
-        if(response.status === true){ 
+        if(response.status === true){
           handleLoginUser(clientData).then((res)=>{
             if(res?.jwt){ 
               localStorage.setItem('hinyn-uid',res.user.id);

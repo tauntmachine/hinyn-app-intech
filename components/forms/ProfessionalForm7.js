@@ -68,7 +68,6 @@ function ProfessionalForm7({handleNextClick}){
           const clientData = {
             otpNumber: enteredOtpNumber
             };
-            console.log('clientdat',clientData)
             handleNextClick(true);
         }else{
             setOpen(true)

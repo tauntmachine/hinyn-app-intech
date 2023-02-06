@@ -6,6 +6,7 @@ import Button from '../shared/Button';
 import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
 import { BackIcon } from '../shared/Icon';
+import { updateClientData } from './formService';
 
 
 const StyledButton = styled(Button)`
@@ -67,29 +68,25 @@ function ProfessionalForm3({handleNextClick}){
     });
     const descriptionInputRef = useRef();
 
-    const handleBroadDescriptionChange = (event) => {
-        // setBroadDescription(()=>event.current.value);
-        console.log('onchange here',event)
-    }
-
 
     function submitHandler(event){
         event.preventDefault();
         const enteredDescription = descriptionInputRef.current.value;
-        console.log(enteredBroadDescription,enteredDescription, '<=======')
-
         
         if(enteredDescription && enteredBroadDescription && (enteredDescription !== '' && enteredBroadDescription !== '')){
             isValid.form = true; 
         }
 
         if(isValid.form){
+          const clientId = localStorage.getItem('hinyn-cid');
           const clientData = {
-            description: enteredDescription,
-            broadDescription: enteredBroadDescription,
+            description: enteredBroadDescription,
+            headline: enteredDescription,
             };
-            console.log('clientdat',clientData)
-            handleNextClick(true);
+            updateClientData(clientData, clientId).then((result)=>{
+              if(result?.data) handleNextClick(true);
+            });
+            
         }else{
             setOpen(true)
         }
@@ -136,7 +133,6 @@ function ProfessionalForm3({handleNextClick}){
               <Grid container spacing={2} sx={{marginBottom:'2rem'}}>
                 <Grid item xs={12}>
                 <StyledTextArea
-                    rowsMin={3}
                     placeholder=''
                     defaultValue={enteredBroadDescription}
                     id='broadDescription'

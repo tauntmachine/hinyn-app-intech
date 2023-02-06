@@ -125,7 +125,6 @@ function Filter() {
     setOpen(false);
   };
   const handleSubmit = () => {
-    console.log('Submitted form!'); 
     handleClose();
   }
 

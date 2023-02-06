@@ -14,7 +14,7 @@ import Image from 'next/image';
 import LogoImage from '/public/assets/img/logo-hinyn.svg';
 import { BackIcon } from '../shared/Icon';
 import Modal from '../shared/Modal';
-import {updateUserUsername, addProfessionalUser, addClientData} from "../../components/forms/formService";
+import {updateUserUsername, addClientData, updateUserData} from "../../components/forms/formService";
 
 const Logo = styled.div`
   position: relative;
@@ -66,7 +66,6 @@ function UsernameForm({ onUsernameSubmit }) {
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredUsername = usernameInputRef.current.value;
-    console.log(enteredUsername, isValid.username);
 
     if (enteredUsername && isValid.username) {
       isValid.form = true;
@@ -89,7 +88,13 @@ function UsernameForm({ onUsernameSubmit }) {
       });
       updateUserUsername(clientData).then((result)=>{
         if(result.status){ 
-          onUsernameSubmit(clientData);
+          const clientId = localStorage.getItem('hinyn-cid');
+          updateUserData(clientId).then((res)=>{
+            if(res?.data){
+              onUsernameSubmit(clientData);
+            }
+          });
+         
         }
       })
     } else {

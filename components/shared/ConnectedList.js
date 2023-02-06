@@ -5,6 +5,9 @@ import Text from "./Typography";
 import Pill from "./Pill";
 import StarRating from "./StarRating";
 import { GreenButton } from "./Button";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { getLoggedInUserData } from "../forms/formService";
 
 const ProjectContainer = styled(Box)`
     display: flex;
@@ -40,12 +43,20 @@ const Desc = styled.div`
 `
 
 const ConnectedList = ({projects}) => {
-
   const router = useRouter();
+  const [accountType, setAccountType] = useState({});
 
   const showProjectDetails = (projectId) => {
     router.push('/dashboard?screen=details&project='+projectId)
   }
+
+  useEffect(()=>{
+    getLoggedInUserData().then((res)=>{
+        if(res?.data?.client){
+            setAccountType(()=>res?.data?.client?.accountType)
+        }
+    })
+  },[])
   return (
     <Box>
         {projects.map((project,idx)=> {
@@ -53,34 +64,45 @@ const ConnectedList = ({projects}) => {
                 <Row sx={{justifyContent: 'space-between'}}>
                     <Column>
                         <Title>{project?.title}</Title>
-                        <SmallText>{project?.bidPrice?.max}{project?.bidPrice?.currency}</SmallText>
+                            {(project?.minBudget === 1 && project.maxBudget === 0) 
+                            ? <SmallText>Free Collaboration</SmallText> 
+                            : <SmallText>{project?.minBudget} - {project?.maxBudget}</SmallText>
+                            }
+                            
                     </Column>
-                    <Box sx={{gap:'1rem', display:'flex'}}>
+                    <Box sx={{gap:'1rem', display:'flex', alignItems: 'flex-start'}}>
                         <Column>
-                            <SmallText><b>{project?.bids} Bids</b></SmallText>
+                            <SmallText><b>{project?.bids ?? '0'} Bids</b></SmallText>
                         </Column>
                         <Column sx={{alignItems:'flex-end'}}>
-                            <Text color="green">${project?.bidPrice?.average} {project?.bidPrice?.currency}</Text>
+                            <Text color="green">${project?.bidPrice?.average ?? '100'} AED</Text>
                             <SmallText color="green">Average Bid</SmallText>
                         </Column>
                     </Box>
                 </Row>
                 <Row>
-                    <Desc>{project?.desc}</Desc>
+                    <Desc>{project?.description}</Desc>
                 </Row>
                 <Row sx={{columnGap:'8px'}}>
-                    {project?.categories?.map((category,id)=>{
-                        return <Pill key={'pill'+id} color="green">{category}</Pill>
-                    })}
+                    {project?.categories 
+                        ? project?.categories?.data.map((category,id)=>{
+                            return <Pill key={'pill'+id} color="green">{category?.attributes?.title}</Pill>       
+                            })
+                        : <Pill key={'pill-'} color="green">Photography</Pill>
+                }
                 </Row>
-                <Row sx={{justifyContent:'space-between',alignItems:'center'}}>
+                <Row sx={{justifyContent:'space-between',alignItems:'flex-start'}}>
                     <Row sx={{columnGap:'16px'}}>
-                        <StarRating data={project?.rating} sz="lg"/>
-                        <SmallText>{project?.timestamp}</SmallText>
+                        <StarRating data={project?.rating ?? 3} sz="lg"/>
+                        <SmallText>{moment(project?.createdDate).format('DD-MMM-YYYY')}</SmallText>
                     </Row>
-                    <Row>
-                        <GreenButton size="small" onClick={()=>showProjectDetails(project.id)}>Place a bid</GreenButton>
-                    </Row>
+                    {accountType && accountType === 1 
+                        ? <Row>
+                            <GreenButton size="small" onClick={()=>showProjectDetails(project?.id)}>Place a bid</GreenButton>
+                        </Row>
+                        :null 
+                    }
+                    
                 </Row>
             </ProjectContainer>
         })}

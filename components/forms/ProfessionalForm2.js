@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   CssBaseline,
   Grid,
@@ -14,7 +14,7 @@ import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
 import { BackIcon, SearchIcon, RightArrowIcon } from '../shared/Icon';
 import ScrollableTable from '../shared/ScrollableTable';
-import { addProfessionalCategoriesData, updateClientData } from './formService';
+import { addProfessionalCategoriesData, getCategories, getSkills, updateClientData } from './formService';
 
 const StyledButton = styled(Button)``;
 
@@ -50,187 +50,42 @@ const HR = styled.div`
   border-bottom: 1px solid #b7b7b750;
 `;
 
-const categories = {
-  data: [
-    {
-      key: 'photographer',
-      icon: 'icn-photographer.svg',
-      title: 'Photographer',
-    },
-    {
-      key: 'videographer',
-      icon: 'icn-videographer.svg',
-      title: 'Videographer',
-    },
-    {
-      key: 'editor',
-      icon: 'icn-editor.svg',
-      title: 'Editor',
-    },
-    {
-      key: 'stylist',
-      icon: 'icn-stylist.svg',
-      title: 'Stylist',
-    },
-    {
-      key: 'makeup-artist',
-      icon: 'icn-makeupArtist.svg',
-      title: 'Makeup Artists',
-    },
-    {
-      key: 'hair-stylist',
-      icon: 'icn-makeupArtist-1.svg',
-      title: 'Hair Stylists',
-    },
-    {
-      key: 'model',
-      icon: 'icn-hairStylist.svg',
-      title: 'Models',
-    },
-    {
-      key: 'studio-location',
-      icon: 'icn-models.svg',
-      title: 'Studio/Location',
-    },
-  ],
-};
-
-const category_skills = {
-  data: [
-    {
-      key: 'photographer',
-      skills: [
-        'Fashion',
-        'Beauty',
-        'Lifestyle',
-        'Corporate',
-        'E-commerce',
-        'Watches / Jewelry',
-        'Products',
-        'Cars',
-        'Sports',
-        'Wedding',
-        'Event',
-        'Kids / Baby',
-        'Animal',
-        'Architecture / Real estate',
-        'Food',
-        'Other',
-      ],
-    },
-    {
-      key: 'videographer',
-      skills: [
-        'Drone operator',
-        'Fashion',
-        'Beauty',
-        'Lifestyle',
-        'Corporate',
-        'E-commerce',
-        'Watches / Jewelry',
-        'Products',
-        'Cars',
-        'Sports',
-        'Wedding',
-        'Event',
-        'Kids / Baby',
-        'Animal',
-        'Architecture / Real estate',
-        'Food',
-        'Other',
-      ],
-    },
-    {
-      key: 'editor',
-      skills: ['General', 'Special effects', 'Animation / 3D', 'Other'],
-    },
-    {
-      key: 'stylist',
-      skills: [
-        'Fashion',
-        'Beauty',
-        'Lifestyle',
-        'Sports',
-        'E-commerce',
-        'Watches / Jewelry',
-        'Wedding',
-        'Event',
-        'Kids / Baby',
-        'Other',
-      ],
-    },
-    {
-      key: 'makeup-artist',
-      skills: [
-        'Cinema',
-        'Fashion',
-        'Beauty',
-        'Lifestyle',
-        'E-commerce',
-        'Wedding',
-        'Event',
-        'Kids / Baby',
-        'Other',
-      ],
-    },
-    {
-      key: 'hair-stylist',
-      skills: [
-        'Cinema',
-        'Fashion',
-        'Beauty',
-        'Lifestyle',
-        'E-Commerce',
-        'Wedding',
-        'Event',
-        'Kids / Baby',
-        'Other',
-      ],
-    },
-    {
-      key: 'model',
-      skills: [
-        'Fashion',
-        'Beauty',
-        'Lifestyle',
-        'E-commerce',
-        'Watches / Jewelry',
-        'Cars',
-        'Sports',
-        'Wedding',
-        'Event',
-        'Kids / Baby',
-        'Other',
-      ],
-    },
-    {
-      key: 'studio-location',
-      skills: ['Studio', 'House', 'Restaurant', 'Other'],
-    },
-  ],
-};
 
 function ProfessionalForm2({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
+  const [categories,setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [categorySkills, setCategorySkills] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
 
-  const onCategoryClick = (category) => {
-    setSelectedCategory(() => category);
-    getCategorySkills(category);
+  useEffect(()=>{
+    setCategories(()=>[])
+    getCategories().then((result)=>{
+      if(result?.data){
+        result?.data?.data.map((item)=>{
+          let temp = {"id":item.id}
+          setCategories((prev => prev.concat({...item.attributes,...temp})));
+        })
+      }
+    });
+   
+  },[])
+
+  const onCategoryClick = (categoryId) => {
+    setSelectedCategory(() => categoryId);
+    getCategorySkills(categoryId);
     setSelectedSkills(()=>[])
   };
 
-  const onSkillClick = (category) => {
-    if (selectedSkills.find((skill) => skill === category))
+  const onSkillClick = (selectedSkill) => {
+    if (selectedSkills.find((skill) => skill?.id === selectedSkill?.id))
       setSelectedSkills((prevData) =>
-        prevData.filter((skill) => skill !== category)
+        prevData.filter((skill) => skill?.id !== selectedSkill?.id)
       );
-    else setSelectedSkills((prevData) => prevData.concat(category));
+    else setSelectedSkills((prevData) => prevData.concat(selectedSkill));
   };
 
   const [isValid, setValid] = useState({
@@ -257,24 +112,27 @@ function ProfessionalForm2({ handleNextClick }) {
     if (isValid.form) {
         const clientId = localStorage.getItem('hinyn-cid');
         const data = {
-            headline: selectedCategory.key,
-            skills: "fashion,beauty",
-            client: clientId,
+            categories: [selectedCategory],
+            skills: selectedSkills.map((skill) => skill.id),
         };
-     
-        addProfessionalCategoriesData(data).then((res)=>{
-            console.log('res',res)
-            if(res) handleNextClick(true);
-        });
+
+        updateClientData(data,clientId).then((result)=>{
+            if(result?.data) handleNextClick(true);
+        })
     } else {
       setOpen(true);
     }
   }
 
-  function getCategorySkills(category) {
-    setCategorySkills(() =>
-      category_skills.data.filter((res) => res.key === category.key)
-    );
+  const getCategorySkills = (categoryId) => {
+    setCategorySkills(()=>[]);
+    getSkills(categoryId).then((result)=>{
+      const temp = result?.data?.data?.attributes?.skills?.data ?? [];
+        temp.map((item)=>{
+          let skillId = {"id":item.id}
+          setCategorySkills((prev => prev.concat({...item.attributes, ...skillId})));
+        });
+    })
   }
 
   return (
@@ -328,7 +186,7 @@ function ProfessionalForm2({ handleNextClick }) {
         <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
           <Grid item xs={12} md={4}>
             <ScrollableTable
-              data={categories.data}
+              data={categories}
               title="Select a Category"
               startAdornment={'icon'}
               endAdornment={'right-arrow'}
@@ -338,7 +196,7 @@ function ProfessionalForm2({ handleNextClick }) {
           </Grid>
           <Grid item xs={12} md={4}>
             <ScrollableTable
-              data={categorySkills[0]?.skills}
+              data={categorySkills}
               title="Select Skills for Category"
               type="category_skills"
               category={selectedCategory}

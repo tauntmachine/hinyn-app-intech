@@ -50,7 +50,6 @@ export default function Dropdown({
 
   const handleChange = (event) => {
     setSelected(event.target.value);
-    console.log(event.target.value);
     if (setHandleOnChange) setHandleOnChange(event.target.value);
   };
 

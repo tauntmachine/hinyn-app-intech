@@ -6,6 +6,7 @@ import Button from '../shared/Button';
 import Modal from '../shared/Modal';
 import { BackIcon } from '../shared/Icon';
 import {SquareTextField} from '../shared/Textfield';
+import { router, useRouter } from 'next/router';
 
 
 const StyledButton = styled(Button)`
@@ -73,8 +74,8 @@ const Card2 = styled(Card)`
   padding:30px 0 30px 15%;
 `
 
-function VerifyPaymentForm1({handleNextClick}){
-
+function VerifyPaymentForm1(){
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -129,8 +130,7 @@ function VerifyPaymentForm1({handleNextClick}){
             cardName: enteredCardName,
             cvvNumber: enteredCvvNumber,
             };
-            console.log('clientdat',clientData)
-            handleNextClick(true);
+            router.push('/dashboard');
         }else{
             setOpen(true)
         }

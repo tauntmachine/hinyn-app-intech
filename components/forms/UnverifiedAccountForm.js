@@ -80,7 +80,6 @@ function UnverifiedAccountForm({handleNextClick}){
           const clientData = {
             description: enteredDescription,
             };
-            console.log('clientdat',clientData)
             handleNextClick(true);
         }else{
             setOpen(true)

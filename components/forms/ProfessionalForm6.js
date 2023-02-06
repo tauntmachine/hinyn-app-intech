@@ -9,6 +9,7 @@ import PhoneInput from 'react-phone-number-input';
 import { isPossiblePhoneNumber , parsePhoneNumber} from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import {css} from '@emotion/css';
+import { updateClientData } from './formService';
 
 
 const StyledButton = styled(Button)`
@@ -91,19 +92,19 @@ function ProfessionalForm6({handleNextClick}){
 
     function submitHandler(event){
         event.preventDefault();
-        console.log('the selected', mobileNumber)
-
         
         if(mobileNumber && mobileNumber !== null){
             isValid.form = true; 
         }
 
         if(isValid.form){
-          const clientData = {
-            mobileNumber: mobileNumber
+            const clientId = localStorage.getItem('hinyn-cid');
+            const clientData = {
+              mobileNumber: mobileNumber.toString()
             };
-            console.log('clientdat',clientData)
-            handleNextClick(true);
+            updateClientData(clientData, clientId).then((result) => {
+              if (result?.data) handleNextClick(true);
+            });
         }else{
             setOpen(true)
         }

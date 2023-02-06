@@ -10,6 +10,7 @@ import Modal from "../Modal";
 import BidOnProjectForm from "../../forms/BidOnProjectForm";
 import { Container } from "@mui/system";
 import { CautionIcon, CheckIcon } from "../Icon";
+import moment from "moment";
 
 const VerticalDivider = styled.div`
   height: 1rem;
@@ -68,33 +69,8 @@ const GrayText = styled(Text)`
     color: #949494;
 `
 
-const Details = ({ projectId,userDetails }) => {
+const Details = ({userDetails,bidData }) => {
     const projectDetails = {
-        id: "1235670808857",
-        title: "Kate and Joe's Wedding",
-        bid: {
-            min: 500,
-            max: 600,
-            currency: 'USD',
-            endDate: '10/01/2023',
-            numBids: 76
-        },
-        requirements: {
-            categoryKey: 'photographer',
-            skills: [
-                "Fashion", "Beauty", "Lifestyle", "Wedding"
-            ],
-            languages: [
-                "English", "Arabic"
-            ]
-        },
-        location: "Fairmont, The Palm, Dubai, United Arab Emirates",
-        eventDate: "November 7, 2023",
-        budget: {
-            amount: 500,
-            currency: 'USD'
-        },
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum",
         attachments: [
             "project-temp-1.jpeg",
             "project-temp-2.jpeg",
@@ -103,26 +79,7 @@ const Details = ({ projectId,userDetails }) => {
             "project-temp-5.jpeg",
             "project-temp-6.jpeg",
             "project-temp-7.jpeg",
-        ],
-        deliverables: "5000 pictures",
-        deadline: '30/01/2023',
-        client: {
-            name: "Joe Addams",
-            location: "Dubai, United Arab Emirates",
-            rating: 4,
-            ratingNUmber: 16,
-            memberSince: 'November 2020',
-            verified: [
-                "Identity Verified",
-                "Payment Verified",
-                "Deposit Made",
-                "Email Verified",
-                "Profile Completed",
-            ],
-            unverified: [
-                "Phone Verified"
-            ]
-        }
+        ]
     }
 
     const modalTexts = {
@@ -148,12 +105,11 @@ const Details = ({ projectId,userDetails }) => {
         if (openFinishModal) setOpenFinishModal(false);
     };
 
-    const handleSubmit = (clientData) => {
-        console.log('submitted', clientData)
-        if (clientData && clientData?.isSuccess) {
+    const handleSubmit = (isSuccess) => {
+        if (isSuccess) {
             setOpen(false);
             setOpenSuccessModal(true);
-            setOpenFinishModal(true);
+            // setOpenFinishModal(true);
         }
     }
 
@@ -170,21 +126,21 @@ const Details = ({ projectId,userDetails }) => {
                     <DescTitle>Looking for</DescTitle>
                 </Row>
                 <Row>
-                    <PillWithIcon color="green" bg="transparent" category={projectDetails?.requirements?.categoryKey} />
+                    <PillWithIcon color="green" bg="transparent" category={bidData?.categories?.data[0]?.attributes?.slug} />
                 </Row>
                 <Row>
                     <DescTitle>Skills required for this project</DescTitle>
                 </Row>
                 <Row sx={{ gap: '1rem', flexWrap: 'wrap' }}>
-                    {projectDetails?.requirements?.skills.map((skill, idx) => {
-                        return <StaticPill bg="green" key={'skill-reqd-' + idx}>{skill}</StaticPill>
+                    {bidData?.skills?.data?.map((skill, idx) => {
+                        return <StaticPill bg="green" key={'skill-reqd-' + idx}>{skill?.attributes?.title}</StaticPill>
                     })}
                 </Row>
                 <Row>
                     <DescTitle>Languages required for this project</DescTitle>
                 </Row>
                 <Row sx={{ gap: '1rem', flexWrap: 'wrap' }}>
-                    {projectDetails?.requirements?.languages.map((lang, idx) => {
+                    {['English'].map((lang, idx) => {
                         return <StaticPill bg="green" key={'lang-reqd-' + idx}>{lang}</StaticPill>
                     })}
                 </Row>
@@ -196,25 +152,25 @@ const Details = ({ projectId,userDetails }) => {
                     <DescTitle>Location</DescTitle>
                 </Row>
                 <Row className="green-bg">
-                    {projectDetails?.location}
+                    {bidData?.city} {bidData?.country ?? 'N/A'} 
                 </Row>
                 <Row>
                     <DescTitle>Event Date</DescTitle>
                 </Row>
                 <Row className="green-bg">
-                    {projectDetails?.eventDate}
+                    {bidData?.deliveryDate ? moment(bidData?.deliveryDate).format('DD-MMM-YYYY') : 'NA'}
                 </Row>
                 <Row>
                     <DescTitle>Budget Range</DescTitle>
                 </Row>
                 <Row className="green-bg">
-                    {projectDetails?.budget?.amount} {projectDetails?.budget?.currency}
+                    {bidData?.minBudget} - {bidData?.maxBudget} AED
                 </Row>
                 <Row>
                     <DescTitle>Description</DescTitle>
                 </Row>
                 <Row className="green-bg">
-                    {projectDetails?.description}
+                    {bidData?.description}
                 </Row>
                 <Row>
                     <DescTitle>Attachments</DescTitle>
@@ -226,13 +182,13 @@ const Details = ({ projectId,userDetails }) => {
                     <DescTitle>Deliverables</DescTitle>
                 </Row>
                 <Row className="green-bg">
-                    {projectDetails?.deliverables}
+                    {bidData?.numDeliverables ?? 0}
                 </Row>
                 <Row>
                     <DescTitle>Deadline</DescTitle>
                 </Row>
                 <Row className="green-bg">
-                    {projectDetails?.deadline}
+                    {bidData?.deliveryDate ?? 'NA'}
                 </Row>
                 <Row sx={{ display: 'flex', justifyContent: 'center' }}>
                    
