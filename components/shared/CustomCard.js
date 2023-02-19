@@ -70,7 +70,6 @@ const HeaderBackground = styled.div`
 
 function CustomCard({data, cardText, handleButtonClick}) {
     let imgsrc = data?.img ? '/assets/img/avatars/'+data.img : '/assets/img/avatars/img-avatar1.png';
-
     const handleClick = (data) => {
         handleButtonClick(data)
     }
@@ -87,7 +86,7 @@ function CustomCard({data, cardText, handleButtonClick}) {
             />
         </ImageContainer>
         <Title>{data?.firstName} {data?.lastName}</Title>
-        <Label variant="green">{data?.category}</Label>
+        <Label variant="green">{data?.category ?? 'Profession'}</Label>
         <StarRating data={data?.rating ?? 3}/>
         {data?.city && 
             <Label>

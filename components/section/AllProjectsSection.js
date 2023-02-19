@@ -41,14 +41,13 @@ const CustomPagination = styled(Pagination)`
 
 const AllProjectsSection = ({handleScreenChange}) => {
   const [searchInput, setSearchInput] = useState("");
-  const {project, filter, setFilter} = useProject();
-
-  console.log("project",project)
+  const {project, projectFilter, setProjectFilter} = useProject();
 
   const handleSearchValue = (e) => {
+    console.log('search this',e.target.value)
     e.preventDefault();
     setSearchInput(e.target.value);
-    setFilter(e.target.value)
+    setProjectFilter(e.target.value)
   };
 
   return (

@@ -78,10 +78,11 @@ interface Project {
 }
 
 const useProjectController = (project : Project[]) =>{
-  const [filter,setFilter] = useState("");
+  const [projectFilter,setProjectFilter] = useState("");
+  // console.log('here in the controller', projectFilter,project)
 
     const checkCategory = (val) => {
-      return val?.categories.some(category=> category.toLowerCase().includes(filter.toLowerCase()))
+      return val?.categories.some(category=> category.toLowerCase().includes(projectFilter.toLowerCase()))
     }
     
     const filteredProject = useMemo(
@@ -89,20 +90,21 @@ const useProjectController = (project : Project[]) =>{
       project && project.map( (p) => { 
         return {"id":p.id, ...p.attributes}
       }).filter((val)=>{
-        return val //val?.title?.toLowerCase().includes(filter.toLowerCase()) || val?.description?.toLowerCase().includes(filter.toLowerCase())
+        // console.log('project map VAL',val?.title)
+        return val?.title?.toLowerCase().includes(projectFilter.toLowerCase()) || val?.description?.toLowerCase().includes(projectFilter.toLowerCase())
         }),
-      [filter, project]
+      [projectFilter, project]
   );
   return {
-    filter,
-    setFilter,
+    projectFilter,
+    setProjectFilter,
     project : filteredProject
 }
 }
 
 const ProjectContext = createContext<ReturnType<typeof useProjectController>>({
-  filter: "",
-  setFilter:()=>{},
+  projectFilter: "",
+  setProjectFilter:()=>{},
   project:[],
 });
 

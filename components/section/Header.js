@@ -54,10 +54,12 @@ const LinkText = styled.div`
 `
 
 
-function Header() {
+const Header = () => {
+
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLoggedIn,setIsLoggedIn] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState({});
+
 
   useEffect(() => {
     if(localStorage.getItem('hinyn-cjwt')){ setIsLoggedIn(()=>true);}
@@ -98,7 +100,7 @@ function Header() {
     <>
     <CustomBox>
       <Head maxWidth="xl">
-        <Logo />
+        <Logo/>
         <SearchBar toggleIsExpanded={toggleIsExpanded} isExpanded={isExpanded}/>
         <LoginContainer>
           <Button onClick={()=>showForm('register')}>Create an account</Button>

@@ -365,14 +365,14 @@ function PostProjectForm1({ handleNextClick }) {
   const deliveryDaysInputRef = useRef();
   const { featured, urgent } = upgrades;
 
-  const onSkillClick = (clickedSkillId) => {
+  const onSkillClick = (clickedSkillId,clickedSkill) => {
     let temp = [];
     if (selectedSkills.find((skill) => skill?.id === clickedSkillId)) {
       temp = selectedSkills.filter((skill) => skill?.id !== clickedSkillId)
-      setSelectedSkills(() => temp);
     } else {
-      temp = selectedSkills.concat(clickedSkillId);
+      temp = selectedSkills.concat(clickedSkill);
     }
+    setSelectedSkills(() => temp);
     setProjectData((prevState) => ({
       ...prevState,
       ['skills']:  temp
@@ -444,45 +444,11 @@ function PostProjectForm1({ handleNextClick }) {
       ['languages']: languages,
     }));
   }
-  //   setCategories(()=>[])
-  //   setSelectedCategory(() => category.key);
-  //   setFilter(category.key);
-  //   setCategorySkills(
-  //     () =>
-  //       category_skills.data.filter((res) => res.key === category.key)[0]
-  //         ?.skills ?? []
-  //   );
-  //   setSelectedSkills(
-  //     () =>
-  //       category_skills.data.filter((res) => res.key === category.key)[0]
-  //         ?.skills ?? []
-  //   );
-  //   setSelectedLanguages(() => languages);
-  //   setErrorMessage((prevState) => ({
-  //     ...prevState,
-  //     ['category']: null,
-  //   }));
-  //   setValid((prevState) => ({
-  //     ...prevState,
-  //     ['category']: true,
-  //   }));
-  //   setProjectData((prevState) => ({
-  //     ...prevState,
-  //     ['category']: category.key,
-  //   }));
-  //   setProjectData((prevState) => ({
-  //     ...prevState,
-  //     ['skills']:  category_skills.data.filter((res) => res.key === category.key)[0]
-  //     ?.skills,
-  //   }));
-  //   setProjectData((prevState) => ({
-  //     ...prevState,
-  //     ['languages']: languages,
-  //   }));
-  // };
+
 
   const onSkillsSearchChange = (e) => {
-    onSkillClick(e.target.textContent);
+    const clickedSkill = categorySkills.find((skill) => skill.title === e.target.textContent)
+    onSkillClick(clickedSkill?.id, clickedSkill);
   };
 
   const onLanguagesSearchChange = (e) => {
@@ -862,7 +828,7 @@ function PostProjectForm1({ handleNextClick }) {
                     {skill?.title}
                     <StyledCloseIcon
                       variant="red"
-                      onClick={() => onSkillClick(skill?.id)}
+                      onClick={() => onSkillClick(skill?.id,skill)}
                     />
                   </StyledStaticPill>
                 );
@@ -872,7 +838,7 @@ function PostProjectForm1({ handleNextClick }) {
               freeSolo
               id="search-skills-input"
               disableClearable
-              options={categorySkills.map((skill) => skill)}
+              options={categorySkills.map((skill) => skill.title)}
               onChange={onSkillsSearchChange}
               renderInput={(params) => (
                 <NoOutlineTextField
