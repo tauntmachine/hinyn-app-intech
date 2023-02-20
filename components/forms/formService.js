@@ -90,6 +90,36 @@ axios.defaults.withCredentials = true;
       });
   };
 
+  export const getBidsOfClient = async () => {
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    const cid = localStorage.getItem('hinyn-cid');
+    return axios.get(
+        origin + "/bids?filters[client][id][$eq]="+cid+"&populate=*",
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+        },
+        {
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error };
+      });
+  };
+
+
 
   export const getBidProposals= async (bidId) => {
     const jwt = localStorage.getItem('hinyn-cjwt');
@@ -569,6 +599,42 @@ export const updateUserData= async (clientId) => {
         return { status: false, data: error };
       });
   };
+
+  export const getProposalsOfClient = async () => {
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    const cid = localStorage.getItem('hinyn-cid');
+    return axios.get(
+        origin + "/proposals?filters[client][id][$eq]="+cid+"&populate=*",
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+        },
+        {
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error };
+      });
+  };
+
+
+
+
+
+
+
 
   
 

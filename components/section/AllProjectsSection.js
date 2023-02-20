@@ -44,7 +44,6 @@ const AllProjectsSection = ({handleScreenChange}) => {
   const {project, projectFilter, setProjectFilter} = useProject();
 
   const handleSearchValue = (e) => {
-    console.log('search this',e.target.value)
     e.preventDefault();
     setSearchInput(e.target.value);
     setProjectFilter(e.target.value)

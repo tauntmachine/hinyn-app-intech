@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Dropdown from "../shared/Dropdown";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { getProposalsOfClient } from "../forms/formService";
+import { getBidsOfClient, getProposalsOfClient } from "../forms/formService";
 import Text from "../shared/Typography";
 
 
@@ -20,9 +20,9 @@ const NoDataContainer = styled.div`
     width: 100%;
 `
 
-const MyProjectsSection = () => {
+const ClientProjectsSection = () => {
     const router = useRouter();
-    const [proposals, setProposals] = useState([]);
+    const [clientBids, setClientBids] = useState([]);
     
     const sortOptions = [
         {
@@ -64,12 +64,12 @@ const MyProjectsSection = () => {
 
 
     useEffect(()=>{
-        getProposalsOfClient().then((res)=>{
-            setProposals(()=>[]);
+        getBidsOfClient().then((res)=>{
+            setClientBids(()=>[]);
             if(res?.data?.data){ 
                 res?.data?.data.map((item)=>{
                     let temp = {"id":item?.id, ...item?.attributes};
-                    setProposals((prevData)=> prevData.concat(temp));
+                    setClientBids((prevData)=> prevData.concat(item));
                 });
             }
         });
@@ -85,14 +85,14 @@ const MyProjectsSection = () => {
         </Container>
         <Container sx={{paddingBottom:'2rem'}} maxWidth="lg">
             <Grid container spacing={4} sx={{marginTop:'0.25rem'}}>
-            {proposals.length > 0 && proposals.map((proposal, idx)=>{
-                return  <Grid key={'project-card-'+idx} item xs={12} sm={6} lg={4} sx={{position:'relative'}}>
-                            <ProjectCard projectDetail={proposal?.bid?.data} budget={proposal?.budget} />
+            {clientBids.length > 0 && clientBids.map((bid, idx)=>{
+                return <Grid key={'project-card-'+idx} item xs={12} sm={6} lg={4} sx={{position:'relative'}}>
+                            <ProjectCard projectDetail={bid} budget={bid?.budget} />
                         </Grid>
             })}
-            { proposals && proposals.length === 0 ? <NoDataContainer><Text color="red">No available data</Text></NoDataContainer> : null }
+            { clientBids && clientBids.length === 0 ? <NoDataContainer><Text color="red">No available data</Text></NoDataContainer> : null }
         </Grid>
-        {proposals && proposals.length > 9
+        {clientBids && clientBids.length > 9
             ?  <Box sx={{display:'flex', justifyContent:"center", marginTop:'3rem'}}>
                     <Stack spacing={2}>
                         <CustomPagination count={10}/>
@@ -105,4 +105,4 @@ const MyProjectsSection = () => {
   )
 }
 
-export default MyProjectsSection;
+export default ClientProjectsSection;

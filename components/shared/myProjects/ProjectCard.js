@@ -5,6 +5,8 @@ import Pill from "../Pill";
 import Text,{GrayText} from "../Typography";
 import {GreenButton} from "../Button";
 import { useRouter } from "next/router";
+import moment from "moment";
+
 
 const StyledCard = styled.div`
     min-height:26rem;
@@ -47,12 +49,13 @@ const VerticalDivider = styled.div`
 `
 
 const StyledPill = styled.div`
+    //status 1-active
     background: ${props => props.status === 'upcoming' ? '#ECF6F5' 
-                            : props.status === 'active' ? '#FDF0EB' 
+                            : (props.status === '1' || props.status === 'active') ? '#FDF0EB' 
                             : props.status === 'completed' ? '#FFEEEF' 
                             :'#F0F0F0'};
     color: ${props => props.status === 'upcoming' ? '#4AA398' 
-                            : props.status === 'active' ? '#E96E3F' 
+                            : (props.status === '1' || props.status === 'active')  ? '#E96E3F' 
                             : props.status === 'completed' ? '#FF5A5F' 
                             :'#7D7E7E'};
     border-radius: 13px;
@@ -66,45 +69,57 @@ const StatusText = styled.div`
 `
 
 
-const ProjectCard = ({data}) => {
-
+const ProjectCard = ({projectDetail, budget}) => {
     const router = useRouter();
 
     const showProjectDetails = (projectId) => {
         router.push('/dashboard?screen=details&project='+projectId)
     }
+
+    const getStatus = (statusNum) => {
+        return statusNum === 1 ? 'active'
+                : (statusNum === 2 ) ? 'upcoming'
+                : (statusNum === 3 ) ? 'completed'
+                : 'active'
+    }
+
+    const formatDate = (date) =>{
+        return date ? moment(date).format('DD MMM YYYY') : '-' ;
+    }
+
   return (
-    <StyledCard status={data?.status}>
+    <StyledCard status={getStatus(projectDetail?.attributes?.status)}>
         <Row sx={{justifyContent: 'center'}}>
-            <StyledPill status={data?.status}>
-                <StatusText> {data?.status} </StatusText>
+            <StyledPill status={getStatus(projectDetail?.attributes?.status)}>
+                <StatusText> {getStatus(projectDetail?.attributes?.status)} </StatusText>
             </StyledPill>
         </Row>
         <Row>
             <Container maxWidth="md">
-                <Text color="red" size="large" align="center"><b>{data?.title}</b></Text>
+                <Text color="red" size="large" align="center"><b>{projectDetail?.attributes?.title ?? 'N/A'}</b></Text>
             </Container>
         </Row>
         <Row sx={{justifyContent: 'center'}}>
-            <GrayText size="small">Project ID {data?.projectId}</GrayText>
+            <GrayText size="small">Project ID {projectDetail?.id ?? '-'}</GrayText>
         </Row>
         <VerticalDivider />
         <Row sx={{justifyContent: 'space-between'}}>
             <Text>Price</Text>
-            <Text color="green">{data?.price} {data?.currency}</Text>
+            <Text color="green">{budget ?? '' } AED</Text>
         </Row>
         <Row sx={{justifyContent: 'space-between'}}>
             <Text>Location</Text>
-            <Text color="green">{data?.location}</Text>
+            <Text color="green">{projectDetail?.attributes?.city ?? ''} {projectDetail?.attributes?.country ?? 'UAE'}</Text>
         </Row>
         <Row sx={{justifyContent: 'space-between'}}>
             <Text>Date</Text>
-            <Text color="green">{data?.date}</Text>
+            <Text color="green">{ formatDate(projectDetail?.attributes?.deliveryDate) ?? ''}</Text>
         </Row>
         <VerticalDivider />
         <Row sx={{justifyContent: 'center'}}>
-            <GreenButton variant="outlined" onClick={()=>showProjectDetails(data?.projectId)}> View Project </GreenButton>
+            <GreenButton variant="outlined" onClick={()=>showProjectDetails(projectDetail?.id)} className={projectDetail?.id ? 'active' : 'disabled'}> View Project </GreenButton>
         </Row>
+       
     </StyledCard>
   )
 }

@@ -47,6 +47,11 @@ export const GreenButton = styled.button`
   }
   &:active{
   }
+
+  &.disabled{
+    pointer-events: none;
+    opacity: 0.5;
+  }
 `
 
 export const GrayButton = styled(Button)`
