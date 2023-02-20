@@ -6,9 +6,9 @@ import { LocationIcon } from "../Icon";
 import StarRating from "../StarRating";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import { useEffect, useState } from "react";
-import { getBidData, getBidProposals, getProposals } from "../../forms/formService";
+import { getBidData, getProposalsOfBid, getProposals } from "../../forms/formService";
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
 
 const MainWrapper = styled.div`
@@ -69,111 +69,34 @@ const GrayText = styled(Text)`
 
 const Proposals = ({projectId}) => {
     const router = useRouter();
- const projectDetails = {
-    id: "1235670808857",
-    bidders:[
-        {
-            name: "Samantha Davis",
-            handle: "@sampleFreelancer",
-            location: "Dubai, United Arab Emirates",
-            rating: 4,
-            category: "Photographer",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque.",
-            photo: "img-avatar2.png",
-            bid:{
-                amount: 520,
-                currency: "USD"
-            }
-        },
-        {
-            name: "Samantha Davis",
-            handle: "@sampleFreelancer",
-            location: "Dubai, United Arab Emirates",
-            rating: 5,
-            category: "Photographer",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque.",
-            photo: "img-avatar2.png",
-            bid:{
-                amount: 590,
-                currency: "USD"
-            }
-        },
-        {
-            name: "Samantha Davis",
-            handle: "@sampleFreelancer",
-            location: "Dubai, United Arab Emirates",
-            rating: 2,
-            category: "Photographer",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque.",
-            photo: "img-avatar2.png",
-            bid:{
-                amount: 500,
-                currency: "USD"
-            }
-        },
-        {
-            name: "Samantha Davis",
-            handle: "@sampleFreelancer",
-            location: "Dubai, United Arab Emirates",
-            rating: 3,
-            category: "Photographer",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque.",
-            photo: "img-avatar2.png",
-            bid:{
-                amount: 500,
-                currency: "USD"
-            }
-        },
-        {
-            name: "Samantha Davis",
-            handle: "@sampleFreelancer",
-            location: "Dubai, United Arab Emirates",
-            rating: 5,
-            category: "Photographer",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque.",
-            photo: "img-avatar2.png",
-            bid:{
-                amount: 650,
-                currency: "USD"
-            }
-        },
-        {
-            name: "Samantha Davis",
-            handle: "@sampleFreelancer",
-            location: "Dubai, United Arab Emirates",
-            rating: 3,
-            category: "Photographer",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque.",
-            photo: "img-avatar2.png",
-            bid:{
-                amount: 600,
-                currency: "USD"
-            }
-        },
-        {
-            name: "Samantha Davis",
-            handle: "@sampleFreelancer",
-            location: "Dubai, United Arab Emirates",
-            rating: 2,
-            category: "Photographer",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque.",
-            photo: "img-avatar2.png",
-            bid:{
-                amount: 500,
-                currency: "USD"
-            }
-        }
-    ]
-  }
+
+    const [proposals, setProposals] = useState([]);
 
  const imgPath = '/assets/img/avatars/';
 
+ useEffect(()=>{
+   
+    getProposalsOfBid(projectId).then((res)=>{
+        setProposals(()=>[]);
+        if(res?.data?.data){ 
+          let temp = res?.data?.data?.attributes?.proposals;
+          if(temp?.data && temp?.data?.length > 0){
+            temp?.data?.map((item)=>{
+                setProposals((prevData)=> prevData.concat(item?.attributes))
+                
+            })
+          }
+        }
+      })
+
+ },[projectId])
   return (    
     <MainWrapper>
-        {projectDetails.bidders.map((bidder,idx)=> {
+        {proposals && proposals.map((proposal,idx)=> {
+            let bidder = proposal?.client?.data?.attributes;
             return <ProjectContainer key={'project-bid-'+idx}>
-                <Row sx={{gap:'2rem'}}>
-                    <Column>
+                <Row sx={{gap:'2rem',width:'100%'}}>
+                    <Column sx={{flexBasis:'10%'}}>
                         <ImageContainer>
                             <StyledImage
                             src={bidder?.client?.displayPhoto ? imgPath+bidder?.client?.displayPhoto : imgPath+'img-avatar2.png'}
@@ -182,35 +105,46 @@ const Proposals = ({projectId}) => {
                             />
                         </ImageContainer>
                     </Column>
-                    <Column>
+                    <Column sx={{flexBasis:'90%'}}>
                         <Row sx={{gap:'14px',justifyContent:'space-between'}}>
-                            <Box>
-                                <Text color="red"><b>{bidder?.name}</b></Text>
-                                <GrayText> ({bidder?.handle}) </GrayText>
+                            <Box sx={{display:'flex'}}>
+                                <Text color="red"><b>{bidder?.firstName} {bidder?.lastName}</b></Text>
+                                <GrayText> {bidder?.instagramProfile ?? ''} </GrayText>
                             </Box>
                             <Box>
-                                <Text color="green"><b>{bidder?.bid?.amount} {bidder?.bid?.currency}</b></Text>
+                                <Text color="green"><b>{proposal?.budget} {proposal.currency ?? 'AED'}</b></Text>
                             </Box>
                         </Row>
                         <Row sx={{gap:'8px'}}>
                             <LocationIcon/>
-                            <GrayText> ({bidder?.location}) </GrayText>
+                            <GrayText> {bidder?.city}, {bidder?.country ?? 'UAE'}</GrayText>
                         </Row>
                         <Row>
-                            <StarRating data={bidder?.rating} sz="lg"/>
+                            <Box sx={{display:'flex'}}>
+                                <StarRating data={bidder?.rating ?? 3} sz="lg"/>
+                                <GrayText> {bidder?.instagramProfile ?? ''} </GrayText>
+                            </Box>
                         </Row>
                         <Row>
-                            <GrayText>{bidder?.description}</GrayText>
+                            <GrayText>{proposal?.description}</GrayText>
                         </Row>
                     </Column>
                 </Row>
             </ProjectContainer>
         })}
-        <Box sx={{display:'flex', justifyContent:'flex-end',marginBottom:'2rem'}}>
-            <Stack spacing={2}>
-                <CustomPagination count={10}/>
-            </Stack>
-        </Box>
+         {
+            (proposals && proposals.length === 0) ? <ProjectContainer><Text color="red">No proposals for this project yet.</Text></ProjectContainer> : null
+         }
+        {
+            (proposals && proposals.length > 9)
+            ?   <Box sx={{display:'flex', justifyContent:'flex-end',marginBottom:'2rem'}}>
+                    <Stack spacing={2}>
+                        <CustomPagination count={10}/>
+                    </Stack>
+                </Box>
+            : null
+        }
+       
     </MainWrapper>
   )
 }

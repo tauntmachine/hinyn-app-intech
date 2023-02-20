@@ -160,12 +160,17 @@ const ProjectDetailsSection = ({projectId}) => {
   const [clientData, setClientData] = useState({});
   const { project } = router.query
 
+
   useEffect(()=>{
     getBidData(project).then((res)=>{
       if(res?.data?.data){ 
         let temp = {"id":res?.data?.data?.id, ...res?.data?.data?.attributes};
         setBidData(()=> temp)
-        setClientData(()=> temp?.client?.data?.attributes)
+        setClientData(()=> temp?.client?.data?.attributes);
+        // if(temp?.client){
+        //   // console.log(temp?.client)
+        //   // temp?.proposals?.data.map((item)=> console.log(item, "------"))
+        // }
       }
     })
   },[])

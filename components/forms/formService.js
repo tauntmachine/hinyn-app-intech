@@ -121,10 +121,10 @@ axios.defaults.withCredentials = true;
 
 
 
-  export const getBidProposals= async (bidId) => {
+  export const getProposalsOfBid = async (bidId) => {
     const jwt = localStorage.getItem('hinyn-cjwt');
     return axios.get(
-        origin + '/bids/'+bidId+"?populate=proposals",
+        origin + "/bids/"+bidId+"?populate[proposals][populate][0]=client",
         {
             headers:{
                 'Accept' : 'application/json',
@@ -576,6 +576,34 @@ export const updateUserData= async (clientId) => {
     const jwt = localStorage.getItem('hinyn-cjwt');
     return axios.get(
         origin + "/proposals?populate=*",
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+        },
+        {
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error };
+      });
+  };
+
+  export const getProposalData= async (proposalId) => {
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    return axios.get(
+        origin + "/proposals/"+proposalId+"?populate=*",
         {
             headers:{
                 'Accept' : 'application/json',

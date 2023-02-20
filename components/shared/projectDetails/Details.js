@@ -98,6 +98,8 @@ const Details = ({userDetails,bidData }) => {
     const [open, setOpen] = useState(false);
     const [openSuccessModal, setOpenSuccessModal] = useState(false);
     const [openFinishModal, setOpenFinishModal] = useState(false);
+    const cid = localStorage.getItem('hinyn-cid');
+    console.log('cid',cid)
 
     const handleClose = (e, reason) => {
         if (open) setOpen(false);
