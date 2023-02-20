@@ -89,8 +89,7 @@ const useProjectController = (project : Project[]) =>{
       () =>
       project && project.map( (p) => { 
         return {"id":p.id, ...p.attributes}
-      }).filter((val)=>{
-        // console.log('project map VAL',val?.title)
+      }).filter((val : Project)=>{
         return val?.title?.toLowerCase().includes(projectFilter.toLowerCase()) || val?.description?.toLowerCase().includes(projectFilter.toLowerCase())
         }),
       [projectFilter, project]
