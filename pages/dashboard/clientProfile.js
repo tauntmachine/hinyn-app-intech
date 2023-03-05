@@ -4,17 +4,16 @@ import ContentBox from "../../components/shared/ContentBox";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import Text, {GrayText} from "../../components/shared/Typography";
-import { LocationIcon, AwardIcon,RoundChatIcon } from "../../components/shared/Icon";
+import { LocationIcon, AwardIcon,RoundChatIcon, CheckSquareIcon } from "../../components/shared/Icon";
 import StarRating from "../../components/shared/StarRating";
 import Footer from "../../components/section/Footer";
-import { StaticPill,PillWithIcon } from "../../components/shared/Pill";
+import { PillWithIcon } from "../../components/shared/Pill";
+import moment from "moment";
+import ReviewBox from "../../components/shared/ReviewBox";
+import { useEffect,useState } from "react";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
 import { getClientData } from "../../components/forms/formService";
 import ImageSlider from "../../components/shared/ImageSlider";
-import ReviewBox from "../../components/shared/ReviewBox";
-import { CheckSquareIcon } from "../../components/shared/Icon";
-import moment from "moment";
 
 const Row = styled(Box)`
   display:flex;
@@ -46,10 +45,6 @@ const LeftBorder = styled.div`
   border-left: 1px solid #E96E3F;
 `
 
-const CustomStaticPill = styled(StaticPill)`
-  color: #4AA398;
-`
-
 const LargeIcon = styled.div`
   font-size: 20px !important;
 
@@ -62,16 +57,39 @@ const LargeIcon = styled.div`
   }
 `
 
+const ReviewsContainer = styled(Box)`
+  max-height: 30rem;
+  overflow-y:auto;
+`
+
 const VerticalDivider = styled.div`
   height: 2rem;
 `
 
-const ProfessionalProfile = () => {
+const ClientProfile = () => {
   const router = useRouter();
   let imgPath = '/assets/img/avatars/';
   const [clientData, setClientData] = useState(null);
-  const [clientCategories, setClientCategories] = useState(null);
   const [currentTab, setCurrentTab] = useState(0);
+
+  const verifications = [
+    "Identity",
+    "Payment Method",
+    "Phone",
+    "Email"
+  ];
+
+  const projectDetails = {
+    attachments: [
+        "project-temp-1.jpeg",
+        "project-temp-2.jpeg",
+        "project-temp-3.jpeg",
+        "project-temp-4.jpeg",
+        "project-temp-5.jpeg",
+        "project-temp-6.jpeg",
+        "project-temp-7.jpeg",
+    ]
+}
 
   const reviews = [
     {
@@ -89,58 +107,7 @@ const ProfessionalProfile = () => {
       'project':'Baby Shower',
       'desc':'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque.'
     },
-  ];
-
-
-  const verifications = [
-    "Identity",
-    "Payment Method",
-    "Phone",
-    "Email"
-  ];
-
-  const skills = [
-      'Fashion',
-      'Beauty',
-      'Lifestyle',
-      'Corporate',
-      'E-commerce',
-      'Watches / Jewelry',
-      'Products',
-      'Cars',
-      'Sports',
-      'Wedding',
-      'Event',
-      'Kids / Baby',
-      'Animal',
-      'Architecture / Real estate',
-      'Food'
-  ];
-
-  const userData = {
-    portfolios:[
-      {
-        category: 'photographer',
-        title: 'Photographer Portfolio',
-        projectDetails:[
-          "project-temp-1.jpeg",
-          "project-temp-2.jpeg",
-          "project-temp-3.jpeg",
-          "project-temp-4.jpeg",
-        ]
-      },
-      {
-        category: 'model',
-        title: 'Model Portfolio',
-        projectDetails:[
-          "project-temp-5.jpeg",
-          "project-temp-6.jpeg",
-          "project-temp-7.jpeg",
-          "project-temp-1.jpeg",
-        ]
-      },
-    ]
-  }
+  ]
 
   useEffect(() => {
     const clientData = {
@@ -148,10 +115,7 @@ const ProfessionalProfile = () => {
     };
     getClientData(clientData).then((res) => {
       if (res?.data?.data){ 
-        setClientData(()=>res?.data?.data?.attributes)
-        console.log('prof data', res?.data?.data?.attributes)
-        if(res?.data?.data?.attributes?.categories?.data)
-          setClientCategories(()=>res?.data?.data?.attributes?.categories?.data)
+        setClientData(res?.data?.data?.attributes)
       }
     });
   }, []);
@@ -182,80 +146,61 @@ const ProfessionalProfile = () => {
                       </Column>
                       <Column>
                           <Row sx={{gap:'14px',alignItems:'center'}}>
-                                <Name color="green"><b>{clientData?.firstName} {clientData?.lastName}</b></Name>
+                                <Name color="red"><b>{clientData?.firstName} {clientData?.lastName}</b></Name>
                                 <GrayText size="large"> ({clientData?.instagramProfile ?? '@'+clientData?.firstName}) </GrayText>
                           </Row>
                           <Row sx={{gap:'16px', alignItems: 'center'}}>
                               <StarRating data={clientData?.rating ?? 3} sz="xl"/>
-                              <GrayText> {clientData?.jobsCompleted ?? '-'} Jobs Completed</GrayText>
+                              <GrayText> {clientData?.jobsCompleted ?? '-'} Projects Completed</GrayText>
                           </Row>
                           <Column sx={{rowGap:'10px',margin:'1.5rem 0'}}>
-                              <Row sx={{gap:'8px',flexWrap:'wrap'}}>
-                                {clientCategories && clientCategories.map((category,idx)=>{
-                                  return <>
-                                    <LargeIcon key={"user-category-"+idx}><PillWithIcon category={category?.attributes?.key} noPadding color="gray"/></LargeIcon>
-                                    {clientCategories.length  > 1 && clientCategories.length-1 !== idx ? <LeftBorder /> : null}
-                                  </>
-                                })}
-                              </Row>
                               <Row sx={{gap:'8px'}}>
                                 <LargeIcon><LocationIcon/></LargeIcon>
-                                <GrayText> {clientData?.city} {clientData?.country ?? 'United Arab Emirates'} </GrayText>
+                                  <GrayText> {clientData?.city} {clientData?.country ?? 'United Arab Emirates'} </GrayText>
                               </Row>
                               <Row sx={{gap:'8px'}}>
                                 <LargeIcon><AwardIcon/></LargeIcon>
-                                <GrayText> Member Since {moment(clientData?.createdAt).format('MMMM YYYY')} </GrayText>
+                                  <GrayText> Member Since {moment(clientData?.createdAt).format('MMMM YYYY')} </GrayText>
                               </Row>
                               <Row sx={{gap:'8px'}}>
                                 <LargeIcon><RoundChatIcon className="chatIcon"/></LargeIcon>
-                                <GrayText key={'user-language'}>English</GrayText>
+                                    <GrayText key={'user-language'}>English</GrayText>
                               </Row>
                             </Column>
                           <Row>
-                          <GrayText>{clientData?.headline ?? 'Headline'}</GrayText>
+                              <GrayText>{clientData?.headline ?? 'Headline'}</GrayText>
                           </Row>
                       </Column>
                   </Row>
                 </ContentBox>
                 <VerticalDivider />
-                {
-                  userData?.portfolios && userData?.portfolios?.map((category,idx)=>{
-                    return <>
-                            <ContentBox key={'portfolio-'+idx} hasHeader={true} headerTitle={category?.title}>
-                              <Row>
-                                  <ImageSlider images={category?.projectDetails} />
-                              </Row>    
-                            </ContentBox>
-                            <VerticalDivider />
-                            </>
-                  })
-                }
-                    <ContentBox hasHeader={true} headerTitle="Reviews" isScrollable={true}>
+                <ContentBox hasHeader={true} headerTitle="Business Profile" headerColor="red">
+                    <Text color="red">Name of Business</Text>
+                    <GrayText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</GrayText>
+                    <VerticalDivider/>
+                    <Row>
+                        <ImageSlider images={projectDetails?.attachments}/>
+                    </Row>    
+                </ContentBox>
+                <VerticalDivider />
+                    <ContentBox hasHeader={true} headerTitle="Reviews" headerColor="red" isScrollable={true}>
                         <Column sx={{rowGap:'1rem',margin:'1.5rem 0'}}>
                         {
                           reviews && reviews.map((review,idx)=>{
-                            return <ReviewBox key={"review-"+idx}>
-                                <Text><i>{review?.desc}</i></Text>
+                            return <ReviewBox borderColor="green" key={"review-"+idx}>
+                                <i><Text>{review?.desc}</Text></i>
                                 <GrayText component="span" sx={{marginRight:'1rem'}}>{review?.user}</GrayText>
-                                <Text color="green" component="span">{review?.project}</Text>
+                                <Text color="red" component="span">{review?.project}</Text>
                             </ReviewBox>
                           })
                         }
                         </Column>
                     </ContentBox>
                 <VerticalDivider />
-                <ContentBox hasHeader={true} headerTitle="Experience">
-                    Experience
-                </ContentBox>
-                <VerticalDivider />
-                <ContentBox hasHeader={true} headerTitle="Education">
-                    Education
-                </ContentBox>
-                <VerticalDivider />
             </Grid>
             <Grid item xs={4}>
-                <ContentBox hasHeader={true} headerTitle="Verifications">
-                <Box sx={{display:'flex', flexDirection:'column',gap:'1rem'}}>
+                <ContentBox hasHeader={true} headerTitle="Verifications" headerColor="red">
+                  <Box sx={{display:'flex', flexDirection:'column',gap:'1rem'}}>
                   {
                     verifications.map((item,idx)=>{
                       return <Row  key={'verification-'+idx} sx={{justifyContent:'space-between'}}>
@@ -269,16 +214,6 @@ const ProfessionalProfile = () => {
                   }
                   </Box>
                 </ContentBox>
-                <VerticalDivider />
-                <ContentBox hasHeader={true} headerTitle="Skills">
-                <Row sx={{display:'flex',flexWrap:'wrap',gap:'0.5rem'}}>
-                 {
-                  skills && skills.map((skill,idx)=>{
-                    return <CustomStaticPill bg="green" key={'skill-'+idx}> {skill} </CustomStaticPill>
-                  })
-                 }
-                 </Row>
-                </ContentBox>
             </Grid>
         </Grid>
             
@@ -288,4 +223,4 @@ const ProfessionalProfile = () => {
   )
 }
 
-export default ProfessionalProfile
+export default ClientProfile

@@ -83,7 +83,7 @@ const StyledTextArea = styled(TextareaAutosize)`
   }
 `;
 
-const BidOnProjectForm = ({ handleSubmit }) => {
+const BidOnProjectForm = ({ handleSubmit, proposals }) => {
   const currencies = [
     {
       title: 'AED',
@@ -152,11 +152,16 @@ const BidOnProjectForm = ({ handleSubmit }) => {
         bid: project,
         isDirectBidAssignment: false,
       };
+      let existingProposals =  proposals?.data.map((item)=>item.id) ?? [];
       addProposal(proposalData).then((res) => {
         if (res?.data) {
-          let proposals = { proposals: [res?.data?.id] };
-          if (proposals) {
-            updateBidData(proposals, project).then((result) => {
+          let newProposal = { proposals: [res?.data?.id] };
+          if(existingProposals){
+            existingProposals.push(res?.data?.id);
+            newProposal.proposals = existingProposals;
+          }
+          if (newProposal) {
+            updateBidData(newProposal, project).then((result) => {
               if (result?.data) handleSubmit(true);
             });
           }

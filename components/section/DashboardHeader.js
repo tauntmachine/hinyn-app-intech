@@ -90,8 +90,9 @@ function DashboardHeader({currentTab,setTabChange}) {
   const [accountType,setAccountType] = useState();
   const router = useRouter();
 
-  const showProfessionalProfile = () => {
-    router.push('/dashboard/professionalProfile');
+  const showUserProfile = () => {
+    if(accountType === 1) router.push('/dashboard/professionalProfile');
+    else router.push('/dashboard/clientProfile');
   }
 
   const showBrowseProjects = () => {
@@ -167,15 +168,15 @@ function DashboardHeader({currentTab,setTabChange}) {
         <LoginContainer>
             {showCTAButton()}
             <Box sx={{display:'flex', alignItems:'center', gap:'20px'}}>
-                <ImageContainer onClick={()=>showProfessionalProfile()}>
+                <ImageContainer onClick={()=>showUserProfile()}>
                     <StyledImage
-                    src={userData?.photo ? imgpath+userData?.photo : imgpath+'img-avatar1.png'}
+                    src={userData?.displayPhoto ? imgpath+userData?.displayPhoto : imgpath+'img-avatar1.png'}
                     layout="fill"
                     alt="icon-img"
                     />
                 </ImageContainer>
                 <Box sx={{display:'flex',flexDirection:'column',gap:'6px'}}>
-                    <Text color="green">Hi, {userData?.firstName}</Text>
+                    <Text color={accountType===1 ? "green" : "red"}>Hi, {userData?.firstName}</Text>
                     <Text>{userData?.cash?.toLocaleString() ?? '0'} {userData?.currency ?? 'AED'}</Text>
                 </Box>
                 <Box>

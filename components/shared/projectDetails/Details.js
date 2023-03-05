@@ -68,8 +68,14 @@ const DescTitle = styled.span`
 const GrayText = styled(Text)`
     color: #949494;
 `
+const CustomGreenButton = styled(GreenButton)`
+    &.disabled{
+        opacity: 0.5;
+        pointer-events: none;
+    }
+`
 
-const Details = ({userDetails,bidData }) => {
+const Details = ({userDetails,bidData, userHasProposal,isBidOwner }) => {
     const projectDetails = {
         attachments: [
             "project-temp-1.jpeg",
@@ -98,8 +104,6 @@ const Details = ({userDetails,bidData }) => {
     const [open, setOpen] = useState(false);
     const [openSuccessModal, setOpenSuccessModal] = useState(false);
     const [openFinishModal, setOpenFinishModal] = useState(false);
-    const cid = localStorage.getItem('hinyn-cid');
-    console.log('cid',cid)
 
     const handleClose = (e, reason) => {
         if (open) setOpen(false);
@@ -193,16 +197,20 @@ const Details = ({userDetails,bidData }) => {
                     {bidData?.deliveryDate ?? 'NA'}
                 </Row>
                 <Row sx={{ display: 'flex', justifyContent: 'center' }}>
-                   
-                    {userDetails?.isProposedProject  
-                        ?  <GreenButton onClick={() => setOpenFinishModal(true)}>Complete Project</GreenButton>
-                        : <GreenButton onClick={() => setOpen(true)}>Apply</GreenButton>
-                    }
+
+                { userHasProposal 
+                    ?  <CustomGreenButton className="disabled">Applied</CustomGreenButton>
+                    : (!isBidOwner) ? <CustomGreenButton onClick={() => setOpen(true)}>Apply</CustomGreenButton> : null
+                }
+                {/* {userDetails?.isProposedProject  
+                    ?  <CustomGreenButton onClick={() => setOpenFinishModal(true)}>Complete Project</CustomGreenButton>
+                    : <CustomGreenButton onClick={() => setOpen(true)}>Apply</CustomGreenButton>
+                } */}
                    
                 </Row>
             </MainWrapper>
             <Modal handleClose={handleClose} isOpen={open} maxWidth="md">
-                <BidOnProjectForm handleSubmit={handleSubmit} />
+                <BidOnProjectForm handleSubmit={handleSubmit} proposals={bidData?.proposals}/>
             </Modal>
             <Modal handleClose={handleClose} isOpen={openSuccessModal} maxWidth="md">
                 <Box sx={{ padding: '5rem 0' }}>

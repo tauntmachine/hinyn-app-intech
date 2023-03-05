@@ -5,6 +5,7 @@ import {LocationIcon} from "../shared/Icon";
 import StarRating from "./StarRating";
 import Button from "./Button";
 import headerImage from "/public/assets/img/bg@1x.png";
+import { useState } from "react";
 
 const StyledCard = styled.div`
     min-height:24rem;
@@ -69,7 +70,7 @@ const HeaderBackground = styled.div`
 `
 
 function CustomCard({data, cardText, handleButtonClick}) {
-    let imgsrc = data?.img ? '/assets/img/avatars/'+data.img : '/assets/img/avatars/img-avatar1.png';
+    let imgsrc = data?.displayPhoto ? '/assets/img/avatars/'+data.displayPhoto : '/assets/img/avatars/img-avatar1.png';
     const handleClick = (data) => {
         handleButtonClick(data)
     }
@@ -86,7 +87,9 @@ function CustomCard({data, cardText, handleButtonClick}) {
             />
         </ImageContainer>
         <Title>{data?.firstName} {data?.lastName}</Title>
-        <Label variant="green">{data?.category ?? 'Profession'}</Label>
+        {data?.categories?.data && data?.categories?.data.map((category,idx)=>{
+            return <Label key={'freelancer-category-'+idx} variant="green">{category?.attributes?.title}</Label>
+        })}
         <StarRating data={data?.rating ?? 3}/>
         {data?.city && 
             <Label>

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getProposalsOfClient } from "../forms/formService";
 import Text from "../shared/Typography";
+import {useQuery} from "react-query";
 
 
 const CustomPagination = styled(Pagination)`
@@ -23,6 +24,8 @@ const NoDataContainer = styled.div`
 const MyProjectsSection = () => {
     const router = useRouter();
     const [proposals, setProposals] = useState([]);
+
+    
     
     const sortOptions = [
         {
@@ -63,6 +66,7 @@ const MyProjectsSection = () => {
     ];
 
 
+
     useEffect(()=>{
         getProposalsOfClient().then((res)=>{
             setProposals(()=>[]);
@@ -83,6 +87,7 @@ const MyProjectsSection = () => {
             <Dropdown hasLabel={true} label="Show" items={showOptions}/>
             <Dropdown hasLabel={true} label="Sort" items={sortOptions}/>
         </Container>
+        
         <Container sx={{paddingBottom:'2rem'}} maxWidth="lg">
             <Grid container spacing={4} sx={{marginTop:'0.25rem'}}>
             {proposals.length > 0 && proposals.map((proposal, idx)=>{

@@ -62,8 +62,8 @@ function AccountTypeForm(){
         accountType : accountType
       }
       updateClientData(userData,clientId);
-      
-      if(type === 'professional')  router.push("/professional");
+      if(accountType === 1) router.push("/professional");
+      else router.push("/dashboard");
     }
       
 

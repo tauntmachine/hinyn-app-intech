@@ -13,7 +13,7 @@ const Label = styled.span`
 `;
 const Option = styled(MenuItem)`
   color: ${(props) => (props.color === 'red' ? '#FF5A5F' : '#0F7669')};
-  background: ${(props) => (props.color === 'red' ? '#FFEEEF' : '#0F7669')};
+  background: ${(props) => (props.color === 'red' ? '#FFEEEF' : 'transparent')};
 `;
 const CustomSelect = styled(Select)`
   background: ${(props) =>

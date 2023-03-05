@@ -17,7 +17,6 @@ const BrowseProjectsSection = ({mainScreen}) => {
   useEffect(() => {
     if(mainScreen === SCREENS.details) setCurrentScreen(() => SCREENS.details);
     else setCurrentScreen(() => SCREENS.list);
-
   });
   
   const handleScreenChange = (screen) => {

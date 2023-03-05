@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 import breakpoint from '../../utils/Breakpoints';
 import Image from "next/image";
 import { useState } from 'react';
+import { useFreelancer } from '../../../src/store';
+
 
 const DetailsContainer = styled.div`
     border: 1px solid #EBEBEB;
@@ -333,6 +335,7 @@ const budgets = {
 
 const CategoriesDetailsContainer = ({handleSelectedCategory}) => {
     const imgsrc = '/assets/img/categories/';
+
     return(
         <DetailsContainer>
             <GridContainer>
@@ -411,9 +414,12 @@ const BudgetDetailsContainer = ({handleSelectedBudget}) => {
 function DetailsSection({type, onHandleUserSelectedDetails}) {
 const [selectedCategory, setSelectedCategory] = useState(null);
 const [selectedSkills, setSelectedSkills] = useState([]);
+const {freelancer, filter, setFilter} = useFreelancer();
+
 
 const handleSelectedCategory = (category) =>{
     setSelectedCategory(category);
+    // setFilter(category);
     onHandleUserSelectedDetails({'categories':category});
 }
 

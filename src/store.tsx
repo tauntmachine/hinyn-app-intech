@@ -16,7 +16,7 @@ let projectsResult;
 
 export async function getServerSideProps(){
     // const res = await axios.get(origin + '/clients')
-    const res = await axios.get(origin + '/clients',{}).then(async (response) => {
+    const res = await axios.get(origin + '/clients?populate=*',{}).then(async (response) => {
       if (response.data) {
         return freelancerResult = response.data?.data;
       }}).catch(function (error) {
@@ -42,10 +42,15 @@ export async function getServerSideProps(){
 
 const useFreelancerController = (freelancer : Freelancer[]) =>{
     const [filter,setFilter] = useState("");
+
+  const checkCategories = (val)=>{
+    return val?.data.some(category => category?.attributes?.key.toLowerCase().includes(filter.toLowerCase()));
+  }
+
       const filteredFreelancer = useMemo(
         () =>
             freelancer && freelancer.map( (f) => {
-              return Object.values(f).filter((val)=> val.accountType === 1 && (val.firstName.toLowerCase()).includes(filter.toLowerCase()))[0];
+              return Object.values(f).filter((val)=> val.accountType === 1 && checkCategories(val?.categories))[0];
             }).filter(data => data !== undefined),
         [filter, freelancer]
     );
@@ -79,7 +84,6 @@ interface Project {
 
 const useProjectController = (project : Project[]) =>{
   const [projectFilter,setProjectFilter] = useState("");
-  // console.log('here in the controller', projectFilter,project)
 
     const checkCategory = (val) => {
       return val?.categories.some(category=> category.toLowerCase().includes(projectFilter.toLowerCase()))

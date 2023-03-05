@@ -65,6 +65,7 @@ axios.defaults.withCredentials = true;
     const jwt = localStorage.getItem('hinyn-cjwt');
     return axios.get(
         origin + '/bids/'+bidId+"?populate=*",
+        
         {
             headers:{
                 'Accept' : 'application/json',
@@ -269,7 +270,36 @@ export const getClients = async () => {
 export const getClientData = async (clientData) => {
     const jwt = localStorage.getItem('hinyn-cjwt');
     return axios.get(
-        origin + '/clients/'+clientData.id,
+        origin + '/clients/'+clientData.id+"?populate=categories",
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+        },
+        {
+           
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error };
+      });
+  };
+
+  export const getClientCategories = async (clientData) => {
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    return axios.get(
+        origin + '/clients/'+clientData.id+"?populate=*",
         {
             headers:{
                 'Accept' : 'application/json',
@@ -633,6 +663,36 @@ export const updateUserData= async (clientId) => {
     const cid = localStorage.getItem('hinyn-cid');
     return axios.get(
         origin + "/proposals?filters[client][id][$eq]="+cid+"&populate=*",
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+        },
+        {
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error };
+      });
+  };
+
+
+  export const getProposalsOfClientOnABid = async (bidId) => {
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    const cid = localStorage.getItem('hinyn-cid');
+    return axios.get(
+        origin + "/proposals?filters[client][id][$eq]="+cid+"&filters[bid][id][$eq]="+bidId+"&populate=*",
         {
             headers:{
                 'Accept' : 'application/json',

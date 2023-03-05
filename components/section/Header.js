@@ -13,6 +13,8 @@ import LoginForm from "../forms/LoginForm";
 import { getClientData, getClients, logoutUser } from "../forms/formService";
 
 
+
+
 const CustomGlobeIcon = styled(FiGlobe)`
   margin-top:4px;
   font-size: 20px;
@@ -61,6 +63,7 @@ const Header = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
 
 
+
   useEffect(() => {
     if(localStorage.getItem('hinyn-cjwt')){ setIsLoggedIn(()=>true);}
     else setIsLoggedIn(()=>false);
@@ -92,7 +95,6 @@ const Header = () => {
       // return localStorage.getItem('hinyn-cjwt') ? true : false;
   }
 
-  
   
 
 

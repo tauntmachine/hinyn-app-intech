@@ -437,7 +437,7 @@ function PostProjectForm1({ handleNextClick }) {
     }));
     setProjectData((prevState) => ({
       ...prevState,
-      ['skills']:  selectedSkills.map((skill)=>skill?.id),//category_skills.data.filter((res) => res.key === category.key)[0]?.skills
+      ['skills']:  selectedSkills.map((skill)=>skill?.id),
     }));
     setProjectData((prevState) => ({
       ...prevState,

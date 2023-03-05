@@ -3,6 +3,8 @@ import {FiSearch} from "react-icons/fi";
 import { useState } from "react";
 import DetailsSection from "./DetailsSection";
 import { Box } from "@mui/material";
+import { useFreelancer } from '../../../src/store';
+
 
 const SearchContainer = styled.div`
     display: flex;
@@ -98,6 +100,7 @@ function ExpandedSearchBar() {
     const [currentExpanded, setCurrentExpanded] = useState(null);
     const [showDetailsSection, setShowDetailsSection] = useState(false);
     const [userSelectedDetails, setUserSelectedDetails] = useState({data:null});
+
 
     const toggleDetailsSection = (key) => {
         setCurrentExpanded(key);

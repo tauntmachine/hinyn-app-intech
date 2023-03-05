@@ -9,7 +9,7 @@ import StarRating from "../shared/StarRating";
 import Details from "../shared/projectDetails/Details";
 import Proposals from "../shared/projectDetails/Proposals";
 import Link from "next/link";
-import { getBidData } from "../forms/formService";
+import { getBidData, getProposalsOfClientOnABid } from "../forms/formService";
 import { useRouter } from "next/router";
 import moment from "moment";
 
@@ -150,6 +150,10 @@ const CustomLocationIcon = styled(LocationIcon)`
 
 const CustomGreenButton = styled(GreenButton)`
     width: 60%;
+    &.disabled{
+      pointer-events: none;
+      opacity: 0.5;
+    }
 `
 
 
@@ -158,19 +162,24 @@ const ProjectDetailsSection = ({projectId}) => {
   const [currentTab, setCurrentTab] = useState(0);
   const [bidData, setBidData] = useState({});
   const [clientData, setClientData] = useState({});
-  const { project } = router.query
+  const [userHasProposal, setUserHasProposal] = useState(false);
+  const { project } = router.query;
+  const [isBidOwner, setIsBidOwner] = useState(false);
+  const loggedInCid = localStorage.getItem('hinyn-cid');
 
 
   useEffect(()=>{
+    getProposalsOfClientOnABid(project).then((res)=>{
+      if(res?.data?.data){ 
+        if(res?.data?.data.length > 0) setUserHasProposal(()=>true);
+      }
+    })
     getBidData(project).then((res)=>{
       if(res?.data?.data){ 
-        let temp = {"id":res?.data?.data?.id, ...res?.data?.data?.attributes};
+        const temp = {"id":res?.data?.data?.id, ...res?.data?.data?.attributes};
         setBidData(()=> temp)
+        if(temp?.client?.data?.id === parseInt(loggedInCid)) setIsBidOwner(()=>true);
         setClientData(()=> temp?.client?.data?.attributes);
-        // if(temp?.client){
-        //   // console.log(temp?.client)
-        //   // temp?.proposals?.data.map((item)=> console.log(item, "------"))
-        // }
       }
     })
   },[])
@@ -284,7 +293,7 @@ const ProjectDetailsSection = ({projectId}) => {
                   </ContentBox>
                   <ContentBox className="main-wrapper">
                     {currentTab === 0 
-                    ? <Details userDetails={userDetails} bidData={bidData}></Details>
+                    ? <Details userDetails={userDetails} bidData={bidData} userHasProposal={userHasProposal} isBidOwner={isBidOwner}></Details>
                     : <Proposals projectId={bidData?.id}></Proposals>
                     }
                   </ContentBox>
@@ -349,10 +358,13 @@ const ProjectDetailsSection = ({projectId}) => {
                         <BidBoxWrapper>
                           <Column sx={{borderRight: '1px solid #ACCECA', width:'25%',alignItems:'center'}}>
                             <Text>Bids</Text>
-                            <Text color="green" size="large">{projectDetails?.bid?.numBids}</Text>
+                            <Text color="green" size="large">{bidData?.proposals?.data?.length ?? 0}</Text>
                           </Column>
                           <Column sx={{alignItems:'center', width:'75%', justifyContent:'center'}}>
-                              <CustomGreenButton>Apply</CustomGreenButton>
+                            { userHasProposal 
+                              ?  <CustomGreenButton className="disabled">Applied</CustomGreenButton>
+                              : (!isBidOwner) ? <CustomGreenButton>Apply</CustomGreenButton> : null
+                            }   
                           </Column>
                         </BidBoxWrapper>
                       </ContentBox>

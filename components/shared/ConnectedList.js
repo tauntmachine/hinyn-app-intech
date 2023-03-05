@@ -7,7 +7,7 @@ import StarRating from "./StarRating";
 import { GreenButton } from "./Button";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { getLoggedInUserData } from "../forms/formService";
+import { getLoggedInUserData, getProposalsOfBid } from "../forms/formService";
 
 const ProjectContainer = styled(Box)`
     display: flex;
@@ -28,6 +28,7 @@ const Title = styled.span`
     color: #EB4C60;
     font-weight: 600;
     font-size: 14px;
+    cursor: pointer;
 `
 const SmallText  = styled.span`
     font-size: 12px;
@@ -55,15 +56,17 @@ const ConnectedList = ({projects}) => {
         if(res?.data?.client){
             setAccountType(()=>res?.data?.client?.accountType)
         }
-    })
-  },[])
+    });
+  },[]);
+
+
   return (
     <Box>
         {projects.map((project,idx)=> {
             return <ProjectContainer key={idx}>
                 <Row sx={{justifyContent: 'space-between'}}>
                     <Column>
-                        <Title>{project?.title}</Title>
+                        <Title onClick={()=>showProjectDetails(project?.id)}>{project?.title}</Title>
                             {(project?.minBudget === 1 && project.maxBudget === 0) 
                             ? <SmallText>Free Collaboration</SmallText> 
                             : <SmallText>{project?.minBudget} - {project?.maxBudget}</SmallText>
@@ -72,7 +75,7 @@ const ConnectedList = ({projects}) => {
                     </Column>
                     <Box sx={{gap:'1rem', display:'flex', alignItems: 'flex-start'}}>
                         <Column>
-                            <SmallText><b>{project?.bids ?? '0'} Bids</b></SmallText>
+                            <SmallText><b>{project?.proposals?.data.length ?? '0'} Bids</b></SmallText>
                         </Column>
                         <Column sx={{alignItems:'flex-end'}}>
                             <Text color="green">${project?.bidPrice?.average ?? '100'} AED</Text>

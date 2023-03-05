@@ -49,6 +49,7 @@ const AllProjectsSection = ({handleScreenChange}) => {
     setProjectFilter(e.target.value)
   };
 
+
   return (
     <Box sx={{background:'#EBEBEB', height:'auto'}}>
       <SearchBarContainer>

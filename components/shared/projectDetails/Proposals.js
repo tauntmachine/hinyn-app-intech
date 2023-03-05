@@ -99,7 +99,7 @@ const Proposals = ({projectId}) => {
                     <Column sx={{flexBasis:'10%'}}>
                         <ImageContainer>
                             <StyledImage
-                            src={bidder?.client?.displayPhoto ? imgPath+bidder?.client?.displayPhoto : imgPath+'img-avatar2.png'}
+                            src={bidder?.displayPhoto ? imgPath+bidder?.displayPhoto : imgPath+'img-avatar2.png'}
                             layout="fill"
                             alt="icon-img"
                             />

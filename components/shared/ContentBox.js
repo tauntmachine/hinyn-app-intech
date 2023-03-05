@@ -7,7 +7,7 @@ const Container = styled.div`
 `
 
 const Header = styled.div`
-    background: ${props => props.headerColor === 'gray' ? '#DEDEDE' : '#4AA398'};
+    background: ${props => props.headerColor === 'gray' ? '#DEDEDE' : (props.headerColor === 'red' ? '#FF5A5F' :'#4AA398')};
     color: ${props => props.headerColor === 'gray' ? '#555555' : '#ffffff'};
     font-weight: 600;
     border-radius: 13px 13px 0 0;
@@ -20,6 +20,8 @@ const Main = styled.div`
     background: #ffffff;
     border-radius: ${props => props.hasHeader ? '0 0 13px 13px' : '13px'};
     padding: 32px;
+    max-height:${props => props?.isScrollable ? '30rem' : 'auto'};
+    overflow:${props => props?.isScrollable ? 'auto' : 'hidden'};
 
     &.no-padding{
         padding:0;
@@ -43,13 +45,13 @@ const UserIconContainer = styled.div`
 
 
 
-const ContentBox = ({hasHeader,headerColor,headerTitle,headerIcon,hasBodyIcon,noPadding,children}) => {
+const ContentBox = ({hasHeader,headerColor,headerTitle,headerIcon,hasBodyIcon,isScrollable,noPadding,children}) => {
   return (
     <Container>
         {hasHeader && 
         <Header headerColor={headerColor}>{headerIcon ?? headerIcon}{headerTitle}</Header>
         }
-        <Main hasHeader={hasHeader} className={noPadding===true ? "no-padding" : ""}>
+        <Main hasHeader={hasHeader} className={noPadding===true ? "no-padding" : ""} isScrollable={isScrollable} >
             <Grid container>
                 {hasBodyIcon ? 
                 <>
