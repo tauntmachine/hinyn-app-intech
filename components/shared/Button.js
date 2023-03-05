@@ -80,8 +80,8 @@ export const RedButton = styled(Button)`
   &:hover{
       box-shadow : 0 0 3px #EB4C60;
       background: white;
-      border: 1px solid ${props => props.variant === 'outlined' ? "#EB4C60" : "#4AA398"};
-      color: ${props => props.variant === 'outlined' ? "#EB4C60" : "#ffffff"};
+      border: 1px solid ${props => props.variant === 'outlined' ? "#EB4C60" : "#EB4C60"};
+      color: ${props => props.variant === 'outlined' ? "#EB4C60" : "#EB4C60"};
   }
   &:active{
   }

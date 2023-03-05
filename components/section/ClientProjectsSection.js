@@ -86,7 +86,7 @@ const ClientProjectsSection = () => {
         <Container sx={{paddingBottom:'2rem'}} maxWidth="lg">
             <Grid container spacing={4} sx={{marginTop:'0.25rem'}}>
             {clientBids.length > 0 && clientBids.map((bid, idx)=>{
-                return <Grid key={'project-card-'+idx} item xs={12} sm={6} lg={4} sx={{position:'relative'}}>
+                return (bid?.attributes?.status < 99 )&& <Grid key={'project-card-'+idx} item xs={12} sm={6} lg={4} sx={{position:'relative'}}>
                             <ProjectCard projectDetail={bid} budget={bid?.budget} />
                         </Grid>
             })}

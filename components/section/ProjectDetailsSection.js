@@ -2,16 +2,17 @@ import { Box,Grid, Container} from "@mui/material";
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { MdKeyboardBackspace } from "react-icons/md";
-import Text, { SmallText } from "../shared/Typography";
-import { GreenButton } from "../shared/Button";
-import { CheckSquareIcon, XSquareIcon, LocationIcon } from "../shared/Icon";
+import Text, { SmallText,GrayText } from "../shared/Typography";
+import { GrayButton, GreenButton, RedButton } from "../shared/Button";
+import { CheckSquareIcon, XSquareIcon, LocationIcon, CheckIcon } from "../shared/Icon";
 import StarRating from "../shared/StarRating";
 import Details from "../shared/projectDetails/Details";
 import Proposals from "../shared/projectDetails/Proposals";
 import Link from "next/link";
-import { getBidData, getProposalsOfClientOnABid } from "../forms/formService";
+import { getBidData, getProposalsOfClientOnABid, updateBidData } from "../forms/formService";
 import { useRouter } from "next/router";
 import moment from "moment";
+import Modal from "../shared/Modal";
 
 const HeaderContainer = styled.div`
   background: #4AA398;
@@ -121,6 +122,28 @@ const TabItem = styled.div`
     }
 `
 
+const IconContainer = styled.div`
+    background: #FFEEEF;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const CustomCheckIcon = styled(CheckIcon)`
+    font-size: 4rem;
+`
+
+const CancelButton = styled(RedButton)`
+  background: #FDEAEF;
+  color: #EB4C60;
+  &:hover{
+    border:none;
+  }
+`
+
 const CustomCheckSquareIcon = styled(CheckSquareIcon)`
     font-size: 1.5rem;
     color: #E96E3F;
@@ -157,7 +180,7 @@ const CustomGreenButton = styled(GreenButton)`
 `
 
 
-const ProjectDetailsSection = ({projectId}) => {
+const ProjectDetailsSection = () => {
   const router = useRouter();
   const [currentTab, setCurrentTab] = useState(0);
   const [bidData, setBidData] = useState({});
@@ -165,6 +188,8 @@ const ProjectDetailsSection = ({projectId}) => {
   const [userHasProposal, setUserHasProposal] = useState(false);
   const { project } = router.query;
   const [isBidOwner, setIsBidOwner] = useState(false);
+  const [openCancelProject, setOpenCancelProject] = useState(false);
+  const [openSuccessCancelModal, setOpenSuccessCancelModal] = useState(false);
   const loggedInCid = localStorage.getItem('hinyn-cid');
 
 
@@ -182,7 +207,27 @@ const ProjectDetailsSection = ({projectId}) => {
         setClientData(()=> temp?.client?.data?.attributes);
       }
     })
-  },[])
+  },[]);
+
+  const handleClose = (e, reason) => {
+    if (openCancelProject) setOpenCancelProject(()=>false);
+    if (openSuccessCancelModal) setOpenSuccessCancelModal(()=>false);
+  };
+
+  const handleCancelProject = () => {
+    const statusData = {
+      status: 99,
+    };
+    updateBidData(statusData, bidData?.id).then((result) => {
+      if (result?.data){
+        setOpenSuccessCancelModal(()=>true);
+      }
+    });
+  }
+
+  const listAllProjects = () => {
+    router.push('/dashboard')
+  }
 
   const tabs = ['Details', 'Proposals'];
 
@@ -294,7 +339,7 @@ const ProjectDetailsSection = ({projectId}) => {
                   <ContentBox className="main-wrapper">
                     {currentTab === 0 
                     ? <Details userDetails={userDetails} bidData={bidData} userHasProposal={userHasProposal} isBidOwner={isBidOwner}></Details>
-                    : <Proposals projectId={bidData?.id}></Proposals>
+                    : <Proposals projectId={project} bidData={bidData} isBidOwner={isBidOwner}></Proposals>
                     }
                   </ContentBox>
                 </Grid> 
@@ -363,7 +408,7 @@ const ProjectDetailsSection = ({projectId}) => {
                           <Column sx={{alignItems:'center', width:'75%', justifyContent:'center'}}>
                             { userHasProposal 
                               ?  <CustomGreenButton className="disabled">Applied</CustomGreenButton>
-                              : (!isBidOwner) ? <CustomGreenButton>Apply</CustomGreenButton> : null
+                              : (!isBidOwner) ? <CustomGreenButton>Apply</CustomGreenButton> : <RedButton onClick={() => setOpenCancelProject(true)}>Cancel Project</RedButton>
                             }   
                           </Column>
                         </BidBoxWrapper>
@@ -373,6 +418,52 @@ const ProjectDetailsSection = ({projectId}) => {
             </Grid>
         </Container>
       </ContentBoxWrapper>
+      <Modal handleClose={handleClose} isOpen={openCancelProject} maxWidth="md">
+                <Box sx={{ padding: '5rem 0' }}>
+                    <Column sx={{alignItems:'center'}}>
+                        <Row>
+                            <Text color="red" size="large"><b>Do you want to cancel the project?</b></Text>
+                        </Row>
+                        <Row>
+                            <Container maxWidth="sm">
+                                <GrayText align="center">We get it, sometimes there are unexpected events that could lead to the cancellation of a project. However, do note that there would be a cancellation fee.</GrayText>
+                            </Container>
+                        </Row>
+                        <VerticalDivider />
+                        <VerticalDivider />
+                        <Row sx={{gap:'1rem'}}>
+                            <RedButton onClick={()=>{handleClose()}}> Keep the project</RedButton>
+                            <CancelButton onClick={()=>{handleCancelProject();setOpenSuccessCancelModal(()=>true)}}>Cancel the project</CancelButton>
+                        </Row>
+                    </Column>
+                </Box>
+        </Modal>
+        <Modal handleClose={handleClose} isOpen={openSuccessCancelModal} maxWidth="md">
+                <Box sx={{ padding: '5rem 0' }}>
+                    <Column sx={{alignItems:'center'}}>
+                        <Row>
+                            <IconContainer>
+                                <CustomCheckIcon variant="red"/>
+                            </IconContainer>
+                        </Row>
+                        <Row>
+                            <Text color="red" size="large">
+                                <b>Project Cancelled</b>
+                            </Text>
+                        </Row>
+                        <Row>
+                            <Container maxWidth="sm">
+                                <GrayText align="center">This is to let you know that we have cancelled the project as per your request.</GrayText>
+                            </Container>
+                        </Row>
+                        <VerticalDivider />
+                        <VerticalDivider />
+                        <Row>
+                            <RedButton onClick={listAllProjects}> Back to home </RedButton>
+                        </Row>
+                    </Column>
+                </Box>
+            </Modal>
     </Box>
   )
 }

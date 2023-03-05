@@ -149,7 +149,6 @@ const ProfessionalProfile = () => {
     getClientData(clientData).then((res) => {
       if (res?.data?.data){ 
         setClientData(()=>res?.data?.data?.attributes)
-        console.log('prof data', res?.data?.data?.attributes)
         if(res?.data?.data?.attributes?.categories?.data)
           setClientCategories(()=>res?.data?.data?.attributes?.categories?.data)
       }

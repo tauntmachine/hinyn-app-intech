@@ -1,14 +1,16 @@
-import { Box} from "@mui/material";
+import { Box,Container} from "@mui/material";
 import styled from "@emotion/styled";
 import Text from "../Typography";
 import Image from "next/image";
-import { LocationIcon } from "../Icon";
+import { LocationIcon,CheckIcon } from "../Icon";
 import StarRating from "../StarRating";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import { getBidData, getProposalsOfBid, getProposals } from "../../forms/formService";
+import { getProposalsOfBid,updateProposalData } from "../../forms/formService";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { RedButton, GreenButton} from "../Button";
+import Modal from "../Modal";
 
 
 const MainWrapper = styled.div`
@@ -36,6 +38,19 @@ const CustomPagination = styled(Pagination)`
   }
 `
 
+const CustomRedButton = styled(RedButton)`
+  background: #FDEAEF;
+  color: #EB4C60;
+  border: none;
+  &.isAwarded{
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  &:hover{
+    border:none;
+  }
+`
+
 const ProjectContainer = styled(Box)`
     display: flex;
     border-bottom: 1px solid #ddd;
@@ -44,6 +59,16 @@ const ProjectContainer = styled(Box)`
     &:last-child{
         border-bottom: 0;
     }
+`
+
+const IconContainer = styled.div`
+    background: #DBEDEA;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 const ImageContainer = styled.div`
@@ -66,11 +91,14 @@ const Column = styled(Box)`
 const GrayText = styled(Text)`
   color : #949494;
 `
+const CustomCheckIcon = styled(CheckIcon)`
+    font-size: 4rem;
+`
 
-const Proposals = ({projectId}) => {
+const Proposals = ({projectId,bidData,isBidOwner}) => {
     const router = useRouter();
-
     const [proposals, setProposals] = useState([]);
+    const [openSuccessModal,setOpenSuccessModal] = useState(false);
 
  const imgPath = '/assets/img/avatars/';
 
@@ -82,14 +110,32 @@ const Proposals = ({projectId}) => {
           let temp = res?.data?.data?.attributes?.proposals;
           if(temp?.data && temp?.data?.length > 0){
             temp?.data?.map((item)=>{
-                setProposals((prevData)=> prevData.concat(item?.attributes))
-                
+                setProposals((prevData)=> prevData.concat({"id":item?.id,...item?.attributes}))
             })
           }
         }
       })
 
  },[projectId])
+
+ const handleClose = (e, reason) => {
+    if (openSuccessModal) setOpenSuccessModal(false);
+};
+
+const listAllProjects = () => {
+    router.push('/dashboard')
+}
+
+ const handleAcceptBid = (proposalId) => {
+    const proposalData = {
+        dateAwarded: new Date(),
+      };
+      updateProposalData(proposalData, proposalId).then((result) => {
+        if (result?.data){
+            setOpenSuccessModal(()=>true);
+        }
+      });
+ }
   return (    
     <MainWrapper>
         {proposals && proposals.map((proposal,idx)=> {
@@ -112,7 +158,13 @@ const Proposals = ({projectId}) => {
                                 <GrayText> {bidder?.instagramProfile ?? ''} </GrayText>
                             </Box>
                             <Box>
-                                <Text color="green"><b>{proposal?.budget} {proposal.currency ?? 'AED'}</b></Text>
+                                {isBidOwner 
+                                    ? <CustomRedButton onClick={()=>handleAcceptBid(proposal?.id)} className={proposal?.dateAwarded ? 'isAwarded' : ''}>
+                                        {proposal?.dateAwarded ? 'Bid Accepted' : 'Accept Bid'}
+                                        </CustomRedButton>
+                                    : <Text color="green"><b>{proposal?.budget} {proposal.currency ?? 'AED'}</b></Text>
+                                }
+                                
                             </Box>
                         </Row>
                         <Row sx={{gap:'8px'}}>
@@ -128,6 +180,14 @@ const Proposals = ({projectId}) => {
                         <Row>
                             <GrayText>{proposal?.description}</GrayText>
                         </Row>
+                        {isBidOwner 
+                        ?  <Row>
+                                <GrayText>Bid Price: </GrayText>
+                                <Text color="green"><b>{proposal?.budget} {proposal.currency ?? 'AED'}</b></Text>
+                            </Row>
+                        : null 
+                        }
+                       
                     </Column>
                 </Row>
             </ProjectContainer>
@@ -144,6 +204,31 @@ const Proposals = ({projectId}) => {
                 </Box>
             : null
         }
+
+        <Modal handleClose={handleClose} isOpen={openSuccessModal} maxWidth="md">
+                <Box sx={{ padding: '5rem 0' }}>
+                    <Column sx={{alignItems:'center'}}>
+                        <Row>
+                            <IconContainer>
+                                <CustomCheckIcon variant="green"/>
+                            </IconContainer>
+                        </Row>
+                        <Row>
+                            <Text color="green" size="large">
+                                <b>Bid Accepted</b>
+                            </Text>
+                        </Row>
+                        <Row>
+                            <Container maxWidth="sm">
+                                <GrayText align="center">You have accepted the bid. Contact them now to start the project</GrayText>
+                            </Container>
+                        </Row>
+                        <Row>
+                            <GreenButton onClick={listAllProjects}> Browse more projects</GreenButton>
+                        </Row>
+                    </Column>
+                </Box>
+            </Modal>
        
     </MainWrapper>
   )

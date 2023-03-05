@@ -84,7 +84,7 @@ const ProjectCard = ({projectDetail, budget}) => {
     }
 
     const formatDate = (date) =>{
-        return date ? moment(date).format('DD MMM YYYY') : '-' ;
+        return date ? moment(date).format('DD MMMM YYYY') : '-';
     }
 
   return (
@@ -105,7 +105,7 @@ const ProjectCard = ({projectDetail, budget}) => {
         <VerticalDivider />
         <Row sx={{justifyContent: 'space-between'}}>
             <Text>Price</Text>
-            <Text color="green">{budget ?? '' } AED</Text>
+            <Text color="green">{projectDetail?.attributes.minBudget} -  {projectDetail?.attributes.maxBudget} AED</Text>
         </Row>
         <Row sx={{justifyContent: 'space-between'}}>
             <Text>Location</Text>
@@ -113,7 +113,7 @@ const ProjectCard = ({projectDetail, budget}) => {
         </Row>
         <Row sx={{justifyContent: 'space-between'}}>
             <Text>Date</Text>
-            <Text color="green">{ formatDate(projectDetail?.attributes?.deliveryDate) ?? ''}</Text>
+            <Text color="green">{ formatDate(projectDetail?.attributes?.deliveryDate)}</Text>
         </Row>
         <VerticalDivider />
         <Row sx={{justifyContent: 'center'}}>

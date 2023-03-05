@@ -78,6 +78,7 @@ export const useFreelancer = () => useContext(FreelancerContext);
 interface Project {
   id: string,
   title: string,
+  status:number,
   description: string,
   attributes: {}
 }
@@ -94,7 +95,7 @@ const useProjectController = (project : Project[]) =>{
       project && project.map( (p) => { 
         return {"id":p.id, ...p.attributes}
       }).filter((val : Project)=>{
-        return val?.title?.toLowerCase().includes(projectFilter.toLowerCase()) || val?.description?.toLowerCase().includes(projectFilter.toLowerCase())
+        return val?.status < 99 && (val?.title?.toLowerCase().includes(projectFilter.toLowerCase()) || val?.description?.toLowerCase().includes(projectFilter.toLowerCase()))
         }),
       [projectFilter, project]
   );
