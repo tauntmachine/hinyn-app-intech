@@ -7,20 +7,42 @@ import DialogTitle from '@mui/material/DialogTitle';
 import styled from "@emotion/styled";
 import Button from '../shared/Button';
 import breakpoint from '../utils/Breakpoints';
+import { CloseIconCircle } from './Icon';
 
 const CustomDialog = styled(Dialog)`
+    font-family: 'DM Sans', sans-serif !important;
     .MuiDialog-paper{
         background-color: #F8F8F8;
         box-shadow: 0px 3px 20px #0000003C;
-        border-radius: 20px;
+        border-radius: 13px;
         min-height: 15rem;
     }
 `
 const StyledButton = styled(Button)`
+    padding: 0.5rem 1.25rem;
     @media ${breakpoint.device.md}{
         padding: 0.5rem 1rem;
       }
 `;
+
+const StyledCloseIcon = styled(CloseIconCircle)`
+    position: absolute;
+    top:3%;
+    right: 5%;
+    color: #525252;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.3;
+
+    
+    &:hover{
+        opacity: 1;
+    }
+`
+
+const StyledHeader = styled.div`
+    border-bottom: 1px solid #BABABA50;
+`
 const Modal = ({isOpen,handleClose,handleSubmit,title,btnText,hasHeader,hasFooter,maxWidth,children}) => {
     return ( 
         <>
@@ -30,13 +52,16 @@ const Modal = ({isOpen,handleClose,handleSubmit,title,btnText,hasHeader,hasFoote
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             fullWidth = {true}
-            maxWidth= {maxWidth ? maxWidth : 'xs'}
+            maxWidth= {maxWidth ? maxWidth : 'sm'}
         >
             {hasHeader===true ? 
+            <StyledHeader>
                 <DialogTitle id="alert-dialog-title" sx={{fontSize:'15px',color:'#525252',textAlign:'center',fontWeight:'bold'}}>
                     {title}
                 </DialogTitle>
+            </StyledHeader>
             : null }
+            <StyledCloseIcon onClick={()=>handleClose()}/>
             <DialogContent sx={{height:{xs:'10rem',md:'auto'}, display:'flex', alignItems:'top'}}>
             <DialogContentText id="alert-dialog-description" sx={{color:'#444', marginTop:'0.5rem', fontSize:{xs:'0.8rem',lg:'1.25rem', width:'100%'}}}>
                 {children}

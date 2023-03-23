@@ -17,10 +17,11 @@ function CategoryList({categories}) {
   return (
     <Swiper
     spaceBetween={40}
-    slidesPerView={9}
+    slidesPerView={10}
     loop={true}
+    updateOnWindowResize={true}
   >
-    {categories.data.map((category,idx)=> (
+    {categories.map((category,idx)=> (
         <SwiperSlide key={idx} onClick={()=>handleSelectedCategory(category.key)}>
             <Category data={category} isSelected = {category.key === currentSelected ? true : false}/>
         </SwiperSlide>

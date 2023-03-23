@@ -1,6 +1,6 @@
 import {useState, useMemo, createContext, useContext} from 'react';
 import axios from 'axios';
-import { getClients } from '../components/forms/formService';
+import { getClients, getFilteredClients } from '../components/forms/formService';
 import { origin } from '../src/config';
 axios.defaults.withCredentials = true;
 
@@ -16,7 +16,7 @@ let projectsResult;
 
 export async function getServerSideProps(){
     // const res = await axios.get(origin + '/clients')
-    const res = await axios.get(origin + '/clients?populate=*',{}).then(async (response) => {
+    const res = await getClients().then(async (response) => {
       if (response.data) {
         return freelancerResult = response.data?.data;
       }}).catch(function (error) {
@@ -33,32 +33,48 @@ export async function getServerSideProps(){
     
     return {
         props: {
-            "freelancer": freelancerResult
-            ,
+            "freelancer": freelancerResult,
             "project" : projectsResult
         },
     }
 }
 
 const useFreelancerController = (freelancer : Freelancer[]) =>{
-    const [filter,setFilter] = useState("");
+    const [filter,setFilter] = useState(undefined);
+  
+    console.log('this is called',filter)
+      
+    const checkCategories = (val) => {
+      if((typeof filter) === 'object') return val?.data.some(category => category?.attributes?.key.toLowerCase().includes(filter?.category?.toLowerCase() ?? ''))
+      return val?.data.some(category => category?.attributes?.key.toLowerCase().includes(filter?.toLowerCase() ?? ''));
+    }
 
-  const checkCategories = (val)=>{
-    return val?.data.some(category => category?.attributes?.key.toLowerCase().includes(filter.toLowerCase()));
-  }
+    const checkSkill = (val) => {
+      // if((typeof filter) === 'object') return val?.data.some(res => res?.attributes?.slug.toLowerCase().includes(filter?.skill?.toLowerCase() ?? ''));
+      return 1;
+    }
+
+    const checkLocation = (val) => {
+      if((typeof filter) === 'object') return val.replace(' ','').toLowerCase().includes(filter?.location)
+      return 1;
+    }
 
       const filteredFreelancer = useMemo(
         () =>
-            freelancer && freelancer.map( (f) => {
-              return Object.values(f).filter((val)=> val.accountType === 1 && checkCategories(val?.categories))[0];
-            }).filter(data => data !== undefined),
+          { 
+              return freelancer && freelancer.map( (f) => {
+                return Object.values(f).filter((val)=> (val.accountType === 1) && checkCategories(val?.categories) && checkSkill(val?.skills) && checkLocation(val?.city) )[0];
+              }).filter(data => data !== undefined)
+             
+          },
         [filter, freelancer]
     );
+
     return {
       filter,
       setFilter,
       freelancer : filteredFreelancer
-  }
+    }
 }
 
 const FreelancerContext = createContext<ReturnType<typeof useFreelancerController>>({

@@ -2,59 +2,26 @@ import {Container} from "@mui/material";
 import CategoryList from "../shared/categories/CategoryList";
 import CardsSection from "./CardsSection";
 import { useFreelancer } from "../../src/store";
-
-const categories = {
-    data : [
-        {
-            key:"all",
-            icon:"icn-all.svg",
-            title:"All Categories"
-        },
-        {
-            key : "photographer",
-            icon : "icn-photographer.svg",
-            title: "Photographer"
-        },
-        {
-            key : "videographer",
-            icon : "icn-videographer.svg",
-            title: "Videographer"
-        },
-        {
-            key : "editor",
-            icon : "icn-editor.svg",
-            title: "Editor"
-        },
-        {
-            key : "stylist",
-            icon : "icn-stylist.svg",
-            title: "Stylist"
-        },
-        {
-            key : "makeup-artist",
-            icon : "icn-makeupArtist.svg",
-            title: "Makeup Artists"
-        },
-        {
-            key : "hair-stylist",
-            icon : "icn-makeupArtist-1.svg",
-            title: "Hair Stylists"
-        },
-        {
-            key : "model",
-            icon : "icn-hairStylist.svg",
-            title: "Models"
-        },
-        {
-            key : "studio-location",
-            icon : "icn-models.svg",
-            title: "Studio/Location"
-        },
-    ]
-}
+import { useState, useEffect } from "react";
+import { getCategories } from "../forms/formService";
 
 function Main() {
   const {freelancer, filter, setFilter} = useFreelancer();
+  const [categories, setCategories] = useState([]);
+  const [isFetched, setIsFetched] = useState(false);
+
+  useEffect(()=>{
+    getCategories().then((result)=>{
+      if(result?.data?.data && !isFetched){
+        setCategories(()=>[])
+        result?.data?.data.map((item)=>{
+          let temp = {"id":item.id}
+          setCategories((prev => prev.concat({...item.attributes,...temp})));
+        })
+        setIsFetched(true);
+      }
+    });
+},[isFetched])
 
   const handleButtonClick = () =>{
   }

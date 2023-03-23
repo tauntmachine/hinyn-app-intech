@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import breakpoint from '../../utils/Breakpoints';
 import Image from "next/image";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFreelancer } from '../../../src/store';
+import { getCategories, getSkills } from '../../forms/formService';
+import { locations,budget } from '../../models/filters.models';
 
 
 const DetailsContainer = styled.div`
@@ -83,7 +85,7 @@ export const Pill = styled.div`
     transition: all 0.2s ease-in-out;
 
     &:hover{
-        background-color: #EB4C6020;
+        box-shadow: 0px 0px 3px #EB4C6060;
     }
 
     &.active{
@@ -104,244 +106,32 @@ const ListItem = styled.li`
     }
 `
 
-const categories = {
-    data : [
-        {
-            key : "photographer",
-            icon : "icn-photographer.svg",
-            title: "Photographer"
-        },
-        {
-            key : "videographer",
-            icon : "icn-videographer.svg",
-            title: "Videographer"
-        },
-        {
-            key : "editor",
-            icon : "icn-editor.svg",
-            title: "Editor"
-        },
-        {
-            key : "stylist",
-            icon : "icn-stylist.svg",
-            title: "Stylist"
-        },
-        {
-            key : "makeup-artist",
-            icon : "icn-makeupArtist.svg",
-            title: "Makeup Artists"
-        },
-        {
-            key : "hair-stylist",
-            icon : "icn-makeupArtist-1.svg",
-            title: "Hair Stylists"
-        },
-        {
-            key : "model",
-            icon : "icn-hairStylist.svg",
-            title: "Models"
-        },
-        {
-            key : "studio-location",
-            icon : "icn-models.svg",
-            title: "Studio/Location"
-        },
-    ]
-}
-
-const category_skills = {
-    data: [
-    {
-        key : "photographer",
-        skills: [
-            'Fashion',
-            'Beauty',
-            'Lifestyle',
-            'Corporate',
-            'E-commerce',
-            'Watches / Jewelry',
-            'Products',
-            'Cars',
-            'Sports',
-            'Wedding',
-            'Event',
-            'Kids / Baby',
-            'Animal',
-            'Architecture / Real estate',
-            'Food',
-            'Other'
-        ]
-    },
-    {
-        key : "videographer",
-        skills: [
-            'Drone operator',
-            'Fashion',
-            'Beauty',
-            'Lifestyle',
-            'Corporate',
-            'E-commerce',
-            'Watches / Jewelry',
-            'Products',
-            'Cars',
-            'Sports',
-            'Wedding',
-            'Event',
-            'Kids / Baby',
-            'Animal',
-            'Architecture / Real estate',
-            'Food',
-            'Other'
-        ]
-    },
-    {
-        key : "editor",
-        skills : [
-            'General',
-            'Special effects',
-            'Animation / 3D',
-            'Other'
-        ]
-    },
-    {
-        key : "stylist",
-        skills : [
-            'Fashion',
-            'Beauty',
-            'Lifestyle',
-            'Sports',
-            'E-commerce',
-            'Watches / Jewelry',
-            'Wedding',
-            'Event',
-            'Kids / Baby',
-            'Other'
-        ]
-    },
-    {
-        key : "makeup-artist",
-        skills: [
-            'Cinema',
-            'Fashion',
-            'Beauty',
-            'Lifestyle',
-            'E-commerce',
-            'Wedding',
-            'Event',
-            'Kids / Baby',
-            'Other'
-        ]
-    },
-    {
-        key : "hair-stylist",
-        skills : [
-            'Cinema',
-            'Fashion',
-            'Beauty',
-            'Lifestyle',
-            'E-Commerce',
-            'Wedding',
-            'Event',
-            'Kids / Baby',
-            'Other'
-        ]
-    },
-    {
-        key : "model",
-        skills : [
-            'Fashion',
-            'Beauty',
-            'Lifestyle',
-            'E-commerce',
-            'Watches / Jewelry',
-            'Cars',
-            'Sports',
-            'Wedding',
-            'Event',
-            'Kids / Baby',
-            'Other'
-        ]
-    },
-    {
-        key : "studio-location",
-        skills : [
-            'Studio',
-            'House',
-            'Restaurant',
-            'Other'
-        ]
-    }
-    ]
-}
-
-const locations = {
-    data: [        
-        {
-            key: 'dubai',
-            location: 'Dubai'
-        },
-        {
-            key: 'abudhabi',
-            location: 'Abu Dhabi'
-        },
-        {
-            key: 'sharjah',
-            location: 'Sharjah'
-        },
-        {
-            key: 'ajman',
-            location: 'Ajman'
-        },
-        {
-            key: 'umm-al-quwain',
-            location: 'Umm Al Quwain'
-        },
-        {
-            key: 'fujairah',
-            location: 'Fujairah'
-        },
-        {
-            key: 'ras-al-khaimah',
-            location: 'Ras Al Khaimah'
-        }
-    ]
-}
-
-const budgets = {
-    data: [
-       {
-        key: 'free',
-        budget: '0 - free collaboration'
-       },
-       {
-        key: '0-100',
-        budget: '0-100'
-       },
-       {
-        key: '100-200',
-        budget: '100-200'
-       },
-       {
-        key: '200-500',
-        budget: '200-500'
-       },
-       {
-        key: '500 plus',
-        budget: '500 plus'
-       },
-    ]
-}
-
-
 const CategoriesDetailsContainer = ({handleSelectedCategory}) => {
     const imgsrc = '/assets/img/categories/';
+    const [categories,setCategories] = useState([]);
+    const [isFetched,setIsFetched] = useState([]);
+
+
+    useEffect(()=>{
+        getCategories().then((result)=>{
+          if(result?.data){
+            setCategories(()=>[])
+            result?.data?.data.map((item)=>{
+              let temp = {"id":item.id}
+              setCategories((prev => prev.concat({...item.attributes,...temp})));
+            })
+            setIsFetched(()=> true)
+          }
+        });
+      },[isFetched])
+
 
     return(
         <DetailsContainer>
             <GridContainer>
-            {categories.data.map((category,idx) => {
-                return (
-                    <Row key={'category-'+idx} className='categories-row' onClick={()=>handleSelectedCategory(category)}>
+            {categories.map((category,idx) => {
+                if(category?.key !== 'all')
+                   return <Row key={'category-'+idx} className='categories-row' onClick={()=>handleSelectedCategory(category)}>
                         <ImageContainer className='icon-img-box'>
                             <Image
                             src={imgsrc+category.icon}
@@ -351,16 +141,30 @@ const CategoriesDetailsContainer = ({handleSelectedCategory}) => {
                             />
                         </ImageContainer>
                         <Text className='secondary'>{category.title}</Text>
-                    </Row>
-                )
+                    </Row>                
             })}
             </GridContainer>
         </DetailsContainer>
     )
 }
 const SkillsDetailsContainer = ({category, handleSelectedSkills}) => {
-    const data = category ? category_skills.data.find(item => item.key === category.key) : null;
+    const [categorySkills, setCategorySkills] = useState([]);
     const [selectedSkills, setSelectedSkills] = useState([]);
+
+    useEffect(()=>{
+        getSkills(category.id).then((result)=>{
+            if(result?.data){
+                setCategorySkills(()=>[]);
+                const temp = result?.data?.data?.attributes?.skills?.data ?? [];
+                temp.map((item)=>{
+                let skillId = {"id":item.id}
+                setCategorySkills((prev => prev.concat({...item.attributes, ...skillId})));
+                });
+            }
+        });
+    },[])
+   
+
     const togglePillActive = (item) => {
         const isActive = selectedSkills.find(data => data === item) ? true : false;
         if(!isActive) setSelectedSkills((prev => prev.concat(item)));
@@ -371,12 +175,12 @@ const SkillsDetailsContainer = ({category, handleSelectedSkills}) => {
     }
     return(
         <DetailsContainer>
-          { data ?
+          { categorySkills ?
                 <>
                     <div>Skills related to <Text className='secondary'>{category.title}</Text></div>
                     <FlexContainer>
-                        {data && data.skills.map((item,idx) => {
-                            return <Pill key={"skill-id"+idx} onClick={()=>{ handleSelectedSkills(selectedSkills); togglePillActive(item)}} className={checkIsActive(item) ? 'active' : ''} > {item} <span>+</span></Pill>
+                        {categorySkills.map((item,idx) => {
+                            return <Pill key={"skill-id"+idx} onClick={()=>{ handleSelectedSkills(selectedSkills); togglePillActive(item?.id)}} className={checkIsActive(item?.id) ? 'active' : ''} > {item?.title} <span>+</span></Pill>
                         })}
                     </FlexContainer>
                 </>
@@ -391,8 +195,8 @@ const LocationDetailsContainer = ({handleSelectedLocation}) => {
         <DetailsContainer>
             Select City
             <List>
-            {locations.data.map((item,idx)=>{
-                return <ListItem key={'location-id-'+idx} onClick={()=>handleSelectedLocation(item)}>{item.location}</ListItem>
+            {locations && locations.map((item,idx)=>{
+                return <ListItem key={'location-id-'+idx} onClick={()=>handleSelectedLocation(item)}>{item.title}</ListItem>
             })}
             </List>
         </DetailsContainer>
@@ -403,8 +207,8 @@ const BudgetDetailsContainer = ({handleSelectedBudget}) => {
         <DetailsContainer>
              Select Budget
             <List>
-            {budgets.data.map((item,idx)=>{
-                return <ListItem key={'budget-id-'+idx} onClick={()=>handleSelectedBudget(item)}>{item.budget}</ListItem>
+            {budget && budget.map((item,idx)=>{
+                return <ListItem key={'budget-id-'+idx} onClick={()=>handleSelectedBudget(item)}>{item.title}</ListItem>
             })}
             </List>
         </DetailsContainer>
@@ -413,18 +217,16 @@ const BudgetDetailsContainer = ({handleSelectedBudget}) => {
 
 function DetailsSection({type, onHandleUserSelectedDetails}) {
 const [selectedCategory, setSelectedCategory] = useState(null);
-const [selectedSkills, setSelectedSkills] = useState([]);
-const {freelancer, filter, setFilter} = useFreelancer();
+
 
 
 const handleSelectedCategory = (category) =>{
     setSelectedCategory(category);
-    // setFilter(category);
     onHandleUserSelectedDetails({'categories':category});
 }
 
-const handleSelectedSkills = () =>{
-    onHandleUserSelectedDetails({'skills':selectedSkills});
+const handleSelectedSkills = (skills) =>{
+    onHandleUserSelectedDetails({'skills':skills});
 }
 
 const handleSelectedLocation = (location) =>{

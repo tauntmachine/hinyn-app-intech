@@ -3,8 +3,9 @@ import {FiSearch} from "react-icons/fi";
 import { useState } from "react";
 import DetailsSection from "./DetailsSection";
 import { Box } from "@mui/material";
-import { useFreelancer } from '../../../src/store';
-
+import { useEffect } from "react";
+import { getCategories } from "../../forms/formService";
+import { useFreelancer } from "../../../src/store";
 
 const SearchContainer = styled.div`
     display: flex;
@@ -96,11 +97,11 @@ const items = [
     }
 ];
 
-function ExpandedSearchBar() {
+function ExpandedSearchBar({handleCloseExpandedSearchBar}) {
     const [currentExpanded, setCurrentExpanded] = useState(null);
     const [showDetailsSection, setShowDetailsSection] = useState(false);
     const [userSelectedDetails, setUserSelectedDetails] = useState({data:null});
-
+    const {freelancer, filter, setFilter} = useFreelancer();
 
     const toggleDetailsSection = (key) => {
         setCurrentExpanded(key);
@@ -116,14 +117,23 @@ function ExpandedSearchBar() {
         });
     }
 
+    const handleSubmit = () => {
+        setFilter(
+          {
+            category: userSelectedDetails?.data?.categories ? userSelectedDetails?.data?.categories.key : '',
+            skill: '',
+            location: userSelectedDetails?.data?.location ? userSelectedDetails?.data?.location.key : '',
+            budget: '',
+          }
+        )
+        setShowDetailsSection(()=>false)
+        // handleCloseExpandedSearchBar(false)
+      }
+
     const showValue = (key, orig) => {
         if(key === 'categories' && userSelectedDetails?.data?.categories?.title) return <span className="value active"> {userSelectedDetails?.data?.categories?.title} </span>;
-        if(key === 'location' && userSelectedDetails?.data?.location?.location) return <span className="value active">{ userSelectedDetails?.data?.location?.location } </span>;
-        if(key === 'budget' && userSelectedDetails?.data?.budget?.budget) return <span className="value active">{ userSelectedDetails?.data?.budget?.budget } </span>;
-        // if(key === 'skills' && userSelectedDetails?.data?.skills) return <span className="value active">
-        //     { userSelectedDetails?.data?.skills.map((skill,idx) => {
-        //         return <Pill key={"skill-item-"+idx}>{skill}</Pill>
-        //     }) } </span>;
+        if(key === 'location' && userSelectedDetails?.data?.location?.title) return <span className="value active">{ userSelectedDetails?.data?.location?.title } </span>;
+        if(key === 'budget' && userSelectedDetails?.data?.budget?.title) return <span className="value active">{ userSelectedDetails?.data?.budget?.title } </span>;
         return orig;
     }
    
@@ -144,7 +154,7 @@ function ExpandedSearchBar() {
             </Box>
         ))} 
         <SearchIconContainer>
-            <CustomSearchIcon />
+            <CustomSearchIcon onClick={()=>handleSubmit()}/>
         </SearchIconContainer>
     </SearchContainer>
         {showDetailsSection 

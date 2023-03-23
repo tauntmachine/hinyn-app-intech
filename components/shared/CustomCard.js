@@ -61,6 +61,7 @@ const Label = styled.span`
 const StyledButton = styled(Button)`
     font-size: 13px;
     margin-top: 1.5rem;
+    transition: all 0.3s ease-in-out;
 `
 const HeaderBackground = styled.div`
     position: absolute;

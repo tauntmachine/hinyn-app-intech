@@ -11,7 +11,7 @@ const Button = styled.button`
   cursor: ${props => props.disabled === 'disabled' ? 'not-allowed' : 'pointer'};
   text-decoration: none;
   display:block;
-  padding: ${props => props.variant === 'outlined' ? "0.5rem 3rem" : props.size === 'small' ? "1rem 2rem": "1rem 1rem"};
+  padding: ${props => props.variant === 'outlined' ? "0.5rem 3rem" : props.size === 'small' ? "1rem 2rem": "0.75rem 1rem"};
   pointer-events: ${props => props.disabled === 'disabled' ? 'none' : ''};
   text-align: center;
   transition: all 0.5s ease-in-out;

@@ -242,11 +242,9 @@ export const logoutUser = () => {
 
 
 /* CLIENTS */
-
-
 export const getClients = async () => {
   return axios.get(
-      origin + '/clients/',
+      origin + '/clients?populate=*',
       {
       },
       {
@@ -324,6 +322,46 @@ export const getClientData = async (clientData) => {
         return { status: false, data: error };
       });
   };
+
+
+  export const getFilteredClients = async (filters) => {
+    const category = filters.category ?? '';
+    const skill = filters.skill ?? '';
+    const location = filters?.location ?? '';
+    const budget = filters?.budget ? filters.budget.split('-') : [];
+    const minBudget = budget.length > 0 ? budget[0] : '';
+    const maxBudget = budget.length > 1 ? budget[1] : '';
+    console.log('the filters in the service', filters, minBudget, maxBudget)
+
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    return axios.get(
+        origin + '/clients?filters[categories][key]='+category+'&populate=*', //?filters[$and][0][bids][minBudget][$gte]=20&filters[$and][1][bids][maxBudget][$lte]=150&populate=*",
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+        },
+        {
+           
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error };
+      });
+  };
+
+ 
 
 
   export const addClientData = async (userData,jwt) => {
@@ -481,7 +519,7 @@ export const updateUserData= async (clientId) => {
   export const getCategories = async () => {
     const jwt = localStorage.getItem('hinyn-cjwt');
     return axios.get(
-        origin + '/categories',
+        origin + '/categories?populate=*',
         {
             headers:{
                 'Accept' : 'application/json',
@@ -719,6 +757,7 @@ export const updateUserData= async (clientId) => {
 
   export const updateProposalData = async (proposalData,proposalId) => {
     const jwt = localStorage.getItem('hinyn-cjwt') ?? '';
+    console
     return axios.put(
         origin + '/proposals/'+proposalId,
         {

@@ -95,6 +95,10 @@ const Header = () => {
       // return localStorage.getItem('hinyn-cjwt') ? true : false;
   }
 
+  const handleCloseExpandedSearchBar = (val) => {
+    setIsExpanded(()=>val)
+  }
+
   
 
 
@@ -115,7 +119,7 @@ const Header = () => {
         </LoginContainer>
       </Head>
       { isExpanded ? 
-        <ExpandedSearchBar></ExpandedSearchBar>
+        <ExpandedSearchBar handleCloseExpandedSearchBar={handleCloseExpandedSearchBar}></ExpandedSearchBar>
         : null
       }
     </CustomBox>

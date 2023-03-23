@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import {FaChevronLeft, FaSearch} from "react-icons/fa";
 import {MdOutlinePhotoSizeSelectActual, MdBrokenImage} from "react-icons/md";
 import {FiUploadCloud,FiRss,FiAlertCircle,FiUsers,FiCheckSquare,FiXSquare, FiAward, FiChevronDown,FiLogOut} from "react-icons/fi";
-import {AiOutlineMail, AiTwotoneLock,AiOutlineBell,AiOutlineCheck,AiOutlineClose,AiOutlineSearch} from "react-icons/ai";
+import {AiOutlineMail, AiTwotoneLock,AiOutlineBell,AiOutlineCheck,AiOutlineClose,AiOutlineSearch,AiOutlineCloseCircle} from "react-icons/ai";
 import {BsArrowRight, BsArrowLeft, BsChevronRight,BsChatLeft,BsExclamationOctagon,BsChat,BsCardImage} from "react-icons/bs";
 import {BiUser} from "react-icons/bi";
 import {RiSuitcaseLine} from "react-icons/ri";
@@ -57,6 +57,10 @@ export const ChevronDownIcon = styled(FiChevronDown)`
 `
 
 export const CloseIcon = styled(AiOutlineClose)`
+    color: ${props => props.variant === 'red' ? '#EB4C60' : props.variant === 'green' ? '#4AA398' : '#525252' };
+`
+
+export const CloseIconCircle = styled(AiOutlineCloseCircle)`
     color: ${props => props.variant === 'red' ? '#EB4C60' : props.variant === 'green' ? '#4AA398' : '#525252' };
 `
 

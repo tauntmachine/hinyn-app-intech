@@ -9,6 +9,7 @@ const IconContainer = styled.div`
   color : ${props => props.isSelected ? '#EB4C60' : '#939393'};
   align-items: center;
   border-bottom : ${props => props.isSelected ? '1px solid #EB4C60' : ''};
+  user-select: none;
   
   .icon-img-box img{
     filter:${props => props.isSelected ? 'grayscale(100%) brightness(50%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8)' : ''};
