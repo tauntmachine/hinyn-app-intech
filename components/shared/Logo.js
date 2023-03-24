@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
-import LogoImage from "/public/assets/img/logo-hinyn-v2.svg";
+import LogoImage from "/public/assets/img/logo-normal.svg";
 import WhiteLogoImage from "/public/assets/img/logo-hinyn-white.svg";
 import { useRouter } from "next/router";
 
