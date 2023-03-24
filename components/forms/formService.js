@@ -521,11 +521,6 @@ export const updateUserData= async (clientId) => {
     return axios.get(
         origin + '/categories?populate=*',
         {
-            headers:{
-                'Accept' : 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwt}`
-              },
         },
         {
            
@@ -552,11 +547,6 @@ export const updateUserData= async (clientId) => {
     return axios.get(
         origin + '/categories/'+categoryId+"?populate=*",
         {
-            headers:{
-                'Accept' : 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwt}`
-              },
         },
         {
           withCredentials: true,
