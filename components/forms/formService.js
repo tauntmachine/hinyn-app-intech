@@ -428,7 +428,7 @@ export const getClientData = async (clientData) => {
 export const getLoggedInUserData = async () => {
   const jwt = localStorage.getItem('hinyn-cjwt') ?? '';
   return axios.get(
-      origin + '/users/me?populate=client',
+      origin + '/users/me?populate=*',
       {
           headers:{
               'Accept' : 'application/json',

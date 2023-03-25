@@ -66,8 +66,12 @@ function LoginForm(props){
             localStorage.setItem('hinyn-uid',response.data.user.id);
             localStorage.setItem('hinyn-cjwt',response?.data?.jwt);
             getLoggedInUserData().then((res)=>{
-              if(res.data) localStorage.setItem('hinyn-cid',res.data?.client?.id);
-              router.push('/dashboard');
+              console.log('client iddd', res?.data)
+              if(res.data){ 
+                router.push('/dashboard');
+                localStorage.setItem('hinyn-cid',res.data?.client?.id);
+              }
+              
             })
           }
           else{
