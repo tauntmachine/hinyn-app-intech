@@ -396,9 +396,9 @@ function PostProjectForm1({ handleNextClick }) {
 
 
   useEffect(()=>{
-      setCategories(()=>[]);
       getCategories().then((result)=>{
         if(result?.data?.data && !isFetched){
+          setCategories(()=>[]);
           result?.data?.data.map((item)=>{
             let temp = {"id":item.id}
             setCategories((prev => prev.concat({...item.attributes,...temp})));

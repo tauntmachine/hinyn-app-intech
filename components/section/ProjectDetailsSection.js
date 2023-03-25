@@ -463,7 +463,7 @@ const ProjectDetailsSection = () => {
                         </Row>
                     </Column>
                 </Box>
-            </Modal>
+        </Modal>
     </Box>
   )
 }
