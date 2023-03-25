@@ -199,7 +199,7 @@ const Details = ({userDetails,bidData, userHasProposal,isBidOwner }) => {
                 <Row sx={{ display: 'flex', justifyContent: 'center' }}>
 
                 { userHasProposal 
-                    ?  <CustomGreenButton className="disabled">Applied</CustomGreenButton>
+                    ?  userDetails?.isProposedProject ? <CustomGreenButton onClick={() => setOpenFinishModal(true)}>Complete Project</CustomGreenButton> : <CustomGreenButton className="disabled">Applied</CustomGreenButton>
                     : (!isBidOwner) ? <CustomGreenButton onClick={() => setOpen(true)}>Apply</CustomGreenButton> : null 
                 }
                 {/* {userDetails?.isProposedProject  

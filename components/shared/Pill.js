@@ -44,6 +44,11 @@ const categories = {
             icon : "icn-models.svg",
             title: "Studio/Location"
         },
+        {
+            key : "drone",
+            icon : "icn-drone.svg",
+            title: "Drone Operator"
+        },
     ]
 }
 

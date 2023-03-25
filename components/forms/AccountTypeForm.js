@@ -58,8 +58,10 @@ function AccountTypeForm(){
     function createAccount(type){
       let accountType = type === 'professional' ? 1 : 2;
       const clientId = localStorage.getItem('hinyn-cid');
+      const userId = localStorage.getItem('hinyn-uid');
       const userData = {
-        accountType : accountType
+        accountType : accountType,
+        user: userId
       }
       updateClientData(userData,clientId);
       if(accountType === 1) router.push("/professional");
