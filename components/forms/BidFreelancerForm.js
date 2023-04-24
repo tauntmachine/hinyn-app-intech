@@ -65,7 +65,7 @@ const StyledTextArea = styled(TextareaAutosize)`
     width: 100%;
     min-height: 7rem;
     border-radius: 20px;
-    padding: 10px;
+    padding: 2rem;
     font-family: inherit;
     background-color: #f2f2f2;
     opacity: 1;
@@ -99,10 +99,6 @@ const BidFreelancerForm = ({handleBidSubmit,data}) => {
     let imgpath = '/assets/img/avatars/';
 
   const currencies = [
-    {
-        title: 'USD',
-        value: 'usd'
-    },
     {
         title: 'AED',
         value: 'aed'
@@ -175,7 +171,7 @@ const BidFreelancerForm = ({handleBidSubmit,data}) => {
           <FormContainer>
                 <ImageContainer>
                     <StyledImage
-                    src={imgpath+data?.img}
+                    src={data?.img ? imgpath+data?.img : imgpath+'img-avatar1.png'}
                     layout="fill"
                     alt="icon-img"
                     />
@@ -190,7 +186,7 @@ const BidFreelancerForm = ({handleBidSubmit,data}) => {
                 <Grid item xs={12}>
                   <GrayText><b>Bid</b></GrayText>
                   <Box sx={{display:"flex", position:"relative",alignItems:"center"}}>
-                    <CustomDropdown hasLabel={false} items={currencies} width="100%" type="outlined" selected="USD" color="red" />
+                    <CustomDropdown hasLabel={false} items={currencies} width="100%" type="outlined" selected="aed" color="red" bgcolor="transparent" />
                     <CustomTextField
                         required
                         fullWidth

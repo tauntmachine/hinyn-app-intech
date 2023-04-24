@@ -318,7 +318,7 @@ function RegistrationForm(){
                   )}
                 </Grid>            
               </Grid>
-              <Grid container justifyContent="flex-end">
+              <Grid container justifyContent="flex-start">
                 <Grid item>
                   <AgreeCheckbox>
                   <input type="checkbox" /> I agree to the HINYN <TextLink color="red">User Agreement</TextLink> and <TextLink color="red">Privacy Policy.</TextLink>

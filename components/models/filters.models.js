@@ -52,6 +52,29 @@ export const locations = [
     },
   ];
 
+  export const ageGroupOptions = [
+    {
+      title: '0-10',
+      value: '10',
+    },
+    {
+      title: '11-18',
+      value: '18',
+    },
+    {
+      title: '18-30',
+      value: '30',
+    },
+    {
+      title: '31-45',
+      value: '45',
+    },
+    {
+      title: '46+',
+      value: '46',
+    },
+  ];
+
   const category_skills = {
     data: [
     {

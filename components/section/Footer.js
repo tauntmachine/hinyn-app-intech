@@ -51,7 +51,7 @@ const footerData = [
     },
     {
         name:'Contact Us',
-        link: '/'
+        link: '/contactUs'
     }
 ]
 

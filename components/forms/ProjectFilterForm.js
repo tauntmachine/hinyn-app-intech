@@ -1,15 +1,16 @@
-import {useRef, useState} from 'react';
-import { CssBaseline, Grid, Box, InputAdornment, IconButton, TextField, Container} from '@mui/material';
+import {useRef, useState, useEffect} from 'react';
+import { CssBaseline, Grid, Box, InputAdornment, IconButton, TextField,  Autocomplete,TextareaAutosize} from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button, { GreenButton } from '../shared/Button';
 import Dropdown from "../shared/Dropdown";
-import { SearchIcon } from '../shared/Icon';
+import { locations, budget } from '../models/filters.models';
+import { getCategories} from './formService';
+import { projectFilter,setProjectFilter, useProject } from '../../src/store';
+import ClickableStarRating from '../shared/ClickableStarRating';
+import { StaticPill } from '../shared/Pill';
+import { CloseIcon, OutlineSearchIcon} from '../shared/Icon';
 
-
-
-const StyledButton = styled(Button)`
-`
 
 const CustomTextField = styled(TextField)`
   background: transparent;
@@ -53,278 +54,128 @@ const ButtonContainer = styled.div`
     margin-top: 2rem;
 `
 
+const SearchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto;
+  overflow: auto;
+  padding: 0.5rem;
+`;
 
+const PillsContainer = styled(Box)`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 1rem 0.5rem;
+`;
+
+const StyledStaticPill = styled(StaticPill)`
+  background-color: #d8d8d8;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+`;
+
+const StyledCloseIcon = styled(CloseIcon)`
+  cursor: pointer;
+`;
+
+const VerticalDivider = styled.div`
+  height:1rem;
+`
 
 function ProjectFilterForm(){
-  const categories = {
-    title: 'Category',
-    options : [       
-        {
-            key : "photographer",
-            icon : "icn-photographer.svg",
-            title: "Photographer",
-            value: "photographer"
-        },
-        {
-            key : "videographer",
-            icon : "icn-videographer.svg",
-            title: "Videographer",
-            value: "videographer"
-        },
-        {
-            key : "editor",
-            icon : "icn-editor.svg",
-            title: "Editor",
-            value: "editor",
-        },
-        {
-            key : "stylist",
-            icon : "icn-stylist.svg",
-            title: "Stylist",
-            value: "stylist"
-        },
-        {
-            key : "makeup-artist",
-            icon : "icn-makeupArtist.svg",
-            title: "Makeup Artists",
-            value: "makeup-artists"
-        },
-        {
-            key : "hair-stylist",
-            icon : "icn-makeupArtist-1.svg",
-            title: "Hair Stylists",
-            value: "hair-stylists",
-        },
-        {
-            key : "model",
-            icon : "icn-hairStylist.svg",
-            title: "Models",
-            value: "models",
-        },
-        {
-            key : "studio-location",
-            icon : "icn-models.svg",
-            title: "Studio/Location",
-            value: "studio-location"
-        },
-    ]
-}
-const category_skills = {
-  title: 'Skills',
-  options: [
-  {
-      key : "photographer",
-      skills: [
-          'Fashion',
-          'Beauty',
-          'Lifestyle',
-          'Corporate',
-          'E-commerce',
-          'Watches / Jewelry',
-          'Products',
-          'Cars',
-          'Sports',
-          'Wedding',
-          'Event',
-          'Kids / Baby',
-          'Animal',
-          'Architecture / Real estate',
-          'Food',
-          'Other'
-      ]
-  },
-  {
-      key : "videographer",
-      skills: [
-          'Drone operator',
-          'Fashion',
-          'Beauty',
-          'Lifestyle',
-          'Corporate',
-          'E-commerce',
-          'Watches / Jewelry',
-          'Products',
-          'Cars',
-          'Sports',
-          'Wedding',
-          'Event',
-          'Kids / Baby',
-          'Animal',
-          'Architecture / Real estate',
-          'Food',
-          'Other'
-      ]
-  },
-  {
-      key : "editor",
-      skills : [
-          'General',
-          'Special effects',
-          'Animation / 3D',
-          'Other'
-      ]
-  },
-  {
-      key : "stylist",
-      skills : [
-          'Fashion',
-          'Beauty',
-          'Lifestyle',
-          'Sports',
-          'E-commerce',
-          'Watches / Jewelry',
-          'Wedding',
-          'Event',
-          'Kids / Baby',
-          'Other'
-      ]
-  },
-  {
-      key : "makeup-artist",
-      skills: [
-          'Cinema',
-          'Fashion',
-          'Beauty',
-          'Lifestyle',
-          'E-commerce',
-          'Wedding',
-          'Event',
-          'Kids / Baby',
-          'Other'
-      ]
-  },
-  {
-      key : "hair-stylist",
-      skills : [
-          'Cinema',
-          'Fashion',
-          'Beauty',
-          'Lifestyle',
-          'E-Commerce',
-          'Wedding',
-          'Event',
-          'Kids / Baby',
-          'Other'
-      ]
-  },
-  {
-      key : "model",
-      skills : [
-          'Fashion',
-          'Beauty',
-          'Lifestyle',
-          'E-commerce',
-          'Watches / Jewelry',
-          'Cars',
-          'Sports',
-          'Wedding',
-          'Event',
-          'Kids / Baby',
-          'Other'
-      ]
-  },
-  {
-      key : "studio-location",
-      skills : [
-          'Studio',
-          'House',
-          'Restaurant',
-          'Other'
-      ]
+  const [categories, setCategories] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [categorySkills, setCategorySkills] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [selectedBudget, setSelectedBudget] = useState('');
+  const {project, projectFilter, setProjectFilter} = useProject();
+  const [isFetched, setIsFetched] = useState(false);
+
+
+  useEffect(()=>{
+    getCategories().then((result)=>{
+      if(result?.data && !isFetched){
+        setCategories(()=>[]);
+        result?.data?.data.map((item,idx)=>{
+          const temp = {"id":item.id}
+          setCategories((prev => prev.concat({
+            ...item?.attributes,
+            ...temp
+          })));
+          if(idx === 0){
+            setSelectedCategory(()=>item.attributes.key)
+            const res = item?.attributes?.skills?.data.map((skill)=> {
+              return {"id":skill.id, "key":skill?.attributes?.slug, ...skill?.attributes}
+            })
+            setSkills(()=>res);
+          }
+        })
+      }
+      setIsFetched(()=>true)
+    });
+  },[isFetched])
+
+  const handleCategoryChange = (val) => {
+    const selected = categories.filter((category) => category.key === val)
+    if(selected){
+      const res = selected[0]?.skills?.data.map((item)=> {
+       return {"id":item.id, "key":item?.attributes?.slug, ...item?.attributes}
+      });
+      setSkills(()=> res);
+      setCategorySkills(()=> res);
+      setSelectedSkills(() => []);
+    }
+    setSelectedCategory(()=>val);
   }
-  ]
-}
-    const location = {
-      title:"Location",
-      options:[
-        {
-          title: 'loc1',
-          value: 'loc1'
-        },
-        {
-          title: 'loc2',
-          value: 'loc2'
-        },
-        {
-          title: 'loc3',
-          value: 'loc3'
-        },
-        {
-          title: 'loc4',
-          value: 'loc4'
-        }
-      ]
-    }
-    const budget = {
-      title:"Budget",
-      options:[
-        {
-          title: '0-free collaboration',
-          value: '0'
-        },
-        {
-          title: '1-100',
-          value: '1'
-        },
-        {
-          title: '101-200',
-          value: '101'
-        },
-        {
-          title: '201-500',
-          value: '201'
-        },
-        {
-          title: '500+',
-          value: '500'
-        }
-      ]
-    }
-    const rating = {
-      title: 'Rating',
-      value: null
-    }
 
-    const [currentCategory, setCurrentCategory] = useState(null);
-    const [currentCategorySkills, setCurrentCategorySkills] = useState(null);
-    const [isValid, setValid] = useState({
-      "firstname":false,
-      "lastname":false,
-      "form":false,
-    });
-    const [errorMessage, setErrorMessage] = useState({
-        "firstname":null,
-        "lastname":null,
-    });
-    const firstnameInputRef = useRef();
-    const lastnameInputRef = useRef();
-
-    const handleSearchSkills = (e) => {
-        e.preventDefault();
+  const onSkillClick = (clickedSkillId,clickedSkill) => {
+    let temp = [];
+    if (selectedSkills.find((skill) => skill?.id === clickedSkillId)) {
+      temp = selectedSkills.filter((skill) => skill?.id !== clickedSkillId)
+    } else {
+      temp = selectedSkills.concat(clickedSkill);
     }
+    setSelectedSkills(() => temp);
+  };
+
+    const onSkillsSearchChange = (e) => {
+      const clickedSkill = categorySkills.find((skill) => skill.title === e.target.textContent)
+      onSkillClick(clickedSkill?.id, clickedSkill);
+    };
+
+    const onChangeLocation = (location) =>{
+      setSelectedLocation(location);
+     }
+
+     const onChangeBudget = (budget) => {
+      setSelectedBudget(budget);
+     }
+
+     const resetField = (field) => {
+      if(field === 'buget') setSelectedBudget(()=>undefined);
+      else if(field === 'location') setSelectedLocation(()=>undefined);
+      else if(field === 'category') setSelectedCategory(()=>'');
+      else if(field === 'skills') setSelectedSkills(()=>[]);
+     }
 
 
     const submitHandler = (event) => {
         event.preventDefault();
-        const enteredFirstname = firstnameInputRef.current.value;
-        const enteredLastname = lastnameInputRef.current.value;
-        
-        if(enteredFirstname && enteredLastname && (enteredFirstname !== '' && enteredLastname !== '')){
-            isValid.form = true; 
-        }
-
-        if(isValid.form){
-          const clientData = {
-            firstname: enteredFirstname,
-            lastname: enteredLastname,
-            };
-        }
+        setProjectFilter(
+          {
+            category: selectedCategory,
+            skill: selectedSkills,
+            location: selectedLocation,
+            budget: selectedBudget,
+          }
+        )
     }
-     const getOnChangeVal = (curr) =>{
-      setCurrentCategory(curr);
-      const skills = category_skills.options.find((val)=> val.key === curr)
-      setCurrentCategorySkills(skills);
-     }
 
     return (
       <>
@@ -335,68 +186,97 @@ const category_skills = {
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Box sx={{display:'flex',justifyContent:'space-between'}}>
-                      <Text>{budget?.title}</Text>  
-                      <Text color='green'>Clear</Text>  
+                      <Text>Budget</Text>  
+                      <Text color='green' onClick={()=>resetField('budget')}>Clear</Text>  
                     </Box>
-                    <Dropdown hasLabel={false} items={budget?.options} width="100%" type="outlined"/>
+                    <Dropdown hasLabel={false} items={budget} width="100%" type="outlined" selected={selectedBudget} setHandleOnChange={onChangeBudget}/>
                 </Grid>       
               </Grid>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
+                 
                     <Box sx={{display:'flex',justifyContent:'space-between'}}>
-                        <Text>{categories?.title}</Text>  
-                        <Text color='green'>Clear</Text>  
+                        <Text>Categories </Text>  
+                        <Text color='green'  onClick={()=>resetField('category')}>Clear</Text>  
                     </Box>
-                    <Dropdown hasLabel={false} items={categories?.options} width="100%" type="outlined" setHandleOnChange={getOnChangeVal}/>
+                    {categories?.length > 0 &&
+                    <Dropdown hasLabel={false} items={categories} width="100%" type="outlined" selected={selectedCategory} setHandleOnChange={handleCategoryChange}/>
+                    }
                 </Grid>       
+              </Grid>
+              <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Box sx={{display:'flex',justifyContent:'space-between'}}>
+                      <Text>Skills</Text>  
+                      <Text color='green' onClick={()=>resetField('skills')}>Clear</Text>  
+                </Box>
+                <SearchContainer>
+                  <Autocomplete
+                      freeSolo
+                      id="search-skills-input"
+                      fullWidth
+                      disableClearable
+                      options={categorySkills.map((skill) => skill.title)}
+                      onChange={onSkillsSearchChange}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label=""
+                          placeholder="Search skills here"
+                          InputProps={{
+                            ...params.InputProps,
+                            type: 'search',
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <IconButton edge="end">
+                                  <OutlineSearchIcon className="icon" />
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                      )}
+                    />
+                    <PillsContainer>
+                      {selectedSkills && selectedSkills.map((skill, id) => {
+                        return (
+                          <StyledStaticPill key={'category-skill-' + id}>
+                            {skill?.title}
+                            <StyledCloseIcon
+                              variant="red"
+                              onClick={() => onSkillClick(skill?.id,skill)}
+                            />
+                          </StyledStaticPill>
+                        );
+                      })}
+                    </PillsContainer>
+                  </SearchContainer>
+                </Grid>     
               </Grid>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   { 
-                    currentCategory &&
-                    <>
+                    locations &&
+                      <>
+                          <Box sx={{display:'flex',justifyContent:'space-between'}}>
+                            <Text>Location</Text>  
+                            <Text color='green'  onClick={()=>resetField('location')}>Clear</Text>  
+                          </Box> 
+                          <Dropdown hasLabel={false} items={locations} width="100%" type="outlined" selected={selectedLocation} setHandleOnChange={onChangeLocation}/>       
+                      </>
+                  }
+                   
+                </Grid>       
+              </Grid>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
                     <Box sx={{display:'flex',justifyContent:'space-between'}}>
-                      <Text>{category_skills?.title}</Text>  
+                      <Text>Rating</Text>  
                       <Text color='green'>Clear</Text>  
                     </Box>
                     <Box>
-                      <CustomTextField
-                        required
-                        fullWidth
-                        id="searchInput"
-                        label=""
-                        name="searchInput"
-                        placeholder="Search skills"
-                        onChange={handleSearchSkills}
-                        InputProps={{
-                            endAdornment: <InputAdornment position="end">
-                              <IconButton
-                                edge="end"
-                              >
-                                  <SearchIcon className="icon"/>
-                              </IconButton>
-                            </InputAdornment>,
-                          }}
-                      />
+                      <ClickableStarRating />
                     </Box>
-                    </>
-                  }
-                   
-                </Grid>       
-              </Grid>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  { 
-                    location &&
-                    <>
-                    <Box sx={{display:'flex',justifyContent:'space-between'}}>
-                      <Text>{location?.title}</Text>  
-                      <Text color='green'>Clear</Text>  
-                    </Box> 
-                    <Dropdown hasLabel={false} items={location.options} width="100%" type="outlined"/>       
-                    </>
-                  }
-                   
                 </Grid>       
               </Grid>
               <ButtonContainer>

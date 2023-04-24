@@ -31,6 +31,8 @@ import moment from 'moment';
 import {Button as CustomButton} from '@mui/material';
 import { useFreelancer } from '../../src/store';
 import { addBidData,getCategories, getSkills } from './formService';
+import Dropdown from '../shared/Dropdown';
+import { budget, locations, ageGroupOptions } from '../models/filters.models';
 
 
 const FormContainer = styled(Box)`
@@ -181,106 +183,57 @@ const StyledCheckbox = styled(Checkbox)`
       color: #4AA398;
   }
 `
-//   data: [
-//     {
-//       key: 'photographer',
-//       icon: 'icn-photographer.svg',
-//       title: 'Photographer',
-//     },
-//     {
-//       key: 'videographer',
-//       icon: 'icn-videographer.svg',
-//       title: 'Videographer',
-//     },
-//     {
-//       key: 'editor',
-//       icon: 'icn-editor.svg',
-//       title: 'Editor',
-//     },
-//     {
-//       key: 'stylist',
-//       icon: 'icn-stylist.svg',
-//       title: 'Stylist',
-//     },
-//     {
-//       key: 'makeup-artist',
-//       icon: 'icn-makeupArtist.svg',
-//       title: 'Makeup Artists',
-//     },
-//     {
-//       key: 'hair-stylist',
-//       icon: 'icn-makeupArtist-1.svg',
-//       title: 'Hair Stylists',
-//     },
-//     {
-//       key: 'model',
-//       icon: 'icn-hairStylist.svg',
-//       title: 'Models',
-//     },
-//     {
-//       key: 'studio-location',
-//       icon: 'icn-models.svg',
-//       title: 'Studio/Location',
-//     },
-//   ],
-// };
+
+const CustomDropdown = styled(Dropdown)`
+  .MuiInputBase-root {
+    border-radius: 12px;
+    background: red;
+  }
+
+`;
+
+const CustomTab = styled.div`
+  border: 1px solid #D8D8D8;
+  padding:14px;
+  width: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+
+  &.active{
+      background-color: #FDEAEF;
+      border: 1px solid #EB4C60;
+      color: #EB4C60;
+    }
+
+  &.left{
+    border-radius: 23px 0 0 23px;
+    &.active{
+      background-color: #ECF6F5;
+      border: 1px solid #4AA398;
+      color: #4AA398;
+    }
+  }
+
+  &.right{
+    border-radius: 0 23px 23px 0;
+
+    &.active{
+      background-color: #FFF0EA;
+      border: 1px solid #E96E3F;
+      color: #E96E3F;
+    }
+  }
+
+  &:hover{
+    cursor: pointer;
+  }
+`
 
 
 const languages = ['English', 'Arabic'];
 
-const locations = [
-  {
-    key: 'dubai',
-    label: 'Dubai',
-  },
-  {
-    key: 'abudhabi',
-    label: 'Abu Dhabi',
-  },
-  {
-    key: 'sharjah',
-    label: 'Sharjah',
-  },
-  {
-    key: 'ajman',
-    label: 'Ajman',
-  },
-  {
-    key: 'umm-al-quwain',
-    label: 'Umm Al Quwain',
-  },
-  {
-    key: 'fujairah',
-    label: 'Fujairah',
-  },
-  {
-    key: 'ras-al-khaimah',
-    label: 'Ras Al Khaimah',
-  },
-];
-
-const budget = [
-  {
-    title: '0-free collaboration',
-    value: '0',
-  },
-  {
-    title: '1-100',
-    value: '1',
-  },
-  {
-    title: '101-200',
-    value: '101',
-  },
-  {
-    title: '201-500',
-    value: '201',
-  },
-  {
-    title: '500+',
-    value: '500',
-  },
-];
 
 const upgradesData = [
   {
@@ -306,6 +259,8 @@ function PostProjectForm1({ handleNextClick }) {
   const {freelancer, filter, setFilter} = useFreelancer();
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedGender,setSelectedGender] = useState(null);
+  const [ageGroup, setAgeGroup] = useState(null);
   const [categorySkills, setCategorySkills] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
@@ -324,6 +279,8 @@ function PostProjectForm1({ handleNextClick }) {
   const [projectData, setProjectData] = useState({
     title: null,
     category: null,
+    gender: null,
+    ageGroup: null,
     skills: null,
     languages: null,
     location: null,
@@ -338,6 +295,8 @@ function PostProjectForm1({ handleNextClick }) {
   const [isValid, setValid] = useState({
     title: false,
     category: false,
+    gender: false,
+    ageGroup: false,
     skills: false,
     location: false,
     projectBudget: false,
@@ -351,6 +310,8 @@ function PostProjectForm1({ handleNextClick }) {
   const [errorMessage, setErrorMessage] = useState({
     title: null,
     category: null,
+    gender: null,
+    ageGroup: null,
     skills: null,
     location: null,
     projectBudget: null,
@@ -539,6 +500,22 @@ function PostProjectForm1({ handleNextClick }) {
     }));
   };
 
+  const onChangeAgeGroup = (ageGroup) =>{
+    setAgeGroup(ageGroup);
+    setValid((prevState) => ({
+      ...prevState,
+      ['ageGroup']: true,
+    }));
+   }
+
+   const onGenderClick = (val) => {
+    setSelectedGender(()=>val);
+    setValid((prevState) => ({
+      ...prevState,
+      ['gender']: true,
+    }));
+   }
+
   const handleFormClick = () => {
     if(progress <= 1){
       let enteredTitle = titleInputRef.current.value;
@@ -568,8 +545,23 @@ function PostProjectForm1({ handleNextClick }) {
           ['category']: 'Please select a category',
         }));
       }
+
+      if(selectedGender === null){
+        setErrorMessage((prevState) => ({
+          ...prevState,
+          ['gender']: 'Please select freelancer gender',
+        }));
+      }
       
-      if(isValid.title && isValid.category){ 
+      if(ageGroup === null){
+        setErrorMessage((prevState) => ({
+          ...prevState,
+          ['ageGroup']: 'Please select freelancer age',
+        }));
+      }
+      
+
+      if(isValid.title && isValid.category && isValid.ageGroup && isValid.gender){ 
         setProgress((prev) => prev+1);
       }
     }
@@ -739,12 +731,11 @@ function PostProjectForm1({ handleNextClick }) {
       if(clientId){
         addBidData(bidData).then((res)=>{
           if(res.data){ 
+            setFilter(selectedCategory?.key);
             handleNextClick(true);
           }
         })
       }
-      
-      // 
     }else {
       setOpen(true);
     }
@@ -791,25 +782,58 @@ function PostProjectForm1({ handleNextClick }) {
           <CategoriesList>
             {categories.map((category, id) => {
               return (
-                <CategoryItem
-                  key={'category-item-' + id}
-                  className={selectedCategory?.slug === category.slug ? 'active' : ''}
-                  onClick={() => getCategorySkills2(category)}
-                >
-                  <ImageContainer className="icon-img-box">
-                    <Image
-                      src={imgsrc + category.icon}
-                      layout="fill"
-                      className="icon-img"
-                      alt="icon-img"
-                    />
-                  </ImageContainer>
-                  <GrayText component="span">{category.title}</GrayText>
-                </CategoryItem>
+                category?.slug !== 'all' 
+                ? <CategoryItem
+                    key={'category-item-' + id}
+                    className={selectedCategory?.slug === category.slug ? 'active' : ''}
+                    onClick={() => getCategorySkills2(category)}
+                  >
+                    <ImageContainer className="icon-img-box">
+                      <Image
+                        src={imgsrc + category.icon}
+                        layout="fill"
+                        className="icon-img"
+                        alt="icon-img"
+                      />
+                    </ImageContainer>
+                    <GrayText component="span">{category.title}</GrayText>
+                  </CategoryItem>
+                : null     
               );
             })}
           </CategoriesList>
           {errorMessage.category && <Error>{errorMessage.category}</Error>}
+        </Grid>
+        {/* start of gender */}
+        <VerticalDivider />
+        <Text size="large">
+          <b>Select the gender of the professional you&apos;ll need</b>
+        </Text>
+        <Grid item xs={12}>          
+          <Box sx={{display:'flex'}}>
+            <CustomTab className={selectedGender==='male' ? 'left active' : 'left'} onClick={()=>onGenderClick('male')}>Male</CustomTab>
+            <CustomTab className={selectedGender==='female' ? 'active' : ''} onClick={()=>onGenderClick('female')}>Female</CustomTab>
+            <CustomTab className={selectedGender==='any' ? 'right active' : 'right'} onClick={()=>onGenderClick('any')}>Any</CustomTab>
+          </Box>
+          {errorMessage.category && <Error>{errorMessage.category}</Error>}
+        </Grid>
+        {/* start of age */}
+        <VerticalDivider />
+        <Text size="large">
+          <b>Select the age of the professional you&apos;ll need</b>
+        </Text>
+        <Grid item xs={12}>          
+          <CustomDropdown
+                    hasLabel={false}
+                    items={ageGroupOptions}
+                    width="100%"
+                    type="outlined"
+                    selected={ageGroup}
+                    setHandleOnChange={onChangeAgeGroup}
+                    color="red"
+                    bgcolor="transparent"
+                  />
+          {errorMessage.ageGroup && <Error>{errorMessage.ageGroup}</Error>}
         </Grid>
         <VerticalDivider />
         <Text size="large">
@@ -926,7 +950,7 @@ function PostProjectForm1({ handleNextClick }) {
             freeSolo
             id="search-location-input"
             disableClearable
-            options={locations.map((location) => location)}
+            options={locations.map((location) => location?.title)}
             onChange={onLocationSearchChange}
             renderInput={(params) => (
               <OutlinedTextField

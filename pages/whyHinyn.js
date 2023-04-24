@@ -2,7 +2,7 @@ import Header from '../components/section/Header';
 import Footer from '../components/section/Footer';
 import styled from "@emotion/styled";
 import { Grid, Container, Box} from '@mui/material';
-import Text from '../components/shared/Typography';
+import Text,{GrayText} from '../components/shared/Typography';
 import { ImageIcon, RightArrowIcon } from '../components/shared/Icon';
 import Image from 'next/image';
 import Button from '../components/shared/Button';
@@ -20,6 +20,7 @@ const Column = styled(Box)`
 const Title = styled(Text)`
     font-size: 56px;
     font-weight: 600;
+    line-height: 1.25;
 
     .red{
       color: #EB4C60;
@@ -28,6 +29,13 @@ const Title = styled(Text)`
     .green{
       color: #4AA398;
     }
+`
+
+const Subtitle = styled(Text)`
+  font-size: 16px;
+  margin-top: 1.5rem;
+  letter-spacing: 0.75px;
+
 `
 
 const Card = styled.div`
@@ -53,24 +61,33 @@ const Card = styled.div`
   }
 `
 
-const CustomImageIcon = styled(ImageIcon)`
-  color: ${props => props?.variant === 'green' ? '#4AA398' : '#EB4C60'};
-  font-size: ${props => props?.sz === 'large' ? '3rem' : '2rem'};
+const IconContainer = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+  position: relative;
 `
 
 const ImageContainer = styled.div`
-  width: 35rem;
-  height: 38rem;
+  width: 45rem;
+  height: 48rem;
   position: relative;
-  border-radius: 18px;
-  box-shadow: 0px 3px 20px #0000004B;
   overflow: hidden;
+
+  &.about-us-img1-box{
+    width: 42rem;
+  }
 
   &.projects-img-box{
     width: 100%;
-    height:12rem;
+    height:14rem;
     border-radius: 16px 16px 0 0;
     box-shadow: none;
+  }
+
+  &.avatar-img-box{
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
   }
 `;
 
@@ -87,80 +104,114 @@ const RoundContainer = styled.div`
   justify-content: center;
    background: #ECF6F5;
    border-radius: 50%;
-   padding: 3.25rem;
-   width: 19rem;
-   height: 19rem;
+   padding: 3rem;
+   width: 22rem;
+   height: 22rem;
+`
+
+const BrokenLine = styled.div`
+
+  &.upper{
+    width: 12rem;
+    height: 5rem;
+    margin-top:8rem;
+    background: transparent;
+    border: none;
+    border-top: dashed 2px #EB4C60;
+    border-radius: 50%;
+  }
+
+  &.lower{
+    width: 12rem;
+    height: 5rem;
+    background: transparent;
+    border: none;
+    border-bottom: dashed 2px #EB4C60;
+    border-radius: 0 0 50% 50%;
+    margin-top:10rem;
+  }
+`
+
+
+const CustomButton = styled(Button)`
+  font-size: 18px;
+  padding: 1.5rem;
+  border-radius: 30px;
 `
 
 const cardData = [
   {
-    title: "Browse portfolios",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    icon: 'icon-fastBids.svg',
+    title: "Fast Bids",
+    desc: "Post a project according to your specific needs in terms of professional type, location and budget."
   },
   {
+    icon: 'icon-qualityWork.svg',
     title: "Quality work",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    desc: "All specific professionals will receive and reply to your proposition, then select the best one to work on your project!"
   },
   {
-    title: "Fast bids",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    icon: 'icon-fastBids.svg',
+    title: "Track Progress with Safe Payment",
+    desc: "Payment stays on the platform until validity from the client and the professional of the work done"
   },
   {
-    title: "Track Progress",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    icon: 'icon-portfolio.svg',
+    title: "Browse Portfolio",
+    desc: "You can browse all the portfolios and send a proposition directly to the professional you like"
   },
 ];
 
-const hiringData = [
+const professionalData = [
   {
-    title: "Browse portfolios",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    title: "More Visibility",
+    desc: "Everyone can see your work according to your specification, location and rating. Finding you is made easy!"
   },
   {
-    title: "Quality work",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    title: "Safe Payment System",
+    desc: "The client has to pay before the project is happening and the money stays on the platform until you deliver the good work."
   },
   {
-    title: "Fast bids",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    title: "Shareable Portfolio",
+    desc: "Easy to share your Portfolio for your own clients. Show your work to the world, by easily sharing your portfolio. Your profile is your own website."
   }
 ];
 
 const projectsData = [
   {
-    title: "Browse portfolios",
+    title: "Essential Oils",
     desc: "John Doe",
-    img: 'why-card-img1.jpeg'
+    img: 'about-us-projects1.png'
   },
   {
-    title: "Quality work",
+    title: "Flat Lay",
     desc: "John Doe",
-    img: 'why-card-img2.jpeg'
+    img: 'about-us-projects2.png'
   },
   {
-    title: "Fast bids",
+    title: "Parfum",
     desc: "John Doe",
-    img: 'why-card-img3.jpeg'
+    img: 'about-us-projects3.png'
   },
   {
-    title: "Fast bids",
+    title: "Bridal Make-up",
     desc: "John Doe",
-    img: 'why-card-img4.jpeg'
+    img: 'about-us-projects4.png'
   }
 ];
 
-const professionalData = [
+const hiringData = [
   {
-    title: "Browse portfolios",
-    desc: "Find professionals you can trust by browsing their samples of previous work and reading their profile reviews."
+    title: "Post your project",
+    desc: "As a client, Create a bid that will be sent to the concerned professionals according to your location and budget"
   },
   {
-    title: "Quality work",
-    desc: "Find professionals you can trust by browsing their samples of previous work and reading their profile reviews."
+    title: "Enrollment",
+    desc: "Select the best professional you would like to work with and pay on the platform where your money stays safe until the project is accomplished."
   },
   {
-    title: "Fast bids",
-    desc: "Find professionals you can trust by browsing their samples of previous work and reading their profile reviews."
+    title: "Payment Release",
+    desc: "Project is happening, everything is delivered and client release the payment and rate the work done."
   }
 ];
 
@@ -177,28 +228,35 @@ function whyHinyn() {
           <Grid item xs={7}>
             <Column>
               <Text color="red"><b>FOR CLIENTS</b></Text>
-              <Title>Find <span class="red">talent</span> your way</Title>
+              <Title>Find and book your<br/><span class="red">Media Professional</span></Title>
               <Box maxWidth="sm">
-                <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br/>Pellentesque tempus arcu et ipsum cursus dignissim.</Text>
+                <Subtitle>Made easy according to your preferences, your location, your budget, and so on…</Subtitle>
               </Box>
               <Row sx={{flexWrap:'wrap',gap:'1.25rem',marginTop:'2.5rem'}}>
                 { cardData && cardData.map((item,idx)=>{
                   return <Card key={'why-card-'+idx}>
-                    <CustomImageIcon />
-                    <Text color="green"> {item?.title} </Text>
+                    <IconContainer>
+                      <Image
+                        src={imgpath + 'icons/'+item?.icon}
+                        layout="fill"
+                        className="icon-img"
+                        alt="icon-img"
+                      />
+                    </IconContainer>
+                    <Text color="green"><b>{item?.title}</b></Text>
                     <Text align="center"> {item?.desc} </Text>
                   </Card>
                 })}
               </Row>
             </Column>
           </Grid>
-          <Grid item xs={4}>
-            <Row>
-                <ImageContainer className="icon-img-box">
+          <Grid item xs={5}>
+            <Row sx={{display:'flex',justifyContent:'center',alignItems:'center',paddingTop:'2rem'}}>
+                <ImageContainer className="about-us-img1-box">
                     <Image
-                      src={imgpath + 'why-img1.png'}
+                      src={imgpath + 'about-us-img1.png'}
                       layout="fill"
-                      className="icon-img"
+                      className="about-us-img1"
                       alt="icon-img"
                     />
                 </ImageContainer>
@@ -214,20 +272,24 @@ function whyHinyn() {
           </Row>
           <Row sx={{justifyContent: 'center'}}>
             <Box maxWidth="sm">
-                <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br/>Pellentesque tempus arcu et ipsum cursus dignissim.</Text>
+                <Subtitle>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br/>Pellentesque tempus arcu et ipsum cursus dignissim.</Subtitle>
             </Box>
             </Row>
-          <Row sx={{justifyContent: 'space-around', marginTop:'5rem' }}>
+          <Row sx={{justifyContent:'center',marginTop:'5rem',position:'relative',gap:'0'}}>
             {hiringData && hiringData.map((item,idx)=>{
-              return  <RoundContainer key={'hiring-desc-'+idx}>
-                        <Text color="green"><b>{item?.title}</b></Text>
-                        <Text align="center">{item?.desc}</Text>
-                      </RoundContainer>
+              return  <>
+                  <RoundContainer key={'hiring-desc-'+idx}>
+                    <Text color="green" size="large">{item?.title}</Text>
+                    <Text align="center">{item?.desc}</Text>
+                  </RoundContainer>
+                  {idx === 0 ? <BrokenLine className='upper'/> : ''}
+                  {idx === 1? <BrokenLine className='lower'/> : ''}
+              </>
             })}
            
           </Row>
           <Row sx={{justifyContent:'center',marginTop:'5rem'}}>
-            <Button>Join Now</Button>
+            <CustomButton>Hire A Professional</CustomButton>
           </Row>
       </Container>
     </BGBox>
@@ -240,7 +302,7 @@ function whyHinyn() {
             <RightArrowIcon color="red"/>
          </Text>
       </Row>
-      <Row sx={{gap:'2rem',marginTop:'2rem'}}>
+      <Row sx={{gap:'2rem',margin:'2rem 0'}}>
         {
           projectsData && projectsData.map((item,idx)=>{
             return <Card key={'project-card-'+idx} className="projects-card">
@@ -251,10 +313,23 @@ function whyHinyn() {
                         alt="project-img"
                       />
                   </ImageContainer>
-                  <Column sx={{width:'100%',padding:'1.25rem'}}>
-                    <Text>{item?.title}</Text>
-                    <Text>by {item?.desc}</Text>
-                  </Column>
+                  <Row sx={{width:'100%',justifyContent:'flex-start',padding:'0 2rem 1rem'}}>
+                    <Column sx={{justifyContent:'center'}}>
+                      <ImageContainer className="avatar-img-box">
+                      <Image
+                        src={imgpath + 'avatars/img-avatar1.png'}
+                        layout="fill"
+                        className="avatar-img"
+                        alt="avatar-img"
+                      />
+                      </ImageContainer>
+                    </Column>
+                    <Column sx={{width:'100%',padding:'1.25rem'}}>
+                      <Text>{item?.title}</Text>
+                      <GrayText>by {item?.desc}</GrayText>
+                    </Column>
+                  </Row>
+                  
             </Card>
           })
         }
@@ -268,7 +343,7 @@ function whyHinyn() {
             <Row>
                 <ImageContainer className="icon-img-box">
                     <Image
-                      src={imgpath + 'why-img1.png'}
+                      src={imgpath + 'about-us-img2.png'}
                       layout="fill"
                       className="icon-img"
                       alt="icon-img"
@@ -279,20 +354,22 @@ function whyHinyn() {
           <Grid item xs={6}>
             <Column>
               <Text color="green"><b>FOR PROFESSIONALS</b></Text>
-              <Title>Find <span class="green">great</span> work</Title>
+              <Title>A platform for<br/><span class="green">Media Freelancers</span></Title>
               <Box maxWidth="sm">
-                <Text>Meet clients you&apos;re excited to work with and take your career or busoiness to new heights.</Text>
+                <Subtitle>More visibility, More Contracts, More Money! Be your own boss</Subtitle>
               </Box>
               <Column sx={{marginTop:'2.5rem',gap:'3rem'}}>
                 { professionalData && professionalData.map((item,idx)=>{
                   return <Row key={'project-desc-'+idx} sx={{gap:'2rem',alignItems:'center'}} maxWidth="sm">
-                    <CustomImageIcon variant="green" sz="large"/>
-                    <Text> {item?.desc} </Text>
+                    <Column>
+                      <Text color="green"><b>{item?.title}</b></Text>
+                      <Text> {item?.desc} </Text>
+                    </Column>
                   </Row>
                 })}
               </Column>
               <Row sx={{marginTop:'4rem'}}>
-                <Button>Join Now</Button>
+                <CustomButton>Get Hired Today</CustomButton>
               </Row>
             </Column>
           </Grid>

@@ -41,8 +41,6 @@ export async function getServerSideProps(){
 
 const useFreelancerController = (freelancer : Freelancer[]) =>{
     const [filter,setFilter] = useState(undefined);
-  
-    console.log('this is called',filter)
       
     const checkCategories = (val) => {
       if((typeof filter) === 'object') return val?.data.some(category => category?.attributes?.key.toLowerCase().includes(filter?.category?.toLowerCase() ?? ''))
@@ -100,19 +98,33 @@ interface Project {
 }
 
 const useProjectController = (project : Project[]) =>{
-  const [projectFilter,setProjectFilter] = useState("");
+  const [projectFilter,setProjectFilter] = useState(undefined);
 
-    const checkCategory = (val) => {
-      return val?.categories.some(category=> category.toLowerCase().includes(projectFilter.toLowerCase()))
+    const checkBudget = (val) => {
+      if((typeof projectFilter) === 'object' && projectFilter?.budget) return val?.minBudget === parseInt(projectFilter?.budget) //return val?.data.some(category => category?.attributes?.key.toLowerCase().includes(filter?.category?.toLowerCase() ?? ''))
+      return 1
     }
-    
+
+    const checkLocation = (val) => {
+      console.log()
+      if((typeof projectFilter) === 'object' && projectFilter?.location) return val?.city?.replace(/\s+/g, '').toLowerCase().includes(projectFilter?.location) //return val?.data.some(category => category?.attributes?.key.toLowerCase().includes(filter?.category?.toLowerCase() ?? ''))
+      return 1
+    }
+
+    const checkCategories = (val) => {
+      if(projectFilter === '') return val
+      if((typeof projectFilter) === 'object' && projectFilter?.category === 'all') return val
+      if((typeof projectFilter) === 'object') return val?.categories?.data[0]?.attributes?.key === projectFilter?.category //return val?.data.some(category => category?.attributes?.key.toLowerCase().includes(filter?.category?.toLowerCase() ?? ''))
+      return (projectFilter && val?.title?.toLowerCase().includes(projectFilter?.toLowerCase())) ?? val
+    }
+
     const filteredProject = useMemo(
       () =>
       project && project.map( (p) => { 
-        return {"id":p.id, ...p.attributes}
-      }).filter((val : Project)=>{
-        return val?.status < 99 && (val?.title?.toLowerCase().includes(projectFilter.toLowerCase()) || val?.description?.toLowerCase().includes(projectFilter.toLowerCase()))
-        }),
+      return {"id":p.id, ...p.attributes}
+    }).filter((val : Project)=>{
+      return (val?.status < 99 && checkCategories(val) && checkBudget(val) && checkLocation(val))//&& (val?.title?.toLowerCase().includes(projectFilter.toLowerCase()) || val?.description?.toLowerCase().includes(projectFilter.toLowerCase()))
+      }),
       [projectFilter, project]
   );
   return {
