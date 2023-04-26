@@ -425,6 +425,38 @@ export const getClientData = async (clientData) => {
 
 
   /* USERS */
+
+  export const getUserData = async (userId) => {
+    const jwt = localStorage.getItem('hinyn-cjwt') ?? '';
+    return axios.get(
+        origin + '/users/'+userId,
+        {
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+              },
+        },
+        {
+           
+          withCredentials: true,
+          crossDomain: true,
+        }
+      )
+      .then(async (response) => {
+        if (response.data) {
+          return { status: true, data: response.data };
+        } else {
+          return { status: false, data: response.data.message };
+        }
+      })
+      .catch(function (error) {
+        return { status: false, data: error };
+      });
+  };
+  
+
+
 export const getLoggedInUserData = async () => {
   const jwt = localStorage.getItem('hinyn-cjwt') ?? '';
   return axios.get(

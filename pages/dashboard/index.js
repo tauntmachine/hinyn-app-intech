@@ -8,6 +8,7 @@ import MyProjectsSection from "../../components/section/MyProjectsSection";
 export {getServerSideProps} from "../../src/store";
 import { getLoggedInUserData, getProposalsOfClient } from "../../components/forms/formService";
 import ClientProjectsSection from "../../components/section/ClientProjectsSection";
+import BrowseFreelancersSection from "../../components/section/BrowseFreelancersSection";
 
 const Index = () => {
   const router = useRouter();
@@ -36,15 +37,41 @@ const Index = () => {
       router.push('/dashboard')
     }
 
+  const renderScreenSection = (param) =>{
+    if(accountType === 1){  //professional
+      switch(currentTab) {
+        case 0:
+          return <NewsfeedSection />
+        case 1:
+          return <BrowseProjectsSection mainScreen={screen} />
+        case 2:
+            return <MyProjectsSection />
+        default:
+          return <NewsfeedSection />;
+      }
+    }
+    else if(accountType === 2){  //client
+      switch(currentTab) {
+        case 0:
+          return <NewsfeedSection />
+        case 1: 
+          if(screen !== 'details') return <BrowseFreelancersSection />
+          return <BrowseProjectsSection mainScreen={screen} />
+        case 3:
+            return <ClientProjectsSection />
+        default:
+          return <NewsfeedSection />;
+      }
+    
+    }
+      
+    }
+
     //client account type = 2, professional = 1
   return (
     <Box sx={{background:'#EBEBEB', height:'auto', minHeight:'100vh'}}>
         <DashboardHeader setTabChange={handleChangeTab} currentTab={currentTab}/>
-        {currentTab === 0 ? <NewsfeedSection /> : null }
-        {currentTab === 1 ? <BrowseProjectsSection mainScreen={screen} /> : null }
-        {currentTab === 2 && accountType === 1 ? <MyProjectsSection /> : null }
-        {currentTab === 2 && accountType === 2 ? null : null }
-        {currentTab === 3 && accountType === 2 ? <ClientProjectsSection /> : null }
+        {renderScreenSection(currentTab)}
     </Box>
   )
 }

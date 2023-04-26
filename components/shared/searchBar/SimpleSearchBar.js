@@ -7,7 +7,7 @@ const IconBG = styled.div`
     width:40px;
     height:40px;
     border-radius: 50%;
-    background: linear-gradient(111deg, #4AA398 0%, #12584F 100%);
+    background: ${props => props?.iconColor === 'red' ? 'linear-gradient(135deg, #FF5A5F 0%, #A52226 100%)' : 'linear-gradient(111deg, #4AA398 0%, #12584F 100%)'} ;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,7 +18,7 @@ const IconBG = styled.div`
     }
 `
 
-const SimpleSearchBar = ({handleSearchValue,placeholderText}) => {
+const SimpleSearchBar = ({handleSearchValue,placeholderText, iconColor}) => {
 
 return ( 
     <Container maxWidth="md">
@@ -35,7 +35,7 @@ return (
               <IconButton
                 edge="end"
               >
-                <IconBG>
+                <IconBG iconColor={iconColor}>
                     <SearchIcon className="icon"/>
                 </IconBG>
               </IconButton>

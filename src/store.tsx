@@ -18,7 +18,7 @@ export async function getServerSideProps(){
     // const res = await axios.get(origin + '/clients')
     const res = await getClients().then(async (response) => {
       if (response.data) {
-        return freelancerResult = response.data?.data;
+        return freelancerResult = response.data?.data; //response.data?.data.map((item)=> ({"clientId": item.id, ...item.attributes}));
       }}).catch(function (error) {
           return { status: false, data: error }}
     );
@@ -61,6 +61,8 @@ const useFreelancerController = (freelancer : Freelancer[]) =>{
         () =>
           { 
               return freelancer && freelancer.map( (f) => {
+                // console.log(f)
+                // return 1
                 return Object.values(f).filter((val)=> (val.accountType === 1) && checkCategories(val?.categories) && checkSkill(val?.skills) && checkLocation(val?.city) )[0];
               }).filter(data => data !== undefined)
              

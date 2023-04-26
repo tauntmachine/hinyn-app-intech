@@ -10,7 +10,7 @@ import Footer from "../../components/section/Footer";
 import { StaticPill,PillWithIcon } from "../../components/shared/Pill";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { getClientData } from "../../components/forms/formService";
+import { getClientData, getUserData } from "../../components/forms/formService";
 import ImageSlider from "../../components/shared/ImageSlider";
 import ReviewBox from "../../components/shared/ReviewBox";
 import { CheckSquareIcon } from "../../components/shared/Icon";
@@ -72,6 +72,7 @@ const ProfessionalProfile = () => {
   const [clientData, setClientData] = useState(null);
   const [clientCategories, setClientCategories] = useState(null);
   const [currentTab, setCurrentTab] = useState(0);
+  const { fid } = router.query;
 
   const reviews = [
     {
@@ -143,8 +144,22 @@ const ProfessionalProfile = () => {
   }
 
   useEffect(() => {
+    if(fid){
+      const clientData = {
+        user: {
+          data: {
+            id: fid
+          }
+        }
+      };
+      getClientData(clientData).then((res) => {
+        if (res?.data?.data){ 
+          console.log('res data', res?.data?.data)
+        }
+      });
+    }
     const clientData = {
-      id: localStorage.getItem('hinyn-cid'),
+      id: localStorage.getItem('hinyn-cid')
     };
     getClientData(clientData).then((res) => {
       if (res?.data?.data){ 
@@ -153,7 +168,7 @@ const ProfessionalProfile = () => {
           setClientCategories(()=>res?.data?.data?.attributes?.categories?.data)
       }
     });
-  }, []);
+  }, [fid]);
 
   const handleChangeTab = (val) => {
     setCurrentTab(val)

@@ -8,6 +8,7 @@ const Container = styled.div`
 
 const Header = styled.div`
     background: ${props => props.headerColor === 'gray' ? '#DEDEDE' : (props.headerColor === 'red' ? '#FF5A5F' :'#4AA398')};
+    background: ${props => props.headerColor === 'darkGray' && '#949494'};
     color: ${props => props.headerColor === 'gray' ? '#555555' : '#ffffff'};
     font-weight: 600;
     border-radius: 13px 13px 0 0;

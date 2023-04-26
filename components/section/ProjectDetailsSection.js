@@ -202,7 +202,6 @@ const ProjectDetailsSection = () => {
     getBidData(project).then((res)=>{
       if(res?.data?.data){ 
         const temp = {"id":res?.data?.data?.id, ...res?.data?.data?.attributes};
-        console.log('the bid data',temp)
         setBidData(()=> temp)
         if(temp?.client?.data?.id === parseInt(loggedInCid)) setIsBidOwner(()=>true);
         setClientData(()=> temp?.client?.data?.attributes);

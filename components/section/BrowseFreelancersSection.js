@@ -6,8 +6,9 @@ import ContentBox from "../shared/ContentBox";
 import ConnectedList from "../shared/ConnectedList";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import SidebarFilterForm from '../forms/ProjectFilterForm';
-import {useProject} from '../../src/store';
+import SidebarFilterForm from "../forms/SidebarFilterForm";
+import {useFreelancer, useProject} from '../../src/store';
+import FreelancerConnectedList from "../shared/FreelancerConnectedList";
 
 
 const SearchBarContainer = styled.div`
@@ -39,14 +40,14 @@ const CustomPagination = styled(Pagination)`
 `
 
 
-const AllProjectsSection = ({handleScreenChange}) => {
+const MyFreelancersSection = () => {
   const [searchInput, setSearchInput] = useState("");
-  const {project, projectFilter, setProjectFilter} = useProject();
+  const {freelancer, filter, setFilter} = useFreelancer();
 
   const handleSearchValue = (e) => {
     e.preventDefault();
     setSearchInput(e.target.value);
-    setProjectFilter(e.target.value)
+    setFilter(e.target.value)
   };
 
 
@@ -55,22 +56,22 @@ const AllProjectsSection = ({handleScreenChange}) => {
       <SearchBarContainer>
       <Typography component="h1" variant="h4" align="center">Browse</Typography>
         <VerticalDivider />
-        <SimpleSearchBar handleSearchValue={handleSearchValue} placeholderText="Search for projects"/>
+        <SimpleSearchBar handleSearchValue={handleSearchValue} iconColor="red" placeholderText="Search for freelancers"/>
       </SearchBarContainer>
       <Box>
         <Container sx={{marginTop:'4rem'}}>
             <Grid container columnSpacing={4}>
                 <Grid item xs={4}>
-                  <ContentBox hasHeader={true} headerTitle="Filters" headerColor={"gray"} hasBodyIcon={false} noPadding={true}>
+                  <ContentBox hasHeader={true} headerTitle="Filters" headerColor={"darkGray"} hasBodyIcon={false} noPadding={true}>
                     <Box sx={{display:'flex',flexDirection:'column'}}>
-                      <SidebarFilterForm />
+                      <SidebarFilterForm filterType="freelancer"/>
                     </Box>
                   </ContentBox>
                 </Grid>
                 <Grid item xs={8}>
-                  <CustomContentBox hasHeader={true} headerTitle="Results" hasBodyIcon={false} noPadding={true}>
+                  <CustomContentBox hasHeader={true} headerTitle="Results" hasBodyIcon={false} noPadding={true} headerColor="red">
                       <ResultsBox>
-                        <ConnectedList projects={project}/>
+                        <FreelancerConnectedList/>
                       </ResultsBox>
                   </CustomContentBox>
                   <Box sx={{display:'flex', justifyContent:'flex-end',marginBottom:'2rem'}}>
@@ -86,4 +87,4 @@ const AllProjectsSection = ({handleScreenChange}) => {
   )
 }
 
-export default AllProjectsSection
+export default MyFreelancersSection

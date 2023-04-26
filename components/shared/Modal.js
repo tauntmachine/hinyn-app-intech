@@ -52,7 +52,7 @@ const Modal = ({isOpen,handleClose,handleSubmit,title,btnText,hasHeader,hasFoote
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             fullWidth = {true}
-            maxWidth= {maxWidth ? maxWidth : 'sm'}
+            maxWidth= {maxWidth ? maxWidth : 'xs'}
         >
             {hasHeader===true ? 
             <StyledHeader>
