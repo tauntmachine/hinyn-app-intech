@@ -550,17 +550,13 @@ export const updateUserData= async (clientId) => {
   /* Categories */
   export const getCategories = async () => {
     const jwt = localStorage.getItem('hinyn-cjwt');
-    return axios.get(
-        origin + '/categories?populate=*',
-        {
-        },
-        {
-           
-          withCredentials: true,
-          crossDomain: true,
-        }
-      )
+    return axios
+      .get(origin + '/categories?populate=*', {
+        withCredentials: true,
+        crossDomain: true,
+      })
       .then(async (response) => {
+        console.log('Response: ', response);
         if (response.data) {
           return { status: true, data: response.data };
         } else {
