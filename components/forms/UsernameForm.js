@@ -13,8 +13,13 @@ import Button from '../shared/Button';
 import Image from 'next/image';
 import LogoImage from '/public/assets/img/logo-hinyn.svg';
 import { BackIcon } from '../shared/Icon';
+import { useRouter } from 'next/router';
 import Modal from '../shared/Modal';
-import {updateUserUsername, addClientData, updateUserData} from "../../components/forms/formService";
+// import {
+//   updateUserUsername,
+//   addClientData,
+//   updateUserData,
+// } from '../../components/forms/formService';
 
 const Logo = styled.div`
   position: relative;
@@ -41,7 +46,8 @@ const Error = styled.p`
   font-family: 'Roboto', sans-serif;
 `;
 
-function UsernameForm({ onUsernameSubmit }) {
+function UsernameForm() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -62,45 +68,47 @@ function UsernameForm({ onUsernameSubmit }) {
       ['username']: true,
     }));
   };
+  // const handleNext = () => {
+  //   router.push('/registration?value=2');
+  // };
+  // const submitHandler = (event) => {
+  //   event.preventDefault();
+  //   const enteredUsername = usernameInputRef.current.value;
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    const enteredUsername = usernameInputRef.current.value;
+  //   if (enteredUsername && isValid.username) {
+  //     isValid.form = true;
+  //   }
 
-    if (enteredUsername && isValid.username) {
-      isValid.form = true;
-    }
+  //   if (isValid.form) {
+  //     const userId = localStorage.getItem('hinyn-uid');
+  //     const jwt =  localStorage.getItem('hinyn-cjwt');
+  //     const clientData = {
+  //       id: userId,
+  //       username: enteredUsername,
+  //       jwt: jwt
+  //     };
+  //     const userData = {
+  //       uuid : 'client-'+userId,
+  //       user: userId,
+  //     }
+  //     addClientData(userData, jwt).then((result)=>{
+  //       if(result?.data) localStorage.setItem('hinyn-cid',result?.data?.id);
+  //     });
+  //     updateUserUsername(clientData).then((result)=>{
+  //       if(result.status){
+  //         const clientId = localStorage.getItem('hinyn-cid');
+  //         updateUserData(clientId).then((res)=>{
+  //           if(res?.data){
+  //             onUsernameSubmit(clientData);
+  //           }
+  //         });
 
-    if (isValid.form) {
-      const userId = localStorage.getItem('hinyn-uid');
-      const jwt =  localStorage.getItem('hinyn-cjwt');
-      const clientData = {
-        id: userId,
-        username: enteredUsername,
-        jwt: jwt
-      };
-      const userData = {
-        uuid : 'client-'+userId,
-        user: userId,
-      }
-      addClientData(userData, jwt).then((result)=>{
-        if(result?.data) localStorage.setItem('hinyn-cid',result?.data?.id);
-      });
-      updateUserUsername(clientData).then((result)=>{
-        if(result.status){ 
-          const clientId = localStorage.getItem('hinyn-cid');
-          updateUserData(clientId).then((res)=>{
-            if(res?.data){
-              onUsernameSubmit(clientData);
-            }
-          });
-         
-        }
-      })
-    } else {
-      setOpen(true);
-    }
-  }
+  //       }
+  //     })
+  //   } else {
+  //     setOpen(true);
+  //   }
+  // }
 
   return (
     <>
@@ -120,7 +128,7 @@ function UsernameForm({ onUsernameSubmit }) {
           <Box
             component="form"
             noValidate
-            onSubmit={submitHandler}
+            // onSubmit={submitHandler}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
@@ -145,7 +153,7 @@ function UsernameForm({ onUsernameSubmit }) {
                 <Text>username1 / username2 / username</Text>
               </Grid>
             </Grid>
-            <StyledButton>NEXT</StyledButton>
+            <StyledButton type="button">NEXT</StyledButton>
           </Box>
         </FormContainer>
       </Container>
@@ -156,7 +164,16 @@ function UsernameForm({ onUsernameSubmit }) {
         hasHeader={false}
         hasFooter={false}
       >
-        <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',height:'100%'}}>Oops! All fields are required.</Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+          }}
+        >
+          Oops! All fields are required.
+        </Box>
       </Modal>
     </>
   );

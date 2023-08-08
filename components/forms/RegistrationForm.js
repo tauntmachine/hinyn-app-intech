@@ -15,23 +15,24 @@ import Button from '../shared/Button';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import LogoImage from '/public/assets/img/logo-hinyn.svg';
-import UsernameForm from '../forms/UsernameForm';
 import Modal from '../shared/Modal';
-import Axios from 'axios';
-Axios.defaults.withCredentials = true;
+// import Axios from 'axios';
+// Axios.defaults.withCredentials = true;
 import { origin } from '../../src/config';
-import {
-  loginUser,
-  registerUser,
-  addClientData,
-  logoutUser,
-} from '../forms/formService';
+// import {
+//   loginUser,
+//   registerUser,
+//   addClientData,
+//   logoutUser,
+// } from '../forms/formService';
 
 const Logo = styled.div`
   position: relative;
   width: 8rem;
   height: auto;
 `;
+
+// const router = useRouter();
 
 const StyledButton = styled(Button)`
   margin: auto;
@@ -49,15 +50,10 @@ const AgreeCheckbox = styled.div`
   font-size: 14px;
   margin: 3rem 0;
 `;
-const TextLink = styled.span`
-  color: ${(props) =>
-    props.color === 'red'
-      ? '#EB4C60'
-      : props.color === 'green'
-      ? '#4AA398'
-      : '#525252'};
-  cursor: pointer;
-`;
+// const TextLink = styled.span`
+//   color: green;
+//   cursor: pointer;
+// `;
 
 const Text = styled.span`
   font-size: 14px;
@@ -73,15 +69,8 @@ function RegistrationForm() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState(null);
-  const [showUsernameForm, setShowUsernameForm] = useState(false);
-
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const showForm = () => {
-    setShowUsernameForm(true);
-    console.log(showUsernameForm);
   };
 
   const [pwValues, setPWValues] = useState({
@@ -182,9 +171,9 @@ function RegistrationForm() {
     }
   };
 
-  const handlePWChange = (prop) => (event) => {
-    setPWValues({ ...pwValues, [prop]: event.target.value });
-  };
+  // const handlePWChange = (prop) => (event) => {
+  //   setPWValues({ ...pwValues, [prop]: event.target.value });
+  // };
 
   const handleClickShowPassword = () => {
     setPWValues({
@@ -208,23 +197,23 @@ function RegistrationForm() {
     event.preventDefault();
   };
 
-  // const handleRegisterUser = async (clientData) => {
-  //   logoutUser();
-  //   return registerUser(clientData).then((response) => {
-  //     if (response.status === true) {
-  //       handleLoginUser(clientData).then((res) => {
-  //         if (res?.jwt) {
-  //           localStorage.setItem('hinyn-uid', res.user.id);
-  //           localStorage.setItem('hinyn-cjwt', res.jwt);
-  //           router.push('/registration');
-  //         }
-  //       });
-  //     } else {
-  //       setMessage(response.data);
-  //       setOpen(true);
-  //     }
-  //     return false;
-  //   });
+  // const handleRegisterUser = async () => {
+  // logoutUser();
+  // return registerUser(clientData).then((response) => {
+  //   if (response.status === true) {
+  //     handleLoginUser(clientData).then((res) => {
+  //       if (res?.jwt) {
+  //         localStorage.setItem('hinyn-uid', res.user.id);
+  //         localStorage.setItem('hinyn-cjwt', res.jwt);
+  //         router.push('/registration');
+  //       }
+  //     });
+  //   } else {
+  //     setMessage(response.data);
+  //     setOpen(true);
+  //   }
+  //   return false;
+  // });
   // };
 
   // const handleLoginUser = async (clientData) => {
@@ -238,26 +227,35 @@ function RegistrationForm() {
   //   });
   // };
 
-  // const submitHandler = (event) => {
-  //   event.preventDefault();
-  //   const enteredEmail = emailInputRef.current.value;
-  //   const enteredPassword = passwordInputRef.current.value;
+  const submitHandler = (event) => {
+    event.preventDefault();
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
 
-  //   if (enteredEmail && isValid.email && enteredPassword) {
-  //     isValid.form = true;
-  //   }
+    if (enteredEmail && isValid.email && enteredPassword) {
+      isValid.form = true;
+    }
 
-  //   if (isValid.form) {
-  //     const clientData = {
-  //       email: enteredEmail,
-  //       password: enteredPassword,
-  //     };
-  //     handleRegisterUser(clientData);
-  //   } else {
-  //     setOpen(true);
-  //   }
-  // };
+    // if (isValid.form) {
+    //   const clientData = {
+    //     email: enteredEmail,
+    //     password: enteredPassword,
+    //   };
+    //   handleRegisterUser(clientData);
+    // } else {
+    //   setOpen(true);
+    // }
+  };
 
+  const handleNext = () => {
+    // Use the 'push' function to navigate to the next screen (page)
+    // router.push('/forms/UsernameForm'); // Replace '/next-screen' with the path to the next screen you want to navigate to
+    if (errorMessage) {
+      router.push('/registration?value=1');
+    } else {
+      setOpen(true);
+    }
+  };
   return (
     <>
       <Container maxWidth="sm" sx={{ marginBottom: '2rem' }}>
@@ -272,7 +270,7 @@ function RegistrationForm() {
           <Box
             component="form"
             noValidate
-            // onSubmit={submitHandler}
+            onSubmit={submitHandler}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -300,7 +298,7 @@ function RegistrationForm() {
                   onKeyUp={checkIsPassword}
                   autoComplete="new-password"
                   inputRef={passwordInputRef}
-                  onChange={handlePWChange}
+                  //  onChange={handlePWChange}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -330,7 +328,7 @@ function RegistrationForm() {
                   type={pwValues.showConfirmPassword ? 'text' : 'password'}
                   onKeyUp={checkIsConfirmPassword}
                   inputRef={confirmPasswordInputRef}
-                  onChange={handlePWChange}
+                  //  onChange={handlePWChange}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -358,13 +356,13 @@ function RegistrationForm() {
             <Grid container justifyContent="flex-start">
               <Grid item>
                 <AgreeCheckbox>
-                  <input type="checkbox" /> I agree to the HINYN{' '}
-                  <TextLink color="red">User Agreement</TextLink> and{' '}
-                  <TextLink color="red">Privacy Policy.</TextLink>
+                  <input type="checkbox" /> I agree to the HINYN
+                  {/* <TextLink color="red">User Agreement</TextLink> and{' '}
+                  <TextLink color="red">Privacy Policy.</TextLink> */}
                 </AgreeCheckbox>
               </Grid>
             </Grid>
-            <StyledButton onClick={() => showForm}>Join HINYN</StyledButton>
+            <StyledButton onClick={handleNext}>Join HINYN</StyledButton>
             <Grid
               container
               sx={{ marginTop: '2rem', justifyContent: 'center' }}
@@ -372,7 +370,7 @@ function RegistrationForm() {
               <Grid item>
                 <Text>
                   Already have an account?{' '}
-                  <TextLink color="green">Login</TextLink>
+                  {/* <TextLink color="green">Login</TextLink> */}
                 </Text>
               </Grid>
             </Grid>
@@ -397,9 +395,6 @@ function RegistrationForm() {
           {message ?? 'Oops! All fields are required.'}
         </Box>
       </Modal>
-      {/* <Modal handleClose={handleClose} hasHeader={false} hasFooter={false}>
-        {showUsernameForm === 'username' && <UsernameForm />}
-      </Modal> */}
     </>
   );
 }

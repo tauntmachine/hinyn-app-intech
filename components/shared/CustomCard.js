@@ -4,8 +4,6 @@ import Image from 'next/image';
 import { LocationIcon } from '../shared/Icon';
 import StarRating from './StarRating';
 import Button from './Button';
-import headerImage from '/public/assets/img/bg@1x.png';
-import { useState } from 'react';
 
 const StyledCard = styled.div`
   min-height: 24rem;
@@ -72,19 +70,23 @@ const HeaderBackground = styled.div`
 `;
 
 function CustomCard({ data, cardText, handleButtonClick }) {
-  let imgsrc = data?.displayPhoto
-    ? '/assets/img/avatars/' + data.displayPhoto
-    : '/assets/img/avatars/img-avatar1.png';
+  // let imgsrc = data?.displayPhoto
+  //   ? '/assets/img/avatars/' + data.displayPhoto
+  //   : '/assets/img/avatars/img-avatar1.png';
+
   const handleClick = (data) => {
     handleButtonClick(data);
   };
   return (
     <StyledCard>
       <HeaderBackground>
-        <Image src={headerImage} layout="fill" />
+        <Image
+          src={require('../../public/assets/img/bg@1x.png')}
+          layout="fill"
+        />
       </HeaderBackground>
       <ImageContainer>
-        <StyledImage src={imgsrc} layout="fill" alt="icon-img" />
+        <StyledImage src={data.imgsrc} layout="fill" alt="icon-img" />
       </ImageContainer>
       <Title>{data.name}</Title>
 
@@ -98,8 +100,7 @@ function CustomCard({ data, cardText, handleButtonClick }) {
       </Label>
 
       <StyledButton variant="outlined" onClick={() => handleClick(data)}>
-        {' '}
-        {cardText ?? 'Hire me'}{' '}
+        {cardText ?? 'Hire me'}
       </StyledButton>
     </StyledCard>
   );
