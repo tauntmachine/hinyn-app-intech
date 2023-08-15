@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
-import { useState, useEffect} from 'react';
-import Modal from "./Modal";
+import { useState, useEffect } from 'react';
+import Modal from './Modal';
 import Dropdown from './Dropdown';
 import { Container } from '@mui/material';
 import ClickableStarRating from './ClickableStarRating';
 import { getCategories, getSkills } from '../forms/formService';
 import { useFreelancer } from '../../src/store';
-import { locations, budget} from '../models/filters.models';
+import { locations, budget } from '../models/filters.models';
 import axios from 'axios';
 import { origin } from '../../src/config';
 
@@ -202,4 +202,4 @@ function Filter() {
   );
 }
 
-export default Filter
+export default Filter;

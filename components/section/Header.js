@@ -10,6 +10,7 @@ import RegistrationForm from '../forms/RegistrationForm';
 import Modal from '../shared/Modal';
 import Logo from '../shared/Logo';
 import LoginForm from '../forms/LoginForm';
+import BidFreelancerForm from '../forms/BidFreelancerForm';
 import ProfessionalForm6 from '../forms/ProfessionalForm6';
 import { getClientData, getClients, logoutUser } from '../forms/formService';
 

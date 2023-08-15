@@ -37,6 +37,7 @@ const SearchOptionContainer = styled.div`
   &:hover {
     background: #f8f8f8;
     border: 1px solid #eb4c60;
+    // paddingvertical: 20px;
     box-shadow: 0px 3px 6px #eb4c603c;
   }
 
@@ -155,11 +156,11 @@ function ExpandedSearchBar({ handleCloseExpandedSearchBar }) {
                 className={item.key === currentExpanded ? 'active' : ''}
               >
                 <span className="pretitle">{item.pretitle}</span>
-                {userSelectedDetails ? (
+                {/* {userSelectedDetails ? (
                   showValue(item.key, item.value)
-                ) : (
-                  <span className="value">{item.value}</span>
-                )}
+                ) : ( */}
+                <span className="value">{item.value}</span>
+                {/* )} */}
               </SearchOptionContainer>
               {idx < items.length - 1 ? <VerticalDivider /> : null}
             </Box>

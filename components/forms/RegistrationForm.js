@@ -251,7 +251,7 @@ function RegistrationForm() {
     // Use the 'push' function to navigate to the next screen (page)
     // router.push('/forms/UsernameForm'); // Replace '/next-screen' with the path to the next screen you want to navigate to
     if (errorMessage) {
-      router.push('/registration?value=1');
+      router.push('/registration');
     } else {
       setOpen(true);
     }
