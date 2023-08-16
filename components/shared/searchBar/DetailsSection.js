@@ -139,6 +139,7 @@ const List = styled.ul`
 `;
 const ListItem = styled.li`
   text-decoration: none;
+  font-weight: bold;
   list-style-type: none;
   padding: 5px 0 5px 20px;
   &:hover {
@@ -147,20 +148,12 @@ const ListItem = styled.li`
   }
 `;
 
-const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
-  const imgsrc = '/assets/img/categories/';
-  const [categories, setCategories] = useState([
-    { title: 'photographer', img: '/assets/img/categories/icn-editor.svg' },
-    {
-      title: 'videographer',
-      img: '/assets/img/categories/icn-hairStylist.svg',
-    },
-    { title: 'editor', img: '/assets/img/categories/icn-drone.svg' },
-    { title: 'stylisy', img: '/assets/img/categories/icn-stylist.svg' },
-    { title: 'make-up', img: '/assets/img/categories/icn-studio.svg' },
-    { title: 'hair-stylist', img: '/assets/categories/icn-videographer.svg' },
-  ]);
+const DivExpand = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
+const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
   // const [isFetched,setIsFetched] = useState([]);
 
   // useEffect(()=>{
@@ -179,7 +172,7 @@ const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
   return (
     <DetailsContainer>
       <GridContainer>
-        {categories.map((category, idx) => {
+        {category.map((category, idx) => {
           if (category?.key !== 'all')
             return (
               <Row
@@ -195,7 +188,10 @@ const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
                     alt="icon-img-box"
                   />
                 </ImageContainer>
-                <Text className="secondary">{category.title}</Text>
+                <DivExpand>
+                  <Text className="secondary">{category.title}</Text>
+                  <Text>{category.line}</Text>
+                </DivExpand>
               </Row>
             );
         })}
@@ -204,14 +200,6 @@ const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
   );
 };
 const SkillsDetailsContainer = ({ handleSelectedSkills }) => {
-  const [skills, setSkills] = useState([
-    { title: 'photographer' },
-    { title: 'videographer' },
-    { title: 'editor' },
-    { title: 'stylisy' },
-    { title: 'make-up' },
-    { title: 'hair-stylist' },
-  ]);
   const [selectedSkills, setSelectedSkills] = useState([]);
 
   //   useEffect(() => {
@@ -244,7 +232,7 @@ const SkillsDetailsContainer = ({ handleSelectedSkills }) => {
       {skills ? (
         <>
           <div>
-            Skills related to <Text className="secondary">{skills.title}</Text>
+            Skills related to <Text className="secondary">'MakeUp'</Text>
           </div>
           <FlexContainer>
             {skills.map((item, idx) => {
@@ -271,14 +259,6 @@ const SkillsDetailsContainer = ({ handleSelectedSkills }) => {
   );
 };
 const LocationDetailsContainer = ({ handleSelectedLocation }) => {
-  const [locations, setLocations] = useState([
-    { title: 'photographer' },
-    { title: 'videographer' },
-    { title: 'editor' },
-    { title: 'stylisy' },
-    { title: 'make-up' },
-    { title: 'hair-stylist' },
-  ]);
   return (
     <DetailsContainerList>
       Select City
@@ -299,14 +279,6 @@ const LocationDetailsContainer = ({ handleSelectedLocation }) => {
   );
 };
 const BudgetDetailsContainer = ({ handleSelectedBudget }) => {
-  const [budget, setBudget] = useState([
-    { title: '0 to free collaboration' },
-    { title: '0-100' },
-    { title: '100-101' },
-    { title: '100-101' },
-    { title: '100-101' },
-    { title: '100-101' },
-  ]);
   return (
     <DetailsContainerList2>
       Select Budget

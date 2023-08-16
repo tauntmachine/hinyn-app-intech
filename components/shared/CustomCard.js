@@ -81,6 +81,7 @@ function CustomCard({ data, cardText, handleButtonClick }) {
     <StyledCard>
       <HeaderBackground>
         <Image
+          alt=""
           src={require('../../public/assets/img/bg@1x.png')}
           layout="fill"
         />

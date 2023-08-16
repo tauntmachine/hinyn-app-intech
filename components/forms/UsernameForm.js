@@ -68,6 +68,10 @@ function UsernameForm() {
       ['username']: true,
     }));
   };
+  const GoBack = () => {
+    router.back(); // Navigates back to the previous page
+  };
+
   // const handleNext = () => {
   //   router.push('/registration?value=2');
   // };
@@ -113,7 +117,7 @@ function UsernameForm() {
   return (
     <>
       <Container maxWidth="sm" sx={{ marginBottom: '2rem' }}>
-        <BackIcon variant="red" />
+        <BackIcon variant="red" onClick={GoBack} />
         <CssBaseline />
         <FormContainer>
           <Logo>

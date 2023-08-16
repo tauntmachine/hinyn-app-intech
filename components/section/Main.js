@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import CategoryList from '../shared/categories/CategoryList';
 import CardsSection from './CardsSection';
 import { useFreelancer } from '../../src/store';
-
 import { useState, useEffect } from 'react';
 import { getCategories } from '../forms/formService';
 import cards from '../data/FreelancersData';

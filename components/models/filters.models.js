@@ -1,31 +1,48 @@
-export const locations = [
+export const category = [
   {
-    key: 'dubai',
-    title: 'Dubai',
+    title: 'photographer',
+    img: '/assets/img/icons/icon-qualityWork.svg',
+    line: 'Make-Up Artist',
   },
   {
-    key: 'abudhabi',
-    title: 'Abu Dhabi',
+    title: 'videographer',
+    img: '/assets/img/icons/icon-qualityWork.svg',
+    line: 'Make-Up Artist',
   },
   {
-    key: 'sharjah',
-    title: 'Sharjah',
+    title: 'editor',
+    img: '/assets/img/icons/icon-qualityWork.svg',
+    line: 'Make-Up Artist',
   },
   {
-    key: 'ajman',
-    title: 'Ajman',
+    title: 'stylisy',
+    img: '/assets/img/icons/icon-qualityWork.svg',
+    line: 'Make-Up Artist',
   },
   {
-    key: 'umm-al-quwain',
-    title: 'Umm Al Quwain',
+    title: 'make-up',
+    img: '/assets/img/icons/icon-qualityWork.svg',
+    line: 'Make-Up Artist',
   },
   {
-    key: 'fujairah',
-    title: 'Fujairah',
+    title: 'hair-stylist',
+    img: '/assets/img/icons/icon-qualityWork.svg',
+    line: 'Make-Up Artist',
   },
   {
-    key: 'ras-al-khaimah',
-    title: 'Ras Al Khaimah',
+    title: 'stylisy',
+    img: '/assets/img/icons/icon-qualityWork.svg',
+    line: 'Make-Up Artist',
+  },
+  {
+    title: 'make-up',
+    img: '/assets/img/icons/icon-qualityWork.svg',
+    line: 'Make-Up Artist',
+  },
+  {
+    title: 'hair-stylist',
+    img: '/assets/img/icons/icon-qualityWork.svg',
+    line: 'Make-Up Artist',
   },
 ];
 
@@ -74,30 +91,29 @@ export const ageGroupOptions = [
     value: '46',
   },
 ];
-export const category = [
+export const locations = [
+  { title: 'Dubai' },
+  { title: 'Sharjah' },
+  { title: 'America' },
+  { title: 'Dubai' },
+  { title: 'America' },
+  { title: 'Sharjah' },
+];
+
+export const skills = [
   { title: 'photographer' },
   { title: 'videographer' },
   { title: 'editor' },
   { title: 'stylisy' },
   { title: 'make-up' },
   { title: 'hair-stylist' },
-];
-
-export const skills = [
-  'Fashion',
-  'Beauty',
-  'Lifestyle',
-  'Corporate',
-  'E-commerce',
-  'Watches / Jewelry',
-  'Products',
-  'Cars',
-  'Sports',
-  'Wedding',
-  'Event',
-  'Kids / Baby',
-  'Animal',
-  'Architecture / Real estate',
-  'Food',
-  'Other',
+  { title: 'videographer' },
+  { title: 'editor' },
+  { title: 'stylisy' },
+  { title: 'make-up' },
+  { title: 'hair-stylist' },
+  { title: 'videographer' },
+  { title: 'editor' },
+  { title: 'stylisy' },
+  { title: 'stylisy' },
 ];

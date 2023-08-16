@@ -85,6 +85,9 @@
   max-width: 300px;
 }
 
+.expanded-Text {
+  background-color: #0070f3;
+}
 .card:hover,
 .card:focus,
 .card:active {
