@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import Header from '../components/section/Header';
 import Main from '../components/section/Main';
 import Footer from '../components/section/Footer';
-export {getServerSideProps} from "../src/store";
+export { getServerSideProps } from '../src/store';
 
 const Home: NextPage = () => {
   return (
@@ -11,12 +11,19 @@ const Home: NextPage = () => {
       <Head>
         <title>Home App</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true' />
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="true"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <Header />
-      <Main/>
-      <Footer/>
+      <Main />
+      <Footer />
     </>
   );
 };

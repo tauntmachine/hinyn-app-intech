@@ -17,21 +17,27 @@ const ContainerCustom = styled.div`
 function Main() {
   // const { freelancer, filter, setFilter } = useFreelancer();
 
-  const categories = [
-    { title: 'Photographer', img: 'icn-photographer.svg' },
-    { title: 'Editor', img: 'icn-editor.svg' },
-    { title: 'HairStylist', img: 'icn-hairStylist.svg' },
-    { title: 'MakeUp', img: 'icn-makeupArtist.svg' },
-    { title: 'Model', img: 'icn-models.svg' },
-    { title: 'Studio', img: 'icn-studio.svg' },
-    { title: 'Stylist', img: 'icn-stylist.svg' },
+  const categoriesFilter = [
+    {
+      title: 'Photographer',
+      img: '/assets/img/categories/icn-photographer.svg',
+    },
+    { title: 'Editor', img: '/assets/img/categories/icn-drone.svg' },
+    {
+      title: 'HairStylist',
+      img: '/assets/img/categories/icn-editor.svg',
+    },
+    { title: 'MakeUp', img: '/assets/img/categories/icn-hairStylist.svg' },
+    { title: 'Model', img: '/assets/img/categories/icn-makeupArtist.svg' },
+    { title: 'Studio', img: '/assets/img/categories/icn-videographer.svg' },
+    { title: 'Stylist', img: '/assets/img/categories/icn-studio.svg' },
   ];
 
   const handleButtonClick = () => {};
 
   return (
     <ContainerCustom>
-      <CategoryList categories={categories} />
+      <CategoryList categories={categoriesFilter} />
       <CardsSection cards={cards} handleButtonClick={handleButtonClick} />
     </ContainerCustom>
   );

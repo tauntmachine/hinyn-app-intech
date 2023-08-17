@@ -42,7 +42,7 @@ function Registration() {
         hasHeader={false}
         hasFooter={false}
       >
-        {formsSequence[1]}
+        {formsSequence[2]}
       </Modal>
     </>
   );

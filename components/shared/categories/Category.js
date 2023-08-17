@@ -5,6 +5,7 @@ const IconContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 9px;
+
   color: ${(props) => (props.isSelected ? '#EB4C60' : '#939393')};
   align-items: center;
   border-bottom: ${(props) => (props.isSelected ? '1px solid #EB4C60' : '')};
@@ -32,6 +33,7 @@ const Label = styled.span`
   text-align: center;
   font-size: 12px;
   margin-bottom: 4px;
+  margin-left: 10px;
 `;
 const ImageContainer = styled.div`
   width: 2.5rem;
@@ -40,11 +42,16 @@ const ImageContainer = styled.div`
 `;
 
 function Category({ data, isSelected = false, hasLabel = true }) {
-  const imgsrc = '/assets/img/categories/' + data.img;
+  // const imgsrc = '/assets/img/categories/' + data.img;
   return (
     <IconContainer isSelected={isSelected}>
       <ImageContainer className="icon-img-box">
-        <Image src={imgsrc} layout="fill" className="icon-img" alt="icon-img" />
+        <Image
+          src={data.img}
+          layout="fill"
+          className="icon-img"
+          alt="icon-img"
+        />
       </ImageContainer>
 
       <Label>{data.title}</Label>

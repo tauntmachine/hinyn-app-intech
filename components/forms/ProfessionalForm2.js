@@ -14,7 +14,13 @@ import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
 import { BackIcon, SearchIcon, RightArrowIcon } from '../shared/Icon';
 import ScrollableTable from '../shared/ScrollableTable';
-import { addProfessionalCategoriesData, getCategories, getSkills, updateClientData } from './formService';
+import {
+  addProfessionalCategoriesData,
+  getCategories,
+  getSkills,
+  updateClientData,
+} from './formService';
+import { categoriesForm, categorySkill } from '../models/filters.models';
 
 const StyledButton = styled(Button)``;
 
@@ -49,35 +55,37 @@ const ORLine = styled.div`
 const HR = styled.div`
   border-bottom: 1px solid #b7b7b750;
 `;
-
+const Mainc = styled.div`
+  margin-bottom: 20px;
+`;
 
 function ProfessionalForm2({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
-  const [categories,setCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [categorySkills, setCategorySkills] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
 
-  useEffect(()=>{
-    setCategories(()=>[])
-    getCategories().then((result)=>{
-      if(result?.data){
-        result?.data?.data.map((item)=>{
-          let temp = {"id":item.id}
-          setCategories((prev => prev.concat({...item.attributes,...temp})));
-        })
-      }
-    });
-   
-  },[])
+  // useEffect(()=>{
+  //   setCategories(()=>[])
+  //   getCategories().then((result)=>{
+  //     if(result?.data){
+  //       result?.data?.data.map((item)=>{
+  //         let temp = {"id":item.id}
+  //         setCategories((prev => prev.concat({...item.attributes,...temp})));
+  //       })
+  //     }
+  //   });
+
+  // },[])
 
   const onCategoryClick = (categoryId) => {
     setSelectedCategory(() => categoryId);
     getCategorySkills(categoryId);
-    setSelectedSkills(()=>[])
+    setSelectedSkills(() => []);
   };
 
   const onSkillClick = (selectedSkill) => {
@@ -102,42 +110,45 @@ function ProfessionalForm2({ handleNextClick }) {
 
   function submitHandler(event) {
     event.preventDefault();
-    const enteredCategory = categoryInputRef.current.value;
+    handleNextClick(true);
+    // const enteredCategory = categoryInputRef.current.value;
     // const enteredLastname = lastnameInputRef.current.value;
 
-    if (enteredCategory && enteredCategory !== '') {
-      isValid.form = true;
-    }
+    // if (enteredCategory && enteredCategory !== '') {
+    //   isValid.form = true;
+    // }
 
-    if (isValid.form) {
-        const clientId = localStorage.getItem('hinyn-cid');
-        const data = {
-            categories: [selectedCategory],
-            skills: selectedSkills.map((skill) => skill.id),
-        };
+    // if (isValid.form) {
+    //   const clientId = localStorage.getItem('hinyn-cid');
+    //   const data = {
+    //     categories: [selectedCategory],
+    //     skills: selectedSkills.map((skill) => skill.id),
+    //   };
 
-        updateClientData(data,clientId).then((result)=>{
-            if(result?.data) handleNextClick(true);
-        })
-    } else {
-      setOpen(true);
-    }
+    //   updateClientData(data, clientId).then((result) => {
+    //     if (result?.data) handleNextClick(true);
+    //   });
+    // } else {
+    //   setOpen(true);
+    // }
   }
 
   const getCategorySkills = (categoryId) => {
-    setCategorySkills(()=>[]);
-    getSkills(categoryId).then((result)=>{
+    setCategorySkills(() => []);
+    getSkills(categoryId).then((result) => {
       const temp = result?.data?.data?.attributes?.skills?.data ?? [];
-        temp.map((item)=>{
-          let skillId = {"id":item.id}
-          setCategorySkills((prev => prev.concat({...item.attributes, ...skillId})));
-        });
-    })
-  }
+      temp.map((item) => {
+        let skillId = { id: item.id };
+        setCategorySkills((prev) =>
+          prev.concat({ ...item.attributes, ...skillId })
+        );
+      });
+    });
+  };
 
   return (
     <>
-      <Container maxWidth="md" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
+      <Container maxWidth="md" sx={{ marginBottom: '1rem', marginTop: '4rem' }}>
         <CssBaseline />
         <FormContainer>
           <Typography component="h1" variant="h4">
@@ -186,7 +197,7 @@ function ProfessionalForm2({ handleNextClick }) {
         <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
           <Grid item xs={12} md={4}>
             <ScrollableTable
-              data={categories}
+              data={categoriesForm}
               title="Select a Category"
               startAdornment={'icon'}
               endAdornment={'right-arrow'}
@@ -196,7 +207,7 @@ function ProfessionalForm2({ handleNextClick }) {
           </Grid>
           <Grid item xs={12} md={4}>
             <ScrollableTable
-              data={categorySkills}
+              data={categorySkill}
               title="Select Skills for Category"
               type="category_skills"
               category={selectedCategory}
@@ -211,7 +222,7 @@ function ProfessionalForm2({ handleNextClick }) {
           </Grid>
         </Grid>
       </Container>
-      <Container>
+      <Container sx={{ marginBottom: '5rem' }}>
         <ButtonContainer>
           <Text>
             <BackIcon isabsolute={false} />

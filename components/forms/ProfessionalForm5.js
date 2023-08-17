@@ -92,23 +92,23 @@ function ProfessionalForm5({ handleNextClick }) {
 
   function submitHandler(event) {
     event.preventDefault();
+    handleNextClick(true);
+    // if (selectedLocation && selectedLocation !== null) {
+    //   isValid.form = true;
+    // }
 
-    if (selectedLocation && selectedLocation !== null) {
-      isValid.form = true;
-    }
-
-    if (isValid.form) {
-      const clientId = localStorage.getItem('hinyn-cid');
-      const clientData = {
-        city: selectedLocation,
-        country: "United Arab Emirates",
-      };
-      updateClientData(clientData, clientId).then((result) => {
-        if (result?.data) handleNextClick(true);
-      });
-    } else {
-      setOpen(true);
-    }
+    // if (isValid.form) {
+    //   const clientId = localStorage.getItem('hinyn-cid');
+    //   const clientData = {
+    //     city: selectedLocation,
+    //     country: "United Arab Emirates",
+    //   };
+    //   updateClientData(clientData, clientId).then((result) => {
+    //     if (result?.data) handleNextClick(true);
+    //   });
+    // } else {
+    //   setOpen(true);
+    // }
   }
 
   return (

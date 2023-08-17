@@ -117,3 +117,18 @@ export const skills = [
   { title: 'stylisy' },
   { title: 'stylisy' },
 ];
+
+export const categoriesForm = [
+  { title: 'Category', img: '/assets/img/icons/img12.png' },
+  { title: 'Category', img: '/assets/img/icons/img12.png' },
+  { title: 'Category', img: '/assets/img/icons/img12.png' },
+  { title: 'Category', img: '/assets/img/icons/img12.png' },
+  { title: 'Category', img: '/assets/img/icons/img12.png' },
+];
+export const categorySkill = [
+  { title: 'skill' },
+  { title: 'skill' },
+  { title: 'skill' },
+  { title: 'skill' },
+  { title: 'skill' },
+];

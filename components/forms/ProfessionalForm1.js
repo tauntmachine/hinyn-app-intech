@@ -56,19 +56,40 @@ function ProfessionalForm1({ handleNextClick }) {
   const firstnameInputRef = useRef();
   const lastnameInputRef = useRef();
 
-  useEffect(() => {
-    const clientData = {
-      id: localStorage.getItem('hinyn-cid'),
-    };
-    getClientData(clientData).then((result) => {
-      // if (result?.data) console.log('useeffect clientdataa', result?.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const clientData = {
+  //     id: localStorage.getItem('hinyn-cid'),
+  //   };
+  //   getClientData(clientData).then((result) => {
+  //     // if (result?.data) console.log('useeffect clientdataa', result?.data);
+  //   });
+  // }, []);
 
   function submitHandler(event) {
     event.preventDefault();
     const enteredFirstname = firstnameInputRef.current.value;
     const enteredLastname = lastnameInputRef.current.value;
+
+    // if (
+    //   enteredFirstname &&
+    //   enteredLastname &&
+    //   enteredFirstname !== '' &&
+    //   enteredLastname !== ''
+    // ) {
+    //   isValid.form = true;
+    // }
+
+    // if (isValid.form) {
+    //   const clientId = localStorage.getItem('hinyn-cid');
+    //   const userData = {
+    //     firstName: enteredFirstname,
+    //     lastName: enteredLastname,
+    //   };
+    //   updateClientData(userData, clientId).then((res) => {
+    //     if (res?.data){
+    //         handleNextClick(true);
+    //     }
+    //   });
 
     if (
       enteredFirstname &&
@@ -76,22 +97,7 @@ function ProfessionalForm1({ handleNextClick }) {
       enteredFirstname !== '' &&
       enteredLastname !== ''
     ) {
-      isValid.form = true;
-    }
-
-    if (isValid.form) {
-      const clientId = localStorage.getItem('hinyn-cid');
-      const userData = {
-        firstName: enteredFirstname,
-        lastName: enteredLastname,
-      };
-      updateClientData(userData, clientId).then((res) => {
-        if (res?.data){
-            handleNextClick(true);
-        } 
-      });
-      
-      
+      handleNextClick(true);
     } else {
       setOpen(true);
     }
