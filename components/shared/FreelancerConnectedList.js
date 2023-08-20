@@ -61,11 +61,31 @@ const StyledImage = styled(Image)`
 `;
 
 const FreelancerConnectedList = () => {
-  const { freelancer, filter, setFilter } = useFreelancer();
+  // const { freelancer, filter, setFilter } = useFreelancer();
   const imgPath = '/assets/img/avatars/';
 
   const router = useRouter();
   const [accountType, setAccountType] = useState({});
+  const [freelancer, setFreelancer] = useState([
+    {
+      firstName: 'M.',
+      lastName: 'assadullah',
+      city: 'lahore',
+      country: 'pakistan',
+    },
+    {
+      firstName: 'M.',
+      lastName: 'assadullah',
+      city: 'lahore',
+      country: 'pakistan',
+    },
+    {
+      firstName: 'M.',
+      lastName: 'assadullah',
+      city: 'lahore',
+      country: 'pakistan',
+    },
+  ]);
 
   const showFreelancerProfile = (freelancerId) => {
     router.push('/dashboard/professionalProfile?fid=' + freelancerId);
@@ -109,7 +129,7 @@ const FreelancerConnectedList = () => {
                   <Box sx={{ display: 'flex' }}>
                     <Text color="red">
                       <b>
-                        {freelancer?.firstName} {freelancer?.lastName}
+                        {freelancer.firstName} {freelancer.lastName}
                       </b>
                     </Text>
                     <GrayText> {freelancer?.instagramProfile ?? ''} </GrayText>

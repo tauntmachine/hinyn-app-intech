@@ -84,7 +84,7 @@ const StyledLogoutIcon = styled(LogoutIcon)`
 function DashboardHeader({ currentTab, setTabChange }) {
   const imgpath = '/assets/img/avatars/';
   const [userData, setUserData] = useState({});
-  const [accountType, setAccountType] = useState();
+  const [accountType, setAccountType] = useState(2);
   const router = useRouter();
 
   const showUserProfile = () => {
@@ -122,7 +122,7 @@ function DashboardHeader({ currentTab, setTabChange }) {
   const clientTabs = ['Dashboard', 'Browse', 'My Freelancers', 'My Projects'];
 
   const showTabs = () => {
-    const tabs = accountType === 1 ? professionalTabs : clientTabs;
+    const tabs = accountType === 2 ? professionalTabs : clientTabs;
     return (
       <Tabs>
         {tabs.map((tabName, idx) => (
