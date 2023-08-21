@@ -92,10 +92,12 @@ function ProfessionalForm5({ handleNextClick }) {
 
   function submitHandler(event) {
     event.preventDefault();
-    handleNextClick(true);
-    // if (selectedLocation && selectedLocation !== null) {
-    //   isValid.form = true;
-    // }
+
+    if (selectedLocation && selectedLocation !== null) {
+      handleNextClick(true);
+    } else {
+      setOpen(true);
+    }
 
     // if (isValid.form) {
     //   const clientId = localStorage.getItem('hinyn-cid');

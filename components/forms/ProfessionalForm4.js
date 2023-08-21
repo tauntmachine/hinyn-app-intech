@@ -81,13 +81,14 @@ function ProfessionalForm4({ handleNextClick }) {
 
   function submitHandler(event) {
     event.preventDefault();
-    handleNextClick(true);
-    // const enteredLanguages = languagesInputRef.current.value;
 
-    // if(enteredLanguages && dobValue && (enteredLanguages !== '')){
-    //     isValid.form = true;
-    // }
+    const enteredLanguages = languagesInputRef.current.value;
 
+    if (enteredLanguages && dobValue && enteredLanguages !== '') {
+      handleNextClick(true);
+    } else {
+      setOpen(true);
+    }
     // if(isValid.form){
     //     const clientId = localStorage.getItem('hinyn-cid');
     //     const clientData = {

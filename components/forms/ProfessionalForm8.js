@@ -103,10 +103,12 @@ function ProfessionalForm8({ handleNextClick }) {
 
   function submitHandler(event) {
     event.preventDefault();
-    handleNextClick(true);
-    // if(uploadedFiles.length > 0 ){
-    //     isValid.form = true;
-    // }
+
+    if (uploadedFiles.length == 0) {
+      handleNextClick(true);
+    } else {
+      setOpen(true);
+    }
 
     // if(isValid.form){
     //   const clientData = {

@@ -58,8 +58,8 @@ const TabItem = styled.div`
   cursor: pointer;
 
   &.active {
-    border-bottom: 4px solid #4aa398;
-    color: #4aa398;
+    border-bottom: 4px solid #ff5a5f;
+    color: #ff5a5f;
   }
 `;
 
@@ -84,7 +84,7 @@ const StyledLogoutIcon = styled(LogoutIcon)`
 function DashboardHeader({ currentTab, setTabChange }) {
   const imgpath = '/assets/img/avatars/';
   const [userData, setUserData] = useState({});
-  const [accountType, setAccountType] = useState(2);
+  const [accountType, setAccountType] = useState(1);
   const router = useRouter();
 
   const showUserProfile = () => {
@@ -139,13 +139,13 @@ function DashboardHeader({ currentTab, setTabChange }) {
   };
 
   const showCTAButton = () => {
-    if (accountType === 1)
+    if (accountType === 2)
       return (
         <GreenButton onClick={() => showBrowseProjects()}>
           Place a bid
         </GreenButton>
       );
-    else if (accountType === 2)
+    else
       return (
         <Button width="10rem" onClick={() => showPostProject()}>
           Post a Project
@@ -207,7 +207,7 @@ function DashboardHeader({ currentTab, setTabChange }) {
               <Box
                 sx={{ display: 'flex', flexDirection: 'column', gap: '6px' }}
               >
-                <Text color={accountType === 1 ? 'green' : 'red'}>
+                <Text color={accountType === 2 ? 'green' : 'red'}>
                   Hi, {userData?.firstName}
                 </Text>
                 <Text>

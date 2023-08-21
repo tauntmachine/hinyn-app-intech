@@ -9,6 +9,7 @@ import { BackIcon } from '../shared/Icon';
 import { WebcamCapture } from '../shared/WebcamCapture';
 import AvatarUpload from '../shared/AvatarUpload';
 import { getClientData, updateClientData, updateUserData } from './formService';
+import Router from 'next/router';
 
 const StyledButton = styled(Button)``;
 
@@ -102,7 +103,9 @@ function ProfessionalForm1({ handleNextClick }) {
       setOpen(true);
     }
   }
-
+  const Goback = () => {
+    Router.push('/RegistrationForm');
+  };
   return (
     <>
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
@@ -158,7 +161,7 @@ function ProfessionalForm1({ handleNextClick }) {
             </Grid>
             <ButtonContainer>
               <Text>
-                <BackIcon isabsolute={false} />
+                <BackIcon isabsolute={false} onClick={Goback} />
                 <span style={{ marginLeft: '1rem' }}>Go Back</span>
               </Text>
               <StyledButton>NEXT</StyledButton>

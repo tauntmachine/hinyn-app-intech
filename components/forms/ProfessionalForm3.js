@@ -71,9 +71,18 @@ function ProfessionalForm3({ handleNextClick }) {
 
   function submitHandler(event) {
     event.preventDefault();
-    // const enteredDescription = descriptionInputRef.current.value;
+    const enteredDescription = descriptionInputRef.current.value;
     // if (enteredDescription(enteredDescription !== '')) {
-    handleNextClick(true);
+    if (
+      enteredDescription &&
+      enteredBroadDescription &&
+      enteredDescription !== '' &&
+      enteredBroadDescription !== ''
+    ) {
+      handleNextClick(true);
+    } else {
+      setOpen(true);
+    }
     // } else {
     //   setOpen(true);
     // }

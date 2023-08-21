@@ -231,10 +231,19 @@ function RegistrationForm() {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-
-    if (enteredEmail && isValid.email && enteredPassword) {
-      isValid.form = true;
+    if (
+      enteredEmail &&
+      enteredPassword &&
+      enteredEmail !== '' &&
+      enteredPassword !== ''
+    ) {
+      router.push('/registration');
+    } else {
+      setOpen(true);
     }
+    // if (enteredEmail && isValid.email && enteredPassword) {
+    //   isValid.form = true;
+    // }
 
     // if (isValid.form) {
     //   const clientData = {
@@ -247,15 +256,15 @@ function RegistrationForm() {
     // }
   };
 
-  const handleNext = () => {
-    // Use the 'push' function to navigate to the next screen (page)
-    // router.push('/forms/UsernameForm'); // Replace '/next-screen' with the path to the next screen you want to navigate to
-    if (errorMessage) {
-      router.push('/registration');
-    } else {
-      setOpen(true);
-    }
-  };
+  // const handleNext = () => {
+  //   // Use the 'push' function to navigate to the next screen (page)
+  //   // router.push('/forms/UsernameForm'); // Replace '/next-screen' with the path to the next screen you want to navigate to
+  //   if (errorMessage) {
+  //     router.push('/registration');
+  //   } else {
+  //     setOpen(true);
+  //   }
+  // };
   return (
     <>
       <Container maxWidth="sm" sx={{ marginBottom: '2rem' }}>
@@ -362,7 +371,7 @@ function RegistrationForm() {
                 </AgreeCheckbox>
               </Grid>
             </Grid>
-            <StyledButton onClick={handleNext}>Join HINYN</StyledButton>
+            <StyledButton onClick={submitHandler}>Join HINYN</StyledButton>
             <Grid
               container
               sx={{ marginTop: '2rem', justifyContent: 'center' }}

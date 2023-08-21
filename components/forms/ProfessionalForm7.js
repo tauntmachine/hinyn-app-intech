@@ -57,12 +57,18 @@ function ProfessionalForm7({ handleNextClick }) {
 
   function submitHandler(event) {
     event.preventDefault();
-    handleNextClick(true);
-    // const enteredOtpNumber = otpNumberInputRef.current.value;
 
-    // if(enteredOtpNumber && enteredOtpNumber !== '' && enteredOtpNumber.length === 6 ){
-    //     isValid.form = true;
-    // }
+    const enteredOtpNumber = otpNumberInputRef.current.value;
+
+    if (
+      enteredOtpNumber &&
+      enteredOtpNumber !== '' &&
+      enteredOtpNumber.length === 6
+    ) {
+      handleNextClick(true);
+    } else {
+      setOpen(true);
+    }
 
     // if(isValid.form){
     //   const clientData = {
@@ -131,7 +137,7 @@ function ProfessionalForm7({ handleNextClick }) {
         hasHeader={false}
         hasFooter={false}
       >
-        <div>Oops! All fields are required.</div>
+        <div>Wrong ott</div>
       </Modal>
     </>
   );
