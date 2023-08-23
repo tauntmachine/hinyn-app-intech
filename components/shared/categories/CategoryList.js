@@ -11,12 +11,13 @@ const SwiperBox = styled.div`
 `;
 function CategoryList({ categories }) {
   const [currentSelected, setCurrentSelected] = useState(null);
-  const { freelancer, filter, setFilter } = useFreelancer();
+  // const { freelancer, filter, setFilter } = useFreelancer();
 
   const handleSelectedCategory = (category) => {
-    //setCurrentSelected(category);
+    setCurrentSelected(category);
+
     // if (category === 'all') category = '';
-    setFilter(category);
+    // setFilter(category);
   };
   return (
     <SwiperBox>
@@ -33,7 +34,7 @@ function CategoryList({ categories }) {
           >
             <Category
               data={category}
-              isSelected={category.key === currentSelected ? true : false}
+              isSelected={category.key === currentSelected}
             />
           </SwiperSlide>
         ))}

@@ -41,7 +41,7 @@ const ImageContainer = styled.div`
   position: relative;
 `;
 
-function Category({ data, isSelected = false, hasLabel = true }) {
+function Category({ data, isSelected }) {
   // const imgsrc = '/assets/img/categories/' + data.img;
   return (
     <IconContainer isSelected={isSelected}>

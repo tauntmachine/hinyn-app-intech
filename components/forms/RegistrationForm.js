@@ -16,9 +16,12 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import LogoImage from '/public/assets/img/logo-hinyn.svg';
 import Modal from '../shared/Modal';
+import Logo from '../shared/Logo';
+
 // import Axios from 'axios';
 // Axios.defaults.withCredentials = true;
 import { origin } from '../../src/config';
+import { red } from '@mui/material/colors';
 // import {
 //   loginUser,
 //   registerUser,
@@ -26,11 +29,11 @@ import { origin } from '../../src/config';
 //   logoutUser,
 // } from '../forms/formService';
 
-const Logo = styled.div`
-  position: relative;
-  width: 8rem;
-  height: auto;
-`;
+// const Logo = styled.div`
+//   position: relative;
+//   width: 8rem;
+//   height: auto;
+// `;
 
 // const router = useRouter();
 
@@ -237,7 +240,7 @@ function RegistrationForm() {
       enteredEmail !== '' &&
       enteredPassword !== ''
     ) {
-      router.push('/registration');
+      router.push('/registration?value=2');
     } else {
       setOpen(true);
     }
@@ -270,9 +273,10 @@ function RegistrationForm() {
       <Container maxWidth="sm" sx={{ marginBottom: '2rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Logo>
+          <Logo />
+          {/* <Logo>
             <Image src={LogoImage} alt="hinyn logo" />
-          </Logo>
+          </Logo> */}
           <Typography component="h1" variant="h5">
             <b>Sign Up</b>
           </Typography>

@@ -33,6 +33,8 @@ const SearchOptionContainer = styled.div`
   min-width: 10rem;
   transition: all 0.5s ease-in-out;
   border-radius: 50px;
+  font-size: 15px;
+  fontweight: 50px;
 
   &:hover {
     background: #f8f8f8;
@@ -62,7 +64,12 @@ const SearchOptionContainer = styled.div`
 const VerticalDivider = styled.div`
   height: 36px;
   width: 1px;
-  background: #ebebeb;
+  background: #dbd9d9;
+`;
+const TextEx = styled.div`
+  font-size: 12px;
+  font-weight: bold;
+  color: #5d5d5d;
 `;
 const CustomSearchIcon = styled(FiSearch)`
   color: #ffffff;
@@ -155,7 +162,7 @@ function ExpandedSearchBar({ handleCloseExpandedSearchBar }) {
                 onClick={() => toggleDetailsSection(item.key)}
                 className={item.key === currentExpanded ? 'active' : ''}
               >
-                <span className="pretitle">{item.pretitle}</span>
+                <TextEx>{item.pretitle}</TextEx>
                 {/* {userSelectedDetails ? (
                   showValue(item.key, item.value)
                 ) : ( */}

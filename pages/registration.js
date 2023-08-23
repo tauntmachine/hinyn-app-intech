@@ -6,16 +6,18 @@ import { useRouter } from 'next/router';
 
 function Registration() {
   const router = useRouter();
+  // const { value } = router.query;
 
-  const [clientData, setClientData] = useState({});
+  // const [clientData, setClientData] = useState({});
   const [open, setOpen] = useState(true);
-  const [currentActiveForm, setCurrentActiveForm] = useState();
+  const [currentActiveForm, setCurrentActiveForm] = useState(2);
   const handleClose = (e, reason) => {
     if (reason !== 'backdropClick') setOpen(false);
   };
 
   const handleSubmit = () => {
     console.log('submitted');
+    setCurrentActiveForm(2);
   };
 
   // const handleUsernameSubmit = (data) => {
@@ -42,7 +44,7 @@ function Registration() {
         hasHeader={false}
         hasFooter={false}
       >
-        {formsSequence[2]}
+        {formsSequence[currentActiveForm]}
       </Modal>
     </>
   );

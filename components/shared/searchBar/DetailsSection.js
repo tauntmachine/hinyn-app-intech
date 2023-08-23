@@ -152,7 +152,28 @@ const DivExpand = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
+const TextEx = styled.div`
+  color: #eb4c60;
+  // font-weight: bold;
+  font-size: 17px;
+`;
+const TextEx2 = styled.div`
+  font-size: 12px;
+`;
+const TextEx3 = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+`;
+const TextEx4 = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  color: #eb4c60;
+`;
+const DivEx = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+`;
 const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
   // const [isFetched,setIsFetched] = useState([]);
 
@@ -189,8 +210,8 @@ const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
                   />
                 </ImageContainer>
                 <DivExpand>
-                  <Text className="secondary">{category.title}</Text>
-                  <Text>{category.line}</Text>
+                  <TextEx>{category.title}</TextEx>
+                  <TextEx2>{category.line}</TextEx2>
                 </DivExpand>
               </Row>
             );
@@ -231,9 +252,10 @@ const SkillsDetailsContainer = ({ handleSelectedSkills }) => {
     <DetailsContainer>
       {skills ? (
         <>
-          <div>
-            Skills related to <Text className="secondary">'MakeUp'</Text>
-          </div>
+          <DivEx>
+            <TextEx3>Skills related to</TextEx3>
+            <TextEx4>`Make-Up`</TextEx4>
+          </DivEx>
           <FlexContainer>
             {skills.map((item, idx) => {
               return (

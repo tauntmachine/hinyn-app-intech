@@ -6,12 +6,13 @@ import { useRouter } from 'next/router';
 import LogoImage from '/public/assets/img/logo-hinyn.svg';
 import { BackIcon, PhotoIcon, RightArrowIcon } from '../shared/Icon';
 import { updateClientData } from './formService';
+import Logo from '../shared/Logo';
 
-const Logo = styled.div`
-  position: relative;
-  width: 8rem;
-  height: auto;
-`;
+// const Logo = styled.div`
+//   position: relative;
+//   width: 8rem;
+//   height: auto;
+// `;
 
 const FormContainer = styled(Box)`
   display: flex;
@@ -75,13 +76,14 @@ function AccountTypeForm() {
         <BackIcon variant="red" />
         <CssBaseline />
         <FormContainer>
-          <Logo>
+          <Logo />
+          {/* <Logo>
             <Image src={LogoImage} alt="hinyn logo" />
-          </Logo>
-          <Typography component="h1" variant="h5">
+          </Logo> */}
+          <Typography component="h5" variant="h5">
             <b>Select Account Type</b>
           </Typography>
-          <Typography component="p" align="center">
+          <Typography component="x" align="center">
             Don&apos;t worry, this can be changed later.
           </Typography>
           <Box

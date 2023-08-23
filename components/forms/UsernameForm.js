@@ -72,47 +72,51 @@ function UsernameForm() {
     router.back(); // Navigates back to the previous page
   };
 
-  // const handleNext = () => {
-  //   router.push('/registration?value=2');
-  // };
-  // const submitHandler = (event) => {
-  //   event.preventDefault();
-  //   const enteredUsername = usernameInputRef.current.value;
+  const handleNext = () => {
+    router.push('/registration?value=2');
+  };
+  const submitHandler = (event) => {
+    event.preventDefault();
+    const enteredUsername = usernameInputRef.current.value;
 
-  //   if (enteredUsername && isValid.username) {
-  //     isValid.form = true;
-  //   }
+    if (enteredUsername !== '') {
+      router.push('/registration?value=2');
+    } else {
+      setOpen(true);
+    }
+    // if (enteredUsername && isValid.username) {
+    //   isValid.form = true;
+    // }
 
-  //   if (isValid.form) {
-  //     const userId = localStorage.getItem('hinyn-uid');
-  //     const jwt =  localStorage.getItem('hinyn-cjwt');
-  //     const clientData = {
-  //       id: userId,
-  //       username: enteredUsername,
-  //       jwt: jwt
-  //     };
-  //     const userData = {
-  //       uuid : 'client-'+userId,
-  //       user: userId,
-  //     }
-  //     addClientData(userData, jwt).then((result)=>{
-  //       if(result?.data) localStorage.setItem('hinyn-cid',result?.data?.id);
-  //     });
-  //     updateUserUsername(clientData).then((result)=>{
-  //       if(result.status){
-  //         const clientId = localStorage.getItem('hinyn-cid');
-  //         updateUserData(clientId).then((res)=>{
-  //           if(res?.data){
-  //             onUsernameSubmit(clientData);
-  //           }
-  //         });
-
-  //       }
-  //     })
-  //   } else {
-  //     setOpen(true);
-  //   }
-  // }
+    // if (isValid.form) {
+    //   const userId = localStorage.getItem('hinyn-uid');
+    //   const jwt = localStorage.getItem('hinyn-cjwt');
+    //   const clientData = {
+    //     id: userId,
+    //     username: enteredUsername,
+    //     jwt: jwt,
+    //   };
+    //   const userData = {
+    //     uuid: 'client-' + userId,
+    //     user: userId,
+    //   };
+    //   addClientData(userData, jwt).then((result) => {
+    //     if (result?.data) localStorage.setItem('hinyn-cid', result?.data?.id);
+    //   });
+    //   updateUserUsername(clientData).then((result) => {
+    //     if (result.status) {
+    //       const clientId = localStorage.getItem('hinyn-cid');
+    //       updateUserData(clientId).then((res) => {
+    //         if (res?.data) {
+    //           onUsernameSubmit(clientData);
+    //         }
+    //       });
+    //     }
+    //   });
+    // } else {
+    //   setOpen(true);
+    // }
+  };
 
   return (
     <>
@@ -157,7 +161,9 @@ function UsernameForm() {
                 <Text>username1 / username2 / username</Text>
               </Grid>
             </Grid>
-            <StyledButton type="button">NEXT</StyledButton>
+            <StyledButton onClick={submitHandler} type="button">
+              NEXT
+            </StyledButton>
           </Box>
         </FormContainer>
       </Container>

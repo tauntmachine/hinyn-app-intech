@@ -2,47 +2,47 @@ export const category = [
   {
     title: 'photographer',
     img: '/assets/img/icons/icon-qualityWork.svg',
-    line: 'Make-Up Artist',
+    line: 'Lorem ipsum sit dot net',
   },
   {
     title: 'videographer',
     img: '/assets/img/icons/icon-qualityWork.svg',
-    line: 'Make-Up Artist',
+    line: 'Lorem ipsum sit dot net',
   },
   {
     title: 'editor',
     img: '/assets/img/icons/icon-qualityWork.svg',
-    line: 'Make-Up Artist',
+    line: 'Lorem ipsum sit dot net',
   },
   {
     title: 'stylisy',
     img: '/assets/img/icons/icon-qualityWork.svg',
-    line: 'Make-Up Artist',
+    line: 'Lorem ipsum sit dot net',
   },
   {
     title: 'make-up',
     img: '/assets/img/icons/icon-qualityWork.svg',
-    line: 'Make-Up Artist',
+    line: 'Lorem ipsum sit dot net',
   },
   {
     title: 'hair-stylist',
     img: '/assets/img/icons/icon-qualityWork.svg',
-    line: 'Make-Up Artist',
+    line: 'Lorem ipsum sit dot net',
   },
   {
     title: 'stylisy',
     img: '/assets/img/icons/icon-qualityWork.svg',
-    line: 'Make-Up Artist',
+    line: 'Lorem ipsum sit dot net',
   },
   {
     title: 'make-up',
     img: '/assets/img/icons/icon-qualityWork.svg',
-    line: 'Make-Up Artist',
+    line: 'Lorem ipsum sit dot net',
   },
   {
     title: 'hair-stylist',
     img: '/assets/img/icons/icon-qualityWork.svg',
-    line: 'Make-Up Artist',
+    line: 'Lorem ipsum sit dot net',
   },
 ];
 

@@ -36,6 +36,16 @@ const LoginContainer = styled.div`
   padding-left: 20px;
   justify-content: space-between;
 `;
+// const LoginHoverBox = styled.div`
+//   background: green;
+//   position: absolute;
+//   top: 100%; /* Position it below the parent element */
+//   left: 0;
+//   width: 100%;
+//   visibility: hidden; /* Initially hidden */
+//   opacity: 0; /* Initially transparent */
+//   transition: visibility 0.3s, opacity 0.3s; /* Add a transition for smooth visibility changes */
+// `;
 const LinkText = styled.div`
   cursor: pointer;
 
@@ -84,12 +94,16 @@ const StyledLogoutIcon = styled(LogoutIcon)`
 function DashboardHeader({ currentTab, setTabChange }) {
   const imgpath = '/assets/img/avatars/';
   const [userData, setUserData] = useState({});
-  const [accountType, setAccountType] = useState(1);
+  const [accountType, setAccountType] = useState(2);
+  const [hover, setHover] = useState(false);
   const router = useRouter();
 
   const showUserProfile = () => {
     if (accountType === 1) router.push('/dashboard/professionalProfile');
     else router.push('/dashboard/clientProfile');
+  };
+  const loginHover = () => {
+    setHover(true);
   };
 
   const showBrowseProjects = () => {
@@ -190,7 +204,7 @@ function DashboardHeader({ currentTab, setTabChange }) {
               </Box>
             </Box>
           </Box>
-          <LoginContainer>
+          <LoginContainer onFocus={loginHover}>
             {showCTAButton()}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
               <ImageContainer onClick={() => showUserProfile()}>
@@ -220,6 +234,7 @@ function DashboardHeader({ currentTab, setTabChange }) {
               </Box>
             </Box>
           </LoginContainer>
+          {/* <LoginHoverBox></LoginHoverBox> */}
         </Head>
       </CustomBox>
     </>

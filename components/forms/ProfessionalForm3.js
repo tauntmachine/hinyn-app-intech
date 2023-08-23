@@ -111,18 +111,16 @@ function ProfessionalForm3({ handleNextClick }) {
       <Container maxWidth="sm" sx={{ marginBottom: '6rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Typography component="h1" variant="h4">
+          <Typography component="h1" variant="h4 ">
             <b>Let&apos;s make your profile</b>
           </Typography>
-          <Typography component="p" align="center">
+          <Text color="gray">
             Fill out your profile for clients to better understand your
             services.
-          </Typography>
+          </Text>
           <VerticalDivider />
           <Text color="green">What do you do? </Text>
-          <Typography component="p" align="center">
-            Write a one line description about yourself
-          </Typography>
+          <Text color="gray">Write a one line description about yourself</Text>
           <Box
             component="form"
             noValidate
@@ -148,11 +146,17 @@ function ProfessionalForm3({ handleNextClick }) {
             <Text color="green" align="center">
               Describe yourself{' '}
             </Text>
-            <Typography component="p" align="center">
+            <Text color="gray" align="center">
               Describe your top skills, strengths and experiences. Provide more
+            </Text>
+            <Text color="gray" align="center">
               details on the services you offer, things you’re interested in
-              working on, and what you like to do.
-            </Typography>
+              working on,
+            </Text>
+
+            <Text color="gray" align="center" marginBottom="20px">
+              and what you like to do.
+            </Text>
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
                 <StyledTextArea

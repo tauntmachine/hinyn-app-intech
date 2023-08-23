@@ -27,9 +27,9 @@ const CustomBox = styled(Box)`
   box-shadow: 0px 3px 30px #00000029;
   background: #ffffff;
   padding: ${(props) =>
-    props.isExpanded ? '1.5rem 5.5rem 1rem 5.5rem' : '1.5rem 5.5rem '};
+    props.isExpanded ? '1.5rem 7rem 1rem 7rem' : '1.5rem 7rem '};
 
-  width: 88%;
+  width: 100%;
   // transition: all 0.5s ease-in-out;
 `;
 const ParentContainer = styled.div`

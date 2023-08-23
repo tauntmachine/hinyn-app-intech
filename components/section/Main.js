@@ -9,7 +9,7 @@ import cards from '../data/FreelancersData';
 const ContainerCustom = styled.div`
   margin-top: 12rem;
 
-  width: 70%;
+  width: 80%;
   margin: auto;
   margin-bottom: 5rem;
 `;
@@ -22,15 +22,22 @@ function Main() {
       title: 'Photographer',
       img: '/assets/img/categories/icn-photographer.svg',
     },
-    { title: 'Editor', img: '/assets/img/categories/icn-drone.svg' },
+    { title: 'Drone Operator', img: '/assets/img/categories/icn-drone.svg' },
     {
-      title: 'HairStylist',
+      title: 'Editor',
       img: '/assets/img/categories/icn-editor.svg',
     },
-    { title: 'MakeUp', img: '/assets/img/categories/icn-hairStylist.svg' },
-    { title: 'Model', img: '/assets/img/categories/icn-makeupArtist.svg' },
-    { title: 'Studio', img: '/assets/img/categories/icn-videographer.svg' },
-    { title: 'Stylist', img: '/assets/img/categories/icn-studio.svg' },
+    { title: 'Hairstylist', img: '/assets/img/categories/icn-hairStylist.svg' },
+    {
+      title: 'Makeup Artist',
+      img: '/assets/img/categories/icn-makeupArtist.svg',
+    },
+    {
+      title: 'Videographer',
+      img: '/assets/img/categories/icn-videographer.svg',
+    },
+    { title: 'Studio/Location', img: '/assets/img/categories/icn-studio.svg' },
+    { title: 'Models', img: '/assets/img/categories/icn-models.svg' },
   ];
 
   const handleButtonClick = () => {};
