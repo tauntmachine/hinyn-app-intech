@@ -111,15 +111,17 @@ function ProfessionalForm3({ handleNextClick }) {
       <Container maxWidth="sm" sx={{ marginBottom: '6rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Typography component="h1" variant="h4 ">
+          <Text fontSize="30px" marginBottom="10px">
             <b>Let&apos;s make your profile</b>
-          </Typography>
+          </Text>
           <Text color="gray">
             Fill out your profile for clients to better understand your
             services.
           </Text>
           <VerticalDivider />
-          <Text color="green">What do you do? </Text>
+          <Text color="green" marginBottom="8px">
+            What do you do?{' '}
+          </Text>
           <Text color="gray">Write a one line description about yourself</Text>
           <Box
             component="form"
@@ -143,7 +145,7 @@ function ProfessionalForm3({ handleNextClick }) {
               </Grid>
             </Grid>
             <VerticalDivider />
-            <Text color="green" align="center">
+            <Text color="green" align="center" marginBottom="8px">
               Describe yourself{' '}
             </Text>
             <Text color="gray" align="center">

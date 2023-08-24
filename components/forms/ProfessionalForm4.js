@@ -13,6 +13,10 @@ import { updateClientData } from './formService';
 
 const StyledButton = styled(Button)``;
 
+const Genderdiv = styled.div`
+  display: flex;
+`;
+
 const FormContainer = styled(Box)`
   display: flex;
   flex-direction: column;
@@ -40,6 +44,46 @@ const VerticalDivider = styled.div`
 function ProfessionalForm4({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const [dobValue, setDobValue] = useState(null);
+  const [selectedGender, setSelectedGender] = useState(null);
+  const isMaleSelected = selectedGender === 'Male';
+  const isFemaleSelected = selectedGender === 'Female';
+  const StyledGenderM = styled.div`
+    background: white;
+    width: 50%;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    color: gray;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #ccd1d1;
+    padding: 12px;
+    margin: auto;
+    font-size: 16px;
+    cursor: pointer;
+    ${isMaleSelected ? 'border: 1px solid #5dade2;' : ''}
+    ${isMaleSelected ? 'color: #5dade2;' : ''}
+  ${isMaleSelected ? 'background: #d6eaf8;' : ''}
+  `;
+  const StyledGenderF = styled.div`
+    background: white;
+    font-size: 16px;
+    width: 50%;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    color: gray;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #ccd1d1;
+    padding: 12px;
+    margin: auto;
+    cursor: pointer;
+    ${isFemaleSelected ? 'border: 1px solid #ec7063;' : ''}
+    ${isFemaleSelected ? 'color: #ec7063;' : ''}
+  ${isFemaleSelected ? 'background: #fadbd8;' : ''}
+  `;
+  const handleGenderSelect = (gender) => {
+    setSelectedGender(gender);
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -107,19 +151,30 @@ function ProfessionalForm4({ handleNextClick }) {
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Typography component="h1" variant="h4">
+          {/* <Typography component="h1" variant="h4">
             <b>Let&apos;s make your profile</b>
-          </Typography>
-          <Typography component="p" align="center">
+          </Typography> */}
+          <Text
+            color="#424949"
+            fontWeight="bold"
+            marginBottom="20px"
+            fontSize="30px"
+          >
+            Let&apos;s make your profile
+          </Text>
+          <Text color="gray">
             Fill out your profile for clients to better understand your
             services.
-          </Typography>
+          </Text>
           <VerticalDivider />
-          <Text color="green">WWhat languages do you speak?</Text>
-          <Typography component="p" align="center">
+          <Text color="green" marginBottom="8px">
+            What languages do you speak?
+          </Text>
+          <Text>
             We will use this to help match you with employers who are fluent in
             these languages.
-          </Typography>
+          </Text>
+
           <Box
             component="form"
             noValidate
@@ -141,15 +196,15 @@ function ProfessionalForm4({ handleNextClick }) {
                 )}
               </Grid>
             </Grid>
-            <VerticalDivider />
-            <Text color="green" align="center">
+            <Text color="green" align="center" marginBottom="8px">
               When were you born?
             </Text>
-            <Typography component="p" align="center">
+            <Text>
               You need to be at least 16 years old to use the website. This
               information will be used for verification and will be kept
               confidential.
-            </Typography>
+            </Text>
+            <VerticalDivider />
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12} sx={{ width: '100%' }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -166,6 +221,19 @@ function ProfessionalForm4({ handleNextClick }) {
                 {errorMessage.dob && <Error>{errorMessage.dob}</Error>}
               </Grid>
             </Grid>
+            <Text color="green" align="center" marginBottom="10px">
+              Tell us your gender
+            </Text>
+
+            <Genderdiv>
+              <StyledGenderM onClick={() => handleGenderSelect('Male')}>
+                Male
+              </StyledGenderM>
+              <StyledGenderF onClick={() => handleGenderSelect('Female')}>
+                Female
+              </StyledGenderF>
+            </Genderdiv>
+            <VerticalDivider />
             <ButtonContainer>
               <Text>
                 <BackIcon isabsolute={false} />

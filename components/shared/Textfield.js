@@ -13,13 +13,17 @@ export const OutlinedTextField = styled(TextField)`
     background-color: transparent;
     border: none !important;
     outline: none !important;
-    color: #525252;
+    color: #474747;
 
     fieldset {
       border: 1px solid #d8d8d8;
-      border-radius: 12px;
+      border-radius: 40px;
       outline: none;
     }
+  }
+  .MuiInputBase-input::placeholder {
+    /* Change the placeholder text color here */
+    color: #000000; /* Replace with your desired color */
   }
 `;
 

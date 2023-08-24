@@ -16,12 +16,13 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import LogoImage from '/public/assets/img/logo-hinyn.svg';
 import Modal from '../shared/Modal';
-import Logo from '../shared/Logo';
+// import Logo from '../shared/Logo';
 
 // import Axios from 'axios';
 // Axios.defaults.withCredentials = true;
 import { origin } from '../../src/config';
 import { red } from '@mui/material/colors';
+import { OutlinedTextField } from '../shared/Textfield';
 // import {
 //   loginUser,
 //   registerUser,
@@ -29,11 +30,19 @@ import { red } from '@mui/material/colors';
 //   logoutUser,
 // } from '../forms/formService';
 
-// const Logo = styled.div`
-//   position: relative;
-//   width: 8rem;
-//   height: auto;
-// `;
+const Logo = styled.div`
+  position: relative;
+  width: 8rem;
+  height: auto;
+  margin-bottom: 20px;
+`;
+const TypoDiv = styled.div`
+  padding: 20px;
+  margin: auto;
+`;
+const TypoDiv2 = styled.div`
+  margin-left: 15px;
+`;
 
 // const router = useRouter();
 
@@ -46,17 +55,20 @@ const FormContainer = styled(Box)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  // justify-content: center;
   border-radius: 20px;
 `;
 
 const AgreeCheckbox = styled.div`
   font-size: 14px;
   margin: 3rem 0;
+  cursoe: pointer;
 `;
-// const TextLink = styled.span`
-//   color: green;
-//   cursor: pointer;
-// `;
+const AgreeDiv = styled.div``;
+const TextLink = styled.span`
+  color: green;
+  cursor: pointer;
+`;
 
 const Text = styled.span`
   font-size: 14px;
@@ -273,13 +285,20 @@ function RegistrationForm() {
       <Container maxWidth="sm" sx={{ marginBottom: '2rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Logo />
-          {/* <Logo>
-            <Image src={LogoImage} alt="hinyn logo" />
-          </Logo> */}
-          <Typography component="h1" variant="h5">
-            <b>Sign Up</b>
-          </Typography>
+          {/* <Logo /> */}
+          <TypoDiv>
+            <Logo>
+              <Image
+                src={require('../../public/assets/img/logo-normal.svg')}
+                alt="hinyn logo"
+              />
+            </Logo>
+            <TypoDiv2>
+              <Typography variant="h5">
+                <b>Sign Up</b>
+              </Typography>
+            </TypoDiv2>
+          </TypoDiv>
           <Box
             component="form"
             noValidate
@@ -288,7 +307,7 @@ function RegistrationForm() {
           >
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <TextField
+                <OutlinedTextField
                   required
                   fullWidth
                   id="emailAddress"
@@ -301,7 +320,7 @@ function RegistrationForm() {
                 {errorMessage.email && <Error>{errorMessage.email}</Error>}
               </Grid>
               <Grid item xs={12}>
-                <TextField
+                <OutlinedTextField
                   required
                   fullWidth
                   name="password"
@@ -332,7 +351,7 @@ function RegistrationForm() {
                 )}
               </Grid>
               <Grid item xs={12}>
-                <TextField
+                <OutlinedTextField
                   required
                   fullWidth
                   name="confirmPassword"
@@ -365,14 +384,49 @@ function RegistrationForm() {
                   <Error>{errorMessage.confirmPassword}</Error>
                 )}
               </Grid>
+              <Grid item xs={12}>
+                <OutlinedTextField
+                  required
+                  fullWidth
+                  name="referalId"
+                  placeholder="Referral Id"
+                  id="confirmPassword"
+                  type={pwValues.showConfirmPassword ? 'text' : 'password'}
+                  onKeyUp={checkIsConfirmPassword}
+                  inputRef={confirmPasswordInputRef}
+                  //  onChange={handlePWChange}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowConfirmPassword}
+                          onMouseDown={handleMouseDownConfirmPassword}
+                          edge="end"
+                        >
+                          {pwValues.showConfirmPassword ? (
+                            <FiEyeOff />
+                          ) : (
+                            <FiEye />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                {errorMessage.confirmPassword && (
+                  <Error>{errorMessage.confirmPassword}</Error>
+                )}
+              </Grid>
             </Grid>
             <Grid container justifyContent="flex-start">
               <Grid item>
-                <AgreeCheckbox>
+                <AgreeCheckbox />
+                <AgreeDiv>
                   <input type="checkbox" /> I agree to the HINYN
-                  {/* <TextLink color="red">User Agreement</TextLink> and{' '}
-                  <TextLink color="red">Privacy Policy.</TextLink> */}
-                </AgreeCheckbox>
+                  <TextLink color="red">User Agreement</TextLink> and{' '}
+                  <TextLink color="red">Privacy Policy.</TextLink>
+                </AgreeDiv>
               </Grid>
             </Grid>
             <StyledButton onClick={submitHandler}>Join HINYN</StyledButton>

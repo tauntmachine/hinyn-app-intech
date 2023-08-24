@@ -14,14 +14,20 @@ const Label = styled.span`
 const Option = styled(MenuItem)`
   font-family: 'DM Sans', sans-serif !important;
   color: ${(props) => (props.color === 'red' ? '#FF5A5F' : '#0F7669')};
-  background: ${(props) => (props.color === 'red' ? '#FFEEEF' : 'transparent')}; 
-  background: ${(props) => (props.bgcolor === 'transparent' ? 'transparent' : '')};
+  background: ${(props) => (props.color === 'red' ? '#FFEEEF' : 'transparent')};
+  background: ${(props) =>
+    props.bgcolor === 'transparent' ? 'transparent' : ''};
 `;
 const CustomSelect = styled(Select)`
   font-family: 'DM Sans', sans-serif !important;
   background: ${(props) =>
-    props.type === 'standard' ? '#ffffff' : ( props.color === 'red' ? '#FFEEEF' : 'transparent')};
-  background: ${(props) => props.bgcolor === 'transparent' ? 'transparent' : ''};
+    props.type === 'standard'
+      ? '#ffffff'
+      : props.color === 'red'
+      ? '#FFEEEF'
+      : 'transparent'};
+  background: ${(props) =>
+    props.bgcolor === 'transparent' ? 'transparent' : ''};
   color: ${(props) => (props.color === 'red' ? '#FF5A5F' : '#0F7669')};
   border: ${(props) =>
     props.type === 'outlined' ? '1px solid #94949470' : 'none'};
@@ -50,10 +56,10 @@ export default function Dropdown({
   setHandleOnChange,
   color,
   selected,
-  bgcolor
+  bgcolor,
 }) {
   const handleChange = (event) => {
-    console.log('event',event.target.value)
+    console.log('event', event.target.value);
     if (setHandleOnChange) setHandleOnChange(event.target.value);
   };
 
@@ -61,28 +67,37 @@ export default function Dropdown({
     <DropdownContainer>
       {hasLabel && <Label>{label}</Label>}
       <FormControl variant="standard" sx={{ m: 1, minWidth: { width } }}>
-      {items ? 
-        <CustomSelect
-          labelId="dropdown-select-label"
-          id="dropdown-select"
-          value={(selected ? selected : (items[0].key ? items[0].key : items[0].value)) ?? '' }
-          onChange={handleChange}
-          label={label ?? ''}
-          type={type}
-          color={color}
-          bgcolor={bgcolor}
-          disableUnderline={true}
-        >
-          { items &&
-            items.map((item, idx) => (
-              <Option key={(item?.key ?? item?.value) + '-' + idx} value={(item?.key ?? item?.value)} color={color} bgcolor={bgcolor}>
-                {item?.title ?? item}
-              </Option>
-            ))
+        {items ? (
+          <CustomSelect
+            labelId="dropdown-select-label"
+            id="dropdown-select"
+            value={
+              (selected
+                ? selected
+                : items[0].key
+                ? items[0].key
+                : items[0].value) ?? ''
             }
-        </CustomSelect>
-        : null
-      } 
+            onChange={handleChange}
+            label={label ?? ''}
+            type={type}
+            color={color}
+            bgcolor={bgcolor}
+            disableUnderline={true}
+          >
+            {items &&
+              items.map((item, idx) => (
+                <Option
+                  key={(item?.key ?? item?.value) + '-' + idx}
+                  value={item?.key ?? item?.value}
+                  color={color}
+                  bgcolor={bgcolor}
+                >
+                  {item?.title ?? item}
+                </Option>
+              ))}
+          </CustomSelect>
+        ) : null}
       </FormControl>
     </DropdownContainer>
   );

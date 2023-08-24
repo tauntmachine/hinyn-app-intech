@@ -122,13 +122,13 @@ function ProfessionalForm6({ handleNextClick }) {
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Typography component="h1" variant="h4">
+          <Text fontSize="30px" marginBottom="10px">
             <b>Let&apos;s make your profile</b>
-          </Typography>
-          <Typography component="p" align="center">
+          </Text>
+          <Text color="gray">
             Fill out your profile for clients to better understand your
             services.
-          </Typography>
+          </Text>
           <VerticalDivider />
           <Text color="green">What is your phone number?</Text>
 
@@ -136,10 +136,14 @@ function ProfessionalForm6({ handleNextClick }) {
             component="form"
             noValidate
             onSubmit={submitHandler}
-            sx={{ mt: 3, width: '100%' }}
+            sx={{ mt: 2, width: '100%' }}
           >
-            <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
-              <Grid item xs={12} sx={{ width: '100%' }}>
+            <Grid
+              container
+              spacing={2}
+              sx={{ marginBottom: '13rem', marginLeft: '40px' }}
+            >
+              <Grid item xs={10} sx={{ width: '100%' }}>
                 <PhoneInput
                   defaultCountry="AE"
                   placeholder="e.g. 501234537"
@@ -148,7 +152,9 @@ function ProfessionalForm6({ handleNextClick }) {
                   className={css`
                     .PhoneInputInput {
                       border: 1px solid #00000040;
-                      border-radius: 23px;
+
+                      border-top-right-radius: 30px;
+                      border-bottom-right-radius: 30px;
                       padding: 0.8rem;
                       line-height: 1.25rem;
                       font: inherit;
@@ -160,12 +166,18 @@ function ProfessionalForm6({ handleNextClick }) {
                       }
                     }
                     .PhoneInputCountry {
-                      width: 4rem;
+                      width: 6rem;
+                      padding: 8px;
+                      background: white;
+                      border-top-left-radius: 30px;
+                      border-bottom-left-radius: 30px;
+                      border: 1px solid #b2babb;
                     }
                     .PhoneInputCountryIcon {
                       width: 100%;
                       height: 2rem;
                       box-shadow: unset;
+                      background: white;
                     }
                   `}
                 ></PhoneInput>
