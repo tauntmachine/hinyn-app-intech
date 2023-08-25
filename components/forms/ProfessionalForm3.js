@@ -35,6 +35,8 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 80%;
+  margin-left: 50px;
 `;
 const VerticalDivider = styled.div`
   height: 2rem;
@@ -111,13 +113,13 @@ function ProfessionalForm3({ handleNextClick }) {
       <Container maxWidth="sm" sx={{ marginBottom: '6rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Text fontSize="30px" marginBottom="10px">
+          <Text fontSize="34px" marginBottom="10px">
             <b>Let&apos;s make your profile</b>
           </Text>
           <Text color="gray">
             Fill out your profile for clients to better understand your
-            services.
           </Text>
+          <Text>services.</Text>
           <VerticalDivider />
           <Text color="green" marginBottom="8px">
             What do you do?{' '}
@@ -129,8 +131,12 @@ function ProfessionalForm3({ handleNextClick }) {
             onSubmit={submitHandler}
             sx={{ mt: 3, width: '100%' }}
           >
-            <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
-              <Grid item xs={12}>
+            <Grid
+              container
+              spacing={2}
+              sx={{ marginBottom: '2rem', marginLeft: '3.5rem' }}
+            >
+              <Grid item xs={9}>
                 <StyledTextField
                   required
                   fullWidth
@@ -159,8 +165,12 @@ function ProfessionalForm3({ handleNextClick }) {
             <Text color="gray" align="center" marginBottom="20px">
               and what you like to do.
             </Text>
-            <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
-              <Grid item xs={12}>
+            <Grid
+              container
+              spacing={2}
+              sx={{ marginBottom: '2rem', marginLeft: '3.5rem' }}
+            >
+              <Grid item xs={9}>
                 <StyledTextArea
                   placeholder=""
                   defaultValue={enteredBroadDescription}

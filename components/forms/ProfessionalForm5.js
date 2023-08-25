@@ -24,7 +24,10 @@ const FormContainer = styled(Box)`
   width: 100%;
   border-radius: 20px;
 `;
-
+const GridDiv = styled.div`
+  display: flex;
+  margin-bottom: 2rem;
+`;
 const Error = styled.p`
   color: red;
   font-size: 0.75rem;
@@ -93,11 +96,11 @@ function ProfessionalForm5({ handleNextClick }) {
   function submitHandler(event) {
     event.preventDefault();
 
-    if (selectedLocation && selectedLocation !== null) {
-      handleNextClick(true);
-    } else {
-      setOpen(true);
-    }
+    // if (selectedLocation && selectedLocation !== null) {
+    handleNextClick(true);
+    // } else {
+    //   setOpen(true);
+    // }
 
     // if (isValid.form) {
     //   const clientId = localStorage.getItem('hinyn-cid');
@@ -118,20 +121,24 @@ function ProfessionalForm5({ handleNextClick }) {
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Typography component="h1" variant="h4">
+          <Text fontSize="34px">
             <b>Let&apos;s make your profile</b>
-          </Typography>
-          <Typography component="p" align="center">
+          </Text>
+          <Text>
             Fill out your profile for clients to better understand your
-            services.
-          </Typography>
+          </Text>
+          <Text>services.</Text>
           <VerticalDivider />
-          <Text color="green">Where are you located?</Text>
-          <Typography component="p" align="center">
+          <Text color="green" marginBottom="8px">
+            Where are you located?
+          </Text>
+          <Text fontSize="12px">
             Please use your real address as this will be used for identity
-            verification. <br />
+            verification.
+          </Text>
+          <Text fontSize="12px">
             Only your city and country will be shown publicly.
-          </Typography>
+          </Text>
           <Box
             component="form"
             noValidate
@@ -139,8 +146,22 @@ function ProfessionalForm5({ handleNextClick }) {
             sx={{ mt: 3, width: '100%' }}
           >
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
-              <Grid item xs={12} sx={{ width: '100%' }}>
-                <Autocomplete
+              <Grid item xs={9} sx={{ width: '100%', marginLeft: '70px' }}>
+                <StyledTextField
+                  required
+                  fullWidth
+                  id="locationOptions"
+                  placeholder="Country"
+                  // name="languages"
+
+                  onChange={(event) => {
+                    setSelectedLocation(() => event.target.innerText);
+                  }}
+                />
+                {errorMessage.location && (
+                  <Error>{errorMessage.location}</Error>
+                )}
+                {/* <Autocomplete
                   disablePortal
                   id="locationOptions"
                   options={locations.data}
@@ -148,6 +169,62 @@ function ProfessionalForm5({ handleNextClick }) {
                   renderInput={(params) => (
                     <StyledTextField {...params} label="Location" />
                   )}
+                  onChange={(event) => {
+                    setSelectedLocation(() => event.target.innerText);
+                  }}
+                />
+                {errorMessage.location && (
+                  <Error>{errorMessage.location}</Error>
+                )} */}
+              </Grid>
+            </Grid>
+            <GridDiv>
+              <Grid container spacing={2} sx={{}}>
+                <Grid item xs={9} sx={{ width: '100%', marginLeft: '70px' }}>
+                  <StyledTextField
+                    required
+                    fullWidth
+                    id="locationOptions"
+                    placeholder="State/Province"
+                    // name="languages"
+
+                    onChange={(event) => {
+                      setSelectedLocation(() => event.target.innerText);
+                    }}
+                  />
+                  {errorMessage.location && (
+                    <Error>{errorMessage.location}</Error>
+                  )}
+                </Grid>
+              </Grid>
+              <Grid container spacing={2} sx={{}}>
+                <Grid item xs={8} sx={{ width: '100%', marginLeft: '20px' }}>
+                  <StyledTextField
+                    required
+                    fullWidth
+                    id="locationOptions"
+                    placeholder="zip code"
+                    // name="languages"
+
+                    onChange={(event) => {
+                      setSelectedLocation(() => event.target.innerText);
+                    }}
+                  />
+                  {errorMessage.location && (
+                    <Error>{errorMessage.location}</Error>
+                  )}
+                </Grid>
+              </Grid>
+            </GridDiv>
+            <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
+              <Grid item xs={9} sx={{ width: '100%', marginLeft: '70px' }}>
+                <StyledTextField
+                  required
+                  fullWidth
+                  id="locationOptions"
+                  placeholder="City"
+                  // name="languages"
+
                   onChange={(event) => {
                     setSelectedLocation(() => event.target.innerText);
                   }}

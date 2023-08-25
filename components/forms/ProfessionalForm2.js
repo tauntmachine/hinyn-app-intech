@@ -151,12 +151,12 @@ function ProfessionalForm2({ handleNextClick }) {
       <Container maxWidth="md" sx={{ marginBottom: '1rem', marginTop: '4rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Typography component="h1" variant="h4">
+          <Text fontSize="34px">
             <b>Tell us what you do</b>
-          </Typography>
-          <Typography component="p" align="center">
+          </Text>
+          <Text>
             Tell us your top skills. This helps us recommend jobs for you.
-          </Typography>
+          </Text>
           <Box
             component="form"
             noValidate

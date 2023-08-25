@@ -7,15 +7,18 @@ const StyledBox = styled(Box)`
   display: flex;
   flex-direction: column;
   overflow: auto;
-  height: 350px;
+  height: 370px;
   background: #ffffff;
+  border-radius: 0 0 20px 20px;
 `;
 
 const Row = styled.div`
   color: #939393;
+  font-size: 16px;
   background-color: #ffffff;
   padding: 16px 32px;
   display: flex;
+
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #dddddd30;

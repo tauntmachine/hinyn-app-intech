@@ -12,6 +12,8 @@ import Text from '../shared/Typography';
 import Button from '../shared/Button';
 import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
+// import OttTextField from '../shared/Textfield';
+// import StyledTextField2 from '../shared/Textfield2';
 import { BackIcon } from '../shared/Icon';
 
 const StyledButton = styled(Button)``;
@@ -85,19 +87,21 @@ function ProfessionalForm7({ handleNextClick }) {
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Typography component="h1" variant="h4">
+          <Text fontSize="34px">
             <b>Let&apos;s make your profile</b>
-          </Typography>
-          <Typography component="p" align="center">
+          </Text>
+          <Text marginTop="6px">
             Fill out your profile for clients to better understand your
-            services.
-          </Typography>
+          </Text>
+          <Text>services.</Text>
           <VerticalDivider />
           <Text color="green">Verify your phone number</Text>
-          <Typography component="p" align="center">
+          <Text marginTop="6px">
             We have sent an OTP (One time passcode) to
-          </Typography>
-          <Text color="red">+971 50 1234567</Text>
+          </Text>
+          <Text color="red" fontSize="18px" marginTop="6px">
+            +971 50 1234567
+          </Text>
           <Box
             component="form"
             noValidate

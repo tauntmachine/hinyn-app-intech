@@ -10,6 +10,7 @@ import { WebcamCapture } from '../shared/WebcamCapture';
 import AvatarUpload from '../shared/AvatarUpload';
 import { getClientData, updateClientData, updateUserData } from './formService';
 import Router from 'next/router';
+import Image from 'next/image';
 
 const StyledButton = styled(Button)``;
 
@@ -20,7 +21,10 @@ const FormContainer = styled(Box)`
   width: 100%;
   border-radius: 20px;
 `;
-
+const AvatarDiv = styled.div`
+  margin-left: 23px;
+  margin-top: 80px;
+`;
 const Error = styled.p`
   color: red;
   font-size: 0.75rem;
@@ -31,6 +35,9 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 80%;
+  margin-left: 3.5rem;
+  margin-top: 40px;
 `;
 
 function ProfessionalForm1({ handleNextClick }) {
@@ -111,26 +118,37 @@ function ProfessionalForm1({ handleNextClick }) {
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Typography component="h1" variant="h4">
+          <Text fontSize="34px">
             <b>Let&apos;s make your account</b>
-          </Typography>
+          </Text>
           <AvatarUpload onClick={toggleOpenCameraModal}>
-            {' '}
-            <Text color="green">Upload a photo</Text>{' '}
+            <AvatarDiv>
+              {/* <Image
+                src={require('../../public/assets/img/icons/userimg.jpg')}
+                width="60px"
+                height="60px"
+              /> */}
+
+              <Text color="green">Upload a photo</Text>
+            </AvatarDiv>
           </AvatarUpload>
-          <Text color="green">What is your name? </Text>
-          <Typography component="p" align="center">
-            Please use your real name as this will be required for identity
-            verification.
-          </Typography>
+          <Text color="green" marginBottom="10px">
+            What is your name?{' '}
+          </Text>
+          <Text>Please use your real name as this will be required for</Text>
+          <Text>identity verification.</Text>
           <Box
             component="form"
             noValidate
             onSubmit={submitHandler}
             sx={{ mt: 3, width: '100%' }}
           >
-            <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
-              <Grid item xs={12}>
+            <Grid
+              container
+              spacing={2}
+              sx={{ marginBottom: '2rem', marginLeft: '3.5rem' }}
+            >
+              <Grid item xs={9}>
                 <StyledTextField
                   required
                   fullWidth
@@ -144,8 +162,12 @@ function ProfessionalForm1({ handleNextClick }) {
                 )}
               </Grid>
             </Grid>
-            <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
-              <Grid item xs={12}>
+            <Grid
+              container
+              spacing={2}
+              sx={{ marginBottom: '2rem', marginLeft: '3.5rem' }}
+            >
+              <Grid item xs={9}>
                 <StyledTextField
                   required
                   fullWidth
@@ -184,8 +206,7 @@ function ProfessionalForm1({ handleNextClick }) {
         hasHeader={false}
         hasFooter={false}
       >
-        <div>CAMERA MODAL HERE</div>
-        {/* <WebcamCapture /> */}
+        <div>asd</div>
       </Modal>
     </>
   );

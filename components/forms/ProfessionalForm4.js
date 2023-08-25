@@ -15,6 +15,8 @@ const StyledButton = styled(Button)``;
 
 const Genderdiv = styled.div`
   display: flex;
+  width: 75%;
+  margin-left: 60px;
 `;
 
 const FormContainer = styled(Box)`
@@ -22,6 +24,7 @@ const FormContainer = styled(Box)`
   flex-direction: column;
   align-items: center;
   width: 100%;
+
   border-radius: 20px;
 `;
 
@@ -158,22 +161,20 @@ function ProfessionalForm4({ handleNextClick }) {
             color="#424949"
             fontWeight="bold"
             marginBottom="20px"
-            fontSize="30px"
+            fontSize="34px"
           >
             Let&apos;s make your profile
           </Text>
           <Text color="gray">
             Fill out your profile for clients to better understand your
-            services.
           </Text>
+          <Text> services.</Text>
           <VerticalDivider />
           <Text color="green" marginBottom="8px">
             What languages do you speak?
           </Text>
-          <Text>
-            We will use this to help match you with employers who are fluent in
-            these languages.
-          </Text>
+          <Text>We will use this to help match you with employers who are</Text>
+          <Text>fluent in these languages.</Text>
 
           <Box
             component="form"
@@ -181,8 +182,12 @@ function ProfessionalForm4({ handleNextClick }) {
             onSubmit={submitHandler}
             sx={{ mt: 3, width: '100%' }}
           >
-            <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
-              <Grid item xs={12}>
+            <Grid
+              container
+              spacing={2}
+              sx={{ marginBottom: '2rem', marginLeft: '3.7rem' }}
+            >
+              <Grid item xs={9}>
                 <StyledTextField
                   required
                   fullWidth
@@ -199,14 +204,16 @@ function ProfessionalForm4({ handleNextClick }) {
             <Text color="green" align="center" marginBottom="8px">
               When were you born?
             </Text>
-            <Text>
+            <Text align="center">
               You need to be at least 16 years old to use the website. This
-              information will be used for verification and will be kept
-              confidential.
+              information
+            </Text>
+            <Text align="center">
+              will be used for verification and will be kept confidential.
             </Text>
             <VerticalDivider />
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
-              <Grid item xs={12} sx={{ width: '100%' }}>
+              <Grid item xs={9} sx={{ width: '100%', marginLeft: '4.5rem' }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label="Date of Birth"

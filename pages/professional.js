@@ -13,6 +13,7 @@ import ProfessionalForm7 from '../components/forms/ProfessionalForm7';
 import ProfessionalForm8 from '../components/forms/ProfessionalForm8';
 import ProfessionalForm9 from '../components/forms/ProfessionalForm9';
 import ProfessionalForm10 from '../components/forms/ProfessionalForm10';
+import ProfessionalForm11 from '../components/forms/ProfessionalForm11';
 import UnverifiedAccountForm from '../components/forms/UnverifiedAccountForm';
 import VerifyPaymentForm1 from '../components/forms/VerifyPaymentForm1';
 import Footer from '../components/section/Footer';

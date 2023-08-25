@@ -5,6 +5,18 @@ const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
     background-color: #ffffff;
     border-radius: 20rem;
+    // margin-left: 20px;
+    // width: 80%;
+    // align-items: center;
+  }
+`;
+export const StyledTextField2 = styled(TextField)`
+  .MuiInputBase-root {
+    background-color: #ffffff;
+    border-radius: 20rem;
+    // margin-left: 20px;
+    // width: 80%;
+    // align-items: center;
   }
 `;
 

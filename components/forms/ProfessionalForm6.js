@@ -127,8 +127,8 @@ function ProfessionalForm6({ handleNextClick }) {
           </Text>
           <Text color="gray">
             Fill out your profile for clients to better understand your
-            services.
           </Text>
+          <Text>services.</Text>
           <VerticalDivider />
           <Text color="green">What is your phone number?</Text>
 
