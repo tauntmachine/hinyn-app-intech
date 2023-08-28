@@ -8,12 +8,12 @@ import { useEffect, useState } from 'react';
 import ExpandedSearchBar from '../shared/searchBar/ExpandedSearchBar';
 import RegistrationForm from '../forms/RegistrationForm';
 import Modal from '../shared/Modal';
-import Logo from '../shared/Logo';
+import Logo2 from '../shared/Logo2';
 import LoginForm from '../forms/LoginForm';
 import BidFreelancerForm from '../forms/BidFreelancerForm';
 import ProfessionalForm6 from '../forms/ProfessionalForm6';
 import { getClientData, getClients, logoutUser } from '../forms/formService';
-
+import Image from 'next/image';
 const CustomGlobeIcon = styled(FiGlobe)`
   margin-top: 4px;
   font-size: 20px;
@@ -21,6 +21,13 @@ const CustomGlobeIcon = styled(FiGlobe)`
   &:hover {
     color: #eb4c60;
   }
+`;
+const LogoDiv = styled.div`
+  position: relative;
+  width: 8rem;
+  height: 2rem;
+  cursor: pointer;
+  background: green;
 `;
 // const SearchAdjust = styled.div``;
 const CustomBox = styled(Box)`
@@ -108,7 +115,15 @@ const Header = () => {
     <ParentContainer>
       <CustomBox isExpanded={isExpanded}>
         <Head maxWidth="xl">
-          <Logo />
+          <Logo2 />
+          {/* <LogoDiv>
+            <Image
+              src={require('../../public/assets/img/temp/logo-normal2.svg')}
+              height="120px"
+              width="120px"
+              padding="0px"
+            />
+          </LogoDiv> */}
           {/* <SearchAdjust> */}
           <SearchBar
             toggleIsExpanded={toggleIsExpanded}

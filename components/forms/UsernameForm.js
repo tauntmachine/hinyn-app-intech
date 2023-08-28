@@ -11,20 +11,20 @@ import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
 import Image from 'next/image';
-import LogoImage from '/public/assets/img/logo-hinyn.svg';
+// import LogoImage from '/public/assets/img/logo-hinyn.svg';
 import { BackIcon } from '../shared/Icon';
 import { useRouter } from 'next/router';
 import Modal from '../shared/Modal';
+import Logo from '../shared/Logo';
+import { NoOutlineTextField } from '../shared/Textfield';
 // import {
 //   updateUserUsername,
 //   addClientData,
 //   updateUserData,
 // } from '../../components/forms/formService';
 
-const Logo = styled.div`
-  position: relative;
-  width: 8rem;
-  height: auto;
+const LogoDiv = styled.div`
+  margin-top: 10px;
 `;
 
 const StyledButton = styled(Button)`
@@ -120,17 +120,18 @@ function UsernameForm() {
 
   return (
     <>
-      <Container maxWidth="sm" sx={{ marginBottom: '2rem' }}>
-        <BackIcon variant="red" onClick={GoBack} />
+      <Container sx={{ marginBottom: '2rem' }}>
+        <BackIcon variant="red" marginTop="20px" onClick={GoBack} />
         <CssBaseline />
         <FormContainer>
-          <Logo>
-            <Image src={LogoImage} alt="hinyn logo" />
-          </Logo>
-          <Typography component="h1" variant="h5">
+          <LogoDiv>
+            {/* <Image src={LogoImage} alt="hinyn logo" /> */}
+            <Logo />
+          </LogoDiv>
+          <Text fontSize="23px" marginTop="10px">
             <b>Choose a username</b>
-          </Typography>
-          <Typography component="p" align="center">
+          </Text>
+          <Typography component="p" align="center" marginTop="6px">
             Please note that a username cannot be changed once chosen.
           </Typography>
           <Box
@@ -139,9 +140,13 @@ function UsernameForm() {
             // onSubmit={submitHandler}
             sx={{ mt: 3 }}
           >
-            <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
-              <Grid item xs={12}>
-                <TextField
+            <Grid
+              container
+              spacing={2}
+              sx={{ marginBottom: '2rem', marginRight: '10.6rem' }}
+            >
+              <Grid item xs={2}>
+                <NoOutlineTextField
                   required
                   fullWidth
                   id="username"
@@ -155,15 +160,23 @@ function UsernameForm() {
                 )}
               </Grid>
             </Grid>
-            <Grid container sx={{ margin: '2rem 0', justifyContent: 'center' }}>
-              <Grid item>
-                <Text color="green">Suggestions: </Text>
-                <Text>username1 / username2 / username</Text>
+            <Grid
+              container
+              sx={{
+                margin: '2rem 0',
+                justifyContent: 'center',
+              }}
+            >
+              <Grid item sx={{ display: 'flex', direction: 'row' }}>
+                <Text color="green" fontSize="12px">
+                  Suggestions:{' '}
+                </Text>
+                <Text fontSize="12px" color="#CACFD2" marginLeft="10px">
+                  username1 / username2 / username
+                </Text>
               </Grid>
             </Grid>
-            <StyledButton onClick={submitHandler} type="button">
-              NEXT
-            </StyledButton>
+            <StyledButton onClick={submitHandler}>NEXT</StyledButton>
           </Box>
         </FormContainer>
       </Container>

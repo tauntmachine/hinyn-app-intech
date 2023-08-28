@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   CssBaseline,
   Grid,
@@ -11,7 +11,7 @@ import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
 import Modal from '../shared/Modal';
-import StyledTextField from '../shared/Textfield';
+import NoOutlinedTextField from '../shared/Textfield';
 // import OttTextField from '../shared/Textfield';
 // import StyledTextField2 from '../shared/Textfield2';
 import { BackIcon } from '../shared/Icon';
@@ -44,6 +44,26 @@ const VerticalDivider = styled.div`
 
 function ProfessionalForm7({ handleNextClick }) {
   const [open, setOpen] = useState(false);
+  const [otpDigits, setOtpDigits] = useState(['', '', '', '', '', '']);
+  const otpInputRefs = useRef([
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+  ]);
+
+  const handleOtpDigitChange = (index, value) => {
+    const newOtpDigits = [...otpDigits];
+    newOtpDigits[index] = value;
+    setOtpDigits(newOtpDigits);
+
+    // Move focus to the next input field if available
+    if (index < otpInputRefs.current.length - 1 && value !== '') {
+      otpInputRefs.current[index + 1].current.focus();
+    }
+  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -60,13 +80,9 @@ function ProfessionalForm7({ handleNextClick }) {
   function submitHandler(event) {
     event.preventDefault();
 
-    const enteredOtpNumber = otpNumberInputRef.current.value;
+    const enteredOtp = otpDigits.join('');
 
-    if (
-      enteredOtpNumber &&
-      enteredOtpNumber !== '' &&
-      enteredOtpNumber.length === 6
-    ) {
+    if (enteredOtp.length === 6) {
       handleNextClick(true);
     } else {
       setOpen(true);
@@ -109,19 +125,20 @@ function ProfessionalForm7({ handleNextClick }) {
             sx={{ mt: 3, width: '100%' }}
           >
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
-              <Grid item xs={12}>
-                <StyledTextField
-                  required
-                  fullWidth
-                  id="otpNumber"
-                  placeholder="Enter 6-digit OTP"
-                  name="otpNumber"
-                  inputRef={otpNumberInputRef}
-                />
-                {errorMessage.otpNumber && (
-                  <Error>{errorMessage.otpNumber}</Error>
-                )}
-              </Grid>
+              {otpDigits.map((digit, index) => (
+                <Grid item xs={2} key={index}>
+                  <NoOutlinedTextField
+                    required
+                    fullWidth
+                    name={`otpDigit${index}`}
+                    value={digit}
+                    inputRef={otpInputRefs.current[index]}
+                    onChange={(e) =>
+                      handleOtpDigitChange(index, e.target.value)
+                    }
+                  />
+                </Grid>
+              ))}
             </Grid>
 
             <ButtonContainer>

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { MenuItem, FormControl, Select } from '@mui/material';
-import { Box } from '@mui/system';
+// import { Box } from '@mui/system';
 
-const DropdownContainer = styled(Box)`
+const DropdownC = styled.div`
   display: flex;
   align-items: center;
 `;
@@ -14,9 +14,7 @@ const Label = styled.span`
 const Option = styled(MenuItem)`
   font-family: 'DM Sans', sans-serif !important;
   color: ${(props) => (props.color === 'red' ? '#FF5A5F' : '#0F7669')};
-  background: ${(props) => (props.color === 'red' ? '#FFEEEF' : 'transparent')};
-  background: ${(props) =>
-    props.bgcolor === 'transparent' ? 'transparent' : ''};
+  background: yellow;
 `;
 const CustomSelect = styled(Select)`
   font-family: 'DM Sans', sans-serif !important;
@@ -64,7 +62,7 @@ export default function Dropdown({
   };
 
   return (
-    <DropdownContainer>
+    <DropdownC>
       {hasLabel && <Label>{label}</Label>}
       <FormControl variant="standard" sx={{ m: 1, minWidth: { width } }}>
         {items ? (
@@ -88,10 +86,10 @@ export default function Dropdown({
             {items &&
               items.map((item, idx) => (
                 <Option
-                  key={(item?.key ?? item?.value) + '-' + idx}
-                  value={item?.key ?? item?.value}
-                  color={color}
-                  bgcolor={bgcolor}
+                  key={item.key}
+                  value={item.value}
+                  color="red"
+                  bgcolor="green"
                 >
                   {item?.title ?? item}
                 </Option>
@@ -99,6 +97,6 @@ export default function Dropdown({
           </CustomSelect>
         ) : null}
       </FormControl>
-    </DropdownContainer>
+    </DropdownC>
   );
 }

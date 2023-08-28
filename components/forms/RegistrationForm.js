@@ -59,19 +59,33 @@ const FormContainer = styled(Box)`
   border-radius: 20px;
 `;
 
-const AgreeCheckbox = styled.div`
-  font-size: 14px;
-  margin: 3rem 0;
-  cursoe: pointer;
+// const AgreeCheckbox = styled.div`
+//   font-size: 14px;
+//   margin: 3rem;
+//   cursoe: pointer;
+// `;
+const AgreeDiv = styled.div`
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 `;
-const AgreeDiv = styled.div``;
 const TextLink = styled.span`
-  color: green;
+  margin-left: 8px;
   cursor: pointer;
 `;
 
 const Text = styled.span`
   font-size: 14px;
+`;
+const Text2 = styled.span`
+  font-size: 14px;
+  color: #ff5a5f;
+  margin-left: 4px;
+  margin-right: 4px;
+`;
+const Text3 = styled.div`
+  font-size: 14px;
+  color: #ff5a5f;
+  margin-left: 18px;
 `;
 
 const Error = styled.p`
@@ -252,7 +266,7 @@ function RegistrationForm() {
       enteredEmail !== '' &&
       enteredPassword !== ''
     ) {
-      router.push('/registration?value=2');
+      router.push('/registration?value=1');
     } else {
       setOpen(true);
     }
@@ -419,16 +433,27 @@ function RegistrationForm() {
                 )}
               </Grid>
             </Grid>
-            <Grid container justifyContent="flex-start">
+            <AgreeDiv>
+              <input type="checkbox" />
+              <Text color="red">I agree to the HINYN</Text>
+              <Text2>User Agreement</Text2>
+              <Text>and</Text>
+              <Text2>Privacy </Text2>
+              <Text3>Policy.</Text3>
+            </AgreeDiv>
+            {/* <Grid container justifyContent="flex-start">
               <Grid item>
-                <AgreeCheckbox />
+            
                 <AgreeDiv>
-                  <input type="checkbox" /> I agree to the HINYN
-                  <TextLink color="red">User Agreement</TextLink> and{' '}
-                  <TextLink color="red">Privacy Policy.</TextLink>
+                  <input type="checkbox" />
+                  <Text>I agree to the HINYN</Text>
+                  <TextLink color="red" fontSize="12px">
+                    User Agreement
+                  </TextLink>{' '}
+                  and <TextLink color="red">Privacy Policy.</TextLink>
                 </AgreeDiv>
               </Grid>
-            </Grid>
+            </Grid> */}
             <StyledButton onClick={submitHandler}>Join HINYN</StyledButton>
             <Grid
               container

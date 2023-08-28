@@ -12,6 +12,7 @@ import ProfessionalForm6 from '../components/forms/ProfessionalForm6';
 import ProfessionalForm7 from '../components/forms/ProfessionalForm7';
 import ProfessionalForm8 from '../components/forms/ProfessionalForm8';
 import ProfessionalForm9 from '../components/forms/ProfessionalForm9';
+import ProfessionalForm9a from '../components/forms/ProfessionalForm9a';
 import ProfessionalForm10 from '../components/forms/ProfessionalForm10';
 import ProfessionalForm11 from '../components/forms/ProfessionalForm11';
 import UnverifiedAccountForm from '../components/forms/UnverifiedAccountForm';
@@ -69,16 +70,20 @@ function CreateProfessionalAccount() {
         {currentActiveForm === 8 ? (
           <ProfessionalForm8 handleNextClick={handleNextClick} />
         ) : null}
-        {currentActiveForm === 9 && !isAccountVerified ? (
+        {currentActiveForm === 9 ? (
+          <ProfessionalForm9a handleNextClick={handleNextClick} />
+        ) : null}
+        {currentActiveForm === 10 && !isAccountVerified ? (
           <UnverifiedAccountForm />
         ) : null}
-        {currentActiveForm === 9 && isAccountVerified ? (
+        {currentActiveForm === 10 && isAccountVerified ? (
           <ProfessionalForm9 handleNextClick={handleNextClick} />
         ) : null}
-        {currentActiveForm === 10 ? (
+
+        {currentActiveForm === 11 ? (
           <ProfessionalForm10 handleNextClick={handleNextClick} />
         ) : null}
-        {currentActiveForm === 11 ? (
+        {currentActiveForm === 12 ? (
           <VerifyPaymentForm1 handleNextClick={handleNextClick} />
         ) : null}
       </MainBox>

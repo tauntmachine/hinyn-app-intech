@@ -15,6 +15,7 @@ import { Button as CustomButton } from '@mui/material';
 import { BackIcon, UploadIcon } from '../shared/Icon';
 import { WebcamCapture } from '../shared/WebcamCapture';
 import AvatarUpload from '../shared/AvatarUpload';
+import Image from 'next/image';
 
 const StyledButton = styled(Button)``;
 
@@ -23,7 +24,7 @@ const StyledUploadIcon = styled(UploadIcon)`
   font-weight: 600;
   color: #0f7669;
 `;
-
+const AvatarDiv = styled.div``;
 const UploadButton = styled(CustomButton)`
   border: 1px solid #0f7669;
   color: #0f7669;
@@ -171,8 +172,14 @@ function ProfessionalForm8({ handleNextClick }) {
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
                 <AvatarUpload onClick={toggleOpenCameraModal}>
-                  {' '}
-                  <Text color="green">Upload a photo</Text>{' '}
+                  <AvatarDiv>
+                    {/* <Text color="green">Upload a photo</Text>{' '} */}
+                    {/* <Image
+                      source={require('../../public/assets/img/icons/userimg.jpg')}
+                      width="60px"
+                      height="60px"
+                    /> */}
+                  </AvatarDiv>
                 </AvatarUpload>
                 {errorMessage.documentSelfie && (
                   <Error>{errorMessage.documentSelfie}</Error>

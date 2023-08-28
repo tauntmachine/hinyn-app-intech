@@ -157,6 +157,7 @@ function ProfessionalForm2({ handleNextClick }) {
           <Text>
             Tell us your top skills. This helps us recommend jobs for you.
           </Text>
+
           <Box
             component="form"
             noValidate
