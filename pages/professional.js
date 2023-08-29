@@ -18,6 +18,7 @@ import ProfessionalForm11 from '../components/forms/ProfessionalForm11';
 import UnverifiedAccountForm from '../components/forms/UnverifiedAccountForm';
 import VerifyPaymentForm1 from '../components/forms/VerifyPaymentForm1';
 import Footer from '../components/section/Footer';
+import ProfessionalFormPayment from '../components/forms/ProfessinalFormPayment';
 
 const MainBox = styled(Box)`
   background-color: #f0f0f0;
@@ -79,11 +80,13 @@ function CreateProfessionalAccount() {
         {currentActiveForm === 10 && isAccountVerified ? (
           <ProfessionalForm9 handleNextClick={handleNextClick} />
         ) : null}
-
-        {currentActiveForm === 11 ? (
-          <ProfessionalForm10 handleNextClick={handleNextClick} />
+        {currentActiveForm === 11 && isAccountVerified ? (
+          <ProfessionalFormPayment handleNextClick={handleNextClick} />
         ) : null}
         {currentActiveForm === 12 ? (
+          <ProfessionalForm10 handleNextClick={handleNextClick} />
+        ) : null}
+        {currentActiveForm === 13 ? (
           <VerifyPaymentForm1 handleNextClick={handleNextClick} />
         ) : null}
       </MainBox>

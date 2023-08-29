@@ -14,7 +14,8 @@ const CustomDialog = styled(Dialog)`
     background-color: #f8f8f8;
     box-shadow: 0px 3px 20px #0000003c;
     border-radius: 13px;
-    min-height: 15rem;
+    min-height: 42rem;
+    min-width: 57rem;
   }
 `;
 const StyledButton = styled(Button)`
@@ -41,7 +42,7 @@ const StyledCloseIcon = styled(CloseIconCircle)`
 const StyledHeader = styled.div`
   border-bottom: 1px solid #bababa50;
 `;
-const Modal = ({
+const Modal2 = ({
   isOpen,
   handleClose,
   handleSubmit,
@@ -112,4 +113,4 @@ const Modal = ({
   );
 };
 
-export default Modal;
+export default Modal2;

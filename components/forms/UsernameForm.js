@@ -16,7 +16,7 @@ import { BackIcon } from '../shared/Icon';
 import { useRouter } from 'next/router';
 import Modal from '../shared/Modal';
 import Logo from '../shared/Logo';
-import { NoOutlineTextField } from '../shared/Textfield';
+import { StyledTextField } from '../shared/Textfield';
 // import {
 //   updateUserUsername,
 //   addClientData,
@@ -145,8 +145,8 @@ function UsernameForm() {
               spacing={2}
               sx={{ marginBottom: '2rem', marginRight: '10.6rem' }}
             >
-              <Grid item xs={2}>
-                <NoOutlineTextField
+              <Grid item xs={12}>
+                <StyledTextField
                   required
                   fullWidth
                   id="username"

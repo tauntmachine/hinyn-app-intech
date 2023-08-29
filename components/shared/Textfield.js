@@ -1,23 +1,21 @@
 import styled from '@emotion/styled';
 import { TextField } from '@mui/material';
 
-const StyledTextField = styled(TextField)`
+export const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
     background-color: #ffffff;
-    border-radius: 20rem;
-    // margin-left: 20px;
-    // width: 80%;
-    // align-items: center;
+    border-radius: 40rem;
+
+    width: 100%;
+    align-items: center;
   }
 `;
-export const StyledTextField2 = styled(TextField)`
-  .MuiInputBase-root {
-    background-color: #ffffff;
-    border-radius: 10rem;
-    // margin-left: 20px;
-    // width: 10%;
-    // align-items: center;
-  }
+export const StyledTextField2 = styled.div`
+  background-color: #ffffff;
+  border-radius: 10rem;
+  // margin-left: 20px;
+  // width: 10%;
+  // align-items: center;
 `;
 
 export const OutlinedTextField = styled(TextField)`
@@ -39,7 +37,7 @@ export const OutlinedTextField = styled(TextField)`
   }
 `;
 export const NoOutlineTextField = styled(TextField)`
-  .MuiInputBase-root {
+ 
     background-color: transparent;
     border: none !important;
     outline: none !important;
@@ -52,10 +50,8 @@ export const NoOutlineTextField = styled(TextField)`
       width: 24rem;
     }
   }
-  .MuiInputBase-input::placeholder {
-    /* Change the placeholder text color here */
-    color: #000000; /* Replace with your desired color */
-  }
+ 
+  
 `;
 // export const NoOutlineTextField = styled(TextField)`
 //   .MuiInputBase-root {

@@ -11,9 +11,8 @@ import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
 import Modal from '../shared/Modal';
-import NoOutlinedTextField from '../shared/Textfield';
-// import OttTextField from '../shared/Textfield';
-// import StyledTextField2 from '../shared/Textfield2';
+import StyledTextField2, { OutlinedTextField } from '../shared/Textfield';
+
 import { BackIcon } from '../shared/Icon';
 
 const StyledButton = styled(Button)``;
@@ -127,7 +126,7 @@ function ProfessionalForm7({ handleNextClick }) {
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               {otpDigits.map((digit, index) => (
                 <Grid item xs={2} key={index}>
-                  <NoOutlinedTextField
+                  <OutlinedTextField
                     required
                     fullWidth
                     name={`otpDigit${index}`}

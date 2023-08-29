@@ -61,6 +61,8 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 78%;
+  margin-left: 5.2rem;
 `;
 const VerticalDivider = styled.div`
   height: 2rem;
@@ -126,28 +128,35 @@ function ProfessionalForm8({ handleNextClick }) {
       <Container maxWidth="sm" sx={{ marginBottom: '6rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Typography component="h1" variant="h4">
+          <Text fontSize="34px" marginBottom="6px">
             <b>Let&apos;s make your profile</b>
-          </Typography>
-          <Typography component="p" align="center">
+          </Text>
+          <Text>
             Fill out your profile for clients to better understand your
-            services.
-          </Typography>
+          </Text>
+          <Text>services.</Text>
           <VerticalDivider />
-          <Text color="green">Upload your document</Text>
-          <Typography component="p" align="center">
+          <Text color="green" marginBottom="10px">
+            Upload your document
+          </Text>
+          <Text fontSize="13px">
             We will need to verify your identity. Kindly upload a scanned ID
-            (Either your Passport, Government ID, or Driver’s License)
-          </Typography>
+            (Either
+          </Text>
+          <Text> your Passport, Government ID, or Driver’s License)</Text>
           <VerticalDivider />
           <Box
             component="form"
             noValidate
             onSubmit={submitHandler}
-            sx={{ mt: 3, width: '100%' }}
+            sx={{ mt: 1.5, width: '100%' }}
           >
-            <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
-              <Grid item xs={12}>
+            <Grid
+              container
+              spacing={2}
+              sx={{ marginBottom: '3.6rem', marginLeft: '4rem' }}
+            >
+              <Grid item xs={9}>
                 <UploadButton
                   component="label"
                   variant="outlined"
@@ -169,6 +178,9 @@ function ProfessionalForm8({ handleNextClick }) {
                 )}
               </Grid>
             </Grid>
+            <Text marginLeft="6.9rem" marginTop="20px">
+              Click the button below to take a selfie with your document
+            </Text>
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
                 <AvatarUpload onClick={toggleOpenCameraModal}>

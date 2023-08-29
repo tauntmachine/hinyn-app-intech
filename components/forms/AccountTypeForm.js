@@ -49,7 +49,9 @@ const Item = styled.div`
 const StyledRightArrowIcon = styled(RightArrowIcon)`
   opacity: 0;
 `;
-
+const DivLogo = styled.div`
+  margin-top: 12px;
+`;
 function AccountTypeForm() {
   const router = useRouter();
 
@@ -76,13 +78,14 @@ function AccountTypeForm() {
         <BackIcon variant="red" />
         <CssBaseline />
         <FormContainer>
+          <DivLogo></DivLogo>
           <Logo />
           {/* <Logo>
             <Image src={LogoImage} alt="hinyn logo" />
           </Logo> */}
-          <Typography component="h5" variant="h5">
+          <Text fontSize="23px" marginBottom="8px">
             <b>Select Account Type</b>
-          </Typography>
+          </Text>
           <Typography component="x" align="center">
             Don&apos;t worry, this can be changed later.
           </Typography>

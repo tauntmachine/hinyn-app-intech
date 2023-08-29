@@ -3,6 +3,7 @@ import { CssBaseline, Grid, Box, Typography, Container } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
+import Modal2 from '../shared/Modal2';
 import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
 import { BackIcon } from '../shared/Icon';
@@ -25,6 +26,20 @@ const AvatarDiv = styled.div`
   margin-left: 23px;
   margin-top: 80px;
 `;
+const ImageDiv = styled(Image)`
+  border-radius: 20px;
+  height: 20rem;
+  width: 20rem;
+`;
+const ImageDiv2 = styled.div`
+  border-radius: 20px;
+  overflow: hidden;
+  background: green;
+  width: 40rem;
+  height: 23rem;
+  margin-top: 20px;
+  margin-left: 7rem;
+`;
 const Error = styled.p`
   color: red;
   font-size: 0.75rem;
@@ -38,6 +53,20 @@ const ButtonContainer = styled.div`
   width: 80%;
   margin-left: 3.5rem;
   margin-top: 40px;
+`;
+const CameraModel = styled.div`
+  width: 44rem;
+
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 1rem;
+`;
+const TextDiv = styled.div`
+  display: flex;
+  direction: row;
+  margin-left: 22rem;
+  margin-top: 43px;
 `;
 
 function ProfessionalForm1({ handleNextClick }) {
@@ -200,14 +229,38 @@ function ProfessionalForm1({ handleNextClick }) {
       >
         <div>Oops! All fields are required.</div>
       </Modal>
-      <Modal
+      <Modal2
         handleClose={handleCloseCameraModal}
         isOpen={openCameraModal}
         hasHeader={false}
         hasFooter={false}
       >
-        <div>asd</div>
-      </Modal>
+        <CameraModel>
+          <Text marginLeft="4.5rem" fontSize="31px" fontWeight="bold">
+            Use your camera to take a photo
+          </Text>
+          <Text marginTop="6px" marginLeft="3rem" fontSize="13px">
+            Show your face clearly and take the photo in a well-lit place as it
+            will be used to identify you.
+          </Text>
+          <Text marginTop="0px" marginLeft="12rem" fontSize="13px">
+            you can still change your profile photo in the future.
+          </Text>
+        </CameraModel>
+        <ImageDiv2>
+          <Image
+            src={require('../../public/assets/img/avatars/img-avatar1.png')}
+            height="355rem"
+            width="600rem"
+          />
+        </ImageDiv2>
+        <TextDiv>
+          <Text color="green" marginY="auto" marginRight="18px">
+            Retake
+          </Text>
+          <StyledButton>Upload</StyledButton>
+        </TextDiv>
+      </Modal2>
     </>
   );
 }
