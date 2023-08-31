@@ -17,7 +17,7 @@ function Registration() {
 
   const handleSubmit = () => {
     console.log('submitted');
-    setCurrentActiveForm(2);
+    // setCurrentActiveForm(2);
   };
 
   // const handleUsernameSubmit = (data) => {
