@@ -6,16 +6,24 @@ import {
   Typography,
   Container,
   TextareaAutosize,
+  TextField,
 } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
 import Modal from '../shared/Modal';
-import StyledTextField2, { OutlinedTextField } from '../shared/Textfield';
+// import StyledTextField2, { OutlinedTextField } from '../shared/Textfield';
 
 import { BackIcon } from '../shared/Icon';
 
 const StyledButton = styled(Button)``;
+
+const MyTextField = styled(TextField)`
+  width: 75%;
+  border: 1px solid #4aa398;
+  border-radius: 8px;
+  background: lightblue;
+`;
 
 const FormContainer = styled(Box)`
   display: flex;
@@ -35,6 +43,8 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  margin: 6rem 0 0 0rem;
 `;
 const VerticalDivider = styled.div`
   height: 2rem;
@@ -121,14 +131,17 @@ function ProfessionalForm7({ handleNextClick }) {
             component="form"
             noValidate
             onSubmit={submitHandler}
-            sx={{ mt: 3, width: '100%' }}
+            sx={{ mt: 3, width: '70%' }}
           >
-            <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
+            <Grid
+              container
+              spacing={0}
+              sx={{ marginBottom: '2rem', marginLeft: '1rem' }}
+            >
               {otpDigits.map((digit, index) => (
                 <Grid item xs={2} key={index}>
-                  <OutlinedTextField
+                  <MyTextField
                     required
-                    fullWidth
                     name={`otpDigit${index}`}
                     value={digit}
                     inputRef={otpInputRefs.current[index]}

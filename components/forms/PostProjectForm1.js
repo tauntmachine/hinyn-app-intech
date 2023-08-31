@@ -12,7 +12,7 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
-  Checkbox
+  Checkbox,
 } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
@@ -23,17 +23,21 @@ import StyledTextField, {
   OutlinedTextField,
 } from '../shared/Textfield';
 import Image from 'next/image';
-import { OutlineSearchIcon, CloseIcon, ChevronDownIcon, UploadIcon } from '../shared/Icon';
+import {
+  OutlineSearchIcon,
+  CloseIcon,
+  ChevronDownIcon,
+  UploadIcon,
+} from '../shared/Icon';
 import { StaticPill } from '../shared/Pill';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import moment from 'moment';
-import {Button as CustomButton} from '@mui/material';
+import { Button as CustomButton } from '@mui/material';
 import { useFreelancer } from '../../src/store';
-import { addBidData,getCategories, getSkills } from './formService';
+import { addBidData, getCategories, getSkills } from './formService';
 import Dropdown from '../shared/Dropdown';
 import { budget, locations, ageGroupOptions } from '../models/filters.models';
-
 
 const FormContainer = styled(Box)`
   display: flex;
@@ -159,10 +163,10 @@ const StyledTextArea = styled(TextareaAutosize)`
 `;
 
 const UploadButton = styled(CustomButton)`
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d8d8d8;
   color: #949494;
   border-radius: 5px;
-  background: #FCFCFC;
+  background: #fcfcfc;
   width: 100%;
   font-size: 12px;
   padding: 30px 16px;
@@ -170,85 +174,82 @@ const UploadButton = styled(CustomButton)`
   flex-direction: column;
   text-transform: capitalize;
 
-  &:hover{
-    background: #FCFCFC; 
+  &:hover {
+    background: #fcfcfc;
     color: #949494;
-    border: 1px solid #D8D8D8;
+    border: 1px solid #d8d8d8;
   }
-`
+`;
 
 const StyledCheckbox = styled(Checkbox)`
-  color: #EB4C60;
-  &.Mui-checked{
-      color: #4AA398;
+  color: #eb4c60;
+  &.Mui-checked {
+    color: #4aa398;
   }
-`
+`;
 
 const CustomDropdown = styled(Dropdown)`
   .MuiInputBase-root {
     border-radius: 12px;
     background: red;
   }
-
 `;
 
 const CustomTab = styled.div`
-  border: 1px solid #D8D8D8;
-  padding:14px;
+  border: 1px solid #d8d8d8;
+  padding: 14px;
   width: 10rem;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 500;
 
-  &.active{
-      background-color: #FDEAEF;
-      border: 1px solid #EB4C60;
-      color: #EB4C60;
-    }
+  &.active {
+    background-color: #fdeaef;
+    border: 1px solid #eb4c60;
+    color: #eb4c60;
+  }
 
-  &.left{
+  &.left {
     border-radius: 23px 0 0 23px;
-    &.active{
-      background-color: #ECF6F5;
-      border: 1px solid #4AA398;
-      color: #4AA398;
+    &.active {
+      background-color: #ecf6f5;
+      border: 1px solid #4aa398;
+      color: #4aa398;
     }
   }
 
-  &.right{
+  &.right {
     border-radius: 0 23px 23px 0;
 
-    &.active{
-      background-color: #FFF0EA;
-      border: 1px solid #E96E3F;
-      color: #E96E3F;
+    &.active {
+      background-color: #fff0ea;
+      border: 1px solid #e96e3f;
+      color: #e96e3f;
     }
   }
 
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
-`
-
+`;
 
 const languages = ['English', 'Arabic'];
-
 
 const upgradesData = [
   {
     key: 'featured',
     title: 'Featured',
     desc: 'Attract more freelancers with a prominent placement in our jobs list page.',
-    price: '1.00 AED' 
+    price: '1.00 AED',
   },
   {
     key: 'urgent',
     title: 'Urgent',
     desc: 'Make your project stand out and let freelancers know that your job is time sensitive.',
-    price: '1.00 AED' 
-  }
-]
+    price: '1.00 AED',
+  },
+];
 
 function PostProjectForm1({ handleNextClick }) {
   const imgsrc = '/assets/img/categories/';
@@ -256,10 +257,10 @@ function PostProjectForm1({ handleNextClick }) {
   const handleClose = () => {
     setOpen(false);
   };
-  const {freelancer, filter, setFilter} = useFreelancer();
+  const { freelancer, filter, setFilter } = useFreelancer();
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedGender,setSelectedGender] = useState(null);
+  const [selectedGender, setSelectedGender] = useState(null);
   const [ageGroup, setAgeGroup] = useState(null);
   const [categorySkills, setCategorySkills] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
@@ -270,7 +271,7 @@ function PostProjectForm1({ handleNextClick }) {
   const [projectDescription, setProjectDescription] = useState(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [filename, setFilename] = useState(null);
-  const [isFetched,setIsFetched] = useState(false);
+  const [isFetched, setIsFetched] = useState(false);
   const [upgrades, setUpgrades] = useState({
     featured: true,
     urgent: false,
@@ -287,10 +288,10 @@ function PostProjectForm1({ handleNextClick }) {
     projectBudget: null,
     projectDate: null,
     projectDescription: null,
-    uploadedFiles:null,
-    deliverables:null,
+    uploadedFiles: null,
+    deliverables: null,
     deliveryDays: null,
-    upgrades: null
+    upgrades: null,
   });
   const [isValid, setValid] = useState({
     title: false,
@@ -302,8 +303,8 @@ function PostProjectForm1({ handleNextClick }) {
     projectBudget: false,
     projectDate: false,
     projectDescription: false,
-    uploadedFiles:false,
-    deliverables:false,
+    uploadedFiles: false,
+    deliverables: false,
     deliveryDays: false,
     form: false,
   });
@@ -317,8 +318,8 @@ function PostProjectForm1({ handleNextClick }) {
     projectBudget: null,
     projectDate: null,
     projectDescription: null,
-    uploadedFiles:null,
-    deliverables:null,
+    uploadedFiles: null,
+    deliverables: null,
     deliveryDays: null,
   });
   const titleInputRef = useRef();
@@ -326,24 +327,26 @@ function PostProjectForm1({ handleNextClick }) {
   const deliveryDaysInputRef = useRef();
   const { featured, urgent } = upgrades;
 
-  const onSkillClick = (clickedSkillId,clickedSkill) => {
+  const onSkillClick = (clickedSkillId, clickedSkill) => {
     let temp = [];
     if (selectedSkills.find((skill) => skill?.id === clickedSkillId)) {
-      temp = selectedSkills.filter((skill) => skill?.id !== clickedSkillId)
+      temp = selectedSkills.filter((skill) => skill?.id !== clickedSkillId);
     } else {
       temp = selectedSkills.concat(clickedSkill);
     }
     setSelectedSkills(() => temp);
     setProjectData((prevState) => ({
       ...prevState,
-      ['skills']:  temp
+      ['skills']: temp,
     }));
   };
 
   const onLanguageClick = (clickedLanguage) => {
     let temp = [];
     if (selectedLanguages.find((language) => language === clickedLanguage)) {
-      temp = selectedLanguages.filter((language) => language !== clickedLanguage);
+      temp = selectedLanguages.filter(
+        (language) => language !== clickedLanguage
+      );
       setSelectedLanguages(() => temp);
     } else {
       temp = selectedLanguages.concat(clickedLanguage);
@@ -351,37 +354,39 @@ function PostProjectForm1({ handleNextClick }) {
     }
     setProjectData((prevState) => ({
       ...prevState,
-      ['languages']:  temp
+      ['languages']: temp,
     }));
   };
 
-
-  useEffect(()=>{
-      getCategories().then((result)=>{
-        if(result?.data?.data && !isFetched){
-          setCategories(()=>[]);
-          result?.data?.data.map((item)=>{
-            let temp = {"id":item.id}
-            setCategories((prev => prev.concat({...item.attributes,...temp})));
-          })
-          setIsFetched(true);
-        }
-      });
-      
-  },[isFetched])
+  useEffect(() => {
+    getCategories().then((result) => {
+      if (result?.data?.data && !isFetched) {
+        setCategories(() => []);
+        result?.data?.data.map((item) => {
+          let temp = { id: item.id };
+          setCategories((prev) => prev.concat({ ...item.attributes, ...temp }));
+        });
+        setIsFetched(true);
+      }
+    });
+  }, [isFetched]);
 
   function getCategorySkills2(category) {
     setSelectedCategory(() => category);
-    setCategorySkills(()=>[]);
-    setSelectedSkills(()=>[]);
-    getSkills(category?.id).then((result)=>{
+    setCategorySkills(() => []);
+    setSelectedSkills(() => []);
+    getSkills(category?.id).then((result) => {
       const temp = result?.data?.data?.attributes?.skills?.data ?? [];
-        temp.map((item)=>{
-          let skillId = {"id":item.id}
-          setCategorySkills((prev => prev.concat({...item.attributes, ...skillId})));
-          setSelectedSkills((prev => prev.concat({...item.attributes, ...skillId})));
-        });
-    })
+      temp.map((item) => {
+        let skillId = { id: item.id };
+        setCategorySkills((prev) =>
+          prev.concat({ ...item.attributes, ...skillId })
+        );
+        setSelectedSkills((prev) =>
+          prev.concat({ ...item.attributes, ...skillId })
+        );
+      });
+    });
     setSelectedLanguages(() => languages);
 
     setErrorMessage((prevState) => ({
@@ -398,7 +403,7 @@ function PostProjectForm1({ handleNextClick }) {
     }));
     setProjectData((prevState) => ({
       ...prevState,
-      ['skills']:  selectedSkills.map((skill)=>skill?.id),
+      ['skills']: selectedSkills.map((skill) => skill?.id),
     }));
     setProjectData((prevState) => ({
       ...prevState,
@@ -406,14 +411,15 @@ function PostProjectForm1({ handleNextClick }) {
     }));
   }
 
-
   const onSkillsSearchChange = (e) => {
-    const clickedSkill = categorySkills.find((skill) => skill.title === e.target.textContent)
+    const clickedSkill = categorySkills.find(
+      (skill) => skill.title === e.target.textContent
+    );
     onSkillClick(clickedSkill?.id, clickedSkill);
   };
 
   const onLanguagesSearchChange = (e) => {
-    onLanguageClick(e.target.textContent); 
+    onLanguageClick(e.target.textContent);
   };
 
   const onLocationSearchChange = (e) => {
@@ -478,15 +484,16 @@ function PostProjectForm1({ handleNextClick }) {
     }
   };
 
-
   const handleFileUpload = (e) => {
     if (!e.target.files) {
       return;
     }
     const files = e.target.files;
-    let filenames = Object.entries(files).map((file)=>file[1]?.name);
-    setUploadedFiles(()=> {filenames});
-    setFilename(()=>filenames)
+    let filenames = Object.entries(files).map((file) => file[1]?.name);
+    setUploadedFiles(() => {
+      filenames;
+    });
+    setFilename(() => filenames);
   };
 
   const handleUpgradeChange = (event) => {
@@ -496,28 +503,28 @@ function PostProjectForm1({ handleNextClick }) {
     });
     setProjectData((prevState) => ({
       ...prevState,
-      ['upgrades']:  upgrades
+      ['upgrades']: upgrades,
     }));
   };
 
-  const onChangeAgeGroup = (ageGroup) =>{
+  const onChangeAgeGroup = (ageGroup) => {
     setAgeGroup(ageGroup);
     setValid((prevState) => ({
       ...prevState,
       ['ageGroup']: true,
     }));
-   }
+  };
 
-   const onGenderClick = (val) => {
-    setSelectedGender(()=>val);
+  const onGenderClick = (val) => {
+    setSelectedGender(() => val);
     setValid((prevState) => ({
       ...prevState,
       ['gender']: true,
     }));
-   }
+  };
 
   const handleFormClick = () => {
-    if(progress <= 1){
+    if (progress <= 1) {
       let enteredTitle = titleInputRef.current.value;
       if (enteredTitle && enteredTitle !== '') {
         setErrorMessage((prevState) => ({
@@ -532,41 +539,45 @@ function PostProjectForm1({ handleNextClick }) {
           ...prevState,
           ['title']: enteredTitle,
         }));
-      }else{
+      } else {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['title']: 'Please provide project title',
         }));
       }
 
-      if(selectedCategory?.slug === null){
+      if (selectedCategory?.slug === null) {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['category']: 'Please select a category',
         }));
       }
 
-      if(selectedGender === null){
+      if (selectedGender === null) {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['gender']: 'Please select freelancer gender',
         }));
       }
-      
-      if(ageGroup === null){
+
+      if (ageGroup === null) {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['ageGroup']: 'Please select freelancer age',
         }));
       }
-      
 
-      if(isValid.title && isValid.category && isValid.ageGroup && isValid.gender){ 
-        setProgress((prev) => prev+1);
+      if (
+        isValid.title &&
+        isValid.category &&
+        isValid.ageGroup &&
+        isValid.gender
+      ) {
+        setProgress((prev) => prev + 1);
       }
     }
-    if(progress === 2){
-      if(location !== null){
+    if (progress === 2) {
+      if (location !== null) {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['location']: null,
@@ -579,15 +590,14 @@ function PostProjectForm1({ handleNextClick }) {
           ...prevState,
           ['location']: location,
         }));
-      }
-      else{
+      } else {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['location']: 'Please select a location',
         }));
       }
 
-      if(projectDate !== null){
+      if (projectDate !== null) {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['projectDate']: null,
@@ -600,15 +610,14 @@ function PostProjectForm1({ handleNextClick }) {
           ...prevState,
           ['projectDate']: projectDate,
         }));
-      }
-      else{
+      } else {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['projectDate']: 'Please provide project date',
         }));
       }
 
-      if(projectBudget !== null){
+      if (projectBudget !== null) {
         let budgetArr = projectBudget.split('-');
         setErrorMessage((prevState) => ({
           ...prevState,
@@ -622,20 +631,19 @@ function PostProjectForm1({ handleNextClick }) {
           ...prevState,
           ['projectBudget']: budgetArr,
         }));
-      }
-      else{
+      } else {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['projectBudget']: 'Please provide project budget',
         }));
       }
-      if(isValid.location && isValid.projectDate && isValid.projectBudget){ 
+      if (isValid.location && isValid.projectDate && isValid.projectBudget) {
         setProgress((prev) => prev + 1);
       }
     }
 
-    if(progress === 3){
-      if(projectDescription !== null){
+    if (progress === 3) {
+      if (projectDescription !== null) {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['projectDescription']: null,
@@ -648,24 +656,23 @@ function PostProjectForm1({ handleNextClick }) {
           ...prevState,
           ['projectDescription']: projectDescription,
         }));
-      }
-      else{
+      } else {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['projectDescription']: 'Please provide project description',
         }));
       }
 
-      if(isValid.projectDescription){ 
+      if (isValid.projectDescription) {
         setProgress((prev) => prev + 1);
       }
     }
 
-    if(progress === 4){
+    if (progress === 4) {
       let enteredDeliverables = deliverablesInputRef.current.value;
       let enteredDeliveryDays = deliveryDaysInputRef.current.value;
 
-      if( enteredDeliverables && enteredDeliverables !== ''){
+      if (enteredDeliverables && enteredDeliverables !== '') {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['deliverables']: null,
@@ -674,15 +681,14 @@ function PostProjectForm1({ handleNextClick }) {
           ...prevState,
           ['deliverables']: true,
         }));
-      }
-      else{
+      } else {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['deliverables']: 'Please provide number of deliverables',
         }));
       }
 
-      if( enteredDeliveryDays && enteredDeliveryDays !== ''){
+      if (enteredDeliveryDays && enteredDeliveryDays !== '') {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['deliveryDays']: null,
@@ -691,8 +697,7 @@ function PostProjectForm1({ handleNextClick }) {
           ...prevState,
           ['deliveryDays']: true,
         }));
-      }
-      else{
+      } else {
         setErrorMessage((prevState) => ({
           ...prevState,
           ['deliveryDays']: 'Please provide delivery days',
@@ -700,16 +705,25 @@ function PostProjectForm1({ handleNextClick }) {
       }
     }
 
-     setProjectData((prevState) => ({
-          ...prevState,
-          ['upgrades']: {"featured":featured, "urgent":urgent},
-      }));
+    setProjectData((prevState) => ({
+      ...prevState,
+      ['upgrades']: { featured: featured, urgent: urgent },
+    }));
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if(isValid.title && isValid.category && isValid.location && isValid.projectDate && isValid.projectBudget && isValid.projectDescription && isValid.deliverables && isValid.deliveryDays){
+    if (
+      isValid.title &&
+      isValid.category &&
+      isValid.location &&
+      isValid.projectDate &&
+      isValid.projectBudget &&
+      isValid.projectDescription &&
+      isValid.deliverables &&
+      isValid.deliveryDays
+    ) {
       const clientId = localStorage.getItem('hinyn-cid');
       const bidData = {
         title: projectData.title,
@@ -718,7 +732,10 @@ function PostProjectForm1({ handleNextClick }) {
         country: 'United Arab Emirates',
         // deliveryDate: projectData.projectDate,
         minBudget: projectData.projectBudget[0],
-        maxBudget: projectData.projectBudget.length > 1 ? projectData.projectBudget[1] : '',
+        maxBudget:
+          projectData.projectBudget.length > 1
+            ? projectData.projectBudget[1]
+            : '',
         deliveryDays: projectData.deliveryDays,
         numDeliverables: projectData.deliverables,
         isFeatured: projectData.upgrades.featured,
@@ -726,17 +743,17 @@ function PostProjectForm1({ handleNextClick }) {
         status: 1,
         categories: [selectedCategory?.id],
         skills: projectData.skills,
-        client: clientId
-      }
-      if(clientId){
-        addBidData(bidData).then((res)=>{
-          if(res.data){ 
+        client: clientId,
+      };
+      if (clientId) {
+        addBidData(bidData).then((res) => {
+          if (res.data) {
             setFilter(selectedCategory?.key);
             handleNextClick(true);
           }
-        })
+        });
       }
-    }else {
+    } else {
       setOpen(true);
     }
   };
@@ -744,7 +761,7 @@ function PostProjectForm1({ handleNextClick }) {
   const progress1 = () => {
     return (
       <>
-        <Text size="large">
+        <Text fontSize="18px">
           <b>Choose a name for your project</b>
         </Text>
         <Grid item xs={12}>
@@ -755,94 +772,108 @@ function PostProjectForm1({ handleNextClick }) {
             name="title"
             placeholder="example: Portrait photographer for a photoshoot"
             inputRef={titleInputRef}
-            onKeyUp = {
-              (e)=>{
-                setErrorMessage((prevState) => ({
-                  ...prevState,
-                  ['title']: null,
-                }));
-                setValid((prevState) => ({
-                  ...prevState,
-                  ['title']: true,
-                }));
-                setProjectData((prevState) => ({
-                  ...prevState,
-                  ['title']: e.target.value,
-                }));
-              }
-            }
+            onKeyUp={(e) => {
+              setErrorMessage((prevState) => ({
+                ...prevState,
+                ['title']: null,
+              }));
+              setValid((prevState) => ({
+                ...prevState,
+                ['title']: true,
+              }));
+              setProjectData((prevState) => ({
+                ...prevState,
+                ['title']: e.target.value,
+              }));
+            }}
           />
           {errorMessage.title && <Error>{errorMessage.title}</Error>}
         </Grid>
         <VerticalDivider />
-        <Text size="large">
+        <Text fontSize="18px">
           <b>Tell us the type of professional you&apos;ll need</b>
         </Text>
+
         <Grid item xs={12}>
           <CategoriesList>
             {categories.map((category, id) => {
-              return (
-                category?.slug !== 'all' 
-                ? <CategoryItem
-                    key={'category-item-' + id}
-                    className={selectedCategory?.slug === category.slug ? 'active' : ''}
-                    onClick={() => getCategorySkills2(category)}
-                  >
-                    <ImageContainer className="icon-img-box">
-                      <Image
-                        src={imgsrc + category.icon}
-                        layout="fill"
-                        className="icon-img"
-                        alt="icon-img"
-                      />
-                    </ImageContainer>
-                    <GrayText component="span">{category.title}</GrayText>
-                  </CategoryItem>
-                : null     
-              );
+              return category?.slug !== 'all' ? (
+                <CategoryItem
+                  key={'category-item-' + id}
+                  className={
+                    selectedCategory?.slug === category.slug ? 'active' : ''
+                  }
+                  onClick={() => getCategorySkills2(category)}
+                >
+                  <ImageContainer className="icon-img-box">
+                    <Image
+                      src={imgsrc + category.icon}
+                      layout="fill"
+                      className="icon-img"
+                      alt="icon-img"
+                    />
+                  </ImageContainer>
+                  <GrayText component="span">{category.title}</GrayText>
+                </CategoryItem>
+              ) : null;
             })}
           </CategoriesList>
           {errorMessage.category && <Error>{errorMessage.category}</Error>}
         </Grid>
         {/* start of gender */}
         <VerticalDivider />
-        <Text size="large">
+        <Text fontSize="18px">
           <b>Select the gender of the professional you&apos;ll need</b>
         </Text>
-        <Grid item xs={12}>          
-          <Box sx={{display:'flex'}}>
-            <CustomTab className={selectedGender==='male' ? 'left active' : 'left'} onClick={()=>onGenderClick('male')}>Male</CustomTab>
-            <CustomTab className={selectedGender==='female' ? 'active' : ''} onClick={()=>onGenderClick('female')}>Female</CustomTab>
-            <CustomTab className={selectedGender==='any' ? 'right active' : 'right'} onClick={()=>onGenderClick('any')}>Any</CustomTab>
+        <Grid item xs={12}>
+          <Box sx={{ display: 'flex' }}>
+            <CustomTab
+              className={selectedGender === 'male' ? 'left active' : 'left'}
+              onClick={() => onGenderClick('male')}
+            >
+              Male
+            </CustomTab>
+            <CustomTab
+              className={selectedGender === 'female' ? 'active' : ''}
+              onClick={() => onGenderClick('female')}
+            >
+              Female
+            </CustomTab>
+            <CustomTab
+              className={selectedGender === 'any' ? 'right active' : 'right'}
+              onClick={() => onGenderClick('any')}
+            >
+              Any
+            </CustomTab>
           </Box>
           {errorMessage.category && <Error>{errorMessage.category}</Error>}
         </Grid>
         {/* start of age */}
         <VerticalDivider />
-        <Text size="large">
+        <Text fontSize="18px">
           <b>Select the age of the professional you&apos;ll need</b>
         </Text>
-        <Grid item xs={12}>          
+        <Grid item xs={12}>
           <CustomDropdown
-                    hasLabel={false}
-                    items={ageGroupOptions}
-                    width="100%"
-                    type="outlined"
-                    selected={ageGroup}
-                    setHandleOnChange={onChangeAgeGroup}
-                    color="red"
-                    bgcolor="transparent"
-                  />
+            hasLabel={false}
+            items={ageGroupOptions}
+            width="100%"
+            type="outlined"
+            selected={ageGroup}
+            setHandleOnChange={onChangeAgeGroup}
+            color="red"
+            bgcolor="transparent"
+          />
           {errorMessage.ageGroup && <Error>{errorMessage.ageGroup}</Error>}
         </Grid>
         <VerticalDivider />
-        <Text size="large">
+        <Text fontSize="18px">
           <b>What skills are required?</b>
         </Text>
-        <Typography component="p" align="center">
+        <Text marginY="10px">
           We&apos;ve detected the following skills to suit your project. Feel
           free to modify these choices to best suit your needs.
-        </Typography>
+        </Text>
         <Grid item xs={12}>
           <SearchContainer>
             <PillsContainer>
@@ -852,7 +883,7 @@ function PostProjectForm1({ handleNextClick }) {
                     {skill?.title}
                     <StyledCloseIcon
                       variant="red"
-                      onClick={() => onSkillClick(skill?.id,skill)}
+                      onClick={() => onSkillClick(skill?.id, skill)}
                     />
                   </StyledStaticPill>
                 );
@@ -1022,7 +1053,7 @@ function PostProjectForm1({ handleNextClick }) {
               />
             )}
           />
-           {errorMessage.projectBudget && (
+          {errorMessage.projectBudget && (
             <Error>{errorMessage.projectBudget}</Error>
           )}
         </Grid>
@@ -1083,10 +1114,10 @@ function PostProjectForm1({ handleNextClick }) {
             component="label"
             variant="outlined"
             sx={{ marginRight: '1rem' }}
-            startIcon={<UploadIcon /> }
+            startIcon={<UploadIcon />}
           >
             <br />
-           (Max File Size: 25mb)
+            (Max File Size: 25mb)
             <input
               type="file"
               accept="image/*"
@@ -1095,11 +1126,13 @@ function PostProjectForm1({ handleNextClick }) {
               multiple
             />
           </UploadButton>
-          {uploadedFiles?.length > 0 
-          ? uploadedFiles.map((file,idx)=>{
-              <Text key={'file-upload-'+idx} color="red">Uploaded Files:{file}</Text> 
-            })
-            : null }
+          {uploadedFiles?.length > 0
+            ? uploadedFiles.map((file, idx) => {
+                <Text key={'file-upload-' + idx} color="red">
+                  Uploaded Files:{file}
+                </Text>;
+              })
+            : null}
           {errorMessage.uploadedFiles && (
             <Error>{errorMessage.uploadedFiles}</Error>
           )}
@@ -1127,7 +1160,7 @@ function PostProjectForm1({ handleNextClick }) {
             type="number"
             placeholder="Enter number of required images"
             inputRef={deliverablesInputRef}
-            onKeyUp={(e)=>{
+            onKeyUp={(e) => {
               setErrorMessage((prevState) => ({
                 ...prevState,
                 ['deliverables']: null,
@@ -1138,17 +1171,18 @@ function PostProjectForm1({ handleNextClick }) {
               }));
               setProjectData((prevState) => ({
                 ...prevState,
-                ['deliverables']: e.target.value
+                ['deliverables']: e.target.value,
               }));
             }}
-            
           />
-          {errorMessage.deliverables && <Error>{errorMessage.deliverables}</Error>}
+          {errorMessage.deliverables && (
+            <Error>{errorMessage.deliverables}</Error>
+          )}
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
           <Typography component="p" align="left">
-           How many days for delivery of pictures?
+            How many days for delivery of pictures?
           </Typography>
           <OutlinedTextField
             required
@@ -1158,7 +1192,7 @@ function PostProjectForm1({ handleNextClick }) {
             type="number"
             placeholder="Enter number of days"
             inputRef={deliveryDaysInputRef}
-            onKeyUp={(e)=>{
+            onKeyUp={(e) => {
               setErrorMessage((prevState) => ({
                 ...prevState,
                 ['deliveryDays']: null,
@@ -1169,39 +1203,61 @@ function PostProjectForm1({ handleNextClick }) {
               }));
               setProjectData((prevState) => ({
                 ...prevState,
-                ['deliveryDays']: e.target.value
+                ['deliveryDays']: e.target.value,
               }));
             }}
-           
           />
-          {errorMessage.deliveryDays && <Error>{errorMessage.deliveryDays}</Error>}
+          {errorMessage.deliveryDays && (
+            <Error>{errorMessage.deliveryDays}</Error>
+          )}
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
           <Text size="large">
             <b>Choose upgrades for your project</b>
           </Text>
-          <FormControl sx={{ width:'100%' }} component="fieldset" variant="standard">
+          <FormControl
+            sx={{ width: '100%' }}
+            component="fieldset"
+            variant="standard"
+          >
             <FormGroup>
-              {upgradesData.map((upgrade,idx)=>{
-                return  <Box  key={"upgrades-"+idx} sx={{display:'flex',justifyContent:'space-between',margin:'1rem 0'}}>
-                  <Box sx={{display:'flex'}}>
+              {upgradesData.map((upgrade, idx) => {
+                return (
+                  <Box
+                    key={'upgrades-' + idx}
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      margin: '1rem 0',
+                    }}
+                  >
+                    <Box sx={{ display: 'flex' }}>
                       <FormControlLabel
-                       
                         control={
-                          <StyledCheckbox checked={upgrade?.key === "featured" ? featured : urgent} 
-                          onChange={(e)=>{
-                            handleUpgradeChange(e);
-                          }} name={upgrade?.key} />
+                          <StyledCheckbox
+                            checked={
+                              upgrade?.key === 'featured' ? featured : urgent
+                            }
+                            onChange={(e) => {
+                              handleUpgradeChange(e);
+                            }}
+                            name={upgrade?.key}
+                          />
                         }
                       />
-                      <Box sx={{display:'flex', flexDirection:'column'}}>
-                          <Text color="red"><b>{upgrade?.title}</b></Text>
-                          <Text>{upgrade?.desc}</Text>
+                      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                        <Text color="red">
+                          <b>{upgrade?.title}</b>
+                        </Text>
+                        <Text>{upgrade?.desc}</Text>
                       </Box>
+                    </Box>
+                    <Text>
+                      <b>{upgrade?.price}</b>
+                    </Text>
                   </Box>
-                  <Text><b>{upgrade?.price}</b></Text>
-                </Box>
+                );
               })}
             </FormGroup>
           </FormControl>
@@ -1209,8 +1265,6 @@ function PostProjectForm1({ handleNextClick }) {
       </>
     );
   };
-
-
 
   return (
     <>
@@ -1255,17 +1309,40 @@ function PostProjectForm1({ handleNextClick }) {
               {progress >= 4 ? progress4() : null}
             </Grid>
           </Box>
-          <Container sx={{ display: 'flex',justifyContent: 'center',marginBottom:'2rem'}}>
-            {
-              progress >= 4 ? <Button width="30%" onClick={(e)=>{
-                handleFormClick();
-                submitHandler(e);
-              }}>SUBMIT</Button> : <GreenButton onClick={handleFormClick}>NEXT</GreenButton>
-            }
+          <Container
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '2rem',
+            }}
+          >
+            {progress >= 4 ? (
+              <Button
+                width="30%"
+                onClick={(e) => {
+                  handleFormClick();
+                  submitHandler(e);
+                }}
+              >
+                SUBMIT
+              </Button>
+            ) : (
+              <GreenButton onClick={handleFormClick}>NEXT</GreenButton>
+            )}
           </Container>
-          {
-              progress >= 4 ? <Text>By clicking submit, you agree to the <Text color="red" component="span">Terms and Conditions</Text> and <Text color="red" component="span">Privacy Policy</Text> of HINYN.</Text> : null
-          }
+          {progress >= 4 ? (
+            <Text>
+              By clicking submit, you agree to the{' '}
+              <Text color="red" component="span">
+                Terms and Conditions
+              </Text>{' '}
+              and{' '}
+              <Text color="red" component="span">
+                Privacy Policy
+              </Text>{' '}
+              of HINYN.
+            </Text>
+          ) : null}
         </FormContainer>
       </Container>
 

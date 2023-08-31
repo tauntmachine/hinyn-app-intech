@@ -94,7 +94,7 @@ const StyledLogoutIcon = styled(LogoutIcon)`
 function DashboardHeader({ currentTab, setTabChange }) {
   const imgpath = '/assets/img/avatars/';
   const [userData, setUserData] = useState({});
-  const [accountType, setAccountType] = useState(2);
+  const [accountType, setAccountType] = useState(1);
   const [hover, setHover] = useState(false);
   const router = useRouter();
 

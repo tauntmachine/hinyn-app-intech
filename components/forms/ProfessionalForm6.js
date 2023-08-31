@@ -41,6 +41,8 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 77%;
+  margin-left: 5rem;
 `;
 const VerticalDivider = styled.div`
   height: 2rem;
@@ -122,7 +124,7 @@ function ProfessionalForm6({ handleNextClick }) {
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Text fontSize="30px" marginBottom="10px">
+          <Text fontSize="38px" marginBottom="10px">
             <b>Let&apos;s make your profile</b>
           </Text>
           <Text color="gray">
@@ -143,7 +145,7 @@ function ProfessionalForm6({ handleNextClick }) {
               spacing={2}
               sx={{ marginBottom: '13rem', marginLeft: '40px' }}
             >
-              <Grid item xs={10} sx={{ width: '100%' }}>
+              <Grid item xs={9.4} sx={{ width: '100%', marginLeft: '10px' }}>
                 <PhoneInput
                   defaultCountry="AE"
                   placeholder="e.g. 501234537"
@@ -166,7 +168,7 @@ function ProfessionalForm6({ handleNextClick }) {
                       }
                     }
                     .PhoneInputCountry {
-                      width: 6rem;
+                      width: 8rem;
                       padding: 8px;
                       background: white;
                       border-top-left-radius: 30px;

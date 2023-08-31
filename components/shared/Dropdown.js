@@ -14,7 +14,6 @@ const Label = styled.span`
 const Option = styled(MenuItem)`
   font-family: 'DM Sans', sans-serif !important;
   color: ${(props) => (props.color === 'red' ? '#FF5A5F' : '#0F7669')};
-  background: yellow;
 `;
 const CustomSelect = styled(Select)`
   font-family: 'DM Sans', sans-serif !important;
@@ -33,7 +32,7 @@ const CustomSelect = styled(Select)`
     props.type === 'standard' ? 'none' : '1px solid #94949470'};
   padding: 0.5rem 1rem;
   border-radius: ${(props) =>
-    props.type === 'standard' || props.type === 'outlined' ? '4px' : 'none'};
+    props.type === 'standard' || props.type === 'outlined' ? '10px' : 'none'};
 
   &:before {
     border-bottom: 0;
