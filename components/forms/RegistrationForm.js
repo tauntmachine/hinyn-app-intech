@@ -404,15 +404,15 @@ function RegistrationForm() {
                   fullWidth
                   name="referalId"
                   placeholder="Referral Id"
-                  id="confirmPassword"
-                  type={pwValues.showConfirmPassword ? 'text' : 'password'}
-                  onKeyUp={checkIsConfirmPassword}
-                  inputRef={confirmPasswordInputRef}
+                  // id="confirmPassword"
+                  type={'text'}
+                  // onKeyUp={checkIsConfirmPassword}
+                  // inputRef={confirmPasswordInputRef}
                   //  onChange={handlePWChange}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton
+                        {/* <IconButton
                           aria-label="toggle password visibility"
                           onClick={handleClickShowConfirmPassword}
                           onMouseDown={handleMouseDownConfirmPassword}
@@ -423,7 +423,7 @@ function RegistrationForm() {
                           ) : (
                             <FiEye />
                           )}
-                        </IconButton>
+                        </IconButton> */}
                       </InputAdornment>
                     ),
                   }}
