@@ -68,22 +68,44 @@ const FreelancerConnectedList = () => {
   const [accountType, setAccountType] = useState({});
   const [freelancer, setFreelancer] = useState([
     {
-      firstName: 'M.',
-      lastName: 'assadullah',
-      city: 'lahore',
-      country: 'pakistan',
+      firstName: 'Samantha',
+      lastName: 'Davis',
+      city: 'Dubai',
+      country: 'United Arab Emirates',
+      para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
+      insta: '(@sampleFrelancer)',
     },
     {
       firstName: 'M.',
       lastName: 'assadullah',
       city: 'lahore',
       country: 'pakistan',
+      para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
+      insta: '@sampleFrelancer',
     },
     {
       firstName: 'M.',
       lastName: 'assadullah',
       city: 'lahore',
       country: 'pakistan',
+      para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
+      insta: '@sampleFrelancer',
+    },
+    {
+      firstName: 'Samantha',
+      lastName: 'Davis',
+      city: 'Dubai',
+      country: 'United Arab Emirates',
+      para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
+      insta: '@sampleFrelancer',
+    },
+    {
+      firstName: 'Samantha',
+      lastName: 'Davis',
+      city: 'Dubai',
+      country: 'United Arab Emirates',
+      para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
+      insta: '@sampleFrelancer',
     },
   ]);
 
@@ -132,7 +154,7 @@ const FreelancerConnectedList = () => {
                         {freelancer.firstName} {freelancer.lastName}
                       </b>
                     </Text>
-                    <GrayText> {freelancer?.instagramProfile ?? ''} </GrayText>
+                    <GrayText> {freelancer.insta} </GrayText>
                   </Box>
                   <Box>
                     <CustomRedButton
@@ -156,16 +178,12 @@ const FreelancerConnectedList = () => {
                     sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}
                   >
                     <StarRating data={freelancer?.rating ?? 3} sz="lg" />
-                    <GrayText>
-                      {' '}
-                      {freelancer?.categories?.data[0]?.attributes?.title ??
-                        ''}{' '}
-                    </GrayText>
+                    <GrayText> {freelancer.city} </GrayText>
                   </Box>
                 </Row>
                 <Row>
                   <Box sx={{ display: 'flex' }}>
-                    <GrayText> {freelancer?.headline ?? ''} </GrayText>
+                    <GrayText> {freelancer.para} </GrayText>
                   </Box>
                 </Row>
               </Column>

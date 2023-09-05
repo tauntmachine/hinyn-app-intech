@@ -51,6 +51,8 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 75%;
+  margin: auto;
 `;
 const VerticalDivider = styled.div`
   height: 2rem;
@@ -68,6 +70,11 @@ function ProfessionalForm9({ handleNextClick }) {
     email: 'test@email.com',
   };
 
+  function submitHandler(event) {
+    event.preventDefault();
+
+    handleNextClick(true);
+  }
   return (
     <>
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
@@ -105,7 +112,7 @@ function ProfessionalForm9({ handleNextClick }) {
                 <BackIcon isabsolute={false} />
                 <span style={{ marginLeft: '1rem' }}>Go Back</span>
               </Text>
-              <StyledButton onClick={handleNextClick}>NEXT</StyledButton>
+              <StyledButton onClick={submitHandler}>NEXT</StyledButton>
             </ButtonContainer>
           </Box>
         </FormContainer>

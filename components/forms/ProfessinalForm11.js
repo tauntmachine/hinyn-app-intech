@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import Text from '../shared/Typography';
 import { Container } from '@mui/material';
 import { Button as CustomButton } from '@mui/material';
@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import { BackIcon, CheckIcon, CheckSquareIcon, LockIcon } from '../shared/Icon';
 import { BiCheckCircle } from 'react-icons/bi';
 import Button from '../shared/Button';
+import { useRouter } from 'next/router';
 
 const StyledButton = styled(Button)`
   margin: 2rem auto;
@@ -142,11 +143,21 @@ const ButtonContainer = styled.div`
   width:
   justify-content: space-between;
 `;
-function ProfessionalForm10({ handleNextClick }) {
+function ProfessionalForm11({ handleNextClick }) {
   const [switchActive, setSwitchActive] = useState(false);
 
+  const router = useRouter();
   const toggleSwitch = () => {
     setSwitchActive(!switchActive);
+  };
+
+  function submitHandler(event) {
+    event.preventDefault();
+
+    handleNextClick(true);
+  }
+  const Next = () => {
+    router.push('/dashboard');
   };
 
   return (
@@ -245,17 +256,13 @@ function ProfessionalForm10({ handleNextClick }) {
               <Text marginLeft="8px">Preffered professional</Text>
             </IconText>
             {/* <ButtonOuline>Start Free Trial</ButtonOuline> */}
-            <StyledButton onClick={handleNextClick(true)}>
-              Signup for Today
-            </StyledButton>
+            <StyledButton onClick={Next}>Signup for Today</StyledButton>
           </ContainerBox>
         </ContainersMain>
         <ButtonContainer>
-          <Text marginLeft="6rem">
+          <Text marginLeft="9rem">
             <BackIcon isabsolute={false} />
-            <span style={{ marginLeft: '5rem', marginBottom: '5px' }}>
-              Go Back
-            </span>
+            <span style={{ marginLeft: '.5rem' }}>Go Back</span>
           </Text>
         </ButtonContainer>
       </Container>
@@ -263,4 +270,4 @@ function ProfessionalForm10({ handleNextClick }) {
   );
 }
 
-export default ProfessionalForm10;
+export default ProfessionalForm11;

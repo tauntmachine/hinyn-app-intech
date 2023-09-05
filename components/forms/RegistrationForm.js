@@ -428,9 +428,9 @@ function RegistrationForm() {
                     ),
                   }}
                 />
-                {errorMessage.confirmPassword && (
+                {/* {errorMessage.confirmPassword && (
                   <Error>{errorMessage.confirmPassword}</Error>
-                )}
+                )} */}
               </Grid>
             </Grid>
             <AgreeDiv>

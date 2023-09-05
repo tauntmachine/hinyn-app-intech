@@ -13,12 +13,11 @@ import ProfessionalForm7 from '../components/forms/ProfessionalForm7';
 import ProfessionalForm8 from '../components/forms/ProfessionalForm8';
 import ProfessionalForm9 from '../components/forms/ProfessionalForm9';
 import ProfessionalForm9a from '../components/forms/ProfessionalForm9a';
-import ProfessionalForm10 from '../components/forms/ProfessionalForm10';
-import ProfessionalForm11 from '../components/forms/ProfessionalForm11';
+
 import UnverifiedAccountForm from '../components/forms/UnverifiedAccountForm';
-import VerifyPaymentForm1 from '../components/forms/VerifyPaymentForm1';
-import Footer from '../components/section/Footer';
-import ProfessionalFormPayment from '../components/forms/ProfessinalFormPayment';
+
+import ProfessionalFormPayment from '../components/forms/ProfessinalForm11';
+import ProfessionalForm11 from '../components/forms/ProfessinalForm11';
 
 const MainBox = styled(Box)`
   background-color: #f0f0f0;
@@ -28,12 +27,13 @@ const MainBox = styled(Box)`
   overflow: auto;
 `;
 
-function CreateProfessionalAccount() {
+function Professional() {
   const [progressPercent, setProgressPercent] = useState(10);
   const [currentActiveForm, setCurrentActiveForm] = useState(1);
   const isAccountVerified = true; //fetch from API
 
   const handleNextClick = (value) => {
+    console.log('handleNextClick called with value:', value);
     if (value) {
       setProgressPercent(progressPercent + 9);
       setCurrentActiveForm((prev) => prev + 1);
@@ -71,28 +71,33 @@ function CreateProfessionalAccount() {
         {currentActiveForm === 8 ? (
           <ProfessionalForm8 handleNextClick={handleNextClick} />
         ) : null}
-        {currentActiveForm === 9 ? (
-          <ProfessionalForm9a handleNextClick={handleNextClick} />
-        ) : null}
-        {currentActiveForm === 10 && !isAccountVerified ? (
+        {currentActiveForm === 9 && !isAccountVerified ? (
           <UnverifiedAccountForm />
+        ) : null}
+        {currentActiveForm === 9 && isAccountVerified ? (
+          <ProfessionalForm9a handleNextClick={handleNextClick} />
         ) : null}
         {currentActiveForm === 10 && isAccountVerified ? (
           <ProfessionalForm9 handleNextClick={handleNextClick} />
         ) : null}
-        {currentActiveForm === 11 && isAccountVerified ? (
-          <ProfessionalFormPayment handleNextClick={handleNextClick} />
+
+        {currentActiveForm === 11 ? (
+          <ProfessionalForm11 handleNextClick={handleNextClick} />
         ) : null}
-        {currentActiveForm === 12 ? (
+        {/* {currentActiveForm === 11 ? (
+          <ProfessionalFormPayment handleNextClick={handleNextClick} />
+        ) : null} */}
+
+        {/* {currentActiveForm === 12 ? (
           <ProfessionalForm10 handleNextClick={handleNextClick} />
         ) : null}
         {currentActiveForm === 13 ? (
           <VerifyPaymentForm1 handleNextClick={handleNextClick} />
-        ) : null}
+        ) : null} */}
       </MainBox>
       {/* <Footer/> */}
     </>
   );
 }
 
-export default CreateProfessionalAccount;
+export default Professional;

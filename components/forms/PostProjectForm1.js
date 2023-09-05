@@ -13,6 +13,7 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
+  TextField,
 } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
@@ -21,6 +22,7 @@ import Modal from '../shared/Modal';
 import StyledTextField, {
   NoOutlineTextField,
   OutlinedTextField,
+  StyledTextField2,
 } from '../shared/Textfield';
 import Image from 'next/image';
 import {
@@ -37,7 +39,12 @@ import { Button as CustomButton } from '@mui/material';
 import { useFreelancer } from '../../src/store';
 import { addBidData, getCategories, getSkills } from './formService';
 import Dropdown from '../shared/Dropdown';
-import { budget, locations, ageGroupOptions } from '../models/filters.models';
+import {
+  budget,
+  locations,
+  ageGroupOptions,
+  Budget,
+} from '../models/filters.models';
 
 const FormContainer = styled(Box)`
   display: flex;
@@ -84,8 +91,8 @@ const CategoryItem = styled.div`
   }
 
   &:hover {
-    background: #eb4c60;
     border: 1px solid #eb4c60;
+    color: #eb4c60;
 
     span {
       color: #ffffff;
@@ -233,7 +240,10 @@ const CustomTab = styled.div`
     cursor: pointer;
   }
 `;
-
+const WithoutTextField = styled(TextField)`
+  margin-bottom: 2px;
+  border-radius: 40px;
+`;
 const languages = ['English', 'Arabic'];
 
 const upgradesData = [
@@ -254,11 +264,46 @@ const upgradesData = [
 function PostProjectForm1({ handleNextClick }) {
   const imgsrc = '/assets/img/categories/';
   const [open, setOpen] = useState(false);
+  const [dobValue, setDobValue] = useState(null);
+  const [enteredBroadDescription, setBroadDescription] = useState('');
   const handleClose = () => {
     setOpen(false);
   };
   const { freelancer, filter, setFilter } = useFreelancer();
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([
+    {
+      title: 'Photographer',
+      img: '/assets/img/categories/icn-photographer.svg',
+    },
+    {
+      title: 'Photographer',
+      img: '/assets/img/categories/icn-photographer.svg',
+    },
+    {
+      title: 'Photographer',
+      img: '/assets/img/categories/icn-photographer.svg',
+    },
+    {
+      title: 'Photographer',
+      img: '/assets/img/categories/icn-photographer.svg',
+    },
+    {
+      title: 'Photographer',
+      img: '/assets/img/categories/icn-photographer.svg',
+    },
+    {
+      title: 'Photographer',
+      img: '/assets/img/categories/icn-photographer.svg',
+    },
+    {
+      title: 'Photographer',
+      img: '/assets/img/categories/icn-photographer.svg',
+    },
+    {
+      title: 'Photographer',
+      img: '/assets/img/categories/icn-photographer.svg',
+    },
+  ]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedGender, setSelectedGender] = useState(null);
   const [ageGroup, setAgeGroup] = useState(null);
@@ -277,6 +322,7 @@ function PostProjectForm1({ handleNextClick }) {
     urgent: false,
   });
   const [progress, setProgress] = useState(1);
+  const [color, setColor] = useState(false);
   const [projectData, setProjectData] = useState({
     title: null,
     category: null,
@@ -341,6 +387,29 @@ function PostProjectForm1({ handleNextClick }) {
     }));
   };
 
+  const checkDOB = (dobdate) => {
+    const dateFormat = 'YYYY-MM-DD';
+    const dob = moment(dobdate, dateFormat, true).isValid();
+    const today = moment().format('YYYY-MM-DD');
+
+    if (dob && moment(today).format('YYYY') > moment(dobdate).format('YYYY')) {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        ['dob']: null,
+      }));
+      setValid((prevState) => ({
+        ...prevState,
+        ['dob']: true,
+      }));
+      setDobValue(moment(dobdate).format('YYYY-MM-DD'));
+    } else {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        ['dob']: 'Invalid date of birth.',
+      }));
+    }
+  };
+
   const onLanguageClick = (clickedLanguage) => {
     let temp = [];
     if (selectedLanguages.find((language) => language === clickedLanguage)) {
@@ -358,18 +427,18 @@ function PostProjectForm1({ handleNextClick }) {
     }));
   };
 
-  useEffect(() => {
-    getCategories().then((result) => {
-      if (result?.data?.data && !isFetched) {
-        setCategories(() => []);
-        result?.data?.data.map((item) => {
-          let temp = { id: item.id };
-          setCategories((prev) => prev.concat({ ...item.attributes, ...temp }));
-        });
-        setIsFetched(true);
-      }
-    });
-  }, [isFetched]);
+  // useEffect(() => {
+  //   getCategories().then((result) => {
+  //     if (result?.data?.data && !isFetched) {
+  //       setCategories(() => []);
+  //       result?.data?.data.map((item) => {
+  //         let temp = { id: item.id };
+  //         setCategories((prev) => prev.concat({ ...item.attributes, ...temp }));
+  //       });
+  //       setIsFetched(true);
+  //     }
+  //   });
+  // }, [isFetched]);
 
   function getCategorySkills2(category) {
     setSelectedCategory(() => category);
@@ -714,48 +783,48 @@ function PostProjectForm1({ handleNextClick }) {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (
-      isValid.title &&
-      isValid.category &&
-      isValid.location &&
-      isValid.projectDate &&
-      isValid.projectBudget &&
-      isValid.projectDescription &&
-      isValid.deliverables &&
-      isValid.deliveryDays
-    ) {
-      const clientId = localStorage.getItem('hinyn-cid');
-      const bidData = {
-        title: projectData.title,
-        description: projectData.projectDescription,
-        city: projectData.location,
-        country: 'United Arab Emirates',
-        // deliveryDate: projectData.projectDate,
-        minBudget: projectData.projectBudget[0],
-        maxBudget:
-          projectData.projectBudget.length > 1
-            ? projectData.projectBudget[1]
-            : '',
-        deliveryDays: projectData.deliveryDays,
-        numDeliverables: projectData.deliverables,
-        isFeatured: projectData.upgrades.featured,
-        isUrgent: projectData.upgrades.urgent,
-        status: 1,
-        categories: [selectedCategory?.id],
-        skills: projectData.skills,
-        client: clientId,
-      };
-      if (clientId) {
-        addBidData(bidData).then((res) => {
-          if (res.data) {
-            setFilter(selectedCategory?.key);
-            handleNextClick(true);
-          }
-        });
-      }
-    } else {
-      setOpen(true);
-    }
+    // if (
+    //   isValid.title &&
+    //   isValid.category &&
+    //   isValid.location &&
+    //   isValid.projectDate &&
+    //   isValid.projectBudget &&
+    //   isValid.projectDescription &&
+    //   isValid.deliverables &&
+    //   isValid.deliveryDays
+    // ) {
+    //   const clientId = localStorage.getItem('hinyn-cid');
+    //   const bidData = {
+    //     title: projectData.title,
+    //     description: projectData.projectDescription,
+    //     city: projectData.location,
+    //     country: 'United Arab Emirates',
+    //     // deliveryDate: projectData.projectDate,
+    //     minBudget: projectData.projectBudget[0],
+    //     maxBudget:
+    //       projectData.projectBudget.length > 1
+    //         ? projectData.projectBudget[1]
+    //         : '',
+    //     deliveryDays: projectData.deliveryDays,
+    //     numDeliverables: projectData.deliverables,
+    //     isFeatured: projectData.upgrades.featured,
+    //     isUrgent: projectData.upgrades.urgent,
+    //     status: 1,
+    //     categories: [selectedCategory?.id],
+    //     skills: projectData.skills,
+    //     client: clientId,
+    //   };
+    //   if (clientId) {
+    //     addBidData(bidData).then((res) => {
+    //       if (res.data) {
+    //         setFilter(selectedCategory?.key);
+    handleNextClick(true);
+    //       }
+    //     });
+    //   }
+    // } else {
+    //   setOpen(true);
+    // }
   };
 
   const progress1 = () => {
@@ -793,21 +862,18 @@ function PostProjectForm1({ handleNextClick }) {
         <Text fontSize="18px">
           <b>Tell us the type of professional you&apos;ll need</b>
         </Text>
-
         <Grid item xs={12}>
           <CategoriesList>
             {categories.map((category, id) => {
               return category?.slug !== 'all' ? (
                 <CategoryItem
                   key={'category-item-' + id}
-                  className={
-                    selectedCategory?.slug === category.slug ? 'active' : ''
-                  }
-                  onClick={() => getCategorySkills2(category)}
+                  className={color === true ? 'active' : ''}
+                  onClick={() => setColor(!color)}
                 >
                   <ImageContainer className="icon-img-box">
                     <Image
-                      src={imgsrc + category.icon}
+                      src={category.img}
                       layout="fill"
                       className="icon-img"
                       alt="icon-img"
@@ -896,7 +962,7 @@ function PostProjectForm1({ handleNextClick }) {
               options={categorySkills.map((skill) => skill.title)}
               onChange={onSkillsSearchChange}
               renderInput={(params) => (
-                <NoOutlineTextField
+                <WithoutTextField
                   {...params}
                   label=""
                   placeholder="Search skills here"
@@ -918,10 +984,10 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="large">
+          <Text fontSize="18px">
             <b>Language</b>
           </Text>
-          <Typography component="p" align="left">
+          <Typography component="p" align="left" marginY="10px">
             Select the language you&apos;ll be needing for this project
           </Typography>
           <SearchContainer>
@@ -945,7 +1011,7 @@ function PostProjectForm1({ handleNextClick }) {
               options={languages.map((language) => language)}
               onChange={onLanguagesSearchChange}
               renderInput={(params) => (
-                <NoOutlineTextField
+                <WithoutTextField
                   {...params}
                   label=""
                   placeholder="Search languages here"
@@ -1304,9 +1370,10 @@ function PostProjectForm1({ handleNextClick }) {
           >
             <Grid container rowSpacing={1} sx={{ marginBottom: '2rem' }}>
               {progress1()}
-              {progress >= 2 ? progress2() : null}
-              {progress >= 3 ? progress3() : null}
-              {progress >= 4 ? progress4() : null}
+
+              {progress2()}
+              {progress3()}
+              {progress4()}
             </Grid>
           </Box>
           <Container
@@ -1316,7 +1383,7 @@ function PostProjectForm1({ handleNextClick }) {
               marginBottom: '2rem',
             }}
           >
-            {progress >= 4 ? (
+            {progress ? (
               <Button
                 width="30%"
                 onClick={(e) => {
@@ -1330,7 +1397,7 @@ function PostProjectForm1({ handleNextClick }) {
               <GreenButton onClick={handleFormClick}>NEXT</GreenButton>
             )}
           </Container>
-          {progress >= 4 ? (
+          {progress ? (
             <Text>
               By clicking submit, you agree to the{' '}
               <Text color="red" component="span">

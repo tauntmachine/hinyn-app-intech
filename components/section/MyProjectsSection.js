@@ -22,8 +22,15 @@ const NoDataContainer = styled.div`
 
 const MyProjectsSection = () => {
   const router = useRouter();
-  const [proposals, setProposals] = useState([]);
-
+  // const [proposals, setProposals] = useState([]);
+  const proposals = [
+    {
+      title: 'Joe and Kate Wedding',
+      price: '5000',
+      location: 'Fairmont, palm dubai',
+      date: 'Nov,7 2023',
+    },
+  ];
   const sortOptions = [
     {
       title: 'Newest to Oldest',
@@ -86,29 +93,28 @@ const MyProjectsSection = () => {
 
       <Container sx={{ paddingBottom: '2rem' }} maxWidth="lg">
         <Grid container spacing={4} sx={{ marginTop: '0.25rem' }}>
-          {proposals.length > 0 &&
-            proposals.map((proposal, idx) => {
-              return (
-                <Grid
-                  key={'project-card-' + idx}
-                  item
-                  xs={12}
-                  sm={6}
-                  lg={4}
-                  sx={{ position: 'relative' }}
-                >
-                  <ProjectCard
-                    projectDetail={proposal}
-                    budget={proposal.budget}
-                  />
-                </Grid>
-              );
-            })}
-          {proposals && proposals.length === 0 ? (
+          {proposals.map((proposal, idx) => {
+            return (
+              <Grid
+                key={'project-card-' + idx}
+                item
+                xs={12}
+                sm={6}
+                lg={4}
+                sx={{ position: 'relative' }}
+              >
+                <ProjectCard
+                  projectDetail={proposal}
+                  budget={proposal.budget}
+                />
+              </Grid>
+            );
+          })}
+          {/* {proposals && proposals.length === 0 ? (
             <NoDataContainer>
               <Text color="red">No available data</Text>
             </NoDataContainer>
-          ) : null}
+          ) : null} */}
         </Grid>
         {proposals && proposals.length > 9 ? (
           <Box

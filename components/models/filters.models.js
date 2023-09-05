@@ -69,6 +69,17 @@ export const budget = [
   },
 ];
 
+export const Budget = [
+  {
+    title: '0-Free collaboration',
+  },
+  {
+    title: '11-18',
+  },
+  {
+    title: '18-30',
+  },
+];
 export const ageGroupOptions = [
   {
     title: '0-10',

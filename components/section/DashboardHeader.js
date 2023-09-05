@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Box } from '@mui/material';
 import { Container } from '@mui/system';
 import { useState, useEffect } from 'react';
-import Logo from '../shared/Logo';
+import Logo2 from '../shared/Logo2';
 import { BellIcon, ChatIcon, LogoutIcon } from '../shared/Icon';
 import Button, { GreenButton } from '../shared/Button';
 import Text from '../shared/Typography';
@@ -28,6 +28,7 @@ const Head = styled(Container)`
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  width: 88%;
 `;
 const LoginContainer = styled.div`
   display: flex;
@@ -66,6 +67,7 @@ const Tabs = styled.div`
 
 const TabItem = styled.div`
   cursor: pointer;
+  font-weight: ;
 
   &.active {
     border-bottom: 4px solid #ff5a5f;
@@ -145,7 +147,7 @@ function DashboardHeader({ currentTab, setTabChange }) {
             className={idx === currentTab ? 'active' : ''}
             onClick={() => setTabChange(idx)}
           >
-            {tabName}{' '}
+            {tabName}
           </TabItem>
         ))}
       </Tabs>
@@ -179,7 +181,7 @@ function DashboardHeader({ currentTab, setTabChange }) {
             }}
           >
             <Box sx={{ display: 'flex' }}>
-              <Logo />
+              <Logo2 />
               {showTabs()}
             </Box>
             <Box
@@ -218,15 +220,12 @@ function DashboardHeader({ currentTab, setTabChange }) {
                   alt="icon-img"
                 />
               </ImageContainer>
-              <Box
-                sx={{ display: 'flex', flexDirection: 'column', gap: '6px' }}
-              >
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Text color={accountType === 2 ? 'green' : 'red'}>
-                  Hi, {userData?.firstName}
+                  Hi, Steve
                 </Text>
                 <Text>
-                  {userData?.cash?.toLocaleString() ?? '0'}{' '}
-                  {userData?.currency ?? 'AED'}
+                  {userData?.cash?.toLocaleString() ?? ''} {'$49,320 USD'}
                 </Text>
               </Box>
               <Box>

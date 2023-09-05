@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import styled from '@emotion/styled';
 import CategoryIcon from '../shared/categories/Category';
 import { RightChevronIcon } from './Icon';
+import Category3 from './categories/Category3';
 
 const StyledBox = styled(Box)`
   display: flex;
@@ -64,7 +65,7 @@ const ScrollableTable = ({
                 key={'category-' + idx}
                 onClick={() => onCategoryClick(category?.id)}
               >
-                <CategoryIcon data={category} />
+                <Category3 data={category} />
                 {/* {startAdornment === 'icon' ? (
                   <TextWithIcon>
                     <CategoryIcon data={category} hasLabel={false} />

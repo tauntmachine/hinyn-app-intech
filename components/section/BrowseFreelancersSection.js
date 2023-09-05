@@ -9,6 +9,7 @@ import Stack from '@mui/material/Stack';
 import SidebarFilterForm from '../forms/SidebarFilterForm';
 import { useFreelancer, useProject } from '../../src/store';
 import FreelancerConnectedList from '../shared/FreelancerConnectedList';
+import Text from '../shared/Typography';
 
 const SearchBarContainer = styled.div`
   background: #d8d8d8;
@@ -49,9 +50,9 @@ const MyFreelancersSection = () => {
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
       <SearchBarContainer>
-        <Typography component="h1" variant="h4" align="center">
+        <Text fontSize="31px" fontWeight="bold" margin="auto">
           Browse
-        </Typography>
+        </Text>
         <VerticalDivider />
         <SimpleSearchBar
           handleSearchValue={handleSearchValue}
@@ -94,9 +95,9 @@ const MyFreelancersSection = () => {
                   marginBottom: '2rem',
                 }}
               >
-                <Stack spacing={2}>
+                {/* <Stack spacing={2}>
                   <CustomPagination count={10} />
-                </Stack>
+                </Stack> */}
               </Box>
             </Grid>
           </Grid>

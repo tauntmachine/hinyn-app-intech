@@ -13,6 +13,7 @@ export const StyledTextField = styled(TextField)`
 export const StyledTextField2 = styled.div`
   background-color: #ffffff;
   border-radius: 10rem;
+  width: 100%;
   // margin-left: 20px;
   // width: 10%;
   // align-items: center;
