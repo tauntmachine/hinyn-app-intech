@@ -24,19 +24,19 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const StyledCloseIcon = styled(CloseIconCircle)`
-  position: absolute;
-  top: 3%;
-  right: 5%;
-  color: #525252;
-  font-size: 20px;
-  cursor: pointer;
-  opacity: 0.3;
+// const StyledCloseIcon = styled(CloseIconCircle)`
+//   position: absolute;
+//   top: 3%;
+//   right: 5%;
+//   color: #525252;
+//   font-size: 20px;
+//   cursor: pointer;
+//   opacity: 0.3;
 
-  &:hover {
-    opacity: 1;
-  }
-`;
+//   &:hover {
+//     opacity: 1;
+//   }
+// `;
 
 const StyledHeader = styled.div`
   border-bottom: 1px solid #bababa50;

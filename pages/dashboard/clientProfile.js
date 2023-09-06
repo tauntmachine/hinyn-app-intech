@@ -70,12 +70,7 @@ const ReviewsContainer = styled(Box)`
 const VerticalDivider = styled.div`
   height: 2rem;
 `;
-const TopBar=styled.div`
-background:red;
-height:20px;
-width:100%;
 
-`
 const ClientProfile = () => {
   const router = useRouter();
   let imgPath = '/assets/img/avatars/';
@@ -132,18 +127,15 @@ const ClientProfile = () => {
 
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
- <TopBar>
-        <Text>yyf</Text>
-      </TopBar>
       <DashboardHeader setTabChange={handleChangeTab} currentTab={currentTab} />
-     
+
       <Container maxWidth="xl">
         <Grid container spacing={4} sx={{ padding: '5rem 0 7rem 0' }}>
           <Grid item xs={8}>
             <ContentBox>
               <Row sx={{ gap: '2rem' }}>
                 <Column>
-                  <ImaeContainer>
+                  <ImageContainer>
                     <StyledImage
                       src={
                         clientData?.displayPhoto

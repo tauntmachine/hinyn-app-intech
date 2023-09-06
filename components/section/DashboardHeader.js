@@ -3,7 +3,12 @@ import { Box } from '@mui/material';
 import { Container } from '@mui/system';
 import { useState, useEffect } from 'react';
 import Logo2 from '../shared/Logo2';
-import { BellIcon, ChatIcon, LogoutIcon } from '../shared/Icon';
+import {
+  BellIcon,
+  ChatIcon,
+  CloseIconCircle,
+  LogoutIcon,
+} from '../shared/Icon';
 import Button, { GreenButton } from '../shared/Button';
 import Text from '../shared/Typography';
 import Image from 'next/image';
@@ -37,16 +42,16 @@ const LoginContainer = styled.div`
   padding-left: 20px;
   justify-content: space-between;
 `;
-// const LoginHoverBox = styled.div`
-//   background: green;
-//   position: absolute;
-//   top: 100%; /* Position it below the parent element */
-//   left: 0;
-//   width: 100%;
-//   visibility: hidden; /* Initially hidden */
-//   opacity: 0; /* Initially transparent */
-//   transition: visibility 0.3s, opacity 0.3s; /* Add a transition for smooth visibility changes */
-// `;
+const LoginHoverBox = styled.div`
+  background: green;
+  position: absolute;
+  top: 100%; /* Position it below the parent element */
+  left: 0;
+  width: 100%;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.3s;
+`;
 const LinkText = styled.div`
   cursor: pointer;
 
@@ -92,6 +97,34 @@ const StyledLogoutIcon = styled(LogoutIcon)`
   font-size: 1.5rem;
   cursor: pointer;
 `;
+const TopBar = styled.div`
+  background: #4aa398;
+  height: 50px;
+  width: 100%;
+`;
+const Text1 = styled.div`
+  color: white;
+  font-size: 12.5px;
+  margin-left: 8px;
+`;
+const Text2 = styled.div`
+  color: white;
+  font-size: 10px;
+  margin: 2px 23px;
+`;
+const Text3 = styled.div`
+  color: white;
+  font-size: 10px;
+  padding: 10px 25px;
+  border: 1px solid white;
+  border-radius: 40px;
+`;
+const StyledCloseIcon = styled(CloseIconCircle)`
+  color: #525252;
+  font-size: 25px;
+  cursor: pointer;
+  margin: auto 20px;
+`;
 
 function DashboardHeader({ currentTab, setTabChange }) {
   const imgpath = '/assets/img/avatars/';
@@ -101,7 +134,7 @@ function DashboardHeader({ currentTab, setTabChange }) {
   const router = useRouter();
 
   const showUserProfile = () => {
-    if (accountType === 1) router.push('/dashboard/professionalProfile');
+    if (accountType === 2) router.push('/dashboard/professionalProfile');
     else router.push('/dashboard/clientProfile');
   };
   const loginHover = () => {
@@ -171,6 +204,24 @@ function DashboardHeader({ currentTab, setTabChange }) {
 
   return (
     <>
+      <TopBar>
+        <Box display="flex">
+          <Box padding="10px" marginLeft="8rem">
+            <Box display="flex">
+              <ChatIcon />
+              <Text1>Email verification required</Text1>
+            </Box>
+            <Text2>
+              To activate your account, please click 'verify your email adresss'
+              on the Emial we sent to <span>samantha12@gmail.com</span>
+            </Text2>
+          </Box>
+          <Box paddingY="8px" marginLeft="44rem" display="flex">
+            <Text3>Resend Email</Text3>
+            <StyledCloseIcon color="white" />
+          </Box>
+        </Box>
+      </TopBar>
       <CustomBox>
         <Head maxWidth="xl">
           <Box
