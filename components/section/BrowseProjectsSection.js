@@ -24,7 +24,7 @@ const BrowseProjectsSection = ({ mainScreen }) => {
   };
 
   return (
-    <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
+    <Box sx={{ background: 'green', height: 'auto' }}>
       {currentScreen === SCREENS.list ? (
         <AllProjectsSection handleScreenChange={handleScreenChange} />
       ) : (

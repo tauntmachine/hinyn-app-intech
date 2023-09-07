@@ -106,21 +106,18 @@ const ProjectCard = ({ projectDetail, budget }) => {
       </Row>
       <Row>
         <Container maxWidth="md">
-          <Text color="red" size="large" align="center">
-            {/* <b>{projectDetail.title}</b> */}
-            asjdadas
+          <Text color="red" fontSize="20px" align="center">
+            <b>{projectDetail.title}</b>
           </Text>
         </Container>
       </Row>
       <Row sx={{ justifyContent: 'center' }}>
-        <GrayText size="small">Project ID {12313123123}</GrayText>
+        <GrayText fontSize="10px">Project ID {12313123123}</GrayText>
       </Row>
       <VerticalDivider />
       <Row sx={{ justifyContent: 'space-between' }}>
         <Text>Price</Text>
-        <Text color="green">
-          {projectDetail?.attributes.minBudget} - {projectDetail.price} AED
-        </Text>
+        <Text color="green">{projectDetail.price} USD</Text>
       </Row>
       <Row sx={{ justifyContent: 'space-between' }}>
         <Text>Location</Text>

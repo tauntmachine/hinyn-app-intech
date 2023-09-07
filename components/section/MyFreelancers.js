@@ -19,7 +19,7 @@ const NoDataContainer = styled.div`
   width: 100%;
 `;
 
-const ClientProjectsSection = () => {
+const MyFreelancers = () => {
   const router = useRouter();
   const [clientBids, setClientBids] = useState([
     {
@@ -159,4 +159,4 @@ const ClientProjectsSection = () => {
   );
 };
 
-export default ClientProjectsSection;
+export default MyFreelancers;

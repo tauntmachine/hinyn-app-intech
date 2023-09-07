@@ -73,7 +73,14 @@ const VerticalDivider = styled.div`
 const ProfessionalProfile = () => {
   const router = useRouter();
   let imgPath = '/assets/img/avatars/';
-  const [clientData, setClientData] = useState(null);
+  const [clientData, setClientData] = useState([
+    {
+      firstName: 'Samantha',
+      lastName: 'David',
+      noJobs: '32',
+      insta: 'samantha123',
+    },
+  ]);
   const [clientCategories, setClientCategories] = useState(null);
   const [currentTab, setCurrentTab] = useState(0);
   const { fid } = router.query;
@@ -199,23 +206,23 @@ const ProfessionalProfile = () => {
                 <Column>
                   <Row sx={{ gap: '14px', alignItems: 'center' }}>
                     <Name color="green">
-                      <b>
-                        {clientData?.firstName} {clientData?.lastName}
-                      </b>
+                      <b>Samantha David</b>
                     </Name>
                     <GrayText size="large">
-                      {' '}
+                      @samantha123
+                      {/* {' '}
                       (
-                      {clientData?.instagramProfile ??
-                        '@' + clientData?.firstName}
-                      ){' '}
+                      {clientData?.instagramProfile ?? */}
+                      {/* {'@' + clientData?.insta} */}
+                      {/* ){' '} */}
                     </GrayText>
                   </Row>
                   <Row sx={{ gap: '16px', alignItems: 'center' }}>
                     <StarRating data={clientData?.rating ?? 3} sz="xl" />
                     <GrayText>
                       {' '}
-                      {clientData?.jobsCompleted ?? '-'} Jobs Completed
+                      {/* {clientData?.noJobs ?? '-'} Jobs Completed */}
+                      32 Jobs Completed
                     </GrayText>
                   </Row>
                   <Column sx={{ rowGap: '10px', margin: '1.5rem 0' }}>
@@ -267,7 +274,16 @@ const ProfessionalProfile = () => {
                     </Row>
                   </Column>
                   <Row>
-                    <GrayText>{clientData?.headline ?? 'Headline'}</GrayText>
+                    <GrayText>
+                      {/* {clientData?.headline ?? 'Headline'} */}
+                      In order to show you the most relevant results, we have
+                      omitted some entries very similar to the 10 already
+                      displayed. If you like, you can repeat the search with the
+                      omitted results included.In order to show you the most
+                      relevant results, we have omitted some entries very
+                      similar to the 10 already displayed. If you like, you can
+                      repeat the search with the omitted results included.
+                    </GrayText>
                   </Row>
                 </Column>
               </Row>

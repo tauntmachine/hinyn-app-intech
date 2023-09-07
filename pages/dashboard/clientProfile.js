@@ -109,16 +109,16 @@ const ClientProfile = () => {
     },
   ];
 
-  useEffect(() => {
-    const clientData = {
-      id: localStorage.getItem('hinyn-cid'),
-    };
-    getClientData(clientData).then((res) => {
-      if (res?.data?.data) {
-        setClientData(res?.data?.data?.attributes);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   const clientData = {
+  //     id: localStorage.getItem('hinyn-cid'),
+  //   };
+  //   getClientData(clientData).then((res) => {
+  //     if (res?.data?.data) {
+  //       setClientData(res?.data?.data?.attributes);
+  //     }
+  //   });
+  // }, []);
 
   const handleChangeTab = (val) => {
     setCurrentTab(val);
@@ -126,7 +126,7 @@ const ClientProfile = () => {
   };
 
   return (
-    <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
+    <Box sx={{ background: 'red', height: 'auto' }}>
       <DashboardHeader setTabChange={handleChangeTab} currentTab={currentTab} />
 
       <Container maxWidth="xl">
