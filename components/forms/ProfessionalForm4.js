@@ -38,6 +38,8 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 78%;
+  margin: 5rem 4rem;
 `;
 const VerticalDivider = styled.div`
   height: 2rem;

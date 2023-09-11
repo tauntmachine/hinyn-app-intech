@@ -48,7 +48,7 @@ function CardsSection({ cards, hasTools = true, cardText, handleButtonClick }) {
           <Dropdown hasLabel={true} label="Sort By" items={sortOptions} />
         </FilterContainer>
       ) : null}
-      {cards.length > 0 ? (
+      {cards ? (
         <Grid
           container
           rowSpacing={5}

@@ -93,10 +93,22 @@ const GrayText = styled(Text)`
 const CustomCheckIcon = styled(CheckIcon)`
   font-size: 4rem;
 `;
-
+const TextDiv = styled.div`
+  display: flex;
+  directon: column;
+`;
 const Proposals = ({ projectId, bidData, isBidOwner }) => {
   const router = useRouter();
-  const [proposals, setProposals] = useState([]);
+  const [proposals, setProposals] = useState([
+    {
+      firstName: 'Samantha',
+      lastName: 'Davidson',
+      instagramProfile: 'samantha123',
+      city: 'Dubai',
+      country: 'United Arab Emirates',
+      profession: 'Photographer',
+    },
+  ]);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
 
   const imgPath = '/assets/img/avatars/';
@@ -139,7 +151,7 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
     <MainWrapper>
       {proposals &&
         proposals.map((proposal, idx) => {
-          let bidder = proposal?.client?.data?.attributes;
+          let bidder = proposal;
           return (
             <ProjectContainer key={'project-bid-' + idx}>
               <Row sx={{ gap: '2rem', width: '100%' }}>
@@ -156,10 +168,10 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
                     />
                   </ImageContainer>
                 </Column>
-                <Column sx={{ flexBasis: '90%' }}>
+                <Column sx={{ flexBasis: '70%' }}>
                   <Row sx={{ gap: '14px', justifyContent: 'space-between' }}>
                     <Box sx={{ display: 'flex' }}>
-                      <Text color="red">
+                      <Text color="red" marginRight="12px">
                         <b>
                           {bidder?.firstName} {bidder?.lastName}
                         </b>
@@ -177,11 +189,13 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
                             : 'Accept Bid'}
                         </CustomRedButton>
                       ) : (
-                        <Text color="green">
-                          <b>
-                            {proposal?.budget} {proposal.currency ?? 'AED'}
-                          </b>
-                        </Text>
+                        ''
+                        // <Text color="green" fontSize="20px">
+                        //   <b>
+                        //     {/* {proposal?.budget} {proposal.currency ?? 'AED'} */}
+                        //     $520
+                        //   </b>
+                        // </Text>
                       )}
                     </Box>
                   </Row>
@@ -195,7 +209,7 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
                   <Row>
                     <Box sx={{ display: 'flex' }}>
                       <StarRating data={bidder?.rating ?? 3} sz="lg" />
-                      <GrayText> {bidder?.instagramProfile ?? ''} </GrayText>
+                      <GrayText> {bidder?.profession ?? ''} </GrayText>
                     </Box>
                   </Row>
                   <Row>
@@ -212,6 +226,15 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
                     </Row>
                   ) : null}
                 </Column>
+                <TextDiv>
+                  <Text color="green" fontSize="20px">
+                    <b>
+                      {/* {proposal?.budget} {proposal.currency ?? 'AED'} */}
+                      $520
+                    </b>
+                  </Text>
+                  <Text>Bids Price</Text>
+                </TextDiv>
               </Row>
             </ProjectContainer>
           );

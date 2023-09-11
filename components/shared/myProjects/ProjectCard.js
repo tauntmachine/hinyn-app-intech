@@ -132,10 +132,9 @@ const ProjectCard = ({ projectDetail, budget }) => {
         <GreenButton
           variant="outlined"
           onClick={() => showProjectDetails(projectDetail.id)}
-          className={projectDetail.id ? 'active' : 'disabled'}
+          //
         >
-          {' '}
-          View Project{' '}
+          View Project
         </GreenButton>
       </Row>
     </StyledCard>
