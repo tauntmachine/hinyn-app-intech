@@ -324,8 +324,8 @@ const ProjectDetailsSection = () => {
       </HeaderContainer>
       <ContentBoxWrapper>
         <Container maxWidth="xl">
-          <Grid container columnSpacing={1} marginLeft="120px">
-            <Grid item xs={7}>
+          <Grid container columnSpacing={1} marginLeft="85px">
+            <Grid item xs={8}>
               <ContentBox className="title-wrapper" background="red">
                 <TitleWrapper>
                   <Box>

@@ -49,7 +49,7 @@ const VerticalDivider = styled.div`
   width: 100%;
 `;
 
-function ProfessionalForm6({ handleNextClick }) {
+function PhoneNo({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const [mobileNumber, setMobileNumber] = useState(null);
 
@@ -212,4 +212,4 @@ function ProfessionalForm6({ handleNextClick }) {
   );
 }
 
-export default ProfessionalForm6;
+export default PhoneNo;

@@ -53,7 +53,7 @@ const StyledTextArea = styled(TextareaAutosize)`
   font-family: inherit;
 `;
 
-function ProfessionalForm3({ handleNextClick }) {
+function WhatYouDo({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const [enteredBroadDescription, setBroadDescription] = useState('');
   const handleClose = () => {
@@ -209,4 +209,4 @@ function ProfessionalForm3({ handleNextClick }) {
   );
 }
 
-export default ProfessionalForm3;
+export default WhatYouDo;

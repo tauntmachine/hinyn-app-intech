@@ -46,7 +46,7 @@ const VerticalDivider = styled.div`
   width: 100%;
 `;
 
-function ProfessionalForm4({ handleNextClick }) {
+function SelectGender({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const [dobValue, setDobValue] = useState(null);
   const [selectedGender, setSelectedGender] = useState(null);
@@ -266,4 +266,4 @@ function ProfessionalForm4({ handleNextClick }) {
   );
 }
 
-export default ProfessionalForm4;
+export default SelectGender;

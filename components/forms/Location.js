@@ -79,7 +79,7 @@ const locations = {
   ],
 };
 
-function ProfessionalForm5({ handleNextClick }) {
+function Location({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
 
@@ -260,4 +260,4 @@ function ProfessionalForm5({ handleNextClick }) {
   );
 }
 
-export default ProfessionalForm5;
+export default Location;

@@ -11,7 +11,7 @@ import Modal from '../shared/Modal';
 import Logo2 from '../shared/Logo2';
 import LoginForm from '../forms/LoginForm';
 import BidFreelancerForm from '../forms/BidFreelancerForm';
-import ProfessionalForm6 from '../forms/ProfessionalForm6';
+import PhoneNo from '../forms/PhoneNo';
 import { getClientData, getClients, logoutUser } from '../forms/formService';
 import Image from 'next/image';
 const CustomGlobeIcon = styled(FiGlobe)`

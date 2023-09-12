@@ -59,7 +59,7 @@ const Mainc = styled.div`
   margin-bottom: 20px;
 `;
 
-function ProfessionalForm2({ handleNextClick }) {
+function CategorySkills({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -67,7 +67,13 @@ function ProfessionalForm2({ handleNextClick }) {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [categorySkills, setCategorySkills] = useState([]);
-  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState([
+    { title: 'Skillset1' },
+    { title: 'Skillset2' },
+    { title: 'Skillset3' },
+    { title: 'Skillset4' },
+    { title: 'Skillset5' },
+  ]);
 
   // useEffect(()=>{
   //   setCategories(()=>[])
@@ -208,7 +214,7 @@ function ProfessionalForm2({ handleNextClick }) {
           </Grid>
           <Grid item xs={12} md={4}>
             <ScrollableTable
-              data={categorySkill}
+              data={selectedSkills}
               title="Select Skills for Category"
               type="category_skills"
               category={selectedCategory}
@@ -245,4 +251,4 @@ function ProfessionalForm2({ handleNextClick }) {
   );
 }
 
-export default ProfessionalForm2;
+export default CategorySkills;

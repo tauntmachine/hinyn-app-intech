@@ -69,7 +69,7 @@ const VerticalDivider = styled.div`
   width: 100%;
 `;
 
-function ProfessionalForm8({ handleNextClick }) {
+function UploadDoc({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const [openCameraModal, setOpenCameraModal] = useState(false);
   const handleClose = () => {
@@ -232,4 +232,4 @@ function ProfessionalForm8({ handleNextClick }) {
   );
 }
 
-export default ProfessionalForm8;
+export default UploadDoc;

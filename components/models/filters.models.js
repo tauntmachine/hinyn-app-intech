@@ -130,11 +130,11 @@ export const skills = [
 ];
 
 export const categoriesForm = [
-  { title: 'Category', img: '/assets/img/icons/img12.png' },
-  { title: 'Category', img: '/assets/img/icons/img12.png' },
-  { title: 'Category', img: '/assets/img/icons/img12.png' },
-  { title: 'Category', img: '/assets/img/icons/img12.png' },
-  { title: 'Category', img: '/assets/img/icons/img12.png' },
+  { title: 'Category1', img: '/assets/img/icons/img12.png' },
+  { title: 'Category2', img: '/assets/img/icons/img12.png' },
+  { title: 'Category3', img: '/assets/img/icons/img12.png' },
+  { title: 'Category4', img: '/assets/img/icons/img12.png' },
+  { title: 'Category5', img: '/assets/img/icons/img12.png' },
 ];
 export const categorySkill = [
   { title: 'skill' },

@@ -69,7 +69,7 @@ const TextDiv = styled.div`
   margin-top: 43px;
 `;
 
-function ProfessionalForm1({ handleNextClick }) {
+function FirstLastName({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const [openCameraModal, setOpenCameraModal] = useState(false);
   const handleClose = () => {
@@ -265,4 +265,4 @@ function ProfessionalForm1({ handleNextClick }) {
   );
 }
 
-export default ProfessionalForm1;
+export default FirstLastName;
