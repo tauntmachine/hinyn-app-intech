@@ -51,7 +51,7 @@ const VerticalDivider = styled.div`
   width: 100%;
 `;
 
-function ProfessionalForm7({ handleNextClick }) {
+function Ott({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const [otpDigits, setOtpDigits] = useState(['', '', '', '', '', '']);
   const otpInputRefs = useRef([
@@ -176,4 +176,4 @@ function ProfessionalForm7({ handleNextClick }) {
   );
 }
 
-export default ProfessionalForm7;
+export default Ott;

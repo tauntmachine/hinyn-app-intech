@@ -8,25 +8,10 @@ import StyledTextField from '../shared/Textfield';
 import { BackIcon, EmailIcon } from '../shared/Icon';
 
 const StyledButton = styled(Button)``;
-const Div2 = styled.div`
-  margin: auto;
-  margin-top: 30px;
-  width: 7rem;
-  margin-bottom: 30px;
-`;
+
 const StyledEmailIcon = styled(EmailIcon)`
   font-size: 20px;
   color: #ffffff;
-`;
-const FieldVerify = styled.div`
-  background: white;
-  border: 1px solid #d8d8d8;
-  border-radius: 40px;
-  width: 25rem;
-  color: cyan;
-  justify-content: center;
-  height: 40px;
-  margin: auto;
 `;
 const FormContainer = styled(Box)`
   display: flex;
@@ -46,9 +31,18 @@ const EmailIconContainer = styled.div`
   align-items: center;
   box-shadow: 0 0 4px 10px #4aa39820;
 `;
-
+const FieldVerify = styled.div`
+  background: white;
+  border: 1px solid #d8d8d8;
+  border-radius: 40px;
+  width: 25rem;
+  color: cyan;
+  justify-content: center;
+  height: 40px;
+  margin: auto;
+`;
 const Error = styled.p`
-  color: purple;
+  color: red;
   font-size: 0.75rem;
   font-family: 'Roboto', sans-serif;
 `;
@@ -65,32 +59,36 @@ const VerticalDivider = styled.div`
   width: 100%;
 `;
 
-function ProfessionalForm9a({ handleNextClick }) {
+function EmailVerifyForm2({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
 
   const data = {
-    firstName: 'Samanta',
+    firstName: 'Samantha',
     email: 'test@email.com',
   };
 
+  function submitHandler(event) {
+    event.preventDefault();
+
+    handleNextClick(true);
+  }
   return (
     <>
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Text fontSize="34px">
-            <b>Almost there, {data.firstName}!</b>
+          <Text fontSize="38px">
+            <b>Thanks, {data.firstName}!</b>
           </Text>
           <VerticalDivider />
           <EmailIconContainer>
             <StyledEmailIcon />
           </EmailIconContainer>
           <VerticalDivider />
-          <Text fontSize="25px">Check your email to Verify </Text>
-          <Text fontSize="25px">your account</Text>
+          <Text fontSize="28px">Your email is verified</Text>
           <Box sx={{ mt: 3, width: '100%' }}>
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
@@ -99,35 +97,22 @@ function ProfessionalForm9a({ handleNextClick }) {
                     {data.email}
                   </Text>
                 </FieldVerify>
-                <Div2>
-                  {' '}
-                  <Text color="red" fontSize="14px">
-                    {' '}
-                    Resend Email
-                  </Text>
-                  <Text color="#dbdbdb" marginTop="12px" fontSize="14px">
-                    {' '}
-                    Change Email
-                  </Text>
-                </Div2>
-
                 {/* <StyledTextField
-                  required
-                  fullWidth
-                  id="email"
-                  name="email"
-                  value={data.email}
-                  disabled="true"
-                /> */}
+                      required
+                      fullWidth
+                      id="email"
+                      name="email"
+                      value={data.email}
+                      disabled="true"
+                    /> */}
               </Grid>
             </Grid>
-
             <ButtonContainer>
               <Text>
                 <BackIcon isabsolute={false} />
                 <span style={{ marginLeft: '1rem' }}>Go Back</span>
               </Text>
-              <StyledButton onClick={handleNextClick}>NEXT</StyledButton>
+              <StyledButton onClick={submitHandler}>NEXT</StyledButton>
             </ButtonContainer>
           </Box>
         </FormContainer>
@@ -145,4 +130,4 @@ function ProfessionalForm9a({ handleNextClick }) {
   );
 }
 
-export default ProfessionalForm9a;
+export default EmailVerifyForm2;

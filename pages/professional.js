@@ -3,21 +3,21 @@ import { Box, Container } from '@mui/material';
 import Logo from '../components/shared/Logo';
 import ProgressBar from '../components/shared/ProgressBar';
 import { useState } from 'react';
-import ProfessionalForm1 from '../components/forms/ProfessionalForm1';
-import ProfessionalForm2 from '../components/forms/ProfessionalForm2';
-import ProfessionalForm3 from '../components/forms/ProfessionalForm3';
-import ProfessionalForm4 from '../components/forms/ProfessionalForm4';
-import ProfessionalForm5 from '../components/forms/ProfessionalForm5';
-import ProfessionalForm6 from '../components/forms/ProfessionalForm6';
-import ProfessionalForm7 from '../components/forms/ProfessionalForm7';
-import ProfessionalForm8 from '../components/forms/ProfessionalForm8';
-import ProfessionalForm9 from '../components/forms/ProfessionalForm9';
-import ProfessionalForm9a from '../components/forms/ProfessionalForm9a';
+import FirstLastName from '../components/forms/FirstLastName';
+import CategorySkills from '../components/forms/CategorySkills';
+import WhatYouDo from '../components/forms/WhatYouDo';
+import SelectGender from '../components/forms/SelectGender';
+import Location from '../components/forms/Location';
+import PhoneNo from '../components/forms/PhoneNo';
+import Ott from '../components/forms/Ott';
+import UploadDoc from '../components/forms/UploadDoc';
+import EmailVerifyForm2 from '../components/forms/EmailVerifyForm2';
+import EmailVerifyForm1 from '../components/forms/EmailVerifyForm1';
 
 import UnverifiedAccountForm from '../components/forms/UnverifiedAccountForm';
 
-import ProfessionalFormPayment from '../components/forms/ProfessinalForm11';
-import ProfessionalForm11 from '../components/forms/ProfessinalForm11';
+import ProfessionalFormPayment from '../components/forms/MemberShip';
+import MemberShip from '../components/forms/MemberShip';
 
 const MainBox = styled(Box)`
   background-color: #f0f0f0;
@@ -48,41 +48,41 @@ function Professional() {
         </Container>
         <ProgressBar progress={progressPercent} />
         {currentActiveForm === 1 ? (
-          <ProfessionalForm1 handleNextClick={handleNextClick} />
+          <FirstLastName handleNextClick={handleNextClick} />
         ) : null}
         {currentActiveForm === 2 ? (
-          <ProfessionalForm2 handleNextClick={handleNextClick} />
+          <CategorySkills handleNextClick={handleNextClick} />
         ) : null}
         {currentActiveForm === 3 ? (
-          <ProfessionalForm3 handleNextClick={handleNextClick} />
+          <WhatYouDo handleNextClick={handleNextClick} />
         ) : null}
         {currentActiveForm === 4 ? (
-          <ProfessionalForm4 handleNextClick={handleNextClick} />
+          <SelectGender handleNextClick={handleNextClick} />
         ) : null}
         {currentActiveForm === 5 ? (
-          <ProfessionalForm5 handleNextClick={handleNextClick} />
+          <Location handleNextClick={handleNextClick} />
         ) : null}
         {currentActiveForm === 6 ? (
-          <ProfessionalForm6 handleNextClick={handleNextClick} />
+          <PhoneNo handleNextClick={handleNextClick} />
         ) : null}
         {currentActiveForm === 7 ? (
-          <ProfessionalForm7 handleNextClick={handleNextClick} />
+          <Ott handleNextClick={handleNextClick} />
         ) : null}
         {currentActiveForm === 8 ? (
-          <ProfessionalForm8 handleNextClick={handleNextClick} />
+          <UploadDoc handleNextClick={handleNextClick} />
         ) : null}
         {currentActiveForm === 9 && !isAccountVerified ? (
           <UnverifiedAccountForm />
         ) : null}
         {currentActiveForm === 9 && isAccountVerified ? (
-          <ProfessionalForm9a handleNextClick={handleNextClick} />
+          <EmailVerifyForm1 handleNextClick={handleNextClick} />
         ) : null}
         {currentActiveForm === 10 && isAccountVerified ? (
-          <ProfessionalForm9 handleNextClick={handleNextClick} />
+          <EmailVerifyForm2 handleNextClick={handleNextClick} />
         ) : null}
 
         {currentActiveForm === 11 ? (
-          <ProfessionalForm11 handleNextClick={handleNextClick} />
+          <MemberShip handleNextClick={handleNextClick} />
         ) : null}
         {/* {currentActiveForm === 11 ? (
           <ProfessionalFormPayment handleNextClick={handleNextClick} />

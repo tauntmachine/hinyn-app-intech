@@ -143,7 +143,7 @@ const ButtonContainer = styled.div`
   width:
   justify-content: space-between;
 `;
-function ProfessionalForm11({ handleNextClick }) {
+function MemberShip({ handleNextClick }) {
   const [switchActive, setSwitchActive] = useState(false);
 
   const router = useRouter();
@@ -270,4 +270,4 @@ function ProfessionalForm11({ handleNextClick }) {
   );
 }
 
-export default ProfessionalForm11;
+export default MemberShip;

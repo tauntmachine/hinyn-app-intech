@@ -38,13 +38,15 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 78%;
+  margin: 5rem 4rem;
 `;
 const VerticalDivider = styled.div`
   height: 2rem;
   width: 100%;
 `;
 
-function ProfessionalForm4({ handleNextClick }) {
+function SelectGender({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const [dobValue, setDobValue] = useState(null);
   const [selectedGender, setSelectedGender] = useState(null);
@@ -264,4 +266,4 @@ function ProfessionalForm4({ handleNextClick }) {
   );
 }
 
-export default ProfessionalForm4;
+export default SelectGender;

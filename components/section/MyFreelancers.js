@@ -111,7 +111,7 @@ const MyFreelancers = () => {
   //   }, []);
 
   return (
-    <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
+    <Box sx={{ background: 'red', height: 'auto' }}>
       <Container
         sx={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}
         maxWidth="xl"
