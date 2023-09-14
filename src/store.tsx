@@ -12,69 +12,69 @@ interface Freelancer {
   attributes: {};
 }
 
-// let freelancerResult = [];
-// let projectsResult = [];
-
-// export async function getServerSideProps() {
-//   // const res = await axios.get(origin + '/clients')
-//   const res = await getClients()
-//     .then(async (response) => {
-//       if (response.data) {
-//         return (freelancerResult = response.data?.data); //response.data?.data.map((item)=> ({"clientId": item.id, ...item.attributes}));
-//       }
-//     })
-//     .catch(function (error) {
-//       return { status: false, data: error };
-//     });
-
-//   const proj = await axios
-//     .get(origin + '/bids?populate=*', {})
-//     .then(async (response) => {
-//       if (response.data) {
-//         return (projectsResult = response.data?.data);
-//       }
-//     })
-//     .catch(function (error) {
-//       return { status: false, data: error };
-//     });
-
-//   return {
-//     props: {
-//       freelancer: freelancerResult,
-//       project: projectsResult,
-//     },
-//   };
-// }
+let freelancerResult = [];
+let projectsResult = [];
 
 export async function getServerSideProps() {
-  try {
-    const freelancerPromise = getClients();
-    const projectsPromise = axios.get(origin + '/bids?populate=*', {});
+  // const res = await axios.get(origin + '/clients')
+  const res = await getClients()
+    .then(async (response) => {
+      if (response.data) {
+        return (freelancerResult = response.data?.data); //response.data?.data.map((item)=> ({"clientId": item.id, ...item.attributes}));
+      }
+    })
+    .catch(function (error) {
+      return { status: false, data: error };
+    });
 
-    const [freelancerResponse, projectsResponse] = await Promise.all([
-      freelancerPromise,
-      projectsPromise,
-    ]);
+  const proj = await axios
+    .get(origin + '/bids?populate=*', {})
+    .then(async (response) => {
+      if (response.data) {
+        return (projectsResult = response.data?.data);
+      }
+    })
+    .catch(function (error) {
+      return { status: false, data: error };
+    });
 
-    const freelancerData = freelancerResponse.data?.data ?? [];
-    const projectsData = projectsResponse.data?.data ?? [];
-
-    return {
-      props: {
-        freelancer: freelancerData,
-        project: projectsData,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return {
-      props: {
-        freelancer: [],
-        project: [],
-      },
-    };
-  }
+  return {
+    props: {
+      freelancer: freelancerResult,
+      project: projectsResult,
+    },
+  };
 }
+
+// export async function getServerSideProps() {
+//   try {
+//     const freelancerPromise = getClients();
+//     const projectsPromise = axios.get(origin + '/bids?populate=*', {});
+
+//     const [freelancerResponse, projectsResponse] = await Promise.all([
+//       freelancerPromise,
+//       projectsPromise,
+//     ]);
+
+//     const freelancerData = freelancerResponse.data?.data ?? [];
+//     const projectsData = projectsResponse.data?.data ?? [];
+
+//     return {
+//       props: {
+//         freelancer: freelancerData,
+//         project: projectsData,
+//       },
+//     };
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//     return {
+//       props: {
+//         freelancer: [],
+//         project: [],
+//       },
+//     };
+//   }
+// }
 
 const useFreelancerController = (freelancer: Freelancer[]) => {
   const [filter, setFilter] = useState(undefined);
