@@ -3,7 +3,6 @@ import {
   CssBaseline,
   Grid,
   Box,
-  Typography,
   Container,
   InputAdornment,
 } from '@mui/material';
@@ -12,7 +11,7 @@ import Text from '../shared/Typography';
 import Button from '../shared/Button';
 import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
-import { BackIcon, SearchIcon, RightArrowIcon } from '../shared/Icon';
+import { SearchIcon } from '../shared/Icon';
 import ScrollableTable from '../shared/ScrollableTable';
 import {
   addProfessionalCategoriesData,
@@ -21,6 +20,7 @@ import {
   updateClientData,
 } from './formService';
 import { categoriesForm, categorySkill } from '../models/filters.models';
+import ScrollableTable2 from '../shared/ScrollableTable2';
 
 const StyledButton = styled(Button)``;
 
@@ -39,9 +39,7 @@ const Error = styled.p`
 `;
 
 const ButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  margin: 0 0 20px 105rem;
 `;
 
 const ORLine = styled.div`
@@ -218,26 +216,23 @@ function CategorySkills({ handleNextClick }) {
               title="Select Skills for Category"
               type="category_skills"
               category={selectedCategory}
+              endAdornment={'add-icon'}
               onSkillClick={onSkillClick}
             />
           </Grid>
           <Grid item xs={12} md={4}>
-            <ScrollableTable
+            <ScrollableTable2
               data={selectedSkills}
-              title={selectedSkills.length + ' Skills Selected'}
+              title={selectedSkills.length}
+              endAdornment={'cross-icon'}
             />
           </Grid>
         </Grid>
       </Container>
-      <Container sx={{ marginBottom: '5rem' }}>
-        <ButtonContainer>
-          <Text>
-            <BackIcon isabsolute={false} />
-            <span style={{ marginLeft: '1rem' }}>Go Back</span>
-          </Text>
-          <StyledButton onClick={submitHandler}>NEXT</StyledButton>
-        </ButtonContainer>
-      </Container>
+
+      <ButtonContainer>
+        <StyledButton onClick={submitHandler}>NEXT</StyledButton>
+      </ButtonContainer>
 
       <Modal
         handleClose={handleClose}

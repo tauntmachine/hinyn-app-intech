@@ -29,13 +29,14 @@ const Column = styled(Box)`
   flex-direction: column;
 `;
 const ImageContainer = styled.div`
-  width: 7.5rem;
-  height: 7.5rem;
+  width: 7.7rem;
+  height: 7.7rem;
   position: relative;
   background: #ffffff;
   border-radius: 50%;
   box-shadow: 0px 3px 6px #00000029;
   cursor: pointer;
+  margin: 0 20px 0 12px;
 `;
 
 const Name = styled(Text)`
@@ -126,12 +127,12 @@ const ClientProfile = () => {
   };
 
   return (
-    <Box sx={{ background: 'red', height: 'auto' }}>
+    <Box sx={{ height: 'auto', background: '#D7DBDD ' }}>
       <DashboardHeader setTabChange={handleChangeTab} currentTab={currentTab} />
 
       <Container maxWidth="xl">
         <Grid container spacing={4} sx={{ padding: '5rem 0 7rem 0' }}>
-          <Grid item xs={8}>
+          <Grid item xs={7.5} sx={{ margin: '0 0 0 5.9rem' }}>
             <ContentBox>
               <Row sx={{ gap: '2rem' }}>
                 <Column>
@@ -151,22 +152,22 @@ const ClientProfile = () => {
                   <Row sx={{ gap: '14px', alignItems: 'center' }}>
                     <Name color="red">
                       <b>
-                        {clientData?.firstName} {clientData?.lastName}
+                        {/* {clientData?.firstName} {clientData?.lastName} */}
+                        Steve Washington
                       </b>
                     </Name>
                     <GrayText size="large">
                       {' '}
-                      (
-                      {clientData?.instagramProfile ??
-                        '@' + clientData?.firstName}
-                      ){' '}
+                      {/* {clientData?.instagramProfile ??
+                        '@' + clientData?.firstName} */}
+                      @samantha123{' '}
                     </GrayText>
                   </Row>
                   <Row sx={{ gap: '16px', alignItems: 'center' }}>
                     <StarRating data={clientData?.rating ?? 3} sz="xl" />
                     <GrayText>
                       {' '}
-                      {clientData?.jobsCompleted ?? '-'} Projects Completed
+                      {clientData?.jobsCompleted} 32 Projects Completed
                     </GrayText>
                   </Row>
                   <Column sx={{ rowGap: '10px', margin: '1.5rem 0' }}>
@@ -198,7 +199,15 @@ const ClientProfile = () => {
                     </Row>
                   </Column>
                   <Row>
-                    <GrayText>{clientData?.headline ?? 'Headline'}</GrayText>
+                    <GrayText>
+                      {/* {clientData?.headline ?? 'Headline'} */}
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Aliquam non orci vestibulum, congue est et, lacinia neque.
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Aliquam non orci vestibulum, congue est et, lacinia neque.
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </GrayText>
                   </Row>
                 </Column>
               </Row>
@@ -251,7 +260,7 @@ const ClientProfile = () => {
             </ContentBox>
             <VerticalDivider />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={2.9}>
             <ContentBox
               hasHeader={true}
               headerTitle="Verifications"

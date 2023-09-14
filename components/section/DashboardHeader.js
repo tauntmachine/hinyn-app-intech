@@ -204,24 +204,27 @@ function DashboardHeader({ currentTab, setTabChange }) {
 
   return (
     <>
-      <TopBar>
-        <Box display="flex">
-          <Box padding="10px" marginLeft="8rem">
-            <Box display="flex">
-              <ChatIcon />
-              <Text1>Email verification required</Text1>
+      {currentTab == 0 ? (
+        <TopBar>
+          <Box display="flex">
+            <Box padding="10px" marginLeft="8rem">
+              <Box display="flex">
+                <ChatIcon />
+                <Text1>Email verification required</Text1>
+              </Box>
+              <Text2>
+                To activate your account, please click 'verify your email
+                adresss' on the Emial we sent to{' '}
+                <span>samantha12@gmail.com</span>
+              </Text2>
             </Box>
-            <Text2>
-              To activate your account, please click 'verify your email adresss'
-              on the Emial we sent to <span>samantha12@gmail.com</span>
-            </Text2>
+            <Box paddingY="8px" marginLeft="44rem" display="flex">
+              <Text3>Resend Email</Text3>
+              <StyledCloseIcon color="white" />
+            </Box>
           </Box>
-          <Box paddingY="8px" marginLeft="44rem" display="flex">
-            <Text3>Resend Email</Text3>
-            <StyledCloseIcon color="white" />
-          </Box>
-        </Box>
-      </TopBar>
+        </TopBar>
+      ) : null}
       <CustomBox>
         <Head maxWidth="xl">
           <Box

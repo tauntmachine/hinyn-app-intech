@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import styled from '@emotion/styled';
 import CategoryIcon from '../shared/categories/Category';
-import { RightChevronIcon } from './Icon';
+import { RightChevronIcon, AddIcon } from './Icon';
 import Category3 from './categories/Category3';
 
 const StyledBox = styled(Box)`
@@ -43,6 +43,8 @@ const TextWithIcon = styled.div`
 
 const iconMap = {
   'right-arrow': <RightChevronIcon variant="green" />,
+
+  'add-icon': <AddIcon variant="red" />,
 };
 
 const ScrollableTable = ({
@@ -56,24 +58,25 @@ const ScrollableTable = ({
 }) => {
   return (
     <>
-      <Row className="header">Select a category</Row>
+      <Row className="header">{title}</Row>
       {type && type === 'categories' ? (
         <StyledBox>
           {data &&
             data.map((category, idx) => (
               <Row
                 key={'category-' + idx}
-                onClick={() => onCategoryClick(category?.id)}
+                // onClick={() => onCategoryClick(category)}
               >
-                <Category3 data={category} />
-                {/* {startAdornment === 'icon' ? (
+                {/* <Category3 data={category} /> */}
+                {startAdornment === 'icon' ? (
                   <TextWithIcon>
-                    <CategoryIcon data={category} hasLabel={false} />
-                    <span> {category?.title}</span>
+                    {/* <CategoryIcon data={category} hasLabel={false} /> */}
+                    <Category3 data={category} />
+                    {/* <span> {category?.title}</span> */}
                   </TextWithIcon>
                 ) : (
                   <span> {category?.title} </span>
-                )} */}
+                )}
                 {endAdornment && iconMap[endAdornment]}
               </Row>
             ))}
@@ -84,9 +87,10 @@ const ScrollableTable = ({
             data.map((skill, idx) => (
               <Row
                 key={'category-skill-' + idx}
-                onClick={() => onSkillClick(skill)}
+                // onClick={() => onSkillClick(skill)}
               >
                 <span> {skill?.title} </span>
+                {endAdornment && iconMap[endAdornment]}
               </Row>
             ))}
         </StyledBox>

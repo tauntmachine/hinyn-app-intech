@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Grid, Box } from '@mui/material';
 import Filter from '../shared/Filter';
 import CustomCard from '../shared/CustomCard';
-import Dropdown from '../shared/Dropdown';
+import Dropdown2 from '../shared/Dropdown2';
 
 const sortOptions = [
   {
@@ -45,7 +45,7 @@ function CardsSection({ cards, hasTools = true, cardText, handleButtonClick }) {
       {hasTools ? (
         <FilterContainer>
           <Filter />
-          <Dropdown hasLabel={true} label="Sort By" items={sortOptions} />
+          <Dropdown2 hasLabel={true} label="Sort By" items={sortOptions} />
         </FilterContainer>
       ) : null}
       {cards ? (

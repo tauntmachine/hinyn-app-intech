@@ -5,15 +5,32 @@ import { MenuItem, FormControl, Select } from '@mui/material';
 
 const DropdownC = styled.div`
   display: flex;
+
   align-items: center;
 `;
+// const ContainerDrop = styled.div``;
 const Label = styled.span`
   padding: 0.5rem 1rem;
   color: #949494;
 `;
-const Option = styled(MenuItem)`
+const Option = styled.div`
   font-family: 'DM Sans', sans-serif !important;
   color: ${(props) => (props.color === 'red' ? '#FF5A5F' : '#0F7669')};
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s, color 0.3s, padding 0.3s; /* Add transition properties */
+
+  &:hover {
+    background-color: ${(props) =>
+      props.color === 'red'
+        ? '#FFEEEF'
+        : '#0f7669'}; /* Change background color on hover */
+    color: ${(props) =>
+      props.color === 'red'
+        ? '#FF5A5F'
+        : 'white'}; /* Change text color on hover */
+
+    cursor: pointer; /* Show pointer cursor on hover */
+  }
 `;
 const CustomSelect = styled(Select)`
   font-family: 'DM Sans', sans-serif !important;
@@ -31,7 +48,7 @@ const CustomSelect = styled(Select)`
     props.type === 'standard' ? 'none' : '1px solid #94949470'};
   padding: 0.5rem 1rem;
   border-radius: ${(props) =>
-    props.type === 'standard' || props.type === 'outlined' ? '10px' : 'none'};
+    props.type === 'standard' || props.type === 'outlined' ? '40px' : 'none'};
 
   &:before {
     border-bottom: 0;
@@ -43,7 +60,7 @@ const CustomSelect = styled(Select)`
   }
 `;
 
-export default function Dropdown({
+export default function Dropdown2({
   hasLabel,
   label,
   items,
@@ -67,7 +84,13 @@ export default function Dropdown({
           <CustomSelect
             labelId="dropdown-select-label"
             id="dropdown-select"
-            value={3}
+            value={
+              (selected
+                ? selected
+                : items[0].key
+                ? items[0].key
+                : items[0].value) ?? ''
+            }
             onChange={handleChange}
             label={label ?? ''}
             type={type}
@@ -80,7 +103,7 @@ export default function Dropdown({
                 <Option
                   key={item.key}
                   value={item.value}
-                  color="red"
+                  color="green"
                   bgcolor="green"
                 >
                   {item?.title ?? item}

@@ -36,44 +36,60 @@ const ItemLabel = styled.span`
 `;
 function Filter() {
   const [open, setOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [skills, setSkills] = useState([]);
+  const [categories, setCategories] = useState([
+    'photographer',
+    'videographer',
+    'Editor',
+  ]);
+  const [skills, setSkills] = useState([
+    'photographer',
+    'videographer',
+    'Editor',
+  ]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSkill, setSelectedSkill] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('');
-  const [selectedBudget, setSelectedBudget] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState([
+    'photographer',
+    'videographer',
+    'Editor',
+  ]);
+  const [selectedBudget, setSelectedBudget] = useState([
+    'photographer',
+    'videographer',
+    'Editor',
+  ]);
   const { freelancer, filter, setFilter } = useFreelancer();
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  useEffect(() => {
-    const getCategories = async () => {
-      // const jwt = localStorage.getItem('hinyn-cjwt');
-      console.log(origin + '/categories?populate=*');
-      const response = await axios
-        .get(origin + '/categories?populate=*', {
-          withCredentials: true,
-          crossDomain: true,
-        })
-        .then(async (response) => {
-          if (response.data) {
-            return { status: true, data: response.data };
-          } else {
-            return { status: false, data: response.data.message };
-          }
-        })
-        .catch(function (error) {
-          return { status: false, data: error };
-        });
+  // useEffect(() => {
+  //   const getCategories = async () => {
+  //     // const jwt = localStorage.getItem('hinyn-cjwt');
+  //     console.log(origin + '/categories?populate=*');
+  //     const response = await axios
+  //       .get(origin + '/categories?populate=*', {
+  //         withCredentials: true,
+  //         crossDomain: true,
+  //       })
+  //       .then(async (response) => {
+  //         if (response.data) {
+  //           return { status: true, data: response.data };
+  //         } else {
+  //           return { status: false, data: response.data.message };
+  //         }
+  //       })
+  //       .catch(function (error) {
+  //         return { status: false, data: error };
+  //       });
 
-      // console.log(response);
-      return response;
-    };
+  //     // console.log(response);
+  //     return response;
+  //   };
 
-    getCategories();
-  });
+  //   getCategories();
+  // });
 
   // useEffect(()=>{
   //   getCategories().then((result)=>{
