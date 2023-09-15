@@ -111,9 +111,14 @@ const MyFreelancers = () => {
   //   }, []);
 
   return (
-    <Box sx={{ background: 'red', height: 'auto' }}>
+    <Box sx={{ height: 'auto' }}>
       <Container
-        sx={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}
+        sx={{
+          display: 'flex',
+          gap: '2rem',
+          marginTop: '1rem',
+          marginLeft: '14rem',
+        }}
         maxWidth="xl"
       >
         <Dropdown hasLabel={true} label="Show" items={showOptions} />

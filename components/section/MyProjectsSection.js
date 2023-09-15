@@ -79,12 +79,17 @@ const MyProjectsSection = () => {
   //       });
   //     }
   //   });
-  // }, []);
+  // },[ ]);
 
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
       <Container
-        sx={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}
+        sx={{
+          display: 'flex',
+          gap: '1rem',
+          marginTop: '1rem',
+          marginLeft: '6rem',
+        }}
         maxWidth="xl"
       >
         <Dropdown hasLabel={true} label="Show" items={showOptions} />
