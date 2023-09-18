@@ -3,38 +3,30 @@ import 'swiper/css';
 import 'swiper/swiper-bundle.min.css';
 import { useState } from 'react';
 import Category from './Category';
-import { useFreelancer } from '../../../src/store';
+// import { useFreelancer } from '../../../src/store';
 import styled from '@emotion/styled';
 
 const SwiperBox = styled.div`
   margin-top: 3rem;
 `;
-function CategoryList({ categories }) {
-  const [currentSelected, setCurrentSelected] = useState(null);
-  // const { freelancer, filter, setFilter } = useFreelancer();
+function CategoryList({ categories, handleSelectedCategory, currCatSelected }) {
 
-  const handleSelectedCategory = (category) => {
-    setCurrentSelected(category);
-
-    // if (category === 'all') category = '';
-    // setFilter(category);
-  };
   return (
     <SwiperBox>
       <Swiper
         spaceBetween={40}
         slidesPerView={9}
-        loop={true}
+        // loop={true}
         updateOnWindowResize={true}
       >
         {categories.map((category, idx) => (
           <SwiperSlide
             key={idx}
-            onClick={() => handleSelectedCategory(category.key)}
+            onClick={() => handleSelectedCategory(category)}
           >
             <Category
               data={category}
-              isSelected={category.key === currentSelected}
+              isSelected={category.title === currCatSelected}
             />
           </SwiperSlide>
         ))}

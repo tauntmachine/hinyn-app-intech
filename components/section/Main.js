@@ -15,7 +15,8 @@ const ContainerCustom = styled.div`
 `;
 
 function Main() {
-  // const { freelancer, filter, setFilter } = useFreelancer();
+  const { freelancer, filter, setFilter } = useFreelancer();
+  const [currCatSelected, setCurrCatSelected] = useState('');
 
   const categoriesFilter = [
     {
@@ -42,10 +43,18 @@ function Main() {
 
   const handleButtonClick = () => {};
 
+  const handleSelectedCategory = (category) => {
+    setCurrCatSelected(category.title);
+  };
+
   return (
     <ContainerCustom>
-      <CategoryList categories={categoriesFilter} />
-      <CardsSection cards={cards} handleButtonClick={handleButtonClick} />
+      <CategoryList
+        categories={categoriesFilter}
+        handleSelectedCategory={handleSelectedCategory}
+        currCatSelected={currCatSelected}
+      />
+      <CardsSection cards={freelancer} handleButtonClick={handleButtonClick} />
     </ContainerCustom>
   );
 }

@@ -46,36 +46,6 @@ export async function getServerSideProps() {
   };
 }
 
-// export async function getServerSideProps() {
-//   try {
-//     const freelancerPromise = getClients();
-//     const projectsPromise = axios.get(origin + '/bids?populate=*', {});
-
-//     const [freelancerResponse, projectsResponse] = await Promise.all([
-//       freelancerPromise,
-//       projectsPromise,
-//     ]);
-
-//     const freelancerData = freelancerResponse.data?.data ?? [];
-//     const projectsData = projectsResponse.data?.data ?? [];
-
-//     return {
-//       props: {
-//         freelancer: freelancerData,
-//         project: projectsData,
-//       },
-//     };
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//     return {
-//       props: {
-//         freelancer: [],
-//         project: [],
-//       },
-//     };
-//   }
-// }
-
 const useFreelancerController = (freelancer: Freelancer[]) => {
   const [filter, setFilter] = useState(undefined);
 
@@ -105,22 +75,23 @@ const useFreelancerController = (freelancer: Freelancer[]) => {
   };
 
   const filteredFreelancer = useMemo(() => {
-    return (
-      freelancer &&
-      freelancer
-        .map((f) => {
-          // console.log(f)
-          // return 1
-          return Object.values(f).filter(
-            (val) =>
-              val.accountType === 1 &&
-              checkCategories(val?.categories) &&
-              checkSkill(val?.skills) &&
-              checkLocation(val?.city)
-          )[0];
-        })
-        .filter((data) => data !== undefined)
-    );
+    return freelancer;
+    // return (
+    //   freelancer &&
+    //   freelancer
+    //     .map((f) => {
+    //       // console.log(f)
+    //       // return 1
+    //       return Object.values(f).filter(
+    //         (val) =>
+    //           val.accountType === 1 &&
+    //           checkCategories(val?.categories) &&
+    //           checkSkill(val?.skills) &&
+    //           checkLocation(val?.city)
+    //       )[0];
+    //     })
+    //     .filter((data) => data !== undefined)
+    // );
   }, [filter, freelancer]);
 
   return {
