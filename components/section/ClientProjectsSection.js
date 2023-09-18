@@ -1,7 +1,7 @@
 import { Container, Box, Grid, Pagination, Stack } from '@mui/material';
 import ProjectCard from '../shared/myProjects/ProjectCard';
 import styled from '@emotion/styled';
-import Dropdown from '../shared/Dropdown';
+import Dropdown2 from '../shared/Dropdown2';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getBidsOfClient, getProposalsOfClient } from '../forms/formService';
@@ -113,14 +113,20 @@ const ClientProjectsSection = () => {
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
       <Container
-        sx={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}
+        sx={{
+          display: 'flex',
+          gap: '1rem',
+          marginTop: '1rem',
+          marginLeft: '13rem',
+          marginBottom: '10px',
+        }}
         maxWidth="xl"
       >
-        <Dropdown hasLabel={true} label="Show" items={showOptions} />
-        <Dropdown hasLabel={true} label="Sort" items={sortOptions} />
+        <Dropdown2 hasLabel={true} label="Show" items={showOptions} />
+        <Dropdown2 hasLabel={true} label="Sort" items={sortOptions} />
       </Container>
       <Container sx={{ paddingBottom: '2rem' }} maxWidth="lg">
-        <Grid container spacing={4} sx={{ marginTop: '0.25rem' }}>
+        <Grid container spacing={4} sx={{}}>
           {clientBids.map((bid, idx) => {
             return (
               <Grid
