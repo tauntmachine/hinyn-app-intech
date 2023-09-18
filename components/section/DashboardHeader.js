@@ -213,8 +213,8 @@ function DashboardHeader({ currentTab, setTabChange }) {
                 <Text1>Email verification required</Text1>
               </Box>
               <Text2>
-                To activate your account, please click 'verify your email
-                adresss' on the Emial we sent to{' '}
+                To activate your account, please click verify your email
+                adresss on the Emial we sent to
                 <span>samantha12@gmail.com</span>
               </Text2>
             </Box>
