@@ -4,6 +4,7 @@ import { UserIcon } from './Icon';
 
 const Container = styled.div`
   margin-bottom: 1rem;
+  width: ${(props) => (props.isScrollable ? '30rem' : '')};
 `;
 
 const Header = styled.div`
@@ -25,7 +26,7 @@ const Header = styled.div`
 const Main = styled.div`
   background: #ffffff;
   border-radius: ${(props) => (props.hasHeader ? '0 0 13px 13px' : '13px')};
-  padding: 32px;
+  padding: ${(props) => (props.padding ? '0 0 5px 40px' : '32px')};
   max-height: ${(props) => (props?.isScrollable ? '30rem' : 'auto')};
   overflow: ${(props) => (props?.isScrollable ? 'auto' : 'hidden')};
 
@@ -57,10 +58,11 @@ const ContentBox = ({
   hasBodyIcon,
   isScrollable,
   noPadding,
+  padding,
   children,
 }) => {
   return (
-    <Container>
+    <Container isScrollable={isScrollable}>
       {hasHeader && (
         <Header headerColor={headerColor}>
           {headerIcon ?? headerIcon}
@@ -69,6 +71,7 @@ const ContentBox = ({
       )}
       <Main
         hasHeader={hasHeader}
+        padding={padding}
         className={noPadding === true ? 'no-padding' : ''}
         isScrollable={isScrollable}
       >

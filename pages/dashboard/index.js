@@ -12,6 +12,8 @@ import {
 } from '../../components/forms/formService';
 import ClientProjectsSection from '../../components/section/ClientProjectsSection';
 import BrowseFreelancersSection from '../../components/section/BrowseFreelancersSection';
+import MyFreelancersSection from '../../components/section/BrowseFreelancersSection';
+import MyFreelancers from '../../components/section/MyFreelancers';
 
 const Index = () => {
   const router = useRouter();
@@ -62,7 +64,7 @@ const Index = () => {
         case 3:
           return <ClientProjectsSection />;
         default:
-          return <NewsfeedSection />;
+          return <MyFreelancers />;
       }
     }
   };

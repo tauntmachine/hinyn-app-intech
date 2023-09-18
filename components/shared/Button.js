@@ -105,7 +105,7 @@ export const RedButton = styled(Button)`
   color: ${(props) => (props.variant === 'outlined' ? '#EB4C60' : '#ffffff')};
   border: 1px solid #eb4c60;
   font-size: ${(props) => (props.size === 'small' ? '10px' : '12px')};
-
+  font-weight: bold;
   &:hover {
     box-shadow: 0 0 3px #eb4c60;
     background: white;
