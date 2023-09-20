@@ -42,7 +42,7 @@ const DetailsContainerList = styled.div`
   position: absolute;
   left: 0;
   right: 0;
-  padding: 1.25rem 2.5rem;
+  padding: 1.25rem 0rem;
 
   @media ${breakpoint.device.lg} {
     max-width: 37%;
@@ -61,7 +61,7 @@ const DetailsContainerList2 = styled.div`
   position: absolute;
   left: 0;
   right: 0;
-  padding: 1.25rem 2.5rem;
+  padding: 0.25rem 0rem;
 
   @media ${breakpoint.device.lg} {
     max-width: 37%;
@@ -120,7 +120,7 @@ export const Pill = styled.div`
   border-radius: 13px;
   display: flex;
   color: #eb4c60;
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem 0.5rem;
   column-gap: 1rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -141,7 +141,7 @@ const ListItem = styled.li`
   text-decoration: none;
   font-weight: bold;
   list-style-type: none;
-  padding: 5px 0 5px 20px;
+  padding: 5px 0 5px 60px;
   &:hover {
     background: #eb4c6010;
     color: #eb4c60;
@@ -173,6 +173,11 @@ const DivEx = styled.div`
   display: flex;
   flex-direction: row;
   gap: 8px;
+  padding: 0.7rem 0;
+`;
+const TextHead = styled.div`
+  font-weight: bold;
+  padding: 0 2rem;
 `;
 const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
   // const [isFetched,setIsFetched] = useState([]);
@@ -283,7 +288,7 @@ const SkillsDetailsContainer = ({ handleSelectedSkills }) => {
 const LocationDetailsContainer = ({ handleSelectedLocation }) => {
   return (
     <DetailsContainerList>
-      Select City
+      <TextHead>Select City</TextHead>
       <List>
         {locations &&
           locations.map((item, idx) => {
@@ -303,7 +308,6 @@ const LocationDetailsContainer = ({ handleSelectedLocation }) => {
 const BudgetDetailsContainer = ({ handleSelectedBudget }) => {
   return (
     <DetailsContainerList2>
-      Select Budget
       <List>
         {budget &&
           budget.map((item, idx) => {

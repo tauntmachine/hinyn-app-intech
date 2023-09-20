@@ -18,6 +18,7 @@ import UnverifiedAccountForm from '../components/forms/UnverifiedAccountForm';
 
 import ProfessionalFormPayment from '../components/forms/MemberShip';
 import MemberShip from '../components/forms/MemberShip';
+import EmailVerifyFormPopUp from '../components/forms/EmailVerifyFormPopUp';
 
 const MainBox = styled(Box)`
   background-color: #f0f0f0;
@@ -78,10 +79,13 @@ function Professional() {
           <EmailVerifyForm1 handleNextClick={handleNextClick} />
         ) : null}
         {currentActiveForm === 10 && isAccountVerified ? (
+          <EmailVerifyFormPopUp handleNextClick={handleNextClick} />
+        ) : null}
+        {currentActiveForm === 11 && isAccountVerified ? (
           <EmailVerifyForm2 handleNextClick={handleNextClick} />
         ) : null}
 
-        {currentActiveForm === 11 ? (
+        {currentActiveForm === 12 ? (
           <MemberShip handleNextClick={handleNextClick} />
         ) : null}
         {/* {currentActiveForm === 11 ? (

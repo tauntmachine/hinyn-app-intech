@@ -242,7 +242,10 @@ const CustomTab = styled.div`
 `;
 const WithoutTextField = styled(TextField)`
   margin-bottom: 2px;
-  border-radius: 40px;
+`;
+const MyOutlinedTextField = styled(TextField)`
+  width: 54rem;
+  border-radius: 20px;
 `;
 const languages = ['English', 'Arabic'];
 
@@ -1040,7 +1043,7 @@ function PostProjectForm1({ handleNextClick }) {
       <>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="large">
+          <Text fontSize="19px" marginY="6px">
             <b>Tell us where is the location of your project</b>
           </Text>
           <Autocomplete
@@ -1072,7 +1075,7 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="large">
+          <Text fontSize="19px" marginY="6px">
             <b>Select the day required for your project</b>
           </Text>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -1091,7 +1094,7 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="large">
+          <Text fontSize="19px" marginY="6px">
             <b>What is your budget?</b>
           </Text>
           <Autocomplete
@@ -1132,7 +1135,7 @@ function PostProjectForm1({ handleNextClick }) {
       <>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="large">
+          <Text fontSize="19px" marginY="6px">
             <b>Tell us the story behind your project</b>
           </Text>
           <StyledTextArea
@@ -1169,13 +1172,13 @@ function PostProjectForm1({ handleNextClick }) {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <Text size="large">
+          <Text fontSize="19px">
             <b>Upload files</b>
           </Text>
-          <Typography component="p" align="left">
+          <Text marginY="6px">
             Drag & drop any images or documents that might be helpful in
             explaining your brief here.
-          </Typography>
+          </Text>
           <UploadButton
             component="label"
             variant="outlined"
@@ -1212,74 +1215,30 @@ function PostProjectForm1({ handleNextClick }) {
       <>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="large">
+          <Text fontSize="19px">
             <b>Deliverables</b>
           </Text>
-          <Typography component="p" align="left">
+          <Text fontSize="13.7px" fontWeight="bold" marginY="7px">
             How many pictures will be delivered in total?
-          </Typography>
-          <OutlinedTextField
-            required
-            fullWidth
-            id="deliverables"
-            name="deliverables"
-            type="number"
-            placeholder="Enter number of required images"
-            inputRef={deliverablesInputRef}
-            onKeyUp={(e) => {
-              setErrorMessage((prevState) => ({
-                ...prevState,
-                ['deliverables']: null,
-              }));
-              setValid((prevState) => ({
-                ...prevState,
-                ['deliverables']: true,
-              }));
-              setProjectData((prevState) => ({
-                ...prevState,
-                ['deliverables']: e.target.value,
-              }));
-            }}
-          />
+          </Text>
+          <MyOutlinedTextField placeholder="Enter number of required images" />
           {errorMessage.deliverables && (
             <Error>{errorMessage.deliverables}</Error>
           )}
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Typography component="p" align="left">
+          <Text fontSize="13.7px" fontWeight="bold" marginY="7px">
             How many days for delivery of pictures?
-          </Typography>
-          <OutlinedTextField
-            required
-            fullWidth
-            id="deliveryDays"
-            name="deliveryDays"
-            type="number"
-            placeholder="Enter number of days"
-            inputRef={deliveryDaysInputRef}
-            onKeyUp={(e) => {
-              setErrorMessage((prevState) => ({
-                ...prevState,
-                ['deliveryDays']: null,
-              }));
-              setValid((prevState) => ({
-                ...prevState,
-                ['deliveryDays']: true,
-              }));
-              setProjectData((prevState) => ({
-                ...prevState,
-                ['deliveryDays']: e.target.value,
-              }));
-            }}
-          />
+          </Text>
+          <MyOutlinedTextField placeholder="Enter number of days" />
           {errorMessage.deliveryDays && (
             <Error>{errorMessage.deliveryDays}</Error>
           )}
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="large">
+          <Text fontSize="19px">
             <b>Choose upgrades for your project</b>
           </Text>
           <FormControl

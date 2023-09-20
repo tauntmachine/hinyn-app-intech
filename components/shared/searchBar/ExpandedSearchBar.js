@@ -29,8 +29,8 @@ const SearchOptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   text-align: left;
-  padding: 16px 25px;
-  min-width: 10rem;
+  padding: 19px 25px;
+  min-width: 12.6rem;
   transition: all 0.5s ease-in-out;
   border-radius: 50px;
   font-size: 15px;
