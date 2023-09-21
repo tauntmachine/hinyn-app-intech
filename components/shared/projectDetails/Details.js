@@ -11,6 +11,7 @@ import BidOnProjectForm from '../../forms/BidOnProjectForm';
 import { Container } from '@mui/system';
 import { CautionIcon, CheckIcon } from '../Icon';
 import moment from 'moment';
+import Image from 'next/image';
 
 const VerticalDivider = styled.div`
   height: 1rem;
@@ -75,10 +76,22 @@ const CustomGreenButton = styled(GreenButton)`
   }
 `;
 const PillButton = styled.div`
-  padding: 10px 16px;
+  padding: 7px 20px;
+  cursor: pointer;
   border: 1px solid #4aa398;
   border-radius: 40px;
   color: #4aa398;
+  display: flex;
+  .Asad {
+  }
+  .Qwe {
+    margin: 5px 0 0 12px;
+  }
+`;
+const ImgDiv = styled.div`
+  .icon-img-box img {
+    filter: red;
+  }
 `;
 const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
   const projectDetails = {
@@ -136,7 +149,23 @@ const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
         </Row>
         <Row>
           {/* <PillWithIcon color="green" bg="transparent" category={bidData} /> */}
-          <PillButton>Photographer</PillButton>
+          <PillButton>
+            <Image
+              src={require('../../../public/assets/img/categories/icn-videographer.svg')}
+              alt="icon-img"
+              width="30px"
+              height="30px"
+              className="Asad"
+            />
+            <Text
+              color="green"
+              marginBottom="10px"
+              display="flex"
+              className="Qwe"
+            >
+              Photographer
+            </Text>
+          </PillButton>
         </Row>
         <Row>
           <DescTitle>Skills required for this project</DescTitle>

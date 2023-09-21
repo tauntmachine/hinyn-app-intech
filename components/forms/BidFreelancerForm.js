@@ -36,6 +36,7 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 20px 0 0 0;
 `;
 const VerticalDivider = styled.div`
   height: 1rem;
@@ -45,11 +46,12 @@ const CustomDropdown = styled(Dropdown)`
   .MuiInputBase-root {
     border-radius: 10px;
   }
+  border-bottom: standard;
 `;
 
 const CustomTextField = styled(StyledTextField)`
   .MuiInputBase-root {
-    border-radius: 10px;
+    border-radius: 8px;
     background-color: #f2f2f2;
     border: none;
     color: #ff5a5f;
@@ -68,9 +70,10 @@ const GrayText = styled(Text)`
 const StyledTextArea = styled(TextareaAutosize)`
   resize: none;
   width: 100%;
-  min-height: 7rem;
-  border-radius: 20px;
-  padding: 2rem;
+
+  border-radius: 10px;
+
+  padding: ${(props) => (props.typeh === 'less' ? '1rem' : '3rem')};
   font-family: inherit;
   background-color: #e6e6e6;
   opacity: 0.7;
@@ -127,52 +130,51 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
 
   function submitHandler(event) {
     event.preventDefault();
-    const enteredBidAmount = bidAmountInputRef.current.value;
+    // const enteredBidAmount = bidAmountInputRef.current.value;
 
-    if (!enteredBidAmount) {
-      setErrorMessage((prevState) => ({
-        ...prevState,
-        ['bidAmount']: 'Invalid bid amount',
-      }));
-      setValid((prevState) => ({
-        ...prevState,
-        ['form']: false,
-      }));
-    }
+    // if (!enteredBidAmount) {
+    //   setErrorMessage((prevState) => ({
+    //     ...prevState,
+    //     ['bidAmount']: 'Invalid bid amount',
+    //   }));
+    //   setValid((prevState) => ({
+    //     ...prevState,
+    //     ['form']: false,
+    //   }));
+    // }
 
-    if (!enteredBidDescription) {
-      setErrorMessage((prevState) => ({
-        ...prevState,
-        ['bidDescription']: 'Provide bid description',
-      }));
-      setValid((prevState) => ({
-        ...prevState,
-        ['form']: false,
-      }));
-    }
+    // if (!enteredBidDescription) {
+    //   setErrorMessage((prevState) => ({
+    //     ...prevState,
+    //     ['bidDescription']: 'Provide bid description',
+    //   }));
+    //   setValid((prevState) => ({
+    //     ...prevState,
+    //     ['form']: false,
+    //   }));
+    // }
 
-    if (
-      enteredBidAmount &&
-      enteredBidDescription &&
-      enteredBidAmount !== '' &&
-      enteredBidDescription !== ''
-    ) {
-      isValid.form = true;
-    }
+    // if (
+    //   enteredBidAmount &&
+    //   enteredBidDescription &&
+    //   enteredBidAmount !== '' &&
+    //   enteredBidDescription !== ''
+    // ) {
+    //   isValid.form = true;
+    // }
 
-    if (isValid.form) {
-      const clientData = {
-        bidAmount: enteredBidAmount,
-        bidDescription: enteredBidDescription,
-        isSuccess: isValid.form,
-      };
-      handleBidSubmit(clientData);
-    }
+    // if (isValid.form) {
+    //   const clientData = {
+    //     bidAmount: enteredBidAmount,
+    //     bidDescription: enteredBidDescription,
+    //     isSuccess: isValid.form,
+    //   };
+    handleBidSubmit();
   }
 
   return (
     <>
-      <Container maxWidth="lg" sx={{ margin: '2rem 0' }}>
+      <Container maxWidth="lg" sx={{ margin: '1rem 0' }}>
         <CssBaseline />
         <FormContainer>
           <ImageContainer>
@@ -224,13 +226,15 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
                     type="outlined"
                     selected="usd"
                     color="red"
+
                     // bgcolor="transparent"
                   />
-                  <CustomTextField
+                  <StyledTextArea
                     required
                     fullWidth
                     type="number"
                     id="bidAmount"
+                    typeh="less"
                     label=""
                     name="bidAmount"
                     inputRef={bidAmountInputRef}
@@ -275,13 +279,33 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
                 {errorMessage.bidDescription && (
                   <Error>{errorMessage.bidDescription}</Error>
                 )}
-                <SmallText>
-                  <GrayText>
-                    <i>Max: 500 characters</i>
-                  </GrayText>
-                </SmallText>
               </Grid>
             </Grid>
+            <GrayText>
+              <b>Bid Proposal</b>
+            </GrayText>
+            <StyledTextArea
+              placeholder="Milestone"
+              typeh="less"
+              // rowsMin={3}
+
+              // id="bidDescription"
+              // name="bidDescription"
+              // maxLength={500}
+              // onChange={(event) => {
+              //   const { value } = event.target;
+              //   setBidDescription(() => value);
+              //   if (value) {
+              //     setErrorMessage((prevState) => ({
+              //       ...prevState,
+              //       ['bidDescription']: null,
+              //     }));
+              //   }
+              // }}
+            />
+            {errorMessage.bidDescription && (
+              <Error>{errorMessage.bidDescription}</Error>
+            )}
             <ButtonContainer>
               <Container sx={{ width: '25%' }}>
                 <Button width="100%">Submit</Button>

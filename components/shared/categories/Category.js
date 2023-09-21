@@ -27,6 +27,7 @@ const IconContainer = styled.div`
 
   &:hover {
     color: ${(props) => (props.isSelected ? '#EB4C60' : '#525252')};
+    cursor: pointer;
   }
 `;
 const Label = styled.span`

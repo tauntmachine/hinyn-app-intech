@@ -21,14 +21,14 @@ const CustomSelect = styled(Select)`
     props.type === 'standard'
       ? '#ffffff'
       : props.color === 'red'
-      ? '#FFEEEF'
+      ? '#FADBD8 '
       : 'transparent'};
 
   color: ${(props) => (props.color === 'red' ? '#FF5A5F' : '#0F7669')};
   //
   // props.type === 'outlined' ? '1px solid #94949470' : 'none'};
   border-bottom: ${(props) =>
-    props.type === 'standard' ? 'none' : '1px solid #94949470'};
+    props.type === 'standard' ? '1px solid #94949470' : 'none'};
   padding: 0.5rem 1rem;
   border-radius: ${(props) =>
     props.type === 'standard' || props.type === 'outlined' ? '10px' : 'none'};
@@ -38,8 +38,7 @@ const CustomSelect = styled(Select)`
   }
 
   &:hover {
-    background: ${(props) =>
-      props.type === 'standard' ? '#ffffff' : 'transparent'};
+    background: ${(props) => (props.type === 'standard' ? '' : '#FADBD8')};
   }
 `;
 

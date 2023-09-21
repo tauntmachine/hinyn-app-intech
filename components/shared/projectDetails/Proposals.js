@@ -117,6 +117,7 @@ const InnerDesc = styled.div`
   display: flex;
   padding: 17px 5px;
   margin: 14px 0 0 0;
+  font-size: 13px;
   color: #909497;
 `;
 const ButtonsDiv = styled.div`
@@ -329,7 +330,7 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
                         $520
                       </b>
                     </Text>
-                    <Text fontSize="11.5px" marginLeft="20px">
+                    <Text fontSize="12px" marginLeft="20px" color="gray">
                       Bids Price
                     </Text>
                   </TextDiv>
