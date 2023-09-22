@@ -109,8 +109,8 @@ const FreelancerConnectedList = () => {
     },
   ]);
 
-  const showFreelancerProfile = (freelancerId) => {
-    router.push('/dashboard/professionalProfile?fid=' + freelancerId);
+  const showFreelancerProfile = () => {
+    router.push('/dashboard/professionalProfile');
   };
 
   //   useEffect(()=>{
@@ -157,11 +157,7 @@ const FreelancerConnectedList = () => {
                     <GrayText> {freelancer.insta} </GrayText>
                   </Box>
                   <Box>
-                    <CustomRedButton
-                      onClick={() =>
-                        showFreelancerProfile(freelancer?.user?.data?.id)
-                      }
-                    >
+                    <CustomRedButton onClick={() => showFreelancerProfile()}>
                       Hire Me
                     </CustomRedButton>
                   </Box>

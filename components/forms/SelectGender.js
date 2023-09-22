@@ -167,7 +167,7 @@ function SelectGender({ handleNextClick }) {
           >
             Let&apos;s make your profile
           </Text>
-          <Text color="gray">
+          <Text>
             Fill out your profile for clients to better understand your
           </Text>
           <Text> services.</Text>

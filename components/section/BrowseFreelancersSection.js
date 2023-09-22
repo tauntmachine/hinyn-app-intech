@@ -26,7 +26,7 @@ const ResultsBox = styled(Box)`
   display: flex;
   flex-direction: column;
   overflow: auto;
-  max-height: 85vh;
+  max-height: 150vh;
 `;
 
 const CustomContentBox = styled(ContentBox)``;
@@ -82,6 +82,7 @@ const MyFreelancersSection = () => {
                 headerTitle="Results"
                 hasBodyIcon={false}
                 noPadding={true}
+                giveh={true}
                 headerColor="red"
               >
                 <ResultsBox>

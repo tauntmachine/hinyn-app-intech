@@ -13,7 +13,7 @@ import Text, { SmallText } from '../shared/Typography';
 import Button, { GreenButton } from '../shared/Button';
 import Modal from '../shared/Modal';
 import StyledTextField, { SquareTextField } from '../shared/Textfield';
-import Dropdown from '../shared/Dropdown';
+import Dropdown3 from '../shared/Dropdown3';
 import Image from 'next/image';
 
 const StyledButton = styled(Button)``;
@@ -42,11 +42,10 @@ const VerticalDivider = styled.div`
   height: 1rem;
 `;
 
-const CustomDropdown = styled(Dropdown)`
+const CustomDropdown = styled(Dropdown3)`
   .MuiInputBase-root {
     border-radius: 10px;
   }
-  border-bottom: standard;
 `;
 
 const CustomTextField = styled(StyledTextField)`

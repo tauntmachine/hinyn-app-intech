@@ -24,11 +24,8 @@ const CustomSelect = styled(Select)`
       ? '#FADBD8 '
       : 'transparent'};
 
-  color: ${(props) => (props.color === 'red' ? '#FF5A5F' : '#0F7669')};
-  border: ${(props) =>
-    props.type === 'outlined' ? '1px solid #94949470' : ''};
-  border-bottom: ${(props) =>
-    props.type === 'standard' ? 'none' : '1px solid #94949470'};
+  color: ${(props) => (props.color === 'red' ? 'red' : '#0F7669')};
+
   padding: 0.5rem 1rem;
   border-radius: ${(props) =>
     props.type === 'standard' || props.type === 'outlined' ? '7px' : 'none'};

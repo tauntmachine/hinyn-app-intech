@@ -18,6 +18,7 @@ const StyledButton2 = styled.div`
   background: white;
   border: 1px solid #eb4c60;
   border-radius: 40px;
+  cursor: pointer;
 `;
 // const ButtonDiv = styled.div`
 //   height: 3rem;
@@ -214,7 +215,7 @@ function MemberShip({ handleNextClick }) {
               <Text marginLeft="8px">Preffered professional</Text>
             </IconText>
             {/* <ButtonOuline>Start Free Trial</ButtonOuline> */}
-            <StyledButton2>
+            <StyledButton2 onClick={Next}>
               <Text3>Start Free Trial</Text3>
             </StyledButton2>
           </ContainerBox>
@@ -256,7 +257,7 @@ function MemberShip({ handleNextClick }) {
               <Text marginLeft="8px">Preffered professional</Text>
             </IconText>
             {/* <ButtonOuline>Start Free Trial</ButtonOuline> */}
-            <StyledButton onClick={Next}>Signup for Today</StyledButton>
+            <StyledButton>Signup for Today</StyledButton>
           </ContainerBox>
         </ContainersMain>
         <ButtonContainer>

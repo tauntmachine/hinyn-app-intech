@@ -95,13 +95,14 @@ const CategoryItem = styled.div`
     color: #eb4c60;
 
     span {
-      color: #ffffff;
+      color: #eb4c60;
     }
   }
 
   &:hover .icon-img-box img {
-    filter: invert(0) sepia(0%) saturate(0%) hue-rotate(338deg) brightness(101%)
-      contrast(7);
+    // filter: invert(0) sepia(100%) saturate(0%) hue-rotate(338deg)
+    //   brightness(101%) contrast(7);
+    color: #eb4c60;
   }
 `;
 
@@ -930,8 +931,6 @@ function PostProjectForm1({ handleNextClick }) {
             type="outlined"
             selected={ageGroup}
             setHandleOnChange={onChangeAgeGroup}
-            color="red"
-            bgcolor="transparent"
           />
           {errorMessage.ageGroup && <Error>{errorMessage.ageGroup}</Error>}
         </Grid>
