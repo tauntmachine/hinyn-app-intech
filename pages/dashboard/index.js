@@ -22,18 +22,18 @@ const Index = () => {
   const [accountType, setAccountType] = useState(2);
   const [proposals, setProposals] = useState([]);
 
-  // useEffect(() => {
-  //   if (project && screen) setCurrentTab(1);
-  //   if (screen === 'browse') setCurrentTab(1);
-  //   const clientId = localStorage.getItem('hinyn-cid');
-  //   if (clientId) {
-  //     getLoggedInUserData().then((res) => {
-  //       if (res.data) {
-  //         setAccountType(() => res.data?.client?.accountType);
-  //       }
-  //     });
-  //   }
-  // }, [project, screen]);
+  useEffect(() => {
+    if (project && screen) setCurrentTab(1);
+    if (screen === 'browse') setCurrentTab(1);
+    const clientId = localStorage.getItem('hinyn-cid');
+    if (clientId) {
+      getLoggedInUserData().then((res) => {
+        if (res.data) {
+          setAccountType(() => res.data?.client?.accountType);
+        }
+      });
+    }
+  }, [project, screen]);
 
   const handleChangeTab = (val) => {
     setCurrentTab(val);

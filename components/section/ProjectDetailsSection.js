@@ -34,14 +34,15 @@ const HeaderContainer = styled.div`
 `;
 
 const BackIcon = styled(MdKeyboardBackspace)`
-  font-size: 16px;
+  font-size: 24px;
   font-weight: 600;
-  margin-right: 8px;
+  margin: 0 9px 0 0;
 `;
 
 const BackText = styled.div`
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
+  margin: 4.2px 0 0 0;
 `;
 
 const VerticalDivider = styled.div`
@@ -313,7 +314,7 @@ const ProjectDetailsSection = () => {
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
       <HeaderContainer>
-        <Container sx={{ display: 'flex' }} maxWidth="xl">
+        <Container sx={{ display: 'flex', marginLeft: '8.5rem' }} maxWidth="xl">
           <BackIcon />
           <BackText>
             <Link href="/dashboard">
