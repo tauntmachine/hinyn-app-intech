@@ -22,16 +22,18 @@ const CustomSelect = styled(Select)`
       ? '#ffffff'
       : props.color === 'red'
       ? '#FADBD8 '
-      : 'transparent'};
+      : '#e6e6e6'};
 
   color: ${(props) => (props.color === 'red' ? '#FF5A5F' : '#0F7669')};
   border: ${(props) =>
     props.type === 'outlined' ? '1px solid #94949470' : ''};
   border-bottom: ${(props) =>
-    props.type === 'standard' ? 'none' : '1px solid #94949470'};
+    props.type === 'standard' || props.typology === 'okok'
+      ? 'none'
+      : '1px solid #94949470'};
   padding: 0.5rem 1rem;
   border-radius: ${(props) =>
-    props.type === 'standard' || props.type === 'outlined' ? '7px' : 'none'};
+    props.type === 'standard' || props.type === 'outlined' ? '7px' : '7px'};
 
   &:before {
     border-bottom: 0;
@@ -52,6 +54,7 @@ export default function Dropdown({
   color,
   selected,
   bgcolor,
+  typology,
 }) {
   const handleChange = (event) => {
     console.log('event', event.target.value);
@@ -70,6 +73,7 @@ export default function Dropdown({
             onChange={handleChange}
             label={label ?? ''}
             type={type}
+            typology={typology}
             color={color}
             bgcolor={bgcolor}
             disableUnderline={true}

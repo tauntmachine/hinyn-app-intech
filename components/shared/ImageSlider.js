@@ -3,6 +3,7 @@ import 'swiper/css';
 import 'swiper/swiper-bundle.min.css';
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import Text from './Typography';
 
 const ImageWrapper = styled.div`
   position: relative;
@@ -22,6 +23,12 @@ const ImageSlider = ({ images }) => {
           <ImageWrapper>
             <Image src={path + image} layout="fill" />
           </ImageWrapper>
+          <Text color="green" marginTop="10px" fontSize="12px">
+            Portfolio Folder
+          </Text>
+          <Text color="gray" fontSize="11px">
+            5 pictures
+          </Text>
         </SwiperSlide>
       ))}
     </Swiper>

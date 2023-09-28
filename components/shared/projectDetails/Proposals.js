@@ -11,6 +11,8 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { RedButton, GreenButton } from '../Button';
 import Modal from '../Modal';
+import Modal2 from '../Modal2';
+import BidFreelancerForm2 from '../../forms/BidFreelancerForm2';
 
 const MainWrapper = styled.div`
   padding: 2.5rem 5rem;
@@ -18,6 +20,8 @@ const MainWrapper = styled.div`
   flex-direction: column;
   row-gap: 1.25rem;
   max-height: 150vh;
+
+  border-radius: 0 0 15px 15px;
 `;
 
 const Row = styled(Box)`
@@ -118,7 +122,7 @@ const InnerDesc = styled.div`
   padding: 17px 5px;
   margin: 14px 0 0 0;
   font-size: 13px;
-  color: #909497;
+  color: #a5aaad;
 `;
 const ButtonsDiv = styled.div`
   width: 11rem;
@@ -133,17 +137,36 @@ const PillButton = styled.div`
   margin: 10px 0 0 0;
 `;
 const PillButton2 = styled.div`
-  padding: 10px 33px;
-  background: #f9dfe2;
+  padding: 10px 44px;
+  background: #f5e1e3;
   border-radius: 40px;
-  color: #eb4c60;
-  margin: auto;
+  color: #f7687a;
+
   font-size: 13px;
+  cursor: pointer;
+`;
+const PillButton3 = styled.div`
+  padding: 10px 44px;
+  background: #ccebe7;
+  border-radius: 40px;
+  color: #4aa398;
+
+  font-size: 13px;
+  cursor: pointer;
+`;
+const AlertDiv = styled.div`
+  background: #e9f3fc;
+  color: #4aa398;
+  padding: 18px 20px;
+  border: 1px solid #4aa398;
+  border-radius: 10px;
+  display: ${(props) => (props.open ? 'block' : 'none')};
 `;
 const Proposals = ({ projectId, bidData, isBidOwner }) => {
   const router = useRouter();
   const [proposals, setProposals] = useState([
     {
+      modify: 'asd',
       firstName: 'Samantha',
       lastName: 'Davidson',
       instagramProfile: 'samantha123',
@@ -177,7 +200,7 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
     },
   ]);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
-
+  const [open, setOpen] = useState(false);
   const imgPath = '/assets/img/avatars/';
 
   //  useEffect(()=>{
@@ -199,23 +222,31 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
   const handleClose = (e, reason) => {
     if (openSuccessModal) setOpenSuccessModal(false);
   };
-
+  const Close = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(() => true);
+  };
   const listAllProjects = () => {
     router.push('/dashboard');
   };
 
-  const handleAcceptBid = (proposalId) => {
-    const proposalData = {
-      dateAwarded: new Date(),
-    };
-    updateProposalData(proposalData, proposalId).then((result) => {
-      if (result?.data) {
-        setOpenSuccessModal(() => true);
-      }
-    });
+  const handleAcceptBid = (proposal) => {
+    // const proposalData = {
+    //   dateAwarded: new Date(),
+    // };
+    // updateProposalData(proposalData, proposalId).then((result) => {
+    //   if (result?.data) {
+    setOpenSuccessModal(() => true);
+    //   }
+    // });
   };
   return (
     <MainWrapper>
+      <AlertDiv>
+        You have accepred rania bid contact them now to start the project.
+      </AlertDiv>
       {proposals &&
         proposals.map((proposal, idx) => {
           let bidder = proposal;
@@ -262,7 +293,7 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
                             {bidder?.instagramProfile ?? ''}{' '}
                           </GrayText>
                         </Box>
-                        <Box>
+                        {/* <Box>
                           {isBidOwner ? (
                             <CustomRedButton
                               onClick={() => handleAcceptBid(proposal?.id)}
@@ -276,14 +307,8 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
                             </CustomRedButton>
                           ) : (
                             ''
-                            // <Text color="green" fontSize="20px">
-                            //   <b>
-                            //     {/* {proposal?.budget} {proposal.currency ?? 'AED'} */}
-                            //     $520
-                            //   </b>
-                            // </Text>
                           )}
-                        </Box>
+                        </Box> */}
                       </Row>
                       <Row>
                         <LocationIcon />
@@ -335,7 +360,25 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
                     </Text>
                   </TextDiv>
                   <ButtonsDiv>
-                    <PillButton2>Accepted Bid</PillButton2>
+                    {/* <PillButton2 onClick={HandleOpen}>Accepted Bid</PillButton2> */}
+                    {!proposal.modify ? (
+                      <PillButton2
+                        onClick={() => handleOpen()}
+                        className={proposal?.dateAwarded ? 'isAwarded' : ''}
+                      >
+                        {/* {proposal.modify ? 'Modify Bid' : 'Accept Bid'} */}
+                        Accept Bid
+                      </PillButton2>
+                    ) : (
+                      <PillButton3
+                        onClick={() => handleAcceptBid(proposal?.id)}
+                        className={proposal?.dateAwarded ? 'isAwarded' : ''}
+                      >
+                        {/* {proposal.modify ? 'Modify Bid' : 'Accept Bid'} */}
+                        Modify Bid
+                      </PillButton3>
+                    )}
+
                     <PillButton>Message</PillButton>
                   </ButtonsDiv>
                 </SecondDiv>
@@ -362,36 +405,12 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
         </Box>
       ) : null}
 
-      <Modal handleClose={handleClose} isOpen={openSuccessModal} maxWidth="md">
-        <Box sx={{ padding: '5rem 0' }}>
-          <Column sx={{ alignItems: 'center' }}>
-            <Row>
-              <IconContainer>
-                <CustomCheckIcon variant="green" />
-              </IconContainer>
-            </Row>
-            <Row>
-              <Text color="green" size="large">
-                <b>Bid Accepted</b>
-              </Text>
-            </Row>
-            <Row>
-              <Container maxWidth="sm">
-                <GrayText align="center">
-                  You have accepted the bid. Contact them now to start the
-                  project
-                </GrayText>
-              </Container>
-            </Row>
-            <Row>
-              <GreenButton onClick={listAllProjects}>
-                {' '}
-                Browse more projects
-              </GreenButton>
-            </Row>
-          </Column>
-        </Box>
-      </Modal>
+      <Modal2 handleClose={handleClose} isOpen={openSuccessModal} maxWidth="md">
+        <BidFreelancerForm2 />
+      </Modal2>
+      {/* <Modal isOpen={HandleOpen} handleClose={Close}>
+        asd
+      </Modal> */}
     </MainWrapper>
   );
 };

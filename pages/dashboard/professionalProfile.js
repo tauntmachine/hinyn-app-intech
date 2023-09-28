@@ -4,10 +4,12 @@ import ContentBox from '../../components/shared/ContentBox';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import Text, { GrayText } from '../../components/shared/Typography';
+
 import {
   LocationIcon,
   AwardIcon,
   RoundChatIcon,
+  Dots,
 } from '../../components/shared/Icon';
 import StarRating from '../../components/shared/StarRating';
 import Footer from '../../components/section/Footer';
@@ -19,6 +21,11 @@ import ImageSlider from '../../components/shared/ImageSlider';
 import ReviewBox from '../../components/shared/ReviewBox';
 import { CheckSquareIcon } from '../../components/shared/Icon';
 import moment from 'moment';
+import Button from '../../components/shared/Button';
+import Modal from '../../components/shared/Modal';
+import BidFreelancerForm from '../../components/forms/BidFreelancerForm';
+import BidFreelancerForm2 from '../../components/forms/BidFreelancerForm2';
+import Modal2 from '../../components/shared/Modal2';
 
 const Row = styled(Box)`
   display: flex;
@@ -69,7 +76,25 @@ const LargeIcon = styled.div`
 const VerticalDivider = styled.div`
   height: 2rem;
 `;
-
+const ButtonSkills = styled.div`
+  background: #e2f2f0;
+  border-radius: 30px;
+  padding: 4px 7px;
+  font-size: 12.3px;
+  color: #4aa398;
+  width: 50px;
+  display: flex;
+`;
+const DivB = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+`;
+const DivButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 280px;
+`;
 const ProfessionalProfile = () => {
   const router = useRouter();
   let imgPath = '/assets/img/avatars/';
@@ -83,6 +108,7 @@ const ProfessionalProfile = () => {
   ]);
   const [clientCategories, setClientCategories] = useState(null);
   const [currentTab, setCurrentTab] = useState(0);
+  const [open, setOpen] = useState(false);
   const { fid } = router.query;
 
   const reviews = [
@@ -191,6 +217,15 @@ const ProfessionalProfile = () => {
     setCurrentTab(val);
     router.push('/dashboard');
   };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleBidSubmit = () => {
+    setOpen(() => false);
+  };
 
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
@@ -214,20 +249,24 @@ const ProfessionalProfile = () => {
                   </ImageContainer>
                 </Column>
                 <Column>
-                  <Row sx={{ gap: '14px', alignItems: 'center' }}>
-                    <Name color="red">
-                      <b>
-                        {/* {clientData?.firstName} {clientData?.lastName} */}
-                        Steve Washington
-                      </b>
-                    </Name>
-                    <GrayText size="large">
-                      {' '}
-                      {/* {clientData?.instagramProfile ??
+                  <DivButton>
+                    <Row sx={{ gap: '14px', alignItems: 'center' }}>
+                      <Name color="green">
+                        <b>
+                          {/* {clientData?.firstName} {clientData?.lastName} */}
+                          Steve Washington
+                        </b>
+                      </Name>
+                      <GrayText size="large">
+                        {' '}
+                        {/* {clientData?.instagramProfile ??
                         '@' + clientData?.firstName} */}
-                      @samantha123{' '}
-                    </GrayText>
-                  </Row>
+                        @samantha123{''}
+                      </GrayText>
+                    </Row>
+                    {/* <Button onClick={handleOpen}>Send Bid</Button> */}
+                    <Dots color="red" onClick={handleOpen} />
+                  </DivButton>
                   <Row sx={{ gap: '16px', alignItems: 'center' }}>
                     <StarRating data={clientData?.rating ?? 3} sz="xl" />
                     <GrayText>
@@ -266,7 +305,7 @@ const ProfessionalProfile = () => {
                   <Row>
                     <GrayText>
                       {/* {clientData?.headline ?? 'Headline'} */}
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Lorems ipsum dolor sit amet, consectetur adipiscing elit.
                       Aliquam non orci vestibulum, congue est et, lacinia neque.
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -280,10 +319,10 @@ const ProfessionalProfile = () => {
             <VerticalDivider />
             <ContentBox
               hasHeader={true}
-              headerTitle="Business Profile"
-              headerColor="red"
+              headerTitle="Portfolio"
+              headerColor="green"
             >
-              <Text color="red">Name of Business</Text>
+              {/* <Text color="red">Name of Business</Text>
               <GrayText>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
                 non orci vestibulum, congue est et, lacinia neque. Lorem ipsum
@@ -291,18 +330,19 @@ const ProfessionalProfile = () => {
                 sit amet, consectetur adipiscing elit. Aliquam non orci
                 vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit
                 amet, consectetur adipiscing elit.
-              </GrayText>
+              </GrayText> */}
               <VerticalDivider />
               <Row>
                 <ImageSlider images={projectDetails?.attachments} />
+                {/* <ImageSlider images={projectDetails?.attachments} /> */}
               </Row>
             </ContentBox>
             <VerticalDivider />
             <ContentBox
               hasHeader={true}
               headerTitle="Reviews"
-              headerColor="red"
-              isScrollable={true}
+              headerColor="green"
+              isScrollable={false}
             >
               <Column sx={{ rowGap: '1rem', margin: '1.5rem 0' }}>
                 {reviews &&
@@ -329,7 +369,7 @@ const ProfessionalProfile = () => {
             <ContentBox
               hasHeader={true}
               headerTitle="Verifications"
-              headerColor="red"
+              headerColor="green"
             >
               <Box
                 sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
@@ -356,8 +396,22 @@ const ProfessionalProfile = () => {
                 })}
               </Box>
             </ContentBox>
+            <ContentBox
+              hasHeader={true}
+              headerTitle="Skills"
+              headerColor="green"
+            >
+              <DivB>
+                <ButtonSkills>Skills</ButtonSkills>
+                <ButtonSkills>Skills</ButtonSkills>
+                <ButtonSkills>Skills</ButtonSkills>
+              </DivB>
+            </ContentBox>
           </Grid>
         </Grid>
+        <Modal2 handleClose={handleClose} isOpen={open} maxWidth="md">
+          <BidFreelancerForm2 handleBidSubmit={handleBidSubmit} />
+        </Modal2>
       </Container>
       <Footer />
     </Box>

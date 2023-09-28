@@ -1,4 +1,4 @@
-import { Box, Grid, Container, Typography } from '@mui/material';
+import { Box, Grid, Container, Typography, Modal } from '@mui/material';
 import ContentBox from '../../components/shared/ContentBox';
 import {
   RightChevronIcon,
@@ -93,11 +93,25 @@ const StyledPill = styled.div`
 const StatusText = styled.div`
   text-transform: capitalize;
 `;
-
+const WelcomeCon = styled.div`
+  height: 10rem;
+  width: 10rem;
+  background: green;
+  margin: auto;
+`;
 const NewsfeedSection = () => {
   const [accountType, setAccountType] = useState(2);
+  const [open, setOpen] = useState(false);
   const router = useRouter();
-
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleSubmit = () => {
+    handleClose();
+  };
   // useEffect(() => {
   //     const clientId = localStorage.getItem('hinyn-cid');
   //     if(clientId){
@@ -417,43 +431,52 @@ const NewsfeedSection = () => {
     accountType === 1 ? professionalNewsfeedData : clientNewsfeedData;
 
   return (
-    <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
-      <ContainerDiv
-      // sx={{
-      //   marginTop: '5rem',
-      //   marginLeft: '6.5rem',
-      //   background: 'red',
-      //   width: '97rem',
-      // }}
-      >
-        <Grid container columnSpacing={4}>
-          <Grid item xs={6}>
-            {newsfeedData &&
-              newsfeedData.map((item, idx) => {
-                return idx === 0 ? (
-                  <ContentBox
-                    hasHeader={true}
-                    headerTitle="Newsfeed"
-                    headerColor={'gray'}
-                    headerIcon={<RssIcon />}
-                    hasBodyIcon={true}
-                  >
-                    {getNewsFeedByType(item)}
-                  </ContentBox>
-                ) : (
-                  <ContentBox hasBodyIcon={true}>
-                    {getNewsFeedByType(item)}
-                  </ContentBox>
-                );
-              })}
+    <>
+      <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
+        <ContainerDiv
+        // sx={{
+        //   marginTop: '5rem',
+        //   marginLeft: '6.5rem',
+        //   background: 'red',
+        //   width: '97rem',
+        // }}
+        >
+          <Modal
+            handleClose={handleClose}
+            handleSubmit={handleSubmit}
+            isOpen={true}
+          >
+            <WelcomeCon>asdasd</WelcomeCon>
+          </Modal>
+          <Grid container columnSpacing={4}>
+            <Grid item xs={6}>
+              {newsfeedData &&
+                newsfeedData.map((item, idx) => {
+                  return idx === 0 ? (
+                    <ContentBox
+                      hasHeader={true}
+                      headerTitle="Newsfeed"
+                      headerColor={'gray'}
+                      headerIcon={<RssIcon />}
+                      hasBodyIcon={true}
+                    >
+                      {getNewsFeedByType(item)}
+                    </ContentBox>
+                  ) : (
+                    <ContentBox hasBodyIcon={true}>
+                      {getNewsFeedByType(item)}
+                    </ContentBox>
+                  );
+                })}
+            </Grid>
+            <Grid item xs={4}>
+              {userProjects && getUserProjects()}
+              {userData && getUserData()}
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            {userProjects && getUserProjects()}
-            {userData && getUserData()}
-          </Grid>
-        </Grid>
-      </ContainerDiv>
-    </Box>
+        </ContainerDiv>
+      </Box>
+    </>
   );
 };
 
