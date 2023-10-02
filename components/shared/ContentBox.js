@@ -4,8 +4,7 @@ import { UserIcon } from './Icon';
 
 const Container = styled.div`
   margin-bottom: 1rem;
-
-  width: ${(props) => (props.isScrollable ? '30rem' : '')};
+  width: ${(props) => (props.setWidth ? '30rem' : '')};
 `;
 
 const Header = styled.div`
@@ -62,9 +61,10 @@ const ContentBox = ({
   padding,
   children,
   giveh,
+  setWidth,
 }) => {
   return (
-    <Container isScrollable={isScrollable} giveh={giveh}>
+    <Container isScrollable={isScrollable} giveh={giveh} setWidth={setWidth}>
       {hasHeader && (
         <Header headerColor={headerColor}>
           {headerIcon ?? headerIcon}

@@ -15,13 +15,17 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getLoggedInUserData } from '../forms/formService';
 const ContainerDiv = styled.div`
-  width: 120rem;
-  margin: 4rem 0 0 9rem;
+  width: 112rem;
+  margin: 4rem 0 0 0;
+
+  padding: 0 0 0 15rem;
 `;
 const ProjectsBox = styled(Box)`
   display: 'flex';
   flex-direction: 'column';
   max-height: 28rem;
+
+  width: 100%;
 `;
 
 const Title = styled(Typography)`
@@ -86,8 +90,8 @@ const StyledPill = styled.div`
   color: #555555;
   border-radius: 13px;
   display: flex;
-  padding: 0.5rem 1.25rem;
-  font-size: 12px;
+  padding: 0.43rem 1.2rem;
+  font-size: 10.5px;
 `;
 
 const StatusText = styled.div`
@@ -336,6 +340,7 @@ const NewsfeedSection = () => {
         headerColor={'gray'}
         headerIcon={<UsersIcon />}
         hasBodyIcon={false}
+        setWidth={true}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -374,13 +379,14 @@ const NewsfeedSection = () => {
   const getUserProjects = () => {
     return (
       <ContentBox
-        isScrollable={true}
+        isScrollable={false}
         hasHeader={true}
         headerTitle="Your Projects"
         headerColor={'gray'}
         headerIcon={<UsersIcon />}
         hasBodyIcon={false}
         padding={true}
+        setWidth={true}
       >
         <ProjectsBox>
           {userProjects.length > 0 ? (
