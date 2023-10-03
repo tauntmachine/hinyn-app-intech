@@ -5,7 +5,7 @@ axios.defaults.withCredentials = true;
 export const getApiSkill = async () => {
   return axios
     .get(
-      origin + '/clients?populate=*',
+      origin + '/skills',
       {},
       {
         withCredentials: true,
