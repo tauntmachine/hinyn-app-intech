@@ -46,6 +46,18 @@ export async function getServerSideProps() {
   };
 }
 
+export async function getSkill() {
+  const res = await getClients()
+    .then(async (response) => {
+      if (response.data) {
+        return (freelancerResult = response.data?.data);
+      }
+    })
+    .catch(function (error) {
+      return { status: false, data: error };
+    });
+}
+
 const useFreelancerController = (freelancer: Freelancer[]) => {
   const [filter, setFilter] = useState(undefined);
 
