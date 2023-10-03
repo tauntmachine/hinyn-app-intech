@@ -8,6 +8,7 @@ import {
   Container,
   TextareaAutosize,
 } from '@mui/material';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 import styled from '@emotion/styled';
 import Text, { SmallText } from '../shared/Typography';
 import Button, { GreenButton } from '../shared/Button';
@@ -15,6 +16,7 @@ import Modal from '../shared/Modal';
 import StyledTextField, { SquareTextField } from '../shared/Textfield';
 import Dropdown3 from '../shared/Dropdown3';
 import Image from 'next/image';
+import Dropdown from '../shared/Dropdown';
 
 const StyledButton = styled(Button)``;
 
@@ -24,6 +26,7 @@ const FormContainer = styled(Box)`
   row-gap: 10px;
   align-items: center;
   width: 100%;
+
   border-radius: 20px;
 `;
 
@@ -100,10 +103,17 @@ const StyledImage = styled(Image)`
 const Capitalize = styled.span`
   text-transform: capitalize;
 `;
-
-const BidFreelancerForm = ({ handleBidSubmit, data }) => {
+const InputDiv = styled.div`
+  display: flex;
+  gap: 0 10px;
+`;
+const BidFreelancerForm2 = ({ handleBidSubmit, data }) => {
   let imgpath = '/assets/img/avatars/';
-
+  const [categories, setCategories] = useState([
+    'photographer',
+    'videographer',
+    'Editor',
+  ]);
   const currencies = [
     {
       title: 'USD',
@@ -168,12 +178,12 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
     //     bidDescription: enteredBidDescription,
     //     isSuccess: isValid.form,
     //   };
-    handleBidSubmit();
+    // handleBidSubmit();
   }
 
   return (
     <>
-      <Container maxWidth="lg" sx={{ margin: '1rem 0' }}>
+      <Container maxWidth="lg" sx={{ margin: '0.45rem 0' }}>
         <CssBaseline />
         <FormContainer>
           <ImageContainer>
@@ -199,13 +209,27 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
               project? Send a bid and tell them what your project is all about.
             </Text>
           </Container>
-          <VerticalDivider />
+
           <Box
             component="form"
             noValidate
             onSubmit={submitHandler}
             sx={{ mt: 3, width: '100%' }}
           >
+            <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
+              <Grid item xs={12}>
+                <GrayText>
+                  <b>Select project</b>
+                </GrayText>
+
+                <Dropdown
+                  hasLabel={false}
+                  items={categories}
+                  width="100%"
+                  typology="okok"
+                />
+              </Grid>
+            </Grid>
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
                 <GrayText>
@@ -283,28 +307,36 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
             <GrayText>
               <b>Bid Proposal</b>
             </GrayText>
-            <StyledTextArea
-              placeholder="Milestone"
-              typeh="less"
-              // rowsMin={3}
+            <InputDiv>
+              <StyledTextArea
+                placeholder="Milestone"
+                typeh="less"
+                maxLength={100}
+                // rowsMin={3}
 
-              // id="bidDescription"
-              // name="bidDescription"
-              // maxLength={500}
-              // onChange={(event) => {
-              //   const { value } = event.target;
-              //   setBidDescription(() => value);
-              //   if (value) {
-              //     setErrorMessage((prevState) => ({
-              //       ...prevState,
-              //       ['bidDescription']: null,
-              //     }));
-              //   }
-              // }}
-            />
-            {errorMessage.bidDescription && (
-              <Error>{errorMessage.bidDescription}</Error>
-            )}
+                // id="bidDescription"
+                // name="bidDescription"
+                // maxLength={500}
+                // onChange={(event) => {
+                //   const { value } = event.target;
+                //   setBidDescription(() => value);
+                //   if (value) {
+                //     setErrorMessage((prevState) => ({
+                //       ...prevState,
+                //       ['bidDescription']: null,
+                //     }));
+                //   }
+                // }}
+              />
+              {errorMessage.bidDescription && (
+                <Error>{errorMessage.bidDescription}</Error>
+              )}
+              <StyledTextArea
+                placeholder="Milestone"
+                typeh="less"
+                maxLength={100}
+              />
+            </InputDiv>
             <ButtonContainer>
               <Container sx={{ width: '25%' }}>
                 <Button width="100%">Submit</Button>
@@ -317,4 +349,4 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
   );
 };
 
-export default BidFreelancerForm;
+export default BidFreelancerForm2;

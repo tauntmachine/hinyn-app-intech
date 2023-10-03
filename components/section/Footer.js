@@ -12,6 +12,7 @@ const FooterContainer = styled.div`
   left: 0;
   right: 0;
   background: #fdfdfd;
+  margin: ${(props) => (props.margin === 'top' ? '20px ' : '')};
 `;
 const List = styled.ul`
   display: flex;

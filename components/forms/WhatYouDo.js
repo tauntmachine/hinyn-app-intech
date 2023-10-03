@@ -46,8 +46,8 @@ const VerticalDivider = styled.div`
 const StyledTextArea = styled(TextareaAutosize)`
   resize: none;
   width: 100%;
-  min-height: 15rem;
-  border-radius: 20px;
+  min-height: 10rem;
+  border-radius: 15px;
   border-color: #ccc;
   padding: 10px;
   font-family: inherit;
@@ -116,7 +116,7 @@ function WhatYouDo({ handleNextClick }) {
           <Text fontSize="34px" marginBottom="10px">
             <b>Let&apos;s make your profile</b>
           </Text>
-          <Text color="gray">
+          <Text>
             Fill out your profile for clients to better understand your
           </Text>
           <Text>services.</Text>
@@ -124,7 +124,7 @@ function WhatYouDo({ handleNextClick }) {
           <Text color="green" marginBottom="8px">
             What do you do?{' '}
           </Text>
-          <Text color="gray">Write a one line description about yourself</Text>
+          <Text>Write a one line description about yourself</Text>
           <Box
             component="form"
             noValidate
@@ -154,15 +154,15 @@ function WhatYouDo({ handleNextClick }) {
             <Text color="green" align="center" marginBottom="8px">
               Describe yourself{' '}
             </Text>
-            <Text color="gray" align="center">
+            <Text align="center">
               Describe your top skills, strengths and experiences. Provide more
             </Text>
-            <Text color="gray" align="center">
+            <Text align="center">
               details on the services you offer, things you’re interested in
               working on,
             </Text>
 
-            <Text color="gray" align="center" marginBottom="20px">
+            <Text align="center" marginBottom="20px">
               and what you like to do.
             </Text>
             <Grid

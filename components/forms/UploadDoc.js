@@ -24,7 +24,10 @@ const StyledUploadIcon = styled(UploadIcon)`
   font-weight: 600;
   color: #0f7669;
 `;
-const AvatarDiv = styled.div``;
+const AvatarDiv = styled.div`
+  margin: 40px 40px;
+  background: red;
+`;
 const UploadButton = styled(CustomButton)`
   border: 1px solid #0f7669;
   color: #0f7669;
@@ -184,14 +187,13 @@ function UploadDoc({ handleNextClick }) {
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
                 <AvatarUpload onClick={toggleOpenCameraModal}>
-                  <AvatarDiv>
-                    {/* <Text color="green">Upload a photo</Text>{' '} */}
-                    {/* <Image
+                  <Text color="green">doc picture</Text>{' '}
+                  {/* <Image
                       source={require('../../public/assets/img/icons/userimg.jpg')}
                       width="60px"
                       height="60px"
+                      alt="doc"
                     /> */}
-                  </AvatarDiv>
                 </AvatarUpload>
                 {errorMessage.documentSelfie && (
                   <Error>{errorMessage.documentSelfie}</Error>

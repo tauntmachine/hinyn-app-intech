@@ -32,6 +32,7 @@ import {
   BsChat,
   BsCardImage,
   BsTelephone,
+  BsThreeDotsVertical,
 } from 'react-icons/bs';
 import { BiUser } from 'react-icons/bi';
 import { RiSuitcaseLine } from 'react-icons/ri';
@@ -223,6 +224,17 @@ export const LockIcon = styled(AiTwotoneLock)`
       : props.variant === 'green'
       ? '#4AA398'
       : '#525252'};
+`;
+export const Dots = styled(BsThreeDotsVertical)`
+  color: ${(props) =>
+    props.variant === 'red'
+      ? '#EB4C60'
+      : props.variant === 'green'
+      ? '#4AA398'
+      : '#525252'};
+  margin: 15px 0 0 0;
+  font-size: 17px;
+  cursor: pointer;
 `;
 
 export const OutlineSearchIcon = styled(AiOutlineSearch)`

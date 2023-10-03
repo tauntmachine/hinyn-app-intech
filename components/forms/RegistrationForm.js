@@ -71,6 +71,7 @@ const AgreeDiv = styled.div`
 const TextLink = styled.span`
   margin-left: 8px;
   cursor: pointer;
+  color: #4aa398;
 `;
 
 const Text = styled.span`
@@ -462,7 +463,7 @@ function RegistrationForm() {
               <Grid item>
                 <Text>
                   Already have an account?{' '}
-                  {/* <TextLink color="green">Login</TextLink> */}
+                  <TextLink color="green">Login</TextLink>
                 </Text>
               </Grid>
             </Grid>

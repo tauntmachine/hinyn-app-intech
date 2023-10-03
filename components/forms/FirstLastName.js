@@ -151,15 +151,13 @@ function FirstLastName({ handleNextClick }) {
             <b>Let&apos;s make your account</b>
           </Text>
           <AvatarUpload onClick={toggleOpenCameraModal}>
-            <AvatarDiv>
-              {/* <Image
+            {/* <Image
                 src={require('../../public/assets/img/icons/userimg.jpg')}
                 width="60px"
                 height="60px"
               /> */}
 
-              <Text color="green">Upload a photo</Text>
-            </AvatarDiv>
+            <Text color="green">Upload a photo</Text>
           </AvatarUpload>
           <Text color="green" marginBottom="10px">
             What is your name?{' '}

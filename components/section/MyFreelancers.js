@@ -6,6 +6,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getBidsOfClient, getProposalsOfClient } from '../forms/formService';
 import Text from '../shared/Typography';
+import { useFreelancer } from '../../src/store';
+import Dropdown2 from '../shared/Dropdown2';
+import CardsSection from './CardsSection';
 
 const CustomPagination = styled(Pagination)`
   button {
@@ -21,6 +24,7 @@ const NoDataContainer = styled.div`
 
 const MyFreelancers = () => {
   const router = useRouter();
+  const { freelancer, filter, setFilter } = useFreelancer();
   const [clientBids, setClientBids] = useState([
     {
       title: 'Kate and Joeys spanish wedding',
@@ -121,10 +125,13 @@ const MyFreelancers = () => {
         }}
         maxWidth="xl"
       >
-        <Dropdown hasLabel={true} label="Show" items={showOptions} />
-        <Dropdown hasLabel={true} label="Sort" items={sortOptions} />
+        <Dropdown2 hasLabel={true} label="Show" items={showOptions} />
+        <Dropdown2 hasLabel={true} label="Sort" items={sortOptions} />
       </Container>
-      <Container sx={{ paddingBottom: '2rem' }} maxWidth="lg">
+      <Container maxWidth="lg" sx={{ marginBottom: '50px' }}>
+        <CardsSection cards={freelancer} hasTools={false} cardText="Hire me" />
+      </Container>
+      {/* <Container sx={{ paddingBottom: '2rem' }} maxWidth="lg">
         <Grid container spacing={4} sx={{ marginTop: '0.25rem' }}>
           {clientBids.map((bid, idx) => {
             return (
@@ -159,7 +166,7 @@ const MyFreelancers = () => {
             </Stack>
           </Box>
         }
-      </Container>
+      </Container> */}
     </Box>
   );
 };

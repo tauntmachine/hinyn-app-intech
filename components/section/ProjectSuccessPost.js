@@ -131,7 +131,7 @@ const ProjectSuccessPost = () => {
       </Container>
       <Container maxWidth="lg" sx={{ marginBottom: '50px' }}>
         <CardsSection
-          cards={cards}
+          cards={freelancer}
           hasTools={false}
           cardText="Put a bid"
           handleButtonClick={handleButtonClick}
@@ -177,7 +177,7 @@ const ProjectSuccessPost = () => {
           </Stack>
         </Box>
       </Modal>
-      <Footer />
+      <Footer margin="top" />
     </>
   );
 };

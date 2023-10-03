@@ -7,7 +7,7 @@ const AvatarUpload = styled.div`
   border-radius: 50%;
   box-shadow: 0px 3px 6px #00000029;
   margin: 2rem auto;
-  // display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
