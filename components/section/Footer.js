@@ -17,7 +17,7 @@ const FooterContainer = styled.div`
 const List = styled.ul`
   display: flex;
   justify-content: space-evenly;
-  width: 100%;
+  width: 64%;
 `;
 
 const Item = styled.li`

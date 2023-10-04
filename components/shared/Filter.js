@@ -169,8 +169,8 @@ function Filter() {
             <Dropdown
               hasLabel={false}
               items={categories}
-              setHandleOnChange={handleCategoryChange}
-              selected={selectedCategory}
+              // setHandleOnChange={handleCategoryChange}
+              // selected={selectedCategory}
               width="100%"
               type="standard"
             />
@@ -180,8 +180,8 @@ function Filter() {
             <Dropdown
               hasLabel={false}
               items={skills}
-              setHandleOnChange={handleSkillsChange}
-              selected={selectedSkill}
+              // setHandleOnChange={handleSkillsChange}
+              // selected={selectedSkill}
               width="100%"
               type="standard"
             />
@@ -191,8 +191,8 @@ function Filter() {
             <Dropdown
               hasLabel={false}
               items={locations}
-              setHandleOnChange={handleLocationChange}
-              selected={selectedLocation}
+              // setHandleOnChange={handleLocationChange}
+              // selected={selectedLocation}
               width="100%"
               type="standard"
             />
@@ -200,10 +200,10 @@ function Filter() {
           <Item>
             <ItemLabel>Budget</ItemLabel>
             <Dropdown
-              hasLabel={false}
+              hasLabel={true}
               items={budget}
-              setHandleOnChange={handleBudgetChange}
-              selected={selectedBudget}
+              // setHandleOnChange={handleBudgetChange}
+              // selected={selectedBudget}
               width="100%"
               type="standard"
             />
