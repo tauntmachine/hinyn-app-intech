@@ -4,7 +4,7 @@ import CardsSection from './CardsSection';
 import { useFreelancer } from '../../src/store';
 import { useState, useEffect } from 'react';
 import { getCategories } from '../forms/formService';
-import cards from '../data/FreelancersData';
+import Text from '../shared/Typography';
 
 const ContainerCustom = styled.div`
   margin-top: 12rem;
@@ -17,7 +17,7 @@ const ContainerCustom = styled.div`
 function Main() {
   const { freelancer, filter, setFilter } = useFreelancer();
   const [currCatSelected, setCurrCatSelected] = useState('');
-
+  console.log('THIS IS' + freelancer);
   const categoriesFilter = [
     {
       title: 'Photographer',
@@ -54,6 +54,7 @@ function Main() {
         handleSelectedCategory={handleSelectedCategory}
         currCatSelected={currCatSelected}
       />
+      {/* <Text>{freelancer}</Text> */}
       <CardsSection cards={freelancer} handleButtonClick={handleButtonClick} />
     </ContainerCustom>
   );

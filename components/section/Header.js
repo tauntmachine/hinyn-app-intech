@@ -14,6 +14,7 @@ import BidFreelancerForm from '../forms/BidFreelancerForm';
 import PhoneNo from '../forms/PhoneNo';
 import { getClientData, getClients, logoutUser } from '../forms/formService';
 import Image from 'next/image';
+import { useFreelancer } from '../../src/store';
 const CustomGlobeIcon = styled(FiGlobe)`
   margin-top: 4px;
   font-size: 20px;
@@ -68,15 +69,16 @@ const LinkText = styled.div`
 `;
 
 const Header = () => {
+  const { categories } = useFreelancer();
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState({});
 
-  useEffect(() => {
-    if (localStorage.getItem('hinyn-cjwt')) {
-      setIsLoggedIn(() => true);
-    } else setIsLoggedIn(() => false);
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   if (localStorage.getItem('hinyn-cjwt')) {
+  //     setIsLoggedIn(() => true);
+  //   } else setIsLoggedIn(() => false);
+  // }, [isLoggedIn]);
 
   const toggleIsExpanded = () => {
     setIsExpanded(() => !isExpanded);
