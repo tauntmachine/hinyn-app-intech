@@ -1,7 +1,6 @@
 import { useState, useMemo, createContext, useContext } from 'react';
 import axios from 'axios';
 import {
-  getClientCategories,
   getClients,
   getFilteredClients,
 } from '../components/forms/formService';
