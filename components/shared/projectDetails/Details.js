@@ -151,7 +151,7 @@ const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
           {/* <PillWithIcon color="green" bg="transparent" category={bidData} /> */}
           <PillButton>
             <Image
-              src={require('../../../public/assets/img/categories/icn-videographer.svg')}
+              src={require('../../../public/assets/img/categories/icon-videographer.svg')}
               alt="icon-img"
               width="30px"
               height="30px"
