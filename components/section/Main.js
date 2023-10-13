@@ -17,29 +17,29 @@ const ContainerCustom = styled.div`
 function Main() {
   const { freelancer, filter, setFilter } = useFreelancer();
   const [currCatSelected, setCurrCatSelected] = useState('');
-  console.log('THIS IS' + freelancer);
-  const categoriesFilter = [
-    {
-      title: 'Photographer',
-      img: '/assets/img/categories/icn-photographer.svg',
-    },
-    { title: 'Drone Operator', img: '/assets/img/categories/icn-drone.svg' },
-    {
-      title: 'Editor',
-      img: '/assets/img/categories/icn-editor.svg',
-    },
-    { title: 'Hairstylist', img: '/assets/img/categories/icn-hairStylist.svg' },
-    {
-      title: 'Makeup Artist',
-      img: '/assets/img/categories/icn-makeupArtist.svg',
-    },
-    {
-      title: 'Videographer',
-      img: '/assets/img/categories/icn-videographer.svg',
-    },
-    { title: 'Studio/Location', img: '/assets/img/categories/icn-studio.svg' },
-    { title: 'Models', img: '/assets/img/categories/icn-models.svg' },
-  ];
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    // Fetch categories when the component mounts
+    const fetchCategories = async () => {
+      const categoriesPromise = getCategories();
+      try {
+        const result = await categoriesPromise;
+
+        if (result.status) {
+          const data = result.data;
+          setCategory(data.data);
+          // console.log('THIS IS ????' + category);
+        } else {
+          console.error('Error fetching categories: ' + result.data);
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories(); // Call the function to fetch categories
+  }, []);
 
   const handleButtonClick = () => {};
 
@@ -47,10 +47,12 @@ function Main() {
     setCurrCatSelected(category.title);
   };
 
+  // console.log(category);
+
   return (
     <ContainerCustom>
       <CategoryList
-        categories={categoriesFilter}
+        categories={category}
         handleSelectedCategory={handleSelectedCategory}
         currCatSelected={currCatSelected}
       />

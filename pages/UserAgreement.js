@@ -45,20 +45,20 @@ function UserAgreement() {
               User Agreement
             </Text>
             <Text marginTop="25px" fontSize="15px">
-              A user agreement's primary function is to set the conditions for
+              A user agreement primary function is to set the conditions for
               which a user may use a program or software service. This limits
               the legal obligations of the website owner, restricts abuse of
               software, explains how the software is licensed, and clarifies the
               conditions under which the agreement can be terminated.
             </Text>
             <Text marginTop="10px" fontSize="15px">
-              A user agreement's primary function is to set the conditions for
+              A user agreemet primary function is to set the conditions for
               which a user may use a program or software service. This limits
               the legal obligations of the website owner, restricts abuse of
               software, explains how the software is licensed, and clarifies.
             </Text>
             <Text marginTop="10px" fontSize="15px">
-              A user agreement's primary function is to set the conditions for
+              A user agreement primary function is to set the conditions for
               which a user may use a program or software service. This limits
               the legal obligations of the website owner, restricts abuse of
               software, explains how the software is licensed, and clarifies the
@@ -68,7 +68,7 @@ function UserAgreement() {
             <Text color="green" marginTop="30px" fontStyle="italic">
               very important Note : When dealing with cancellations on a booking
               platform where both clients and freelancers can initiate
-              cancellations, it's important to have a clear refund policy that
+              cancellations, it important to have a clear refund policy that
               addresses both scenarios.
             </Text>
             <Text

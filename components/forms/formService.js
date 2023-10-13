@@ -419,7 +419,6 @@ export const updateClientData = async (clientData, clientId) => {
 };
 
 /* USERS */
-
 export const getUserData = async (userId) => {
   const jwt = localStorage.getItem('hinyn-cjwt') ?? '';
   return axios
@@ -547,7 +546,7 @@ export const getCategories = async () => {
       crossDomain: true,
     })
     .then(async (response) => {
-      console.log('Response: ', response);
+      // console.log('Response: ', response.data);
       if (response.data) {
         return { status: true, data: response.data };
       } else {
@@ -564,8 +563,9 @@ export const getSkills = async (categoryId) => {
   const jwt = localStorage.getItem('hinyn-cjwt');
   return axios
     .get(
-      origin + '/categories/' + categoryId + '?populate=*',
-      {},
+      // origin + '/categories/' + categoryId + '?populate=*',
+      origin + '/skills',
+
       {
         withCredentials: true,
         crossDomain: true,

@@ -1,9 +1,6 @@
 import { useState, useMemo, createContext, useContext } from 'react';
 import axios from 'axios';
-import {
-  getClients,
-  getFilteredClients,
-} from '../components/forms/formService';
+import { getClients } from '../components/forms/formService';
 import { origin } from '../src/config';
 axios.defaults.withCredentials = true;
 
@@ -85,6 +82,8 @@ const useFreelancerController = (freelancer: Freelancer[]) => {
       return val.replace(' ', '').toLowerCase().includes(filter?.location);
     return 1;
   };
+
+  // const filteredCategories = getCategories();
 
   const filteredFreelancer = useMemo(() => {
     return freelancer;

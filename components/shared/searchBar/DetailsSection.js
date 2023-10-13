@@ -2,14 +2,9 @@ import styled from '@emotion/styled';
 import breakpoint from '../../utils/Breakpoints';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { useFreelancer } from '../../../src/store';
+// import { useFreelancer } from '../../../src/store';
 import { getCategories, getSkills } from '../../forms/formService';
-import {
-  locations,
-  budget,
-  category,
-  skills,
-} from '../../models/filters.models';
+import { locations, budget, skills } from '../../models/filters.models';
 
 const DetailsContainer = styled.div`
   border: 1px solid #ebebeb;
@@ -180,25 +175,26 @@ const TextHead = styled.div`
   padding: 0 2rem;
 `;
 const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
-  // const [isFetched,setIsFetched] = useState([]);
+  const [isFetched, setIsFetched] = useState([]);
+  const [categories, setCategories] = useState([]);
 
-  // useEffect(()=>{
-  //     getCategories().then((result)=>{
-  //       if(result?.data){
-  //         setCategories(()=>[])
-  //         result?.data?.data.map((item)=>{
-  //           let temp = {"id":item.id}
-  //           setCategories((prev => prev.concat({...item.attributes,...temp})));
-  //         })
-  //         setIsFetched(()=> true)
-  //       }
-  //     });
-  //   },[isFetched])
+  useEffect(() => {
+    getCategories().then((result) => {
+      if (result?.data) {
+        setCategories(() => []);
+        result?.data?.data.map((item) => {
+          let temp = { id: item.id };
+          setCategories((prev) => prev.concat({ ...item.attributes, ...temp }));
+        });
+        setIsFetched(() => true);
+      }
+    });
+  }, [isFetched]);
 
   return (
     <DetailsContainer>
       <GridContainer>
-        {category.map((category, idx) => {
+        {categories.map((category, idx) => {
           if (category?.key !== 'all')
             return (
               <Row
@@ -208,7 +204,7 @@ const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
               >
                 <ImageContainer className="icon-img-box">
                   <Image
-                    src={category.img}
+                    src={'/assets/img/categories/' + category.icon}
                     layout="fill"
                     className="icon-img"
                     alt="icon-img-box"
@@ -216,7 +212,7 @@ const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
                 </ImageContainer>
                 <DivExpand>
                   <TextEx>{category.title}</TextEx>
-                  <TextEx2>{category.line}</TextEx2>
+                  <TextEx2>Lorem ipsum from</TextEx2>
                 </DivExpand>
               </Row>
             );
@@ -226,23 +222,25 @@ const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
   );
 };
 const SkillsDetailsContainer = ({ handleSelectedSkills }) => {
-  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [categorySkills, setCategorySkills] = useState([]);
 
-  //   useEffect(() => {
-  //     getSkills(category.id).then((result) => {
-  //       if (result?.data) {
-  //         setCategorySkills(() => []);
-  //         const temp = result?.data?.data?.attributes?.skills?.data ?? [];
-  //         temp.map((item) => {
-  //           let skillId = { id: item.id };
-  //           setCategorySkills((prev) =>
-  //             prev.concat({ ...item.attributes, ...skillId })
-  //           );
-  //         });
-  //       }
-  //     });
-  //   }, []);
+  useEffect(() => {
+    getSkills().then((result) => {
+      // console.log('Skills' + result);
+      if (result?.data) {
+        setCategorySkills(() => []);
 
+        // const temp = result?.data?.data?.attributes?.skills?.data ?? [];
+        result.data.data.map((item) => {
+          let skillId = { id: item.id };
+          setCategorySkills((prev) =>
+            prev.concat({ ...item.attributes, ...skillId })
+          );
+        });
+      }
+    });
+  }, []);
+  console.log(categorySkills);
   //   const togglePillActive = (item) => {
   //     const isActive = selectedSkills.find((data) => data === item)
   //       ? true
@@ -255,14 +253,14 @@ const SkillsDetailsContainer = ({ handleSelectedSkills }) => {
   //   };
   return (
     <DetailsContainer>
-      {skills ? (
+      {categorySkills ? (
         <>
           <DivEx>
             <TextEx3>Skills related to</TextEx3>
             <TextEx4>`Make-Up`</TextEx4>
           </DivEx>
           <FlexContainer>
-            {skills.map((item, idx) => {
+            {categorySkills.map((item, idx) => {
               return (
                 <Pill
                   key={'skill-id' + idx}
@@ -354,7 +352,7 @@ function DetailsSection({ type, onHandleUserSelectedDetails }) {
   } else if (type === 'skills') {
     return (
       <SkillsDetailsContainer
-        category={selectedCategory}
+        // category={selectedCategory}
         handleSelectedSkills={handleSelectedSkills}
       />
     );

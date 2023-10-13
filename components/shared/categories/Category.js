@@ -44,18 +44,19 @@ const ImageContainer = styled.div`
 
 function Category({ data, isSelected }) {
   // const imgsrc = '/assets/img/categories/' + data.img;
+  // console.log(data.attributes);
   return (
     <IconContainer isSelected={isSelected}>
       <ImageContainer className="icon-img-box">
         <Image
-          src={data.img}
+          src={'/assets/img/categories/' + data.attributes.icon}
           layout="fill"
           className="icon-img"
           alt="icon-img"
         />
       </ImageContainer>
 
-      <Label>{data.title}</Label>
+      <Label>{data.attributes.title}</Label>
     </IconContainer>
   );
 }

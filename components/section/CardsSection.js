@@ -40,7 +40,7 @@ const NotFoundContainer = styled.div`
 `;
 
 function CardsSection({ cards, hasTools = true, cardText, handleButtonClick }) {
-  console.log('card -- ', cards);
+  // console.log('card -- ', cards);
   return (
     <GridContainer>
       {hasTools ? (
