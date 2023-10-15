@@ -583,6 +583,28 @@ export const getSkills = async (categoryId) => {
     });
 };
 
+export const getApiSkillById = async (id) => {
+  return axios
+    .get(
+      origin + '/skills/' + id,
+      {},
+      {
+        withCredentials: true,
+        crossDomain: true,
+      }
+    )
+    .then(async (response) => {
+      if (response.data) {
+        return { status: true, data: response.data };
+      } else {
+        return { status: false, data: response.data.message };
+      }
+    })
+    .catch(function (error) {
+      return { status: false, data: error };
+    });
+};
+
 /* professional category */
 export const addProfessionalCategoriesData = async (userData) => {
   const jwt = localStorage.getItem('hinyn-cjwt') ?? '';

@@ -23,12 +23,12 @@ import Modal from '../shared/Modal';
 import { origin } from '../../src/config';
 import { red } from '@mui/material/colors';
 import { OutlinedTextField } from '../shared/Textfield';
-// import {
-//   loginUser,
-//   registerUser,
-//   addClientData,
-//   logoutUser,
-// } from '../forms/formService';
+import {
+  loginUser,
+  registerUser,
+  addClientData,
+  logoutUser,
+} from '../forms/formService';
 
 const Logo = styled.div`
   position: relative;
@@ -227,63 +227,62 @@ function RegistrationForm() {
     event.preventDefault();
   };
 
-  // const handleRegisterUser = async () => {
-  // logoutUser();
-  // return registerUser(clientData).then((response) => {
-  //   if (response.status === true) {
-  //     handleLoginUser(clientData).then((res) => {
-  //       if (res?.jwt) {
-  //         localStorage.setItem('hinyn-uid', res.user.id);
-  //         localStorage.setItem('hinyn-cjwt', res.jwt);
-  //         router.push('/registration');
-  //       }
-  //     });
-  //   } else {
-  //     setMessage(response.data);
-  //     setOpen(true);
-  //   }
-  //   return false;
-  // });
-  // };
+  const handleRegisterUser = async (clientData) => {
+    logoutUser();
+    return registerUser(clientData).then((response) => {
+      if (response.status === true) {
+        handleLoginUser(clientData).then((res) => {
+          if (res?.jwt) {
+            localStorage.setItem('hinyn-uid', res.user.id);
+            localStorage.setItem('hinyn-cjwt', res.jwt);
+            router.push('/registration?value=1');
+          }
+        });
+      } else {
+        setMessage(response.data);
+        setOpen(true);
+      }
+      return false;
+    });
+  };
 
-  // const handleLoginUser = async (clientData) => {
-  //   return loginUser(clientData).then((response) => {
-  //     if (response.status === true) return response.data;
-  //     else {
-  //       setMessage(response.data);
-  //       setOpen(true);
-  //     }
-  //     return false;
-  //   });
-  // };
+  const handleLoginUser = async (clientData) => {
+    return loginUser(clientData).then((response) => {
+      if (response.status === true) return response.data;
+      else {
+        setMessage(response.data);
+        setOpen(true);
+      }
+      return false;
+    });
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-    if (
-      enteredEmail &&
-      enteredPassword &&
-      enteredEmail !== '' &&
-      enteredPassword !== ''
-    ) {
-      router.push('/registration?value=1');
-    } else {
-      setOpen(true);
-    }
-    // if (enteredEmail && isValid.email && enteredPassword) {
-    //   isValid.form = true;
-    // }
-
-    // if (isValid.form) {
-    //   const clientData = {
-    //     email: enteredEmail,
-    //     password: enteredPassword,
-    //   };
-    //   handleRegisterUser(clientData);
+    // if (
+    //   enteredEmail &&
+    //   enteredPassword &&
+    //   enteredEmail !== '' &&
+    //   enteredPassword !== ''
+    // ) {
+    //   router.push('/registration?value=1');
     // } else {
     //   setOpen(true);
     // }
+    if (enteredEmail && isValid.email && enteredPassword) {
+      isValid.form = true;
+    }
+    if (isValid.form) {
+      const clientData = {
+        email: enteredEmail,
+        password: enteredPassword,
+      };
+      handleRegisterUser(clientData);
+    } else {
+      setOpen(true);
+    }
   };
 
   // const handleNext = () => {

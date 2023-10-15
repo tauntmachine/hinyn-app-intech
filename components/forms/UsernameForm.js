@@ -17,11 +17,11 @@ import { useRouter } from 'next/router';
 import Modal from '../shared/Modal';
 import Logo from '../shared/Logo';
 import { StyledTextField } from '../shared/Textfield';
-// import {
-//   updateUserUsername,
-//   addClientData,
-//   updateUserData,
-// } from '../../components/forms/formService';
+import {
+  updateUserUsername,
+  addClientData,
+  updateUserData,
+} from '../../components/forms/formService';
 
 const LogoDiv = styled.div`
   margin-top: 10px;
@@ -46,8 +46,9 @@ const Error = styled.p`
   font-family: 'Roboto', sans-serif;
 `;
 
-function UsernameForm() {
+function UsernameForm({ onUsernameSubmit }) {
   const router = useRouter();
+  const [message, setMessage] = useState(null);
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -78,12 +79,13 @@ function UsernameForm() {
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredUsername = usernameInputRef.current.value;
+    handleNext();
+    // if (enteredUsername !== '') {
+    //   router.push('/registration?value=2');
+    // } else {
+    //   setOpen(true);
+    // }
 
-    if (enteredUsername !== '') {
-      router.push('/registration?value=2');
-    } else {
-      setOpen(true);
-    }
     // if (enteredUsername && isValid.username) {
     //   isValid.form = true;
     // }
@@ -111,9 +113,14 @@ function UsernameForm() {
     //           onUsernameSubmit(clientData);
     //         }
     //       });
+    //     } else {
+    // setMessage('Incorrect input.');
+    //       console.log(JSON.stringify(result) + "\n" + JSON.stringify(clientData));
+    //       setOpen(true);
     //     }
     //   });
     // } else {
+    //   setMessage('Oops! All fields are required.');
     //   setOpen(true);
     // }
   };
@@ -195,7 +202,7 @@ function UsernameForm() {
             height: '100%',
           }}
         >
-          Oops! All fields are required.
+          {message}
         </Box>
       </Modal>
     </>

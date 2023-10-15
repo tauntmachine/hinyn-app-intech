@@ -2,10 +2,10 @@ import axios from 'axios';
 import { origin } from './config';
 axios.defaults.withCredentials = true;
 
-export const getApiSkill = async () => {
+export const getApiCategories = async () => {
   return axios
     .get(
-      origin + '/skills',
+      origin + '/Categories',
       {},
       {
         withCredentials: true,
@@ -24,10 +24,34 @@ export const getApiSkill = async () => {
     });
 };
 
-export const getApiCategories = async () => {
+/* Professional skills */
+
+export const getApiProfSkill = async () => {
   return axios
     .get(
-      origin + '/Categories',
+      origin + '/professional-skills',
+      {},
+      {
+        withCredentials: true,
+        crossDomain: true,
+      }
+    )
+    .then(async (response) => {
+      if (response.data) {
+        return { status: true, data: response.data };
+      } else {
+        return { status: false, data: response.data.message };
+      }
+    })
+    .catch(function (error) {
+      return { status: false, data: error };
+    });
+};
+
+export const getApiProfSkillByID = async (id) => {
+  return axios
+    .get(
+      origin + '/professional-skills/' + id,
       {},
       {
         withCredentials: true,

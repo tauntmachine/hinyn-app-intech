@@ -10,28 +10,29 @@ function Registration() {
 
   // const [clientData, setClientData] = useState({});
   const [open, setOpen] = useState(true);
-  // const [currentActiveForm, setCurrentActiveForm] = useState(value);
+  const [currentActiveForm, setCurrentActiveForm] = useState(value);
   const handleClose = (e, reason) => {
     if (reason !== 'backdropClick') setOpen(false);
   };
 
   const handleSubmit = () => {
-    console.log('submitted');
+    // console.log('submitted');
+    setCurrentActiveForm(2);
+  };
+
+  const handleUsernameSubmit = (data) => {
+    // setClientData((prevData) => {
+    //   return {
+    //     ...prevData,
+    //     data,
+    //   };
+    // });
+    setCurrentActiveForm('accountType');
     // setCurrentActiveForm(2);
   };
 
-  // const handleUsernameSubmit = (data) => {
-  //   setClientData((prevData) => {
-  //     return {
-  //       ...prevData,
-  //       data,
-  //     };
-  //   });
-  //   setCurrentActiveForm('accountType');
-  // };
-
   const formsSequence = {
-    1: <UsernameForm />,
+    1: <UsernameForm onUsernameSubmit={handleUsernameSubmit} />,
     2: <AccountTypeForm />,
   };
 

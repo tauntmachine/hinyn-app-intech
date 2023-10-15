@@ -4,7 +4,7 @@ import Modal from './Modal';
 import Dropdown from './Dropdown';
 import { Container } from '@mui/material';
 import ClickableStarRating from './ClickableStarRating';
-import { getCategories, getSkills } from '../forms/formService';
+import { getCategories } from '../forms/formService';
 import { useFreelancer } from '../../src/store';
 import { locations, budget } from '../models/filters.models';
 import axios from 'axios';
