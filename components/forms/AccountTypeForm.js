@@ -61,13 +61,15 @@ function AccountTypeForm() {
   }
   function createAccount(type) {
     let accountType = type === 'professional' ? 1 : 2;
-    // const clientId = localStorage.getItem('hinyn-cid');
-    // const userId = localStorage.getItem('hinyn-uid');
-    // const userData = {
-    //   accountType : accountType,
-    //   user: userId
-    // }
-    // updateClientData(userData,clientId);
+    const clientId = localStorage.getItem('hinyn-cid');
+    const userId = localStorage.getItem('hinyn-uid');
+    const userData = {
+      accountType: accountType,
+      user: userId,
+    };
+    updateClientData(userData, clientId).then((res) => {
+      console.log(JSON.stringify(res));
+    });
     if (accountType === 1) router.push('/professional');
     else router.push('/dashboard');
   }
