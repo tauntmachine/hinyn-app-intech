@@ -79,7 +79,7 @@ function UsernameForm({ onUsernameSubmit }) {
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredUsername = usernameInputRef.current.value;
-    handleNext();
+    // handleNext();
     // if (enteredUsername !== '') {
     //   router.push('/registration?value=2');
     // } else {
@@ -90,39 +90,42 @@ function UsernameForm({ onUsernameSubmit }) {
     //   isValid.form = true;
     // }
 
-    // if (isValid.form) {
-    //   const userId = localStorage.getItem('hinyn-uid');
-    //   const jwt = localStorage.getItem('hinyn-cjwt');
-    //   const clientData = {
-    //     id: userId,
-    //     username: enteredUsername,
-    //     jwt: jwt,
-    //   };
-    //   const userData = {
-    //     uuid: 'client-' + userId,
-    //     user: userId,
-    //   };
-    //   addClientData(userData, jwt).then((result) => {
-    //     if (result?.data) localStorage.setItem('hinyn-cid', result?.data?.id);
-    //   });
-    //   updateUserUsername(clientData).then((result) => {
-    //     if (result.status) {
-    //       const clientId = localStorage.getItem('hinyn-cid');
-    //       updateUserData(clientId).then((res) => {
-    //         if (res?.data) {
-    //           onUsernameSubmit(clientData);
-    //         }
-    //       });
-    //     } else {
-    // setMessage('Incorrect input.');
-    //       console.log(JSON.stringify(result) + "\n" + JSON.stringify(clientData));
-    //       setOpen(true);
-    //     }
-    //   });
-    // } else {
-    //   setMessage('Oops! All fields are required.');
-    //   setOpen(true);
-    // }
+    if (isValid.username) {
+      const userId = localStorage.getItem('hinyn-uid');
+      const jwt = localStorage.getItem('hinyn-cjwt');
+      const clientData = {
+        id: userId,
+        username: enteredUsername,
+        jwt: jwt,
+      };
+      const userData = {
+        uuid: 'client-' + userId,
+        user: userId,
+      };
+      // addClientData(userData, jwt).then((result) => {
+      //   if (result?.data) localStorage.setItem('hinyn-cid', result?.data?.id);
+      // });
+      updateUserUsername(clientData).then((result) => {
+        if (result.status) {
+          const clientId = localStorage.getItem('hinyn-cid');
+          updateUserData(clientId).then((res) => {
+            if (res?.data) {
+              // onUsernameSubmit(clientData);
+              handleNext();
+            }
+          });
+        } else {
+          setMessage('Incorrect input.');
+          console.log(
+            JSON.stringify(result) + '\n' + JSON.stringify(clientData)
+          );
+          setOpen(true);
+        }
+      });
+    } else {
+      setMessage('Oops! All fields are required.');
+      setOpen(true);
+    }
   };
 
   return (

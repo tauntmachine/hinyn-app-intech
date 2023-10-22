@@ -93,14 +93,12 @@ function FirstLastName({ handleNextClick }) {
   const firstnameInputRef = useRef();
   const lastnameInputRef = useRef();
 
-  // useEffect(() => {
-  //   const clientData = {
-  //     id: localStorage.getItem('hinyn-cid'),
-  //   };
-  //   getClientData(clientData).then((result) => {
-  //     // if (result?.data) console.log('useeffect clientdataa', result?.data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    const clientData = {
+      id: localStorage.getItem('hinyn-cid'),
+    };
+    const res = localStorage.getItem('hinyn-clientData');
+  }, []);
 
   function submitHandler(event) {
     event.preventDefault();
@@ -128,13 +126,12 @@ function FirstLastName({ handleNextClick }) {
     //     }
     //   });
 
-    if (
-      enteredFirstname &&
-      enteredLastname &&
-      enteredFirstname !== '' &&
-      enteredLastname !== ''
-    ) {
-      handleNextClick(true);
+    if (enteredFirstname?.length && enteredLastname?.length) {
+      const data = {
+        firstName: enteredFirstname,
+        lastName: enteredLastname,
+      };
+      handleNextClick(data);
     } else {
       setOpen(true);
     }

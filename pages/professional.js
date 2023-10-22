@@ -19,6 +19,7 @@ import UnverifiedAccountForm from '../components/forms/UnverifiedAccountForm';
 import ProfessionalFormPayment from '../components/forms/MemberShip';
 import MemberShip from '../components/forms/MemberShip';
 import EmailVerifyFormPopUp from '../components/forms/EmailVerifyFormPopUp';
+import { updateClientData } from '../components/forms/formService';
 
 const MainBox = styled(Box)`
   background-color: #f0f0f0;
@@ -41,6 +42,31 @@ function Professional() {
     }
   };
 
+  const nameUpdate = async (item) => {
+    const cid = localStorage.getItem('hinyn-cid');
+    let clientData = await getStoredClient();
+    clientData = {
+      ...clientData.attributes,
+      id: clientData.id,
+      ...item,
+    };
+    // return console.log(cid, clientData);
+    updateClientData(clientData, cid)
+      .then((res) => {
+        console.log(res);
+        if (res.status) {
+          localStorage.setItem('hinyn-clientData', JSON.stringify(res?.data));
+          handleNextClick(true);
+        }
+      })
+      .catch((e) => console.log('name update', e));
+  };
+
+  const getStoredClient = async () => {
+    const req = localStorage.getItem('hinyn-clientData');
+    return await JSON.parse(req);
+  };
+
   return (
     <>
       <MainBox>
@@ -49,7 +75,7 @@ function Professional() {
         </Container>
         <ProgressBar progress={progressPercent} />
         {currentActiveForm === 1 ? (
-          <FirstLastName handleNextClick={handleNextClick} />
+          <FirstLastName handleNextClick={nameUpdate} />
         ) : null}
         {currentActiveForm === 2 ? (
           <CategorySkills handleNextClick={handleNextClick} />

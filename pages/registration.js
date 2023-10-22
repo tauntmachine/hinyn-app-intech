@@ -27,8 +27,8 @@ function Registration() {
     //     data,
     //   };
     // });
-    setCurrentActiveForm('accountType');
-    // setCurrentActiveForm(2);
+    // setCurrentActiveForm('accountType');
+    setCurrentActiveForm(2);
   };
 
   const formsSequence = {

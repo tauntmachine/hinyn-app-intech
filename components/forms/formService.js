@@ -360,11 +360,12 @@ export const getFilteredClients = async (filters) => {
 };
 
 export const addClientData = async (userData, jwt) => {
+  const req = await getUserData(userData.user);
   return axios
     .post(
       origin + '/clients',
       {
-        data: userData,
+        data: { ...req.data, uuid: `client-${userData.user}` },
       },
       {
         headers: {
