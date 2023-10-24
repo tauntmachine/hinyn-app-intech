@@ -32,7 +32,7 @@ const MainBox = styled(Box)`
 
 function Professional() {
   const [progressPercent, setProgressPercent] = useState(10);
-  const [currentActiveForm, setCurrentActiveForm] = useState(2);
+  const [currentActiveForm, setCurrentActiveForm] = useState(1);
   const isAccountVerified = true; //fetch from API
 
   const handleNextClick = (value) => {
