@@ -134,21 +134,20 @@ function SelectGender({ handleNextClick }) {
     const enteredLanguages = languagesInputRef.current.value;
 
     if (enteredLanguages && dobValue && enteredLanguages !== '') {
-      handleNextClick(true);
+      isValid.form = true;
+    }
+
+    if (isValid.form) {
+      const clientId = localStorage.getItem('hinyn-cid');
+      const clientData = {
+        dateOfBirth: dobValue,
+      };
+      updateClientData(clientData, clientId).then((result) => {
+        if (result?.data) handleNextClick(true);
+      });
     } else {
       setOpen(true);
     }
-    // if(isValid.form){
-    //     const clientId = localStorage.getItem('hinyn-cid');
-    //     const clientData = {
-    //       dateOfBirth: dobValue,
-    //     };
-    //       updateClientData(clientData, clientId).then((result)=>{
-    //         if(result?.data) handleNextClick(true);
-    //       });
-    // }else{
-    //     setOpen(true)
-    // }
   }
 
   return (

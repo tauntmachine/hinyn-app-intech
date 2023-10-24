@@ -22,15 +22,15 @@ const NoDataContainer = styled.div`
 
 const MyProjectsSection = () => {
   const router = useRouter();
-  // const [proposals, setProposals] = useState([]);
-  const proposals = [
-    {
-      title: 'Joe and Kate Wedding',
-      price: '5000',
-      location: 'Fairmont, palm dubai',
-      date: 'Nov,7 2023',
-    },
-  ];
+  const [proposals, setProposals] = useState([]);
+  // const proposals = [
+  //   {
+  //     title: 'Joe and Kate Wedding',
+  //     price: '5000',
+  //     location: 'Fairmont, palm dubai',
+  //     date: 'Nov,7 2023',
+  //   },
+  // ];
   const sortOptions = [
     {
       title: 'Newest to Oldest',
@@ -69,17 +69,17 @@ const MyProjectsSection = () => {
     },
   ];
 
-  // useEffect(() => {
-  //   getProposalsOfClient().then((res) => {
-  //     setProposals(() => []);
-  //     if (res?.data?.data) {
-  //       res?.data?.data.map((item) => {
-  //         let temp = { id: item?.id, ...item?.attributes };
-  //         setProposals((prevData) => prevData.concat(temp));
-  //       });
-  //     }
-  //   });
-  // },[ ]);
+  useEffect(() => {
+    getProposalsOfClient().then((res) => {
+      setProposals(() => []);
+      if (res?.data?.data) {
+        res?.data?.data.map((item) => {
+          let temp = { id: item?.id, ...item?.attributes };
+          setProposals((prevData) => prevData.concat(temp));
+        });
+      }
+    });
+  }, []);
 
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>

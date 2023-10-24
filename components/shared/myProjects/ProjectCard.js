@@ -107,7 +107,7 @@ const ProjectCard = ({ projectDetail, budget }) => {
       <Row>
         <Container maxWidth="md">
           <Text color="red" fontSize="20px" align="center">
-            <b>{projectDetail.title}</b>
+            <b>{projectDetail.attributes.title}</b>
           </Text>
         </Container>
       </Row>

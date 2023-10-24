@@ -22,42 +22,42 @@ const NoDataContainer = styled.div`
 const ClientProjectsSection = () => {
   const router = useRouter();
   const [clientBids, setClientBids] = useState([
-    {
-      title: 'Kate and Joeys spanish wedding',
-      price: '3000',
-      location: 'Fairmont, The palm Dubai',
-      date: 'Nov, 12 2023',
-    },
-    {
-      title: 'Kate and Joeys spanish wedding',
-      price: '3000',
-      location: 'Fairmont, The palm Dubai',
-      date: 'Nov, 12 2023',
-    },
-    {
-      title: 'Kate and Joeys spanish wedding',
-      price: '3000',
-      location: 'Fairmont, The palm Dubai',
-      date: 'Nov, 12 2023',
-    },
-    {
-      title: 'Kate and Joeys spanish wedding',
-      price: '3000',
-      location: 'Fairmont, The palm Dubai',
-      date: 'Nov, 12 2023',
-    },
-    {
-      title: 'Kate and Joeys spanish wedding',
-      price: '3000',
-      location: 'Fairmont, The palm Dubai',
-      date: 'Nov, 12 2023',
-    },
-    {
-      title: 'Kate and Joeys spanish wedding',
-      price: '3000',
-      location: 'Fairmont, The palm Dubai',
-      date: 'Nov, 12 2023',
-    },
+    // {
+    //   title: 'Kate and Joeys spanish wedding',
+    //   price: '3000',
+    //   location: 'Fairmont, The palm Dubai',
+    //   date: 'Nov, 12 2023',
+    // },
+    // {
+    //   title: 'Kate and Joeys spanish wedding',
+    //   price: '3000',
+    //   location: 'Fairmont, The palm Dubai',
+    //   date: 'Nov, 12 2023',
+    // },
+    // {
+    //   title: 'Kate and Joeys spanish wedding',
+    //   price: '3000',
+    //   location: 'Fairmont, The palm Dubai',
+    //   date: 'Nov, 12 2023',
+    // },
+    // {
+    //   title: 'Kate and Joeys spanish wedding',
+    //   price: '3000',
+    //   location: 'Fairmont, The palm Dubai',
+    //   date: 'Nov, 12 2023',
+    // },
+    // {
+    //   title: 'Kate and Joeys spanish wedding',
+    //   price: '3000',
+    //   location: 'Fairmont, The palm Dubai',
+    //   date: 'Nov, 12 2023',
+    // },
+    // {
+    //   title: 'Kate and Joeys spanish wedding',
+    //   price: '3000',
+    //   location: 'Fairmont, The palm Dubai',
+    //   date: 'Nov, 12 2023',
+    // },
   ]);
 
   const sortOptions = [
@@ -98,17 +98,17 @@ const ClientProjectsSection = () => {
     },
   ];
 
-  //   useEffect(() => {
-  //     getBidsOfClient().then((res) => {
-  //       setClientBids(() => []);
-  //       if (res?.data?.data) {
-  //         res?.data?.data.map((item) => {
-  //           let temp = { id: item?.id, ...item?.attributes };
-  //           setClientBids((prevData) => prevData.concat(item));
-  //         });
-  //       }
-  //     });
-  //   }, []);
+  useEffect(() => {
+    getBidsOfClient().then((res) => {
+      setClientBids(() => []);
+      if (res?.data?.data) {
+        res?.data?.data.map((item) => {
+          let temp = { id: item?.id, ...item?.attributes };
+          setClientBids((prevData) => prevData.concat(item));
+        });
+      }
+    });
+  }, []);
 
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>

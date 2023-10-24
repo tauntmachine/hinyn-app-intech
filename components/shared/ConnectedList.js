@@ -1,116 +1,141 @@
-import { useRouter } from "next/router";
-import styled from "@emotion/styled";
-import { Box, Container } from "@mui/material";
-import Text from "./Typography";
-import Pill from "./Pill";
-import StarRating from "./StarRating";
-import { GreenButton } from "./Button";
-import moment from "moment";
-import { useEffect, useState } from "react";
-import { getLoggedInUserData, getProposalsOfBid } from "../forms/formService";
+import { useRouter } from 'next/router';
+import styled from '@emotion/styled';
+import { Box, Container } from '@mui/material';
+import Text from './Typography';
+import Pill from './Pill';
+import StarRating from './StarRating';
+import { GreenButton } from './Button';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { getLoggedInUserData, getProposalsOfBid } from '../forms/formService';
 
 const ProjectContainer = styled(Box)`
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid #ddd;
-    row-gap: 16px;
-    padding: 32px;
-`
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #ddd;
+  row-gap: 16px;
+  padding: 32px;
+`;
 
 const Row = styled(Box)`
-    display: flex;
-`
+  display: flex;
+`;
 const Column = styled(Box)`
-    display: flex;
-    flex-direction: column;
-`
+  display: flex;
+  flex-direction: column;
+`;
 const Title = styled.span`
-    color: #EB4C60;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-`
-const SmallText  = styled.span`
-    font-size: 12px;
-    color : ${props => props.color === 'green' ? "#4AA398" : "#949494"};
-`
+  color: #eb4c60;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+`;
+const SmallText = styled.span`
+  font-size: 12px;
+  color: ${(props) => (props.color === 'green' ? '#4AA398' : '#949494')};
+`;
 const Desc = styled.div`
-    overflow: hidden;
+  overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   font-size: 12px;
-    color : ${props => props.color === 'green' ? "#4AA398" : "#949494"};
-`
+  color: ${(props) => (props.color === 'green' ? '#4AA398' : '#949494')};
+`;
 
-const ConnectedList = ({projects}) => {
+const ConnectedList = ({ projects }) => {
   const router = useRouter();
   const [accountType, setAccountType] = useState({});
 
   const showProjectDetails = (projectId) => {
-    router.push('/dashboard?screen=details&project='+projectId)
-  }
+    router.push('/dashboard?screen=details&project=' + projectId);
+  };
 
-  useEffect(()=>{
-    getLoggedInUserData().then((res)=>{
-        if(res?.data?.client){
-            setAccountType(()=>res?.data?.client?.accountType)
-        }
+  useEffect(() => {
+    getLoggedInUserData().then((res) => {
+      if (res?.data?.client) {
+        setAccountType(() => res?.data?.client?.accountType);
+      }
     });
-  },[]);
-
+  }, []);
 
   return (
     <Box>
-        {projects.map((project,idx)=> {
-            return <ProjectContainer key={idx}>
-                <Row sx={{justifyContent: 'space-between'}}>
-                    <Column>
-                        <Title onClick={()=>showProjectDetails(project?.id)}>{project?.title}</Title>
-                            {(project?.minBudget === 1 && project.maxBudget === 0) 
-                            ? <SmallText>Free Collaboration</SmallText> 
-                            : <SmallText>{project?.minBudget} - {project?.maxBudget}</SmallText>
-                            }
-                            
-                    </Column>
-                    <Box sx={{gap:'1rem', display:'flex', alignItems: 'flex-start'}}>
-                        <Column>
-                            <SmallText><b>{project?.proposals?.data.length ?? '0'} Bids</b></SmallText>
-                        </Column>
-                        <Column sx={{alignItems:'flex-end'}}>
-                            <Text color="green">${project?.bidPrice?.average ?? '100'} AED</Text>
-                            <SmallText color="green">Average Bid</SmallText>
-                        </Column>
-                    </Box>
-                </Row>
+      {projects.map((project, idx) => {
+        return (
+          <ProjectContainer key={idx}>
+            <Row sx={{ justifyContent: 'space-between' }}>
+              <Column>
+                <Title onClick={() => showProjectDetails(project?.id)}>
+                  {project?.title}
+                </Title>
+                {project?.minBudget === 1 && project.maxBudget === 0 ? (
+                  <SmallText>Free Collaboration</SmallText>
+                ) : (
+                  <SmallText>
+                    {project?.minBudget} - {project?.maxBudget}
+                  </SmallText>
+                )}
+              </Column>
+              <Box
+                sx={{ gap: '1rem', display: 'flex', alignItems: 'flex-start' }}
+              >
+                <Column>
+                  <SmallText>
+                    <b>{project?.proposals?.data.length ?? '0'} Bids</b>
+                  </SmallText>
+                </Column>
+                <Column sx={{ alignItems: 'flex-end' }}>
+                  <Text color="green">
+                    ${project?.bidPrice?.average ?? '100'} AED
+                  </Text>
+                  <SmallText color="green">Average Bid</SmallText>
+                </Column>
+              </Box>
+            </Row>
+            <Row>
+              <Desc>{project?.description}</Desc>
+            </Row>
+            <Row sx={{ columnGap: '8px' }}>
+              {project?.categories ? (
+                project?.categories?.data.map((category, id) => {
+                  return (
+                    <Pill key={'pill' + id} color="green">
+                      {category?.attributes?.title}
+                    </Pill>
+                  );
+                })
+              ) : (
+                <Pill key={'pill-'} color="green">
+                  Photography
+                </Pill>
+              )}
+            </Row>
+            <Row
+              sx={{ justifyContent: 'space-between', alignItems: 'flex-start' }}
+            >
+              <Row sx={{ columnGap: '16px' }}>
+                <StarRating data={project?.rating ?? 3} sz="lg" />
+                <SmallText>
+                  {moment(project?.createdDate).format('DD-MMM-YYYY')}
+                </SmallText>
+              </Row>
+              {accountType && accountType === 1 ? (
                 <Row>
-                    <Desc>{project?.description}</Desc>
+                  <GreenButton
+                    size="small"
+                    onClick={() => showProjectDetails(project?.id)}
+                  >
+                    Place a bid
+                  </GreenButton>
                 </Row>
-                <Row sx={{columnGap:'8px'}}>
-                    {project?.categories 
-                        ? project?.categories?.data.map((category,id)=>{
-                            return <Pill key={'pill'+id} color="green">{category?.attributes?.title}</Pill>       
-                            })
-                        : <Pill key={'pill-'} color="green">Photography</Pill>
-                }
-                </Row>
-                <Row sx={{justifyContent:'space-between',alignItems:'flex-start'}}>
-                    <Row sx={{columnGap:'16px'}}>
-                        <StarRating data={project?.rating ?? 3} sz="lg"/>
-                        <SmallText>{moment(project?.createdDate).format('DD-MMM-YYYY')}</SmallText>
-                    </Row>
-                    {accountType && accountType === 1 
-                        ? <Row>
-                            <GreenButton size="small" onClick={()=>showProjectDetails(project?.id)}>Place a bid</GreenButton>
-                        </Row>
-                        :null 
-                    }
-                    
-                </Row>
-            </ProjectContainer>
-        })}
-  </Box>      
-  )
-}
+              ) : null}
+            </Row>
+          </ProjectContainer>
+        );
+      })}
+    </Box>
+  );
+};
 
 export default ConnectedList;

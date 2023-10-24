@@ -11,7 +11,7 @@ import { getLoggedInUserData, getProposalsOfBid } from '../forms/formService';
 import { LocationIcon } from './Icon';
 import Image from 'next/image';
 import { relative } from 'path';
-import { filter, setFilter, useFreelancer } from '../../src/store';
+import { useFreelancer } from '../../src/store';
 
 const MainContainer = styled(Box)`
   display: flex;
@@ -61,54 +61,54 @@ const StyledImage = styled(Image)`
 `;
 
 const FreelancerConnectedList = () => {
-  // const { freelancer, filter, setFilter } = useFreelancer();
+  const { freelancer } = useFreelancer();
   const imgPath = '/assets/img/avatars/';
 
   const router = useRouter();
   const [accountType, setAccountType] = useState({});
-  const [freelancer, setFreelancer] = useState([
-    {
-      firstName: 'Samantha',
-      lastName: 'Davis',
-      city: 'Dubai',
-      country: 'United Arab Emirates',
-      para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
-      insta: '(@sampleFrelancer)',
-    },
-    {
-      firstName: 'M.',
-      lastName: 'assadullah',
-      city: 'lahore',
-      country: 'pakistan',
-      para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
-      insta: '@sampleFrelancer',
-    },
-    {
-      firstName: 'M.',
-      lastName: 'assadullah',
-      city: 'lahore',
-      country: 'pakistan',
-      para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
-      insta: '@sampleFrelancer',
-    },
-    {
-      firstName: 'Samantha',
-      lastName: 'Davis',
-      city: 'Dubai',
-      country: 'United Arab Emirates',
-      para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
-      insta: '@sampleFrelancer',
-    },
-    {
-      firstName: 'Samantha',
-      lastName: 'Davis',
-      city: 'Dubai',
-      country: 'United Arab Emirates',
-      para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
-      insta: '@sampleFrelancer',
-    },
-  ]);
-
+  // const [freelancer, setFreelancer] = useState([
+  //   {
+  //     firstName: 'Samantha',
+  //     lastName: 'Davis',
+  //     city: 'Dubai',
+  //     country: 'United Arab Emirates',
+  //     para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
+  //     insta: '(@sampleFrelancer)',
+  //   },
+  //   {
+  //     firstName: 'M.',
+  //     lastName: 'assadullah',
+  //     city: 'lahore',
+  //     country: 'pakistan',
+  //     para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
+  //     insta: '@sampleFrelancer',
+  //   },
+  //   {
+  //     firstName: 'M.',
+  //     lastName: 'assadullah',
+  //     city: 'lahore',
+  //     country: 'pakistan',
+  //     para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
+  //     insta: '@sampleFrelancer',
+  //   },
+  //   {
+  //     firstName: 'Samantha',
+  //     lastName: 'Davis',
+  //     city: 'Dubai',
+  //     country: 'United Arab Emirates',
+  //     para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
+  //     insta: '@sampleFrelancer',
+  //   },
+  //   {
+  //     firstName: 'Samantha',
+  //     lastName: 'Davis',
+  //     city: 'Dubai',
+  //     country: 'United Arab Emirates',
+  //     para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
+  //     insta: '@sampleFrelancer',
+  //   },
+  // ]);
+  console.log(freelancer);
   const showFreelancerProfile = () => {
     router.push('/dashboard/professionalProfile');
   };
@@ -151,7 +151,8 @@ const FreelancerConnectedList = () => {
                   <Box sx={{ display: 'flex' }}>
                     <Text color="red">
                       <b>
-                        {freelancer.firstName} {freelancer.lastName}
+                        {freelancer.attributes.firstName}{' '}
+                        {freelancer.attributes.lastName}
                       </b>
                     </Text>
                     <GrayText> {freelancer.insta} </GrayText>
@@ -166,7 +167,8 @@ const FreelancerConnectedList = () => {
                   <LocationIcon />
                   <GrayText>
                     {' '}
-                    {freelancer?.city}, {freelancer?.country ?? 'UAE'}
+                    {freelancer?.attributes.city},{' '}
+                    {freelancer?.attributes.country ?? 'UAE'}
                   </GrayText>
                 </Row>
                 <Row>

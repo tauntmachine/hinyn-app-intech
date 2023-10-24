@@ -12,7 +12,7 @@ import AvatarUpload from '../shared/AvatarUpload';
 import { getClientData, updateClientData, updateUserData } from './formService';
 import Router from 'next/router';
 import Image from 'next/image';
-
+import { Button as CustomButton } from '@mui/material';
 const StyledButton = styled(Button)``;
 
 const FormContainer = styled(Box)`
@@ -68,10 +68,30 @@ const TextDiv = styled.div`
   margin-left: 22rem;
   margin-top: 43px;
 `;
+const UploadButton = styled(CustomButton)`
+  // border: 1px solid #0f7669;
+  color: #0f7669;
+  border-radius: 70rem;
+  background: white;
+  width: 100px;
+  font-size: 12px;
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    background: #cce0de;
+    color: #0f7669;
+    border: 1px solid #0f7669;
+  }
+`;
 
 function FirstLastName({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const [openCameraModal, setOpenCameraModal] = useState(false);
+  const [filename, setFilename] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -79,7 +99,12 @@ function FirstLastName({ handleNextClick }) {
     setOpenCameraModal(false);
   };
   const toggleOpenCameraModal = () => {
+    // if (filename) {
     setOpenCameraModal(!openCameraModal);
+    // }
+  };
+  const UploadImage = () => {
+    handleCloseCameraModal();
   };
   const [isValid, setValid] = useState({
     firstname: false,
@@ -93,6 +118,30 @@ function FirstLastName({ handleNextClick }) {
   const firstnameInputRef = useRef();
   const lastnameInputRef = useRef();
 
+<<<<<<< HEAD
+  // useEffect(() => {
+  //   const clientData = {
+  //     id: localStorage.getItem('hinyn-cid'),
+  //   };
+  //   getClientData(clientData).then((result) => {
+  //     // if (result?.data) console.log('useeffect clientdataa', result?.data);
+  //   });
+  // }, []);
+  const handleUpload = (e) => {
+    if (!e.target.files) {
+      return;
+    }
+    const file = e.target.files[0];
+    const { name } = file;
+    setFilename(name);
+    toggleOpenCameraModal();
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setSelectedImage(e.target.result);
+    };
+    reader.readAsDataURL(file);
+  };
+=======
   useEffect(() => {
     const clientData = {
       id: localStorage.getItem('hinyn-cid'),
@@ -100,11 +149,42 @@ function FirstLastName({ handleNextClick }) {
     const res = localStorage.getItem('hinyn-clientData');
   }, []);
 
+>>>>>>> 6403bc66c88f4210055f7b21bfda074b397e5c5f
   function submitHandler(event) {
     event.preventDefault();
     const enteredFirstname = firstnameInputRef.current.value;
     const enteredLastname = lastnameInputRef.current.value;
 
+<<<<<<< HEAD
+    if (
+      enteredFirstname &&
+      enteredLastname &&
+      enteredFirstname !== '' &&
+      enteredLastname !== ''
+    ) {
+      isValid.form = true;
+    }
+
+    if (isValid.form) {
+      const clientId = localStorage.getItem('hinyn-cid');
+      const userData = {
+        firstName: enteredFirstname,
+        lastName: enteredLastname,
+      };
+      updateClientData(userData, clientId).then((res) => {
+        if (res?.data) {
+          handleNextClick(true);
+        }
+      });
+
+      // if (
+      //   enteredFirstname &&
+      //   enteredLastname &&
+      //   enteredFirstname !== '' &&
+      //   enteredLastname !== ''
+      // ) {
+      //   handleNextClick(true);
+=======
     // if (
     //   enteredFirstname &&
     //   enteredLastname &&
@@ -132,10 +212,12 @@ function FirstLastName({ handleNextClick }) {
         lastName: enteredLastname,
       };
       handleNextClick(data);
+>>>>>>> 6403bc66c88f4210055f7b21bfda074b397e5c5f
     } else {
       setOpen(true);
     }
   }
+
   const Goback = () => {
     Router.push('/RegistrationForm');
   };
@@ -147,15 +229,31 @@ function FirstLastName({ handleNextClick }) {
           <Text fontSize="34px">
             <b>Let&apos;s make your account</b>
           </Text>
-          <AvatarUpload onClick={toggleOpenCameraModal}>
-            {/* <Image
-                src={require('../../public/assets/img/icons/userimg.jpg')}
-                width="60px"
-                height="60px"
-              /> */}
-
-            <Text color="green">Upload a photo</Text>
-          </AvatarUpload>
+          <UploadButton
+            component="label"
+            // variant="outlined"
+            sx={{ marginRight: '1rem' }}
+          >
+            {
+              selectedImage ? (
+                <Image
+                  src={selectedImage}
+                  width="60px"
+                  height="60px"
+                  alt="asd"
+                />
+              ) : (
+                <input
+                  type="file"
+                  accept="image/*,.pdf"
+                  // hidden
+                  onChange={handleUpload}
+                  multiple
+                />
+              )
+              // <Text color="green">Upload a photo</Text>
+            }
+          </UploadButton>
           <Text color="green" marginBottom="10px">
             What is your name?{' '}
           </Text>
@@ -243,17 +341,27 @@ function FirstLastName({ handleNextClick }) {
           </Text>
         </CameraModel>
         <ImageDiv2>
-          <Image
-            src={require('../../public/assets/img/avatars/img-avatar1.png')}
-            height="355rem"
-            width="600rem"
-          />
+          {selectedImage ? ( // Display the selected image if available
+            <Image
+              src={selectedImage}
+              alt="Selected Image"
+              height="355rem"
+              width="600rem"
+            />
+          ) : (
+            <Image
+              src={require('../../public/assets/img/avatars/img-avatar1.png')}
+              height="355rem"
+              width="600rem"
+              alt="asd"
+            />
+          )}
         </ImageDiv2>
         <TextDiv>
           <Text color="green" marginY="auto" marginRight="18px">
             Retake
           </Text>
-          <StyledButton>Upload</StyledButton>
+          <StyledButton onClick={UploadImage}>Upload</StyledButton>
         </TextDiv>
       </Modal2>
     </>

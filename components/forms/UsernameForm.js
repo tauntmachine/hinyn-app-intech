@@ -73,24 +73,28 @@ function UsernameForm({ onUsernameSubmit }) {
     router.back(); // Navigates back to the previous page
   };
 
-  const handleNext = () => {
-    router.push('/registration?value=2');
-  };
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredUsername = usernameInputRef.current.value;
+<<<<<<< HEAD
+=======
     // handleNext();
     // if (enteredUsername !== '') {
     //   router.push('/registration?value=2');
     // } else {
     //   setOpen(true);
     // }
+>>>>>>> 6403bc66c88f4210055f7b21bfda074b397e5c5f
 
-    // if (enteredUsername && isValid.username) {
-    //   isValid.form = true;
-    // }
+    if (enteredUsername && isValid.username) {
+      isValid.form = true;
+    }
 
+<<<<<<< HEAD
+    if (isValid.form) {
+=======
     if (isValid.username) {
+>>>>>>> 6403bc66c88f4210055f7b21bfda074b397e5c5f
       const userId = localStorage.getItem('hinyn-uid');
       const jwt = localStorage.getItem('hinyn-cjwt');
       const clientData = {
@@ -101,6 +105,29 @@ function UsernameForm({ onUsernameSubmit }) {
       const userData = {
         uuid: 'client-' + userId,
         user: userId,
+<<<<<<< HEAD
+        firstName: enteredUsername,
+      };
+      addClientData(userData, jwt).then((result) => {
+        if (result?.data) {
+          localStorage.setItem('hinyn-cid', result?.data?.id);
+          onUsernameSubmit();
+          router.push('/registration');
+        }
+      });
+      //   updateUserUsername(clientData).then((result) => {
+      //     if (result.status) {
+      //       const clientId = localStorage.getItem('hinyn-cid');
+      //       updateUserData(clientId).then((res) => {
+      //         if (res?.data) {
+      //           onUsernameSubmit(clientData);
+      //         }
+      //       });
+      //     }
+      //   });
+      // } else {
+      //   setOpen(true);
+=======
       };
       // addClientData(userData, jwt).then((result) => {
       //   if (result?.data) localStorage.setItem('hinyn-cid', result?.data?.id);
@@ -125,6 +152,7 @@ function UsernameForm({ onUsernameSubmit }) {
     } else {
       setMessage('Oops! All fields are required.');
       setOpen(true);
+>>>>>>> 6403bc66c88f4210055f7b21bfda074b397e5c5f
     }
   };
 
@@ -147,7 +175,7 @@ function UsernameForm({ onUsernameSubmit }) {
           <Box
             component="form"
             noValidate
-            // onSubmit={submitHandler}
+            onSubmit={submitHandler}
             sx={{ mt: 3 }}
           >
             <Grid

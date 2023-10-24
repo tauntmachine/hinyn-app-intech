@@ -81,8 +81,8 @@ const locations = {
 
 function Location({ handleNextClick }) {
   const [open, setOpen] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState(null);
-
+  // const [selectedCountry, setSelectedCountry] = useState(null);
+  // const [selectedCity, setSelectedCity] = useState(null);
   const handleClose = () => {
     setOpen(false);
   };
@@ -94,28 +94,29 @@ function Location({ handleNextClick }) {
   const [errorMessage, setErrorMessage] = useState({
     location: null,
   });
-
+  const descriptionInputRef = useRef();
   function submitHandler(event) {
     event.preventDefault();
+    const selectedCountry = descriptionInputRef.current.value;
 
-    // if (selectedLocation && selectedLocation !== null) {
-    handleNextClick(true);
-    // } else {
-    //   setOpen(true);
-    // }
+    if (selectedCountry !== '') {
+      isValid.form = true;
+    } else {
+      setOpen(true);
+    }
 
-    // if (isValid.form) {
-    //   const clientId = localStorage.getItem('hinyn-cid');
-    //   const clientData = {
-    //     city: selectedLocation,
-    //     country: "United Arab Emirates",
-    //   };
-    //   updateClientData(clientData, clientId).then((result) => {
-    //     if (result?.data) handleNextClick(true);
-    //   });
-    // } else {
-    //   setOpen(true);
-    // }
+    if (isValid.form) {
+      const clientId = localStorage.getItem('hinyn-cid');
+      const clientData = {
+        // city: selectedCity,
+        country: selectedCountry,
+      };
+      updateClientData(clientData, clientId).then((result) => {
+        if (result?.data) handleNextClick(true);
+      });
+    } else {
+      setOpen(true);
+    }
   }
 
   return (
@@ -154,11 +155,17 @@ function Location({ handleNextClick }) {
                   fullWidth
                   id="locationOptions"
                   placeholder="Country"
+                  inputRef={descriptionInputRef}
                   // name="languages"
 
-                  onChange={(event) => {
-                    setSelectedLocation(() => event.target.innerText);
-                  }}
+                  // onChange={(event) => {
+                  //   setSelectedCountry(() => event.target.innerText);
+                  // }}
+                  // defaultValue={selectedCountry}
+                  // onChange={(event) => {
+                  //   const { value } = event.target;
+                  //   setSelectedCountry(() => value);
+                  // }}
                 />
                 {errorMessage.location && (
                   <Error>{errorMessage.location}</Error>
@@ -190,9 +197,9 @@ function Location({ handleNextClick }) {
                     placeholder="State/Province"
                     // name="languages"
 
-                    onChange={(event) => {
-                      setSelectedLocation(() => event.target.innerText);
-                    }}
+                    // onChange={(event) => {
+                    //   setSelectedCity(() => event.target.innerText);
+                    // }}
                   />
                   {errorMessage.location && (
                     <Error>{errorMessage.location}</Error>
@@ -208,9 +215,9 @@ function Location({ handleNextClick }) {
                     placeholder="zip code"
                     // name="languages"
 
-                    onChange={(event) => {
-                      setSelectedLocation(() => event.target.innerText);
-                    }}
+                    // onChange={(event) => {
+                    //   setSelectedLocation(() => event.target.innerText);
+                    // }}
                   />
                   {errorMessage.location && (
                     <Error>{errorMessage.location}</Error>
@@ -227,9 +234,14 @@ function Location({ handleNextClick }) {
                   placeholder="City"
                   // name="languages"
 
-                  onChange={(event) => {
-                    setSelectedLocation(() => event.target.innerText);
-                  }}
+                  // onChange={(event) => {
+                  //   setSelectedCity(() => event.target.innerText);
+                  // }}
+                  // defaultValue={selectedCity}
+                  // onChange={(event) => {
+                  //   const { value } = event.target;
+                  //   setSelectedCity(() => value);
+                  // }}
                 />
                 {errorMessage.location && (
                   <Error>{errorMessage.location}</Error>

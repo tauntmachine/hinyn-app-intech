@@ -129,48 +129,48 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
 
   function submitHandler(event) {
     event.preventDefault();
-    // const enteredBidAmount = bidAmountInputRef.current.value;
+    const enteredBidAmount = bidAmountInputRef.current.value;
 
-    // if (!enteredBidAmount) {
-    //   setErrorMessage((prevState) => ({
-    //     ...prevState,
-    //     ['bidAmount']: 'Invalid bid amount',
-    //   }));
-    //   setValid((prevState) => ({
-    //     ...prevState,
-    //     ['form']: false,
-    //   }));
-    // }
+    if (!enteredBidAmount) {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        ['bidAmount']: 'Invalid bid amount',
+      }));
+      setValid((prevState) => ({
+        ...prevState,
+        ['form']: false,
+      }));
+    }
 
-    // if (!enteredBidDescription) {
-    //   setErrorMessage((prevState) => ({
-    //     ...prevState,
-    //     ['bidDescription']: 'Provide bid description',
-    //   }));
-    //   setValid((prevState) => ({
-    //     ...prevState,
-    //     ['form']: false,
-    //   }));
-    // }
+    if (!enteredBidDescription) {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        ['bidDescription']: 'Provide bid description',
+      }));
+      setValid((prevState) => ({
+        ...prevState,
+        ['form']: false,
+      }));
+    }
 
-    // if (
-    //   enteredBidAmount &&
-    //   enteredBidDescription &&
-    //   enteredBidAmount !== '' &&
-    //   enteredBidDescription !== ''
-    // ) {
-    //   isValid.form = true;
-    // }
+    if (
+      enteredBidAmount &&
+      enteredBidDescription &&
+      enteredBidAmount !== '' &&
+      enteredBidDescription !== ''
+    ) {
+      isValid.form = true;
+    }
 
-    // if (isValid.form) {
-    //   const clientData = {
-    //     bidAmount: enteredBidAmount,
-    //     bidDescription: enteredBidDescription,
-    //     isSuccess: isValid.form,
-    //   };
-    handleBidSubmit();
+    if (isValid.form) {
+      const clientData = {
+        bidAmount: enteredBidAmount,
+        bidDescription: enteredBidDescription,
+        isSuccess: isValid.form,
+      };
+      handleBidSubmit();
+    }
   }
-
   return (
     <>
       <Container maxWidth="lg" sx={{ margin: '1rem 0' }}>
@@ -228,7 +228,7 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
 
                     // bgcolor="transparent"
                   />
-                  <StyledTextArea
+                  {/* <StyledTextArea
                     required
                     fullWidth
                     type="number"
@@ -246,7 +246,29 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
                         }));
                       }
                     }}
+                  /> */}
+                  <CustomTextField
+                    required
+                    fullWidth
+                    type="number"
+                    id="bidAmount"
+                    label=""
+                    name="bidAmount"
+                    inputRef={bidAmountInputRef}
+                    onChange={(event) => {
+                      const { value } = event.target;
+                      if (value) {
+                        setErrorMessage((prevState) => ({
+                          ...prevState,
+                          ['bidAmount']: null,
+                        }));
+                      }
+                    }}
                   />
+
+                  {errorMessage.bidAmount && (
+                    <Error>{errorMessage.bidAmount}</Error>
+                  )}
                 </Box>
                 {errorMessage.bidAmount && (
                   <Error>{errorMessage.bidAmount}</Error>

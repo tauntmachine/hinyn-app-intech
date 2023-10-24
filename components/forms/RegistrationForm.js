@@ -201,9 +201,9 @@ function RegistrationForm() {
     }
   };
 
-  // const handlePWChange = (prop) => (event) => {
-  //   setPWValues({ ...pwValues, [prop]: event.target.value });
-  // };
+  const handlePWChange = (prop) => (event) => {
+    setPWValues({ ...pwValues, [prop]: event.target.value });
+  };
 
   const handleClickShowPassword = () => {
     setPWValues({
@@ -235,7 +235,7 @@ function RegistrationForm() {
           if (res?.jwt) {
             localStorage.setItem('hinyn-uid', res.user.id);
             localStorage.setItem('hinyn-cjwt', res.jwt);
-            router.push('/registration?value=1');
+            router.push('/registration');
           }
         });
       } else {
@@ -261,16 +261,7 @@ function RegistrationForm() {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-    // if (
-    //   enteredEmail &&
-    //   enteredPassword &&
-    //   enteredEmail !== '' &&
-    //   enteredPassword !== ''
-    // ) {
-    //   router.push('/registration?value=1');
-    // } else {
-    //   setOpen(true);
-    // }
+
     if (enteredEmail && isValid.email && enteredPassword) {
       isValid.form = true;
     }
@@ -284,16 +275,11 @@ function RegistrationForm() {
       setOpen(true);
     }
   };
-
   // const handleNext = () => {
   //   // Use the 'push' function to navigate to the next screen (page)
-  //   // router.push('/forms/UsernameForm'); // Replace '/next-screen' with the path to the next screen you want to navigate to
-  //   if (errorMessage) {
-  //     router.push('/registration');
-  //   } else {
-  //     setOpen(true);
-  //   }
+  //   router.push('/AccountTypeForm'); // Replace '/next-screen' with the path to the next screen you want to navigate to
   // };
+
   return (
     <>
       <Container maxWidth="sm" sx={{ marginBottom: '2rem' }}>
@@ -344,7 +330,7 @@ function RegistrationForm() {
                   onKeyUp={checkIsPassword}
                   autoComplete="new-password"
                   inputRef={passwordInputRef}
-                  //  onChange={handlePWChange}
+                  onChange={handlePWChange}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -374,7 +360,7 @@ function RegistrationForm() {
                   type={pwValues.showConfirmPassword ? 'text' : 'password'}
                   onKeyUp={checkIsConfirmPassword}
                   inputRef={confirmPasswordInputRef}
-                  //  onChange={handlePWChange}
+                  onChange={handlePWChange}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -406,9 +392,9 @@ function RegistrationForm() {
                   placeholder="Referral Id"
                   // id="confirmPassword"
                   type={'text'}
-                  // onKeyUp={checkIsConfirmPassword}
-                  // inputRef={confirmPasswordInputRef}
-                  //  onChange={handlePWChange}
+                  onKeyUp={checkIsConfirmPassword}
+                  inputRef={confirmPasswordInputRef}
+                  onChange={handlePWChange}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
