@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react';
 import Modal from '../components/shared/Modal';
 import UsernameForm from '../components/forms/UsernameForm';
 import AccountTypeForm from '../components/forms/AccountTypeForm';
+import {
+  updateUserUsername,
+  addClientData,
+  updateUserData,
+} from '../components/forms/formService';
 
 function Registration() {
   const [clientData, setClientData] = useState({});
@@ -22,12 +27,28 @@ function Registration() {
     //     data,
     //   };
     // });
-<<<<<<< HEAD
-    setCurrentActiveForm('accountType');
-=======
-    // setCurrentActiveForm('accountType');
-    setCurrentActiveForm(2);
->>>>>>> 6403bc66c88f4210055f7b21bfda074b397e5c5f
+
+    const userId = localStorage.getItem('hinyn-uid');
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    const clientData = {
+      id: userId,
+      username: data,
+      jwt: jwt,
+    };
+    updateUserUsername(clientData).then((result) => {
+      if (result.status) {
+        const clientId = localStorage.getItem('hinyn-cid');
+        updateUserData(clientId).then((res) => {
+          if (res?.data) {
+            setCurrentActiveForm('accountType');
+          }
+        });
+      } else {
+        setMessage('Incorrect input.');
+        setOpen(true);
+      }
+    });
+    // setCurrentActiveForm(2);
   };
 
   const formsSequence = {

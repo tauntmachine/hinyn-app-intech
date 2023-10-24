@@ -65,7 +65,7 @@ const ScrollableTable = ({
             data.map((category, idx) => (
               <Row
                 key={'category-' + idx}
-                // onClick={() => onCategoryClick(category)}
+                onClick={() => onCategoryClick(idx)}
               >
                 {/* <Category3 data={category} /> */}
                 {startAdornment === 'icon' ? (
@@ -87,7 +87,7 @@ const ScrollableTable = ({
             data.map((skill, idx) => (
               <Row
                 key={'category-skill-' + idx}
-                // onClick={() => onSkillClick(skill)}
+                onClick={() => onSkillClick(skill)}
               >
                 <span> {skill?.title} </span>
                 {endAdornment && iconMap[endAdornment]}

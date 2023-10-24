@@ -58,20 +58,20 @@ const Mainc = styled.div`
 `;
 
 function CategorySkills({ handleNextClick }) {
-  const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [skills, setSkills] = useState([]);
-  const [selectedSkills, setSelectedSkills] = useState([
-    { title: 'Skillset1' },
-    { title: 'Skillset2' },
-    { title: 'Skillset3' },
-    { title: 'Skillset4' },
-    { title: 'Skillset5' },
-  ]);
+  // const [open, setOpen] = useState(false);
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+  // const [categories, setCategories] = useState([]);
+  // const [selectedCategory, setSelectedCategory] = useState('');
+  // const [skills, setSkills] = useState([]);
+  // const [selectedSkills, setSelectedSkills] = useState([
+  //   { title: 'Skillset1' },
+  //   { title: 'Skillset2' },
+  //   { title: 'Skillset3' },
+  //   { title: 'Skillset4' },
+  //   { title: 'Skillset5' },
+  // ]);
 
   // useEffect(() => {
   //   setCategories(() => []);
@@ -94,30 +94,30 @@ function CategorySkills({ handleNextClick }) {
   //   });
   // }, []);
 
-  const onCategoryClick = (categoryId) => {
-    setSelectedCategory(() => categoryId);
-    getCategorySkills(categoryId);
-    setSelectedSkills(() => []);
-  };
+  // const onCategoryClick = (categoryId) => {
+  //   setSelectedCategory(() => categoryId);
+  //   getCategorySkills(categoryId);
+  //   setSelectedSkills(() => []);
+  // };
 
-  const onSkillClick = (selectedSkill) => {
-    if (selectedSkills.find((skill) => skill?.id === selectedSkill?.id))
-      setSelectedSkills((prevData) =>
-        prevData.filter((skill) => skill?.id !== selectedSkill?.id)
-      );
-    else setSelectedSkills((prevData) => prevData.concat(selectedSkill));
-  };
+  // const onSkillClick = (selectedSkill) => {
+  //   if (selectedSkills.find((skill) => skill?.id === selectedSkill?.id))
+  //     setSelectedSkills((prevData) =>
+  //       prevData.filter((skill) => skill?.id !== selectedSkill?.id)
+  //     );
+  //   else setSelectedSkills((prevData) => prevData.concat(selectedSkill));
+  // };
 
-  const [isValid, setValid] = useState({
-    category: false,
-    //   "lastname":false,
-    form: true,
-  });
-  const [errorMessage, setErrorMessage] = useState({
-    category: null,
-    // "lastname":null,
-  });
-  const categoryInputRef = useRef();
+  // const [isValid, setValid] = useState({
+  //   category: false,
+  //   //   "lastname":false,
+  //   form: true,
+  // });
+  // const [errorMessage, setErrorMessage] = useState({
+  //   category: null,
+  //   // "lastname":null,
+  // });
+  // const categoryInputRef = useRef();
   // const lastnameInputRef = useRef();
 
   // function submitHandler(event) {
@@ -157,6 +157,106 @@ function CategorySkills({ handleNextClick }) {
   //     });
   //   });
   // };
+
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [skills, setCategorySkills] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState([]);
+
+  useEffect(() => {
+    let catList = [];
+    console.log('useEffect');
+    getCategories().then((result) => {
+      if (result?.data) {
+        result?.data?.data.map((item) => {
+          let temp = { id: item.id, ...item.attributes };
+          // setCategories((prev) => prev.concat({ ...item.attributes, ...temp }));
+          catList = [...catList, { ...temp }];
+        });
+        setCategories(catList);
+      }
+    });
+  }, []);
+
+  const onCategoryClick = (index) => {
+    setSelectedCategory(categories[index].id);
+    let listSkill = [];
+    categories[index]?.skills.data.map((item) => {
+      let temp = { id: item.id, ...item.attributes };
+      listSkill = [...listSkill, { ...temp }];
+    });
+    setCategorySkills(listSkill);
+    // getCategorySkills(categoryId);
+    // setSelectedSkills(() => []);
+  };
+
+  const onSkillClick = (selectedSkill) => {
+    if (selectedSkills.find((skill) => skill?.id === selectedSkill?.id))
+      setSelectedSkills((prevData) =>
+        prevData.filter((skill) => skill?.id !== selectedSkill?.id)
+      );
+    else setSelectedSkills((prevData) => prevData.concat(selectedSkill));
+  };
+
+  const [isValid, setValid] = useState({
+    category: false,
+    //   "lastname":false,
+    form: true,
+  });
+  const [errorMessage, setErrorMessage] = useState({
+    category: null,
+    // "lastname":null,
+  });
+  const categoryInputRef = useRef();
+  // const lastnameInputRef = useRef();
+
+  function submitHandler(event) {
+    if (selectedCategory != '' && selectedSkills?.length) {
+      const data = {
+        categories: [selectedCategory],
+        skills: selectedSkills.map((skill) => skill.id),
+      };
+      handleNextClick(data);
+    }
+    // event.preventDefault();
+    // const enteredCategory = categoryInputRef.current.value;
+    // // const enteredLastname = lastnameInputRef.current.value;
+
+    // if (enteredCategory && enteredCategory !== '') {
+    //   isValid.form = true;
+    // }
+
+    // if (isValid.form) {
+    //   const clientId = localStorage.getItem('hinyn-cid');
+    // const data = {
+    //   categories: [selectedCategory],
+    //   skills: selectedSkills.map((skill) => skill.id),
+    // };
+
+    //   updateClientData(data, clientId).then((result) => {
+    //     if (result?.data) handleNextClick(true);
+    //   });
+    // } else {
+    //   setOpen(true);
+    // }
+  }
+
+  const getCategorySkills = (categoryId) => {
+    setCategorySkills(() => []);
+    getSkills(categoryId).then((result) => {
+      const temp = result?.data?.data?.attributes?.skills?.data ?? [];
+      temp.map((item) => {
+        let skillId = { id: item.id };
+        setCategorySkills((prev) =>
+          prev.concat({ ...item.attributes, ...skillId })
+        );
+      });
+    });
+  };
 
   return (
     <>
@@ -239,7 +339,7 @@ function CategorySkills({ handleNextClick }) {
       </Container>
 
       <ButtonContainer>
-        {/* <StyledButton onClick={submitHandler}>NEXT</StyledButton> */}
+        <StyledButton onClick={submitHandler}>NEXT</StyledButton>
       </ButtonContainer>
 
       <Modal

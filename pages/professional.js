@@ -20,6 +20,7 @@ import ProfessionalFormPayment from '../components/forms/MemberShip';
 import MemberShip from '../components/forms/MemberShip';
 import EmailVerifyFormPopUp from '../components/forms/EmailVerifyFormPopUp';
 import { updateClientData } from '../components/forms/formService';
+import { async } from '../src/store';
 
 const MainBox = styled(Box)`
   background-color: #f0f0f0;
@@ -31,7 +32,7 @@ const MainBox = styled(Box)`
 
 function Professional() {
   const [progressPercent, setProgressPercent] = useState(10);
-  const [currentActiveForm, setCurrentActiveForm] = useState(1);
+  const [currentActiveForm, setCurrentActiveForm] = useState(2);
   const isAccountVerified = true; //fetch from API
 
   const handleNextClick = (value) => {
@@ -62,6 +63,21 @@ function Professional() {
       .catch((e) => console.log('name update', e));
   };
 
+  const categoryUpdate = async (item) => {
+    const clientId = localStorage.getItem('hinyn-cid');
+    let clientData = await getStoredClient();
+    clientData = {
+      ...clientData.attributes,
+      id: clientData.id,
+      ...item,
+    };
+    updateClientData(clientData, clientId)
+      .then((result) => {
+        if (result?.data) handleNextClick(true);
+      })
+      .catch((e) => console.log('category update', e));
+  };
+
   const getStoredClient = async () => {
     const req = localStorage.getItem('hinyn-clientData');
     return await JSON.parse(req);
@@ -78,7 +94,7 @@ function Professional() {
           <FirstLastName handleNextClick={nameUpdate} />
         ) : null}
         {currentActiveForm === 2 ? (
-          <CategorySkills handleNextClick={handleNextClick} />
+          <CategorySkills handleNextClick={categoryUpdate} />
         ) : null}
         {currentActiveForm === 3 ? (
           <WhatYouDo handleNextClick={handleNextClick} />

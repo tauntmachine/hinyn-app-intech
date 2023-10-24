@@ -78,17 +78,11 @@ function AccountTypeForm() {
         else router.push('/dashboard');
       }
     });
-<<<<<<< HEAD
-    if (accountType === 1) router.push(`/professional`);
-    else router.push(`/dashboard`);
-    // router.push(`/dashboard?value=${accountType}`);
-=======
     // updateClientData(userData, clientId).then((res) => {
     //   console.log(JSON.stringify(res));
     //   if (accountType === 1) router.push('/professional');
     //   else router.push('/dashboard');
     // });
->>>>>>> 6403bc66c88f4210055f7b21bfda074b397e5c5f
   }
 
   return (

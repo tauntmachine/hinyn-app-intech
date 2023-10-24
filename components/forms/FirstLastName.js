@@ -118,30 +118,6 @@ function FirstLastName({ handleNextClick }) {
   const firstnameInputRef = useRef();
   const lastnameInputRef = useRef();
 
-<<<<<<< HEAD
-  // useEffect(() => {
-  //   const clientData = {
-  //     id: localStorage.getItem('hinyn-cid'),
-  //   };
-  //   getClientData(clientData).then((result) => {
-  //     // if (result?.data) console.log('useeffect clientdataa', result?.data);
-  //   });
-  // }, []);
-  const handleUpload = (e) => {
-    if (!e.target.files) {
-      return;
-    }
-    const file = e.target.files[0];
-    const { name } = file;
-    setFilename(name);
-    toggleOpenCameraModal();
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setSelectedImage(e.target.result);
-    };
-    reader.readAsDataURL(file);
-  };
-=======
   useEffect(() => {
     const clientData = {
       id: localStorage.getItem('hinyn-cid'),
@@ -149,42 +125,11 @@ function FirstLastName({ handleNextClick }) {
     const res = localStorage.getItem('hinyn-clientData');
   }, []);
 
->>>>>>> 6403bc66c88f4210055f7b21bfda074b397e5c5f
   function submitHandler(event) {
     event.preventDefault();
     const enteredFirstname = firstnameInputRef.current.value;
     const enteredLastname = lastnameInputRef.current.value;
 
-<<<<<<< HEAD
-    if (
-      enteredFirstname &&
-      enteredLastname &&
-      enteredFirstname !== '' &&
-      enteredLastname !== ''
-    ) {
-      isValid.form = true;
-    }
-
-    if (isValid.form) {
-      const clientId = localStorage.getItem('hinyn-cid');
-      const userData = {
-        firstName: enteredFirstname,
-        lastName: enteredLastname,
-      };
-      updateClientData(userData, clientId).then((res) => {
-        if (res?.data) {
-          handleNextClick(true);
-        }
-      });
-
-      // if (
-      //   enteredFirstname &&
-      //   enteredLastname &&
-      //   enteredFirstname !== '' &&
-      //   enteredLastname !== ''
-      // ) {
-      //   handleNextClick(true);
-=======
     // if (
     //   enteredFirstname &&
     //   enteredLastname &&
@@ -212,7 +157,6 @@ function FirstLastName({ handleNextClick }) {
         lastName: enteredLastname,
       };
       handleNextClick(data);
->>>>>>> 6403bc66c88f4210055f7b21bfda074b397e5c5f
     } else {
       setOpen(true);
     }
@@ -221,6 +165,22 @@ function FirstLastName({ handleNextClick }) {
   const Goback = () => {
     Router.push('/RegistrationForm');
   };
+
+  const handleUpload = (e) => {
+    if (!e.target.files) {
+      return;
+    }
+    const file = e.target.files[0];
+    const { name } = file;
+    setFilename(name);
+    toggleOpenCameraModal();
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setSelectedImage(e.target.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <>
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
