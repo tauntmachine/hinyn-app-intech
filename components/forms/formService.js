@@ -97,7 +97,8 @@ export const getBidsOfClient = async () => {
   const cid = localStorage.getItem('hinyn-cid');
   return axios
     .get(
-      origin + '/bids?filters[client][id][$eq]=' + cid + '&populate=*',
+      // origin + '/bids?filters[client][id][$eq]=' + cid + '&populate=*',
+      origin + '/bids',
       {
         headers: {
           Accept: 'application/json',
@@ -388,13 +389,13 @@ export const addClientData = async (userData, jwt) => {
     });
 };
 
-export const updateClientData = async (clientData, clientId) => {
+export const updateClientData = async (userData, clientId) => {
   const jwt = localStorage.getItem('hinyn-cjwt') ?? '';
   return axios
     .put(
       origin + '/clients/' + clientId,
       {
-        data: clientData,
+        data: userData,
       },
       {
         headers: {
@@ -478,6 +479,7 @@ export const getLoggedInUserData = async () => {
 };
 
 export const updateUserUsername = async (clientData) => {
+  console.log('DoNe2');
   return axios
     .put(
       origin + '/users/' + clientData.id,

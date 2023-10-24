@@ -787,48 +787,48 @@ function PostProjectForm1({ handleNextClick }) {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    // if (
-    //   isValid.title &&
-    //   isValid.category &&
-    //   isValid.location &&
-    //   isValid.projectDate &&
-    //   isValid.projectBudget &&
-    //   isValid.projectDescription &&
-    //   isValid.deliverables &&
-    //   isValid.deliveryDays
-    // ) {
-    //   const clientId = localStorage.getItem('hinyn-cid');
-    //   const bidData = {
-    //     title: projectData.title,
-    //     description: projectData.projectDescription,
-    //     city: projectData.location,
-    //     country: 'United Arab Emirates',
-    //     // deliveryDate: projectData.projectDate,
-    //     minBudget: projectData.projectBudget[0],
-    //     maxBudget:
-    //       projectData.projectBudget.length > 1
-    //         ? projectData.projectBudget[1]
-    //         : '',
-    //     deliveryDays: projectData.deliveryDays,
-    //     numDeliverables: projectData.deliverables,
-    //     isFeatured: projectData.upgrades.featured,
-    //     isUrgent: projectData.upgrades.urgent,
-    //     status: 1,
-    //     categories: [selectedCategory?.id],
-    //     skills: projectData.skills,
-    //     client: clientId,
-    //   };
-    //   if (clientId) {
-    //     addBidData(bidData).then((res) => {
-    //       if (res.data) {
-    //         setFilter(selectedCategory?.key);
-    handleNextClick(true);
-    //       }
-    //     });
-    //   }
-    // } else {
-    //   setOpen(true);
-    // }
+    if (
+      isValid.title
+      // isValid.category &&
+      // isValid.location &&
+      // isValid.projectDate &&
+      // isValid.projectBudget &&
+      // isValid.projectDescription &&
+      // isValid.deliverables &&
+      // isValid.deliveryDays
+    ) {
+      const clientId = localStorage.getItem('hinyn-cid');
+      const bidData = {
+        title: projectData.title,
+        // description: projectData.projectDescription,
+        // city: projectData.location,
+        // country: 'United Arab Emirates',
+        // // deliveryDate: projectData.projectDate,
+        // minBudget: projectData.projectBudget[0],
+        // maxBudget:
+        //   projectData.projectBudget.length > 1
+        //     ? projectData.projectBudget[1]
+        //     : '',
+        // deliveryDays: projectData.deliveryDays,
+        // numDeliverables: projectData.deliverables,
+        // isFeatured: projectData.upgrades.featured,
+        // isUrgent: projectData.upgrades.urgent,
+        status: 1,
+        // categories: [selectedCategory?.id],
+        // skills: projectData.skills,
+        client: clientId,
+      };
+      if (clientId) {
+        addBidData(bidData).then((res) => {
+          if (res.data) {
+            setFilter(selectedCategory?.key);
+            handleNextClick(true);
+          }
+        });
+      }
+    } else {
+      setOpen(true);
+    }
   };
 
   const progress1 = () => {

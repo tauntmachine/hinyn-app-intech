@@ -17,14 +17,15 @@ import MyFreelancers from '../../components/section/MyFreelancers';
 
 const Index = () => {
   const router = useRouter();
+
   const { screen, project } = router.query;
   const [currentTab, setCurrentTab] = useState(0);
-  const [accountType, setAccountType] = useState(2);
+  const [accountType, setAccountType] = useState(0);
   const [proposals, setProposals] = useState([]);
 
   useEffect(() => {
-    if (project && screen) setCurrentTab(1);
-    if (screen === 'browse') setCurrentTab(1);
+    // if (project && screen) setCurrentTab(1);
+    // if (screen === 'browse') setCurrentTab(1);
     const clientId = localStorage.getItem('hinyn-cid');
     if (clientId) {
       getLoggedInUserData().then((res) => {

@@ -75,8 +75,10 @@ const TabItem = styled.div`
   font-weight: ;
 
   &.active {
-    border-bottom: 4px solid #ff5a5f;
-    color: #ff5a5f;
+    // border-bottom: 4px solid #ff5a5f;
+    border-bottom: ${(props) =>
+      props.accountType == 1 ? ' 4px solid #4AA398' : ' 4px solid #ff5a5f'};
+    color: ${(props) => (props.accountType == 1 ? '  #4AA398' : '  #ff5a5f')};
   }
 `;
 
@@ -129,12 +131,12 @@ const StyledCloseIcon = styled(CloseIconCircle)`
 function DashboardHeader({ currentTab, setTabChange }) {
   const imgpath = '/assets/img/avatars/';
   const [userData, setUserData] = useState({});
-  const [accountType, setAccountType] = useState(1);
+  const [accountType, setAccountType] = useState(0);
   const [hover, setHover] = useState(false);
   const router = useRouter();
 
   const showUserProfile = () => {
-    if (accountType === 2) router.push('/dashboard/professionalProfile');
+    if (accountType === 1) router.push('/dashboard/professionalProfile');
     else router.push('/dashboard/clientProfile');
   };
   const loginHover = () => {
@@ -151,27 +153,28 @@ function DashboardHeader({ currentTab, setTabChange }) {
 
   const handleLogoutUser = () => {
     logoutUser();
-    router.push('index');
+    router.push('/');
   };
 
-  // useEffect(() => {
-  //   const clientId = localStorage.getItem('hinyn-cid');
-  //   if(clientId){
-  //     getLoggedInUserData().then((res)=>{
-  //       if(res.data){
-  //         setUserData(()=>res.data?.client)
-  //         setAccountType(()=>res.data?.client?.accountType)
-  //       }
-  //     })
-  //   }
-  // }, [])
+  useEffect(() => {
+    const clientId = localStorage.getItem('hinyn-cid');
+    if (clientId) {
+      getLoggedInUserData().then((res) => {
+        if (res.data) {
+          setUserData(() => res.data?.client);
+          setAccountType(() => res.data?.client?.accountType);
+          // console.log(userData);
+        }
+      });
+    }
+  }, []);
 
   const professionalTabs = ['Dashboard', 'Browse', 'My Projects'];
 
   const clientTabs = ['Dashboard', 'Browse', 'My Freelancers', 'My Projects'];
 
   const showTabs = () => {
-    const tabs = accountType === 2 ? professionalTabs : clientTabs;
+    const tabs = accountType === 1 ? professionalTabs : clientTabs;
     return (
       <Tabs>
         {tabs.map((tabName, idx) => (
@@ -188,7 +191,7 @@ function DashboardHeader({ currentTab, setTabChange }) {
   };
 
   const showCTAButton = () => {
-    if (accountType === 2)
+    if (accountType === 1)
       return (
         <GreenButton onClick={() => showBrowseProjects()}>
           Place a bid
@@ -213,8 +216,8 @@ function DashboardHeader({ currentTab, setTabChange }) {
                 <Text1>Email verification required</Text1>
               </Box>
               <Text2>
-                To activate your account, please click verify your email
-                adresss on the Emial we sent to
+                To activate your account, please click verify your email adresss
+                on the Emial we sent to
                 <span>samantha12@gmail.com</span>
               </Text2>
             </Box>
@@ -275,8 +278,8 @@ function DashboardHeader({ currentTab, setTabChange }) {
                 />
               </ImageContainer>
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <Text color={accountType === 2 ? 'green' : 'red'}>
-                  Hi, Steve
+                <Text color={accountType === 1 ? 'green' : 'red'}>
+                  Hi, {userData.firstName}
                 </Text>
                 <Text>
                   {userData?.cash?.toLocaleString() ?? ''} {'$49,320 USD'}

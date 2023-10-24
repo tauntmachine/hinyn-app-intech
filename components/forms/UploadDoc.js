@@ -16,6 +16,7 @@ import { BackIcon, UploadIcon } from '../shared/Icon';
 import { WebcamCapture } from '../shared/WebcamCapture';
 import AvatarUpload from '../shared/AvatarUpload';
 import Image from 'next/image';
+import { updateClientData } from './formService';
 
 const StyledButton = styled(Button)``;
 
@@ -97,6 +98,7 @@ function UploadDoc({ handleNextClick }) {
 
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [filename, setFilename] = useState('');
+  console.log(filename);
 
   const handleFileUpload = (e) => {
     if (!e.target.files) {
@@ -110,20 +112,21 @@ function UploadDoc({ handleNextClick }) {
   function submitHandler(event) {
     event.preventDefault();
 
-    if (uploadedFiles.length == 0) {
-      handleNextClick(true);
+    if (uploadedFiles.length !== 0) {
+      isValid.form = true;
+    }
+
+    if (isValid.form) {
+      const clientId = localStorage.getItem('hinyn-cid');
+      const clientData = {
+        documents: filename,
+      };
+      updateClientData(clientData, clientId).then((result) => {
+        if (result?.data) handleNextClick(true);
+      });
     } else {
       setOpen(true);
     }
-
-    // if(isValid.form){
-    //   const clientData = {
-    //     uploadedFiles: isValid.form
-    //     };
-    //     handleNextClick(true);
-    // }else{
-    //     setOpen(true)
-    // }
   }
 
   return (
@@ -167,7 +170,9 @@ function UploadDoc({ handleNextClick }) {
                   startIcon={<StyledUploadIcon />}
                 >
                   <br />
-                  Drag or click to upload your document
+                  {filename
+                    ? filename
+                    : 'Drag or click to upload your document'}
                   <input
                     type="file"
                     accept="image/*,.pdf"

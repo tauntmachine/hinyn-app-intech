@@ -106,14 +106,13 @@ function PhoneNo({ handleNextClick }) {
     }
 
     if (isValid.form) {
-      handleNextClick(true);
-      // const clientId = localStorage.getItem('hinyn-cid');
-      // const clientData = {
-      //   mobileNumber: mobileNumber.toString()
-      // };
-      // updateClientData(clientData, clientId).then((result) => {
-      //   if (result?.data) handleNextClick(true);
-      // });
+      const clientId = localStorage.getItem('hinyn-cid');
+      const clientData = {
+        mobileNumber: mobileNumber.toString(),
+      };
+      updateClientData(clientData, clientId).then((result) => {
+        if (result?.data) handleNextClick(true);
+      });
     } else {
       setOpen(true);
     }

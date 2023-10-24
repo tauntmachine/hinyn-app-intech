@@ -15,8 +15,8 @@ const ContainerCustom = styled.div`
 `;
 
 function Main() {
-  const { freelancer, filter, setFilter } = useFreelancer();
-  const [currCatSelected, setCurrCatSelected] = useState('');
+  const { freelancer} = useFreelancer();
+  const [currCatSelected, setCurrCatSelected] = useState('photographer');
   const [category, setCategory] = useState([]);
 
   useEffect(() => {

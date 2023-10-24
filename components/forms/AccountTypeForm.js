@@ -70,8 +70,9 @@ function AccountTypeForm() {
     updateClientData(userData, clientId).then((res) => {
       console.log(JSON.stringify(res));
     });
-    if (accountType === 1) router.push('/professional');
-    else router.push('/dashboard');
+    if (accountType === 1) router.push(`/professional`);
+    else router.push(`/dashboard`);
+    // router.push(`/dashboard?value=${accountType}`);
   }
 
   return (

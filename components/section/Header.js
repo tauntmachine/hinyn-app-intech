@@ -74,11 +74,11 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState({});
 
-  // useEffect(() => {
-  //   if (localStorage.getItem('hinyn-cjwt')) {
-  //     setIsLoggedIn(() => true);
-  //   } else setIsLoggedIn(() => false);
-  // }, [isLoggedIn]);
+  useEffect(() => {
+    if (localStorage.getItem('hinyn-cjwt')) {
+      setIsLoggedIn(() => true);
+    } else setIsLoggedIn(() => false);
+  }, [isLoggedIn]);
 
   const toggleIsExpanded = () => {
     setIsExpanded(() => !isExpanded);
@@ -106,7 +106,7 @@ const Header = () => {
     if (isLoggedIn) logoutUser();
     else showForm('login');
     setIsLoggedIn(() => !isLoggedIn);
-    // return localStorage.getItem('hinyn-cjwt') ? true : false;
+    return localStorage.getItem('hinyn-cjwt') ? true : false;
   };
 
   const handleCloseExpandedSearchBar = (val) => {
@@ -118,14 +118,6 @@ const Header = () => {
       <CustomBox isExpanded={isExpanded}>
         <Head maxWidth="xl">
           <Logo2 />
-          {/* <LogoDiv>
-            <Image
-              src={require('../../public/assets/img/temp/logo-normal2.svg')}
-              height="120px"
-              width="120px"
-              padding="0px"
-            />
-          </LogoDiv> */}
           {/* <SearchAdjust> */}
           <SearchBar
             toggleIsExpanded={toggleIsExpanded}

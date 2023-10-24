@@ -74,38 +74,28 @@ function WhatYouDo({ handleNextClick }) {
   function submitHandler(event) {
     event.preventDefault();
     const enteredDescription = descriptionInputRef.current.value;
-    // if (enteredDescription(enteredDescription !== '')) {
+
     if (
       enteredDescription &&
       enteredBroadDescription &&
       enteredDescription !== '' &&
       enteredBroadDescription !== ''
     ) {
-      handleNextClick(true);
+      isValid.form = true;
+    }
+
+    if (isValid.form) {
+      const clientId = localStorage.getItem('hinyn-cid');
+      const clientData = {
+        description: enteredBroadDescription,
+        headline: enteredDescription,
+      };
+      updateClientData(clientData, clientId).then((result) => {
+        if (result?.data) handleNextClick(true);
+      });
     } else {
       setOpen(true);
     }
-    // } else {
-    //   setOpen(true);
-    // }
-
-    // if(enteredDescription && enteredBroadDescription && (enteredDescription !== '' && enteredBroadDescription !== '')){
-    //     isValid.form = true;
-    // }
-
-    // if(isValid.form){
-    //   const clientId = localStorage.getItem('hinyn-cid');
-    //   const clientData = {
-    //     description: enteredBroadDescription,
-    //     headline: enteredDescription,
-    //     };
-    //     updateClientData(clientData, clientId).then((result)=>{
-    //       if(result?.data) handleNextClick(true);
-    //     });
-
-    // }else{
-    //     setOpen(true)
-    // }
   }
 
   return (

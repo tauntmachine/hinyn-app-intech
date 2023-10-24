@@ -2,22 +2,17 @@ import { useEffect, useState } from 'react';
 import Modal from '../components/shared/Modal';
 import UsernameForm from '../components/forms/UsernameForm';
 import AccountTypeForm from '../components/forms/AccountTypeForm';
-import { useRouter } from 'next/router';
 
 function Registration() {
-  const router = useRouter();
-  const { value } = router.query;
-
-  // const [clientData, setClientData] = useState({});
+  const [clientData, setClientData] = useState({});
   const [open, setOpen] = useState(true);
-  const [currentActiveForm, setCurrentActiveForm] = useState(value);
+  const [currentActiveForm, setCurrentActiveForm] = useState('default');
   const handleClose = (e, reason) => {
     if (reason !== 'backdropClick') setOpen(false);
   };
 
   const handleSubmit = () => {
-    // console.log('submitted');
-    setCurrentActiveForm(2);
+    console.log('submitted');
   };
 
   const handleUsernameSubmit = (data) => {
@@ -28,12 +23,11 @@ function Registration() {
     //   };
     // });
     setCurrentActiveForm('accountType');
-    // setCurrentActiveForm(2);
   };
 
   const formsSequence = {
-    1: <UsernameForm onUsernameSubmit={handleUsernameSubmit} />,
-    2: <AccountTypeForm />,
+    default: <UsernameForm onUsernameSubmit={handleUsernameSubmit} />,
+    accountType: <AccountTypeForm />,
   };
 
   return (
@@ -45,7 +39,7 @@ function Registration() {
         hasHeader={false}
         hasFooter={false}
       >
-        {formsSequence[value]}
+        {formsSequence[currentActiveForm]}
       </Modal>
     </>
   );

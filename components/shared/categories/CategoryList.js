@@ -26,8 +26,8 @@ function CategoryList({ categories, handleSelectedCategory, currCatSelected }) {
           >
             <Category
               data={category}
-              // isSelected={category.title === currCatSelected}\
-              isSelected={true}
+              isSelected={category.title === currCatSelected}
+              // isSelected={true}
             />
           </SwiperSlide>
         ))}

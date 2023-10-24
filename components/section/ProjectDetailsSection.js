@@ -211,25 +211,25 @@ const ProjectDetailsSection = () => {
   const [openSuccessCancelModal, setOpenSuccessCancelModal] = useState(false);
   const loggedInCid = localStorage.getItem('hinyn-cid');
 
-  useEffect(() => {
-    getProposalsOfClientOnABid(project).then((res) => {
-      if (res?.data?.data) {
-        if (res?.data?.data.length > 0) setUserHasProposal(() => true);
-      }
-    });
-    getBidData(project).then((res) => {
-      if (res?.data?.data) {
-        const temp = {
-          id: res?.data?.data?.id,
-          ...res?.data?.data?.attributes,
-        };
-        setBidData(() => temp);
-        if (temp?.client?.data?.id === parseInt(loggedInCid))
-          setIsBidOwner(() => true);
-        setClientData(() => temp?.client?.data?.attributes);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   getProposalsOfClientOnABid(project).then((res) => {
+  //     if (res?.data?.data) {
+  //       if (res?.data?.data.length > 0) setUserHasProposal(() => true);
+  //     }
+  //   });
+  //   getBidData(project).then((res) => {
+  //     if (res?.data?.data) {
+  //       const temp = {
+  //         id: res?.data?.data?.id,
+  //         ...res?.data?.data?.attributes,
+  //       };
+  //       setBidData(() => temp);
+  //       if (temp?.client?.data?.id === parseInt(loggedInCid))
+  //         setIsBidOwner(() => true);
+  //       setClientData(() => temp?.client?.data?.attributes);
+  //     }
+  //   });
+  // }, []);
 
   const handleClose = (e, reason) => {
     if (openCancelProject) setOpenCancelProject(() => false);
