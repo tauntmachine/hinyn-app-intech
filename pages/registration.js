@@ -22,7 +22,12 @@ function Registration() {
     //     data,
     //   };
     // });
+<<<<<<< HEAD
     setCurrentActiveForm('accountType');
+=======
+    // setCurrentActiveForm('accountType');
+    setCurrentActiveForm(2);
+>>>>>>> 6403bc66c88f4210055f7b21bfda074b397e5c5f
   };
 
   const formsSequence = {

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import LogoImage from '/public/assets/img/logo-hinyn.svg';
 import { BackIcon, PhotoIcon, RightArrowIcon } from '../shared/Icon';
-import { updateClientData } from './formService';
+import { addClientData, updateClientData } from './formService';
 import Logo from '../shared/Logo';
 
 // const Logo = styled.div`
@@ -63,16 +63,32 @@ function AccountTypeForm() {
     let accountType = type === 'professional' ? 1 : 2;
     const clientId = localStorage.getItem('hinyn-cid');
     const userId = localStorage.getItem('hinyn-uid');
+    const jwt = localStorage.getItem('hinyn-cjwt');
     const userData = {
       accountType: accountType,
       user: userId,
+      uuid: `client-${clientId}`
     };
-    updateClientData(userData, clientId).then((res) => {
-      console.log(JSON.stringify(res));
+
+    addClientData(userData, jwt).then((res) => {
+      if (res?.status) {
+        localStorage.setItem('hinyn-cid', res?.data?.id);
+        localStorage.setItem('hinyn-clientData', JSON.stringify(res?.data));
+        if (accountType === 1) router.push('/professional');
+        else router.push('/dashboard');
+      }
     });
+<<<<<<< HEAD
     if (accountType === 1) router.push(`/professional`);
     else router.push(`/dashboard`);
     // router.push(`/dashboard?value=${accountType}`);
+=======
+    // updateClientData(userData, clientId).then((res) => {
+    //   console.log(JSON.stringify(res));
+    //   if (accountType === 1) router.push('/professional');
+    //   else router.push('/dashboard');
+    // });
+>>>>>>> 6403bc66c88f4210055f7b21bfda074b397e5c5f
   }
 
   return (
