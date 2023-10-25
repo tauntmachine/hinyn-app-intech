@@ -34,7 +34,7 @@ const ImageDiv = styled(Image)`
 const ImageDiv2 = styled.div`
   border-radius: 20px;
   overflow: hidden;
-  background: green;
+  // background: green;
   width: 40rem;
   height: 23rem;
   margin-top: 20px;
@@ -69,21 +69,15 @@ const TextDiv = styled.div`
   margin-top: 43px;
 `;
 const UploadButton = styled(CustomButton)`
-  // border: 1px solid #0f7669;
   color: #0f7669;
   border-radius: 70rem;
   background: white;
-  width: 100px;
+  width: 170px;
+  height: 170px;
   font-size: 12px;
-  padding: 10px 10px;
-  display: flex;
-  flex-direction: column;
-
-  &:hover {
-    background: #cce0de;
-    color: #0f7669;
-    border: 1px solid #0f7669;
-  }
+  margin: 20px 0 0 0;
+  // display: flex;
+  // flex-direction: column;
 `;
 
 function FirstLastName({ handleNextClick }) {
@@ -118,12 +112,12 @@ function FirstLastName({ handleNextClick }) {
   const firstnameInputRef = useRef();
   const lastnameInputRef = useRef();
 
-  useEffect(() => {
-    const clientData = {
-      id: localStorage.getItem('hinyn-cid'),
-    };
-    const res = localStorage.getItem('hinyn-clientData');
-  }, []);
+  // useEffect(() => {
+  //   const clientData = {
+  //     id: localStorage.getItem('hinyn-cid'),
+  //   };
+  //   const res = localStorage.getItem('hinyn-clientData');
+  // }, []);
 
   function submitHandler(event) {
     event.preventDefault();
@@ -198,23 +192,27 @@ function FirstLastName({ handleNextClick }) {
               selectedImage ? (
                 <Image
                   src={selectedImage}
-                  width="60px"
-                  height="60px"
+                  width="180px"
+                  height="180px"
+                  style={{ borderRadius: '70rem', overflow: 'hidden' }}
                   alt="asd"
                 />
               ) : (
-                <input
-                  type="file"
-                  accept="image/*,.pdf"
-                  // hidden
-                  onChange={handleUpload}
-                  multiple
-                />
+                <>
+                  <Text color="green">Upload a photo</Text>
+                  <input
+                    type="file"
+                    accept="image/*,.pdf"
+                    hidden
+                    onChange={handleUpload}
+                    multiple
+                  />
+                </>
               )
               // <Text color="green">Upload a photo</Text>
             }
           </UploadButton>
-          <Text color="green" marginBottom="10px">
+          <Text color="green" marginBottom="10px" marginTop="20px">
             What is your name?{' '}
           </Text>
           <Text>Please use your real name as this will be required for</Text>
@@ -305,7 +303,7 @@ function FirstLastName({ handleNextClick }) {
             <Image
               src={selectedImage}
               alt="Selected Image"
-              height="355rem"
+              height="350rem"
               width="600rem"
             />
           ) : (

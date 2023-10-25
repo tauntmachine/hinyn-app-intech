@@ -480,7 +480,7 @@ export const getLoggedInUserData = async () => {
 };
 
 export const updateUserUsername = async (clientData) => {
-  console.log('DoNe2');
+  console.log('updateUserUsername');
   return axios
     .put(
       origin + '/users/' + clientData.id,

@@ -184,6 +184,7 @@ function CategorySkills({ handleNextClick }) {
 
   const onCategoryClick = (index) => {
     setSelectedCategory(categories[index].id);
+
     let listSkill = [];
     categories[index]?.skills.data.map((item) => {
       let temp = { id: item.id, ...item.attributes };
@@ -316,6 +317,7 @@ function CategorySkills({ handleNextClick }) {
               endAdornment={'right-arrow'}
               type="categories"
               onCategoryClick={onCategoryClick}
+              selectedCategory={selectedCategory}
             />
           </Grid>
           <Grid item xs={12} md={4}>

@@ -6,7 +6,7 @@ const IconContainer = styled.div`
   flex-direction: row;
   row-gap: 9px;
 
-  color: ${(props) => (props.isSelected ? '#EB4C60' : '#939393')};
+  color: ${(props) => (props.isSelected ? 'red' : '#939393')};
   align-items: center;
   border-bottom: ${(props) => (props.isSelected ? '1px solid #EB4C60' : '')};
   user-select: none;

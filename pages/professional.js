@@ -86,7 +86,7 @@ function Professional() {
   return (
     <>
       <MainBox>
-        <Container maxWidth="xl" sx={{ padding: '1rem 0' }}>
+        <Container maxWidth="xl" sx={{ padding: '1rem', marginLeft: '6rem' }}>
           <Logo />
         </Container>
         <ProgressBar progress={progressPercent} />

@@ -3,12 +3,14 @@ import styled from '@emotion/styled';
 import CategoryIcon from '../shared/categories/Category';
 import { RightChevronIcon, AddIcon } from './Icon';
 import Category3 from './categories/Category3';
+import { useState } from 'react';
 
 const StyledBox = styled(Box)`
   display: flex;
   flex-direction: column;
   overflow: auto;
   height: 370px;
+  // padding: 20px;
   background: #ffffff;
   border-radius: 0 0 20px 20px;
 `;
@@ -23,7 +25,10 @@ const Row = styled.div`
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #dddddd30;
-
+  // .selectedCategory {
+  //   background-color: red;
+  //   color: #ffffff;
+  // }
   &.header {
     color: #ffffff;
     background-color: #24796e;
@@ -40,7 +45,14 @@ const TextWithIcon = styled.div`
   column-gap: 16px;
   align-items: center;
 `;
-
+const ScrollDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 370px;
+  background: #ffffff;
+  border-radius: 0 0 20px 20px;
+`;
 const iconMap = {
   'right-arrow': <RightChevronIcon variant="green" />,
 
@@ -55,19 +67,23 @@ const ScrollableTable = ({
   type,
   onCategoryClick,
   onSkillClick,
+  selectedCategory,
 }) => {
+  // const [selectedCategory, setSelectedCategory] = useState(null);
+  console.log(selectedCategory);
   return (
     <>
       <Row className="header">{title}</Row>
       {type && type === 'categories' ? (
-        <StyledBox>
+        <ScrollDiv>
+          {/* <StyledBox> */}
           {data &&
             data.map((category, idx) => (
               <Row
                 key={'category-' + idx}
                 onClick={() => onCategoryClick(idx)}
+                selected={idx === selectedCategory}
               >
-                {/* <Category3 data={category} /> */}
                 {startAdornment === 'icon' ? (
                   <TextWithIcon>
                     {/* <CategoryIcon data={category} hasLabel={false} /> */}
@@ -80,7 +96,8 @@ const ScrollableTable = ({
                 {endAdornment && iconMap[endAdornment]}
               </Row>
             ))}
-        </StyledBox>
+          {/* </StyledBox> */}
+        </ScrollDiv>
       ) : type === 'category_skills' ? (
         <StyledBox>
           {data &&

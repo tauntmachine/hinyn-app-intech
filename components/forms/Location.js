@@ -94,10 +94,17 @@ function Location({ handleNextClick }) {
   const [errorMessage, setErrorMessage] = useState({
     location: null,
   });
-  const descriptionInputRef = useRef();
+  const countryInputRef = useRef();
+  const stateInputRef = useRef();
+  const zipcodeInputRef = useRef();
+  const cityInputRef = useRef();
+
   function submitHandler(event) {
     event.preventDefault();
-    const selectedCountry = descriptionInputRef.current.value;
+    const selectedCountry = countryInputRef.current.value;
+    const selectedState = stateInputRef.current.value;
+    const selectedZipcode = zipcodeInputRef.current.value;
+    const selectedCity = cityInputRef.current.value;
 
     if (selectedCountry !== '') {
       isValid.form = true;
@@ -108,8 +115,9 @@ function Location({ handleNextClick }) {
     if (isValid.form) {
       const clientId = localStorage.getItem('hinyn-cid');
       const clientData = {
-        // city: selectedCity,
+        city: selectedCity,
         country: selectedCountry,
+        countryCode: selectedZipcode,
       };
       updateClientData(clientData, clientId).then((result) => {
         if (result?.data) handleNextClick(true);
@@ -155,7 +163,7 @@ function Location({ handleNextClick }) {
                   fullWidth
                   id="locationOptions"
                   placeholder="Country"
-                  inputRef={descriptionInputRef}
+                  inputRef={countryInputRef}
                   // name="languages"
 
                   // onChange={(event) => {
@@ -195,6 +203,7 @@ function Location({ handleNextClick }) {
                     fullWidth
                     id="locationOptions"
                     placeholder="State/Province"
+                    inputRef={stateInputRef}
                     // name="languages"
 
                     // onChange={(event) => {
@@ -213,6 +222,7 @@ function Location({ handleNextClick }) {
                     fullWidth
                     id="locationOptions"
                     placeholder="zip code"
+                    inputRef={zipcodeInputRef}
                     // name="languages"
 
                     // onChange={(event) => {
@@ -232,6 +242,7 @@ function Location({ handleNextClick }) {
                   fullWidth
                   id="locationOptions"
                   placeholder="City"
+                  inputRef={cityInputRef}
                   // name="languages"
 
                   // onChange={(event) => {
