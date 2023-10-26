@@ -11,6 +11,7 @@ import {
 function Registration() {
   const [clientData, setClientData] = useState({});
   const [open, setOpen] = useState(true);
+  const [message, setMessage] = useState(true);
   const [currentActiveForm, setCurrentActiveForm] = useState('default');
   const handleClose = (e, reason) => {
     if (reason !== 'backdropClick') setOpen(false);
@@ -45,6 +46,7 @@ function Registration() {
         });
       } else {
         setMessage('Incorrect input.');
+        console.log(message);
         setOpen(true);
       }
     });
