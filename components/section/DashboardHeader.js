@@ -279,7 +279,7 @@ function DashboardHeader({ currentTab, setTabChange }) {
               </ImageContainer>
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Text color={accountType === 1 ? 'green' : 'red'}>
-                  Hi, {userData.firstName}
+                  {/* Hi, {userData.firstName} */}
                 </Text>
                 <Text>
                   {userData?.cash?.toLocaleString() ?? ''} {'$49,320 USD'}

@@ -104,7 +104,7 @@ const WelcomeCon = styled.div`
   margin: auto;
 `;
 const NewsfeedSection = () => {
-  const [accountType, setAccountType] = useState(2);
+  const [accountType, setAccountType] = useState(1);
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const handleClose = () => {
@@ -117,15 +117,16 @@ const NewsfeedSection = () => {
     handleClose();
   };
   // useEffect(() => {
-  //     const clientId = localStorage.getItem('hinyn-cid');
-  //     if(clientId){
-  //       getLoggedInUserData().then((res)=>{
-  //         if(res.data){
-  //           setAccountType(()=>res.data?.client?.accountType);
-  //         }
-  //       })
-  //     }
-  //   }, [])
+  //   const clientId = localStorage.getItem('hinyn-cid');
+  //   if (clientId) {
+  //     getLoggedInUserData().then((res) => {
+  //       if (res.data) {
+  //         setAccountType(() => res.data?.client?.accountType);
+  //         console.log(accountType);
+  //       }
+  //     });
+  //   }
+  // }, []);
 
   const professionalNewsfeedData = [
     {

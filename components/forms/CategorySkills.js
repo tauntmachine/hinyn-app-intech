@@ -163,14 +163,10 @@ function CategorySkills({ handleNextClick }) {
     setOpen(false);
   };
   const [categories, setCategories] = useState([]);
-<<<<<<< HEAD
   const [selectedCategory, setSelectedCategory] = useState('');
   const [skills, setSkills] = useState([]);
-=======
-  const [selectedCategory, setSelectedCategory] = useState([]);
-  const [skills, setCategorySkills] = useState([]);
->>>>>>> a21f034f80f9ac81b722ea4fe848c62e2d4ddfbf
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const [categorySkills, setCategorySkills] = useState();
   // const [skillIsSelected, setSkillIsSelected] = useState(false);
 
   useEffect(() => {
