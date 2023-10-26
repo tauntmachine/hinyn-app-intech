@@ -32,7 +32,7 @@ const MainBox = styled(Box)`
 
 function Professional() {
   const [progressPercent, setProgressPercent] = useState(10);
-  const [currentActiveForm, setCurrentActiveForm] = useState(1);
+  const [currentActiveForm, setCurrentActiveForm] = useState(8);
   const isAccountVerified = true; //fetch from API
 
   const handleNextClick = (value) => {
@@ -43,28 +43,8 @@ function Professional() {
     }
   };
 
-  const nameUpdate = async (item) => {
-    const cid = localStorage.getItem('hinyn-cid');
-    let clientData = await getStoredClient();
-    clientData = {
-      ...clientData.attributes,
-      id: clientData.id,
-      ...item,
-    };
-    // return console.log(cid, clientData);
-    updateClientData(clientData, cid)
-      .then((res) => {
-        console.log(res);
-        if (res.status) {
-          localStorage.setItem('hinyn-clientData', JSON.stringify(res?.data));
-          handleNextClick(true);
-        }
-      })
-      .catch((e) => console.log('name update', e));
-  };
-
-  const categoryUpdate = async (item) => {
-    const clientId = localStorage.getItem('hinyn-cid');
+  const requestUpdate = async (item) => {
+    const clientId = await localStorage.getItem('hinyn-cid');
     let clientData = await getStoredClient();
     clientData = {
       ...clientData.attributes,
@@ -73,9 +53,12 @@ function Professional() {
     };
     updateClientData(clientData, clientId)
       .then((result) => {
-        if (result?.data) handleNextClick(true);
+        if (result?.data) {
+          localStorage.setItem('hinyn-clientData', JSON.stringify(res?.data));
+          handleNextClick(true);
+        }
       })
-      .catch((e) => console.log('category update', e));
+      .catch((e) => console.log('request update', e));
   };
 
   const getStoredClient = async () => {
@@ -91,22 +74,22 @@ function Professional() {
         </Container>
         <ProgressBar progress={progressPercent} />
         {currentActiveForm === 1 ? (
-          <FirstLastName handleNextClick={nameUpdate} />
+          <FirstLastName handleNextClick={requestUpdate} />
         ) : null}
         {currentActiveForm === 2 ? (
-          <CategorySkills handleNextClick={categoryUpdate} />
+          <CategorySkills handleNextClick={requestUpdate} />
         ) : null}
         {currentActiveForm === 3 ? (
-          <WhatYouDo handleNextClick={handleNextClick} />
+          <WhatYouDo handleNextClick={requestUpdate} />
         ) : null}
         {currentActiveForm === 4 ? (
-          <SelectGender handleNextClick={handleNextClick} />
+          <SelectGender handleNextClick={requestUpdate} />
         ) : null}
         {currentActiveForm === 5 ? (
-          <Location handleNextClick={handleNextClick} />
+          <Location handleNextClick={requestUpdate} />
         ) : null}
         {currentActiveForm === 6 ? (
-          <PhoneNo handleNextClick={handleNextClick} />
+          <PhoneNo handleNextClick={requestUpdate} />
         ) : null}
         {currentActiveForm === 7 ? (
           <Ott handleNextClick={handleNextClick} />
