@@ -113,15 +113,12 @@ function Location({ handleNextClick }) {
     }
 
     if (isValid.form) {
-      const clientId = localStorage.getItem('hinyn-cid');
       const clientData = {
         city: selectedCity,
         country: selectedCountry,
         countryCode: selectedZipcode,
       };
-      updateClientData(clientData, clientId).then((result) => {
-        if (result?.data) handleNextClick(true);
-      });
+      handleNextClick(clientData);
     } else {
       setOpen(true);
     }

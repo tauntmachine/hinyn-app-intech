@@ -106,13 +106,10 @@ function PhoneNo({ handleNextClick }) {
     }
 
     if (isValid.form) {
-      const clientId = localStorage.getItem('hinyn-cid');
       const clientData = {
         mobileNumber: mobileNumber.toString(),
       };
-      updateClientData(clientData, clientId).then((result) => {
-        if (result?.data) handleNextClick(true);
-      });
+      handleNextClick(clientData);
     } else {
       setOpen(true);
     }
