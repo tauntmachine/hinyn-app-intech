@@ -5,6 +5,7 @@ import { useFreelancer } from '../../src/store';
 import { useState, useEffect } from 'react';
 import { getCategories } from '../forms/formService';
 import Text from '../shared/Typography';
+import { category } from '../models/filters.models';
 
 const ContainerCustom = styled.div`
   margin-top: 12rem;
@@ -15,31 +16,31 @@ const ContainerCustom = styled.div`
 `;
 
 function Main() {
-  const { freelancer} = useFreelancer();
-  const [currCatSelected, setCurrCatSelected] = useState('photographer');
-  const [category, setCategory] = useState([]);
+  const { freelancer } = useFreelancer();
+  const [currCatSelected, setCurrCatSelected] = useState();
+  // const [category, setCategory] = useState([]);
 
-  useEffect(() => {
-    // Fetch categories when the component mounts
-    const fetchCategories = async () => {
-      const categoriesPromise = getCategories();
-      try {
-        const result = await categoriesPromise;
+  // useEffect(() => {
+  //   // Fetch categories when the component mounts
+  //   const fetchCategories = async () => {
+  //     const categoriesPromise = getCategories();
+  //     try {
+  //       const result = await categoriesPromise;
 
-        if (result.status) {
-          const data = result.data;
-          setCategory(data.data);
-          // console.log('THIS IS ????' + category);
-        } else {
-          console.error('Error fetching categories: ' + result.data);
-        }
-      } catch (error) {
-        console.error('Error fetching categories:', error);
-      }
-    };
+  //       if (result.status) {
+  //         const data = result.data;
+  //         setCategory(data.data);
+  //         // console.log('THIS IS ????' + category);
+  //       } else {
+  //         console.error('Error fetching categories: ' + result.data);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching categories:', error);
+  //     }
+  //   };
 
-    fetchCategories(); // Call the function to fetch categories
-  }, []);
+  //   fetchCategories(); // Call the function to fetch categories
+  // }, []);
 
   const handleButtonClick = () => {};
 

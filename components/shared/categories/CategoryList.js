@@ -14,7 +14,7 @@ function CategoryList({ categories, handleSelectedCategory, currCatSelected }) {
   return (
     <SwiperBox>
       <Swiper
-        spaceBetween={40}
+        spaceBetween={55}
         slidesPerView={9}
         // loop={true}
         updateOnWindowResize={true}
@@ -22,12 +22,11 @@ function CategoryList({ categories, handleSelectedCategory, currCatSelected }) {
         {categories.map((category, idx) => (
           <SwiperSlide
             key={idx}
-            // onClick={() => handleSelectedCategory(category)}
+            onClick={() => handleSelectedCategory(category)}
           >
             <Category
               data={category}
               isSelected={category.title === currCatSelected}
-              // isSelected={true}
             />
           </SwiperSlide>
         ))}

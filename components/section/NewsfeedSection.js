@@ -104,7 +104,7 @@ const WelcomeCon = styled.div`
   margin: auto;
 `;
 const NewsfeedSection = () => {
-  const [accountType, setAccountType] = useState(1);
+  const [accountType, setAccountType] = useState(0);
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const handleClose = () => {
@@ -116,17 +116,17 @@ const NewsfeedSection = () => {
   const handleSubmit = () => {
     handleClose();
   };
-  // useEffect(() => {
-  //   const clientId = localStorage.getItem('hinyn-cid');
-  //   if (clientId) {
-  //     getLoggedInUserData().then((res) => {
-  //       if (res.data) {
-  //         setAccountType(() => res.data?.client?.accountType);
-  //         console.log(accountType);
-  //       }
-  //     });
-  //   }
-  // }, []);
+  useEffect(() => {
+    const clientId = localStorage.getItem('hinyn-cid');
+    if (clientId) {
+      getLoggedInUserData().then((res) => {
+        if (res.data) {
+          setAccountType(() => res.data?.client?.accountType);
+          console.log('as' + accountType);
+        }
+      });
+    }
+  }, []);
 
   const professionalNewsfeedData = [
     {
@@ -171,7 +171,7 @@ const NewsfeedSection = () => {
         title: 'ID is required',
         desc: 'Kindly upload a valid ID for verification. It can be your passport, drivers license, or country ID.',
         type: 'action-button',
-        actionText: 'Upload an ID',
+        actionText: 'Upload an ID Asad',
       },
     },
     {

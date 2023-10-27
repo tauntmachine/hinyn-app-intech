@@ -49,14 +49,14 @@ function Category({ data, isSelected }) {
     <IconContainer isSelected={isSelected}>
       <ImageContainer className="icon-img-box">
         <Image
-          src={'/assets/img/categories/' + data.attributes.icon}
+          src={data.img}
           layout="fill"
           className="icon-img"
           alt="icon-img"
         />
       </ImageContainer>
 
-      <Label>{data.attributes.title}</Label>
+      <Label>{data.title}</Label>
     </IconContainer>
   );
 }

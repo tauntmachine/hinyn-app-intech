@@ -36,6 +36,13 @@ function Registration() {
       username: data,
       jwt: jwt,
     };
+    const userData = {
+      uuid: 'client-' + userId,
+      user: userId,
+    };
+    addClientData(userData, jwt).then((result) => {
+      if (result?.data) localStorage.setItem('hinyn-cid', result?.data?.id);
+    });
     updateUserUsername(clientData).then((result) => {
       if (result.status) {
         const clientId = localStorage.getItem('hinyn-cid');

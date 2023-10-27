@@ -1,49 +1,49 @@
 export const category = [
   {
     title: 'photographer',
-    img: '/assets/img/icons/icon-qualityWork.svg',
+    img: '/assets/img/categories/icon-photographer.svg',
     line: 'Lorem ipsum sit dot net',
   },
   {
     title: 'videographer',
-    img: '/assets/img/icons/icon-qualityWork.svg',
+    img: '/assets/img/categories/icon-videographer.svg',
     line: 'Lorem ipsum sit dot net',
   },
   {
     title: 'editor',
-    img: '/assets/img/icons/icon-qualityWork.svg',
+    img: '/assets/img/categories/icon-editor.svg',
     line: 'Lorem ipsum sit dot net',
   },
   {
-    title: 'stylisy',
-    img: '/assets/img/icons/icon-qualityWork.svg',
-    line: 'Lorem ipsum sit dot net',
-  },
-  {
-    title: 'make-up',
-    img: '/assets/img/icons/icon-qualityWork.svg',
-    line: 'Lorem ipsum sit dot net',
-  },
-  {
-    title: 'hair-stylist',
-    img: '/assets/img/icons/icon-qualityWork.svg',
-    line: 'Lorem ipsum sit dot net',
-  },
-  {
-    title: 'stylisy',
-    img: '/assets/img/icons/icon-qualityWork.svg',
+    title: 'stylist',
+    img: '/assets/img/categories/icon-stylist.svg',
     line: 'Lorem ipsum sit dot net',
   },
   {
     title: 'make-up',
-    img: '/assets/img/icons/icon-qualityWork.svg',
+    img: '/assets/img/categories/icon-makeup-Artist.svg',
     line: 'Lorem ipsum sit dot net',
   },
   {
     title: 'hair-stylist',
-    img: '/assets/img/icons/icon-qualityWork.svg',
+    img: '/assets/img/categories/icon-hair-Stylist.svg',
     line: 'Lorem ipsum sit dot net',
   },
+  {
+    title: 'drone',
+    img: '/assets/img/categories/icon-drone.svg',
+    line: 'Lorem ipsum sit dot net',
+  },
+  {
+    title: 'studio',
+    img: '/assets/img/categories/icon-model.svg',
+    line: 'Lorem ipsum sit dot net',
+  },
+  // {
+  //   title: 'model',
+  //   img: '/assets/img/categories/icon-model.svg',
+  //   line: 'Lorem ipsum sit dot net',
+  // },
 ];
 
 export const budget = [
@@ -130,11 +130,11 @@ export const skills = [
 ];
 
 export const categoriesForm = [
-  { title: 'Category1', img: '/assets/img/icons/img12.png' },
-  { title: 'Category2', img: '/assets/img/icons/img12.png' },
-  { title: 'Category3', img: '/assets/img/icons/img12.png' },
-  { title: 'Category4', img: '/assets/img/icons/img12.png' },
-  { title: 'Category5', img: '/assets/img/icons/img12.png' },
+  { title: 'Category1', img: '/assets/img/categories/img12.png' },
+  { title: 'Category2', img: '/assets/img/categories/img12.png' },
+  { title: 'Category3', img: '/assets/img/categories/img12.png' },
+  { title: 'Category4', img: '/assets/img/categories/img12.png' },
+  { title: 'Category5', img: '/assets/img/categories/img12.png' },
 ];
 export const categorySkill = [
   { title: 'skill' },

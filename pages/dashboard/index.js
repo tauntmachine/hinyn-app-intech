@@ -31,6 +31,7 @@ const Index = () => {
       getLoggedInUserData().then((res) => {
         if (res.data) {
           setAccountType(() => res.data?.client?.accountType);
+          console.log(accountType);
         }
       });
     }
