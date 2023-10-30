@@ -37,10 +37,10 @@ const SearchOptionContainer = styled.div`
   fontweight: 50px;
 
   &:hover {
-    background: #f8f8f8;
-    border: 1px solid #eb4c60;
+    // background: #f8f8f8;
+    // border: 1px solid #eb4c60;
     // paddingvertical: 20px;
-    box-shadow: 0px 3px 6px #eb4c603c;
+    // box-shadow: 0px 3px 6px #eb4c603c;
   }
 
   &.active {

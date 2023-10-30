@@ -24,7 +24,7 @@ const sortOptions = [
 ];
 
 const GridContainer = styled(Box)`
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 `;
 const FilterContainer = styled.div`
   display: flex;

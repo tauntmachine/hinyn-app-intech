@@ -4,11 +4,11 @@ import Image from 'next/image';
 const IconContainer = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 9px;
+  row-gap: 7px;
 
   color: ${(props) => (props.isSelected ? '#EB4C60' : '#939393')};
   align-items: center;
-  border-bottom: ${(props) => (props.isSelected ? '1px solid #EB4C60' : '')};
+  border-bottom: ${(props) => (props.isSelected ? '1.5px solid #EB4C60' : '')};
   user-select: none;
 
   .icon-img-box img {
@@ -34,11 +34,11 @@ const Label = styled.span`
   text-align: center;
   font-size: 12px;
   margin-bottom: 4px;
-  margin-left: 10px;
+  // margin-left: 10px;
 `;
 const ImageContainer = styled.div`
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.7rem;
+  height: 2.7rem;
   position: relative;
 `;
 

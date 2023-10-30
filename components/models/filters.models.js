@@ -1,49 +1,49 @@
 export const category = [
   {
-    title: 'photographer',
+    title: 'Photographer',
     img: '/assets/img/categories/icon-photographer.svg',
     line: 'Lorem ipsum sit dot net',
   },
   {
-    title: 'videographer',
+    title: 'Videographer',
     img: '/assets/img/categories/icon-videographer.svg',
     line: 'Lorem ipsum sit dot net',
   },
   {
-    title: 'editor',
+    title: 'Editor',
     img: '/assets/img/categories/icon-editor.svg',
     line: 'Lorem ipsum sit dot net',
   },
   {
-    title: 'stylist',
+    title: 'Stylist',
     img: '/assets/img/categories/icon-stylist.svg',
     line: 'Lorem ipsum sit dot net',
   },
   {
-    title: 'make-up',
+    title: 'Makeup Artist',
     img: '/assets/img/categories/icon-makeup-Artist.svg',
     line: 'Lorem ipsum sit dot net',
   },
   {
-    title: 'hair-stylist',
+    title: 'Hairstylist',
     img: '/assets/img/categories/icon-hair-Stylist.svg',
     line: 'Lorem ipsum sit dot net',
   },
   {
-    title: 'drone',
+    title: 'Drone Operator',
     img: '/assets/img/categories/icon-drone.svg',
     line: 'Lorem ipsum sit dot net',
   },
   {
-    title: 'studio',
+    title: 'Studio/Location',
+    img: '/assets/img/categories/icon-studio-location.svg',
+    line: 'Lorem ipsum sit dot net',
+  },
+  {
+    title: 'Models',
     img: '/assets/img/categories/icon-model.svg',
     line: 'Lorem ipsum sit dot net',
   },
-  // {
-  //   title: 'model',
-  //   img: '/assets/img/categories/icon-model.svg',
-  //   line: 'Lorem ipsum sit dot net',
-  // },
 ];
 
 export const budget = [
