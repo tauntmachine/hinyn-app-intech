@@ -70,19 +70,19 @@ function AccountTypeForm() {
       uuid: `client-${clientId}`,
     };
 
-    addClientData(userData, jwt).then((res) => {
-      if (res?.status) {
-        localStorage.setItem('hinyn-cid', res?.data?.id);
-        localStorage.setItem('hinyn-clientData', JSON.stringify(res?.data));
-        if (accountType === 1) router.push('/professional');
-        else router.push('/dashboard');
-      }
-    });
-    // updateClientData(userData, clientId).then((res) => {
-    //   console.log(JSON.stringify(res));
-    //   if (accountType === 1) router.push('/professional');
-    //   else router.push('/dashboard');
+    // addClientData(userData, jwt).then((res) => {
+    //   if (res?.status) {
+    //     localStorage.setItem('hinyn-cid', res?.data?.id);
+    //     localStorage.setItem('hinyn-clientData', JSON.stringify(res?.data));
+    //     if (accountType === 1) router.push('/professional');
+    //     else router.push('/dashboard');
+    //   }
     // });
+    updateClientData(userData, clientId).then((res) => {
+      console.log(JSON.stringify(res));
+      if (accountType === 1) router.push('/professional');
+      else router.push('/dashboard');
+    });
   }
 
   return (

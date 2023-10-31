@@ -11,6 +11,7 @@ import {
 function Registration() {
   const [clientData, setClientData] = useState({});
   const [open, setOpen] = useState(true);
+  const [message, setMessage] = useState(true);
   const [currentActiveForm, setCurrentActiveForm] = useState('default');
   const handleClose = (e, reason) => {
     if (reason !== 'backdropClick') setOpen(false);
@@ -35,6 +36,13 @@ function Registration() {
       username: data,
       jwt: jwt,
     };
+    const userData = {
+      uuid: 'client-' + userId,
+      user: userId,
+    };
+    addClientData(userData, jwt).then((result) => {
+      if (result?.data) localStorage.setItem('hinyn-cid', result?.data?.id);
+    });
     updateUserUsername(clientData).then((result) => {
       if (result.status) {
         const clientId = localStorage.getItem('hinyn-cid');
@@ -45,6 +53,7 @@ function Registration() {
         });
       } else {
         setMessage('Incorrect input.');
+        console.log(message);
         setOpen(true);
       }
     });

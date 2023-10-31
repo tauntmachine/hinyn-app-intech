@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import {
   CssBaseline,
   TextField,
@@ -94,7 +94,16 @@ function UsernameForm({ onUsernameSubmit }) {
       setOpen(true);
     }
   };
-
+  const [suggestedUsernames, setSuggestedUsernames] = useState([]);
+  function getPreviouslyEnteredUsernames() {
+    const storedUsernames = localStorage.getItem('enteredUsernames');
+    return storedUsernames ? JSON.parse(storedUsernames) : [];
+  }
+  useEffect(() => {
+    const previouslyEnteredUsernames = getPreviouslyEnteredUsernames();
+    setSuggestedUsernames(previouslyEnteredUsernames);
+  }, []);
+  console.log(suggestedUsernames);
   return (
     <>
       <Container sx={{ marginBottom: '2rem' }}>
@@ -146,11 +155,11 @@ function UsernameForm({ onUsernameSubmit }) {
             >
               <Grid item sx={{ display: 'flex', direction: 'row' }}>
                 <Text color="green" fontSize="12px">
-                  Suggestions:{' '}
+                  Suggestions:{suggestedUsernames}
                 </Text>
-                <Text fontSize="12px" color="#CACFD2" marginLeft="10px">
-                  username1 / username2 / username
-                </Text>
+                {/* <Text fontSize="12px" color="#CACFD2" marginLeft="10px">
+                  {suggestedUsernames.join(' / ')}
+                </Text> */}
               </Grid>
             </Grid>
             <StyledButton onClick={submitHandler}>NEXT</StyledButton>

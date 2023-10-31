@@ -54,7 +54,10 @@ function Professional() {
     updateClientData(clientData, clientId)
       .then((result) => {
         if (result?.data) {
-          localStorage.setItem('hinyn-clientData', JSON.stringify(res?.data));
+          localStorage.setItem(
+            'hinyn-clientData',
+            JSON.stringify(result?.data)
+          );
           handleNextClick(true);
         }
       })

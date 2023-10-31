@@ -163,9 +163,11 @@ function CategorySkills({ handleNextClick }) {
     setOpen(false);
   };
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState([]);
-  const [skills, setCategorySkills] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [skills, setSkills] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const [categorySkills, setCategorySkills] = useState();
+  // const [skillIsSelected, setSkillIsSelected] = useState(false);
 
   useEffect(() => {
     let catList = [];
@@ -190,17 +192,31 @@ function CategorySkills({ handleNextClick }) {
       let temp = { id: item.id, ...item.attributes };
       listSkill = [...listSkill, { ...temp }];
     });
-    setCategorySkills(listSkill);
+    setSkills(listSkill);
     // getCategorySkills(categoryId);
     // setSelectedSkills(() => []);
   };
 
+  // const onSkillClick = (selectedSkill) => {
+  //   setSkillIsSelected();
+  //   if (selectedSkills.find((skill) => skill?.id === selectedSkill?.id))
+  //     setSelectedSkills((prevData) =>
+  //       prevData.filter((skill) => skill?.id !== selectedSkill?.id)
+  //     );
+  //   else setSelectedSkills((prevData) => prevData.concat(selectedSkill));
+  // };
   const onSkillClick = (selectedSkill) => {
-    if (selectedSkills.find((skill) => skill?.id === selectedSkill?.id))
-      setSelectedSkills((prevData) =>
-        prevData.filter((skill) => skill?.id !== selectedSkill?.id)
-      );
-    else setSelectedSkills((prevData) => prevData.concat(selectedSkill));
+    const skillIndex = selectedSkills.indexOf(selectedSkill);
+
+    if (skillIndex !== -1) {
+      // If the skill is already selected, remove it
+      const updatedSkills = [...selectedSkills];
+      updatedSkills.splice(skillIndex, 1);
+      setSelectedSkills(updatedSkills);
+    } else {
+      // If the skill is not selected, add it
+      setSelectedSkills([...selectedSkills, selectedSkill]);
+    }
   };
 
   const [isValid, setValid] = useState({
@@ -328,6 +344,8 @@ function CategorySkills({ handleNextClick }) {
               category={selectedCategory}
               endAdornment={'add-icon'}
               onSkillClick={onSkillClick}
+              // skillIsSelected={skillIsSelected}
+              selectedSkills={selectedSkills}
             />
           </Grid>
           <Grid item xs={12} md={4}>

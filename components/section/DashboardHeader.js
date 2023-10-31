@@ -156,18 +156,18 @@ function DashboardHeader({ currentTab, setTabChange }) {
     router.push('/');
   };
 
-  useEffect(() => {
-    const clientId = localStorage.getItem('hinyn-cid');
-    if (clientId) {
-      getLoggedInUserData().then((res) => {
-        if (res.data) {
-          setUserData(() => res.data?.client);
-          setAccountType(() => res.data?.client?.accountType);
-          // console.log(userData);
-        }
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   const clientId = localStorage.getItem('hinyn-cid');
+  //   if (clientId) {
+  //     getLoggedInUserData().then((res) => {
+  //       if (res.data) {
+  //         setUserData(() => res.data?.client);
+  //         setAccountType(() => res.data?.client?.accountType);
+  //         console.log(userData);
+  //       }
+  //     });
+  //   }
+  // }, []);
 
   const professionalTabs = ['Dashboard', 'Browse', 'My Projects'];
 
@@ -279,7 +279,7 @@ function DashboardHeader({ currentTab, setTabChange }) {
               </ImageContainer>
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Text color={accountType === 1 ? 'green' : 'red'}>
-                  Hi, {userData.firstName}
+                  {/* Hi, {userData.firstName} */}
                 </Text>
                 <Text>
                   {userData?.cash?.toLocaleString() ?? ''} {'$49,320 USD'}

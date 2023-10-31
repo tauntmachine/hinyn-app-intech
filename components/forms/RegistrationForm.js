@@ -29,6 +29,7 @@ import {
   addClientData,
   logoutUser,
 } from '../forms/formService';
+import Link from 'next/link';
 
 const Logo = styled.div`
   position: relative;
@@ -48,6 +49,7 @@ const TypoDiv2 = styled.div`
 
 const StyledButton = styled(Button)`
   margin: auto;
+
   width: 100%;
 `;
 
@@ -67,6 +69,8 @@ const FormContainer = styled(Box)`
 const AgreeDiv = styled.div`
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+  display: flex;
+  direction: row;
 `;
 const TextLink = styled.span`
   margin-left: 8px;
@@ -82,11 +86,10 @@ const Text2 = styled.span`
   color: #ff5a5f;
   margin-left: 4px;
   margin-right: 4px;
-`;
-const Text3 = styled.div`
-  font-size: 14px;
-  color: #ff5a5f;
-  margin-left: 18px;
+  &:hover {
+    color: #eb4c60;
+    cursor: pointer;
+  }
 `;
 
 const Error = styled.p`
@@ -94,7 +97,15 @@ const Error = styled.p`
   font-size: 0.75rem;
   font-family: 'Roboto', sans-serif;
 `;
-
+const ConInput = styled.div`
+  margin: 10px;
+`;
+const ConBox = styled.div`
+  margin: 2px 0 0 0;
+`;
+const ConText = styled.div`
+  margin: 0 0 0 4px;
+`;
 function RegistrationForm() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -334,14 +345,16 @@ function RegistrationForm() {
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {pwValues.showPassword ? <FiEyeOff /> : <FiEye />}
-                        </IconButton>
+                        <ConInput>
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {pwValues.showPassword ? <FiEyeOff /> : <FiEye />}
+                          </IconButton>
+                        </ConInput>
                       </InputAdornment>
                     ),
                   }}
@@ -364,18 +377,20 @@ function RegistrationForm() {
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowConfirmPassword}
-                          onMouseDown={handleMouseDownConfirmPassword}
-                          edge="end"
-                        >
-                          {pwValues.showConfirmPassword ? (
-                            <FiEyeOff />
-                          ) : (
-                            <FiEye />
-                          )}
-                        </IconButton>
+                        <ConInput>
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowConfirmPassword}
+                            onMouseDown={handleMouseDownConfirmPassword}
+                            edge="end"
+                          >
+                            {pwValues.showConfirmPassword ? (
+                              <FiEyeOff />
+                            ) : (
+                              <FiEye />
+                            )}
+                          </IconButton>
+                        </ConInput>
                       </InputAdornment>
                     ),
                   }}
@@ -420,12 +435,21 @@ function RegistrationForm() {
               </Grid>
             </Grid>
             <AgreeDiv>
-              <input type="checkbox" />
-              <Text color="red">I agree to the HINYN</Text>
-              <Text2>User Agreement</Text2>
-              <Text>and</Text>
-              <Text2>Privacy </Text2>
-              <Text3>Policy.</Text3>
+              <ConBox>
+                <input type="checkbox" />
+              </ConBox>
+
+              <ConText>
+                <Text color="red">I agree to the HINYN</Text>
+                <Link href={'/UserAgreement'}>
+                  <Text2>User Agreement</Text2>
+                </Link>
+
+                <Text>and</Text>
+                <Link href={'/UserAgreement'}>
+                  <Text2>Privacy Policy</Text2>
+                </Link>
+              </ConText>
             </AgreeDiv>
             {/* <Grid container justifyContent="flex-start">
               <Grid item>

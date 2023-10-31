@@ -9,10 +9,16 @@ const StyledBox = styled(Box)`
   display: flex;
   flex-direction: column;
   overflow: auto;
-  height: 370px;
-  // padding: 20px;
+  height: 350px;
+
   background: #ffffff;
-  border-radius: 0 0 20px 20px;
+
+  &::-webkit-scrollbar {
+    width: 3px; /* width of the scrollbar */
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #eb4c60; /* color of the scrollbar thumb */
+  }
 `;
 
 const Row = styled.div`
@@ -47,9 +53,9 @@ const TextWithIcon = styled.div`
 `;
 const ScrollDiv = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction column;
   overflow: auto;
-  height: 370px;
+  height: 20px;
   background: #ffffff;
   border-radius: 0 0 20px 20px;
 `;
@@ -68,15 +74,15 @@ const ScrollableTable = ({
   onCategoryClick,
   onSkillClick,
   selectedCategory,
+  skillIsSelected,
+  selectedSkills,
 }) => {
-  // const [selectedCategory, setSelectedCategory] = useState(null);
   console.log(selectedCategory);
   return (
     <>
       <Row className="header">{title}</Row>
       {type && type === 'categories' ? (
-        <ScrollDiv>
-          {/* <StyledBox> */}
+        <StyledBox>
           {data &&
             data.map((category, idx) => (
               <Row
@@ -96,8 +102,7 @@ const ScrollableTable = ({
                 {endAdornment && iconMap[endAdornment]}
               </Row>
             ))}
-          {/* </StyledBox> */}
-        </ScrollDiv>
+        </StyledBox>
       ) : type === 'category_skills' ? (
         <StyledBox>
           {data &&
@@ -107,7 +112,11 @@ const ScrollableTable = ({
                 onClick={() => onSkillClick(skill)}
               >
                 <span> {skill?.title} </span>
-                {endAdornment && iconMap[endAdornment]}
+                {/* {endAdornment && iconMap[endAdornment]} */}
+                {/* {endAdornment && !skillIsSelected ? iconMap[endAdornment] : ''} */}
+                {selectedSkills.includes(skill) &&
+                  endAdornment &&
+                  iconMap[endAdornment]}
               </Row>
             ))}
         </StyledBox>
@@ -121,6 +130,7 @@ const ScrollableTable = ({
             ))}
         </StyledBox>
       )}
+      <ScrollDiv></ScrollDiv>
     </>
   );
 };
