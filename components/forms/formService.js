@@ -362,6 +362,11 @@ export const getFilteredClients = async (filters) => {
 
 export const addClientData = async (userData, jwt) => {
   const req = await getUserData(userData.user);
+  let clientData = {
+    ...req.data,
+    uuid: `client-${userData.user}`,
+    ...userData,
+  };
   return axios
     .post(
       origin + '/clients',

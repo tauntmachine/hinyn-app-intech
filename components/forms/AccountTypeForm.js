@@ -67,7 +67,7 @@ function AccountTypeForm() {
     const userData = {
       accountType: accountType,
       user: userId,
-      uuid: `client-${clientId}`
+      uuid: `client-${clientId}`,
     };
 
     addClientData(userData, jwt).then((res) => {
