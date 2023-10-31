@@ -97,12 +97,14 @@ const CategoryItem = styled.div`
     span {
       color: #eb4c60;
     }
-  }
 
-  &:hover .icon-img-box img {
-    // filter: invert(0) sepia(100%) saturate(0%) hue-rotate(338deg)
-    //   brightness(101%) contrast(7);
-    color: #eb4c60;
+    .icon-img-box img {
+      // filter: invert(0) sepia(100%) saturate(0%) hue-rotate(338deg)
+      //   brightness(101%) contrast(7);
+      // filter: hue-rotate(330deg);
+      filter: invert(0) sepia(0%) saturate(0%) hue-rotate(330deg) brightness(1%)
+        contrast(7);
+    }
   }
 `;
 
@@ -277,35 +279,35 @@ function PostProjectForm1({ handleNextClick }) {
   const [categories, setCategories] = useState([
     {
       title: 'Photographer',
-      img: '/assets/img/categories/icn-photographer.svg',
+      img: '/assets/img/categories/icon-photographer.svg',
     },
     {
-      title: 'Photographer',
-      img: '/assets/img/categories/icn-photographer.svg',
+      title: 'Videographer',
+      img: '/assets/img/categories/icon-videographer.svg',
     },
     {
-      title: 'Photographer',
-      img: '/assets/img/categories/icn-photographer.svg',
+      title: 'Editor',
+      img: '/assets/img/categories/icon-editor.svg',
     },
     {
-      title: 'Photographer',
-      img: '/assets/img/categories/icn-photographer.svg',
+      title: 'Stylist',
+      img: '/assets/img/categories/icon-stylist.svg',
     },
     {
-      title: 'Photographer',
-      img: '/assets/img/categories/icn-photographer.svg',
+      title: 'Makeup Artist',
+      img: '/assets/img/categories/icon-makeup-Artist.svg',
     },
     {
-      title: 'Photographer',
-      img: '/assets/img/categories/icn-photographer.svg',
+      title: 'Hairstylist',
+      img: '/assets/img/categories/icon-hair-Stylist.svg',
     },
     {
-      title: 'Photographer',
-      img: '/assets/img/categories/icn-photographer.svg',
+      title: 'Drone Operator',
+      img: '/assets/img/categories/icon-drone.svg',
     },
     {
-      title: 'Photographer',
-      img: '/assets/img/categories/icn-photographer.svg',
+      title: 'Studio/Location',
+      img: '/assets/img/categories/icon-studio-location.svg',
     },
   ]);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -321,6 +323,7 @@ function PostProjectForm1({ handleNextClick }) {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [filename, setFilename] = useState(null);
   const [isFetched, setIsFetched] = useState(false);
+  const [activeStates, setActiveStates] = useState(categories.map(() => false));
   const [upgrades, setUpgrades] = useState({
     featured: true,
     urgent: false,
@@ -832,6 +835,14 @@ function PostProjectForm1({ handleNextClick }) {
   };
 
   const progress1 = () => {
+    // Create an array of states to track the active state for each category
+
+    // Function to toggle the active state of a category
+    const toggleCategoryActiveState = (index) => {
+      const updatedActiveStates = [...activeStates];
+      updatedActiveStates[index] = !updatedActiveStates[index];
+      setActiveStates(updatedActiveStates);
+    };
     return (
       <>
         <Text fontSize="18px">
@@ -872,8 +883,10 @@ function PostProjectForm1({ handleNextClick }) {
               return category?.slug !== 'all' ? (
                 <CategoryItem
                   key={'category-item-' + id}
-                  className={color === true ? 'active' : ''}
-                  onClick={() => setColor(!color)}
+                  // className={color === true ? 'active' : ''}
+                  // onClick={() => setColor(!color)}
+                  className={activeStates[id] ? 'active' : ''}
+                  onClick={() => toggleCategoryActiveState(id)}
                 >
                   <ImageContainer className="icon-img-box">
                     <Image

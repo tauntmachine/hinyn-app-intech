@@ -82,11 +82,14 @@ const ImageContainer = styled.div`
 
 const BGBox = styled(Box)`
   background: ${(props) => (props.color === 'white' ? '#ffffff' : '#f7f7f7')};
-  padding: 5rem 0 7rem 0;
+  padding: 5rem 0 7rem 7.8rem;
   width: 100%;
   height: 100%;
 `;
-
+const GridCon = styled.div`
+  dispaly: flex;
+  flex-direction: row;
+`;
 const contactDetails = [
   {
     desc: 'info@hinyn.com',
@@ -107,7 +110,8 @@ function contactUs() {
       <BGBox>
         <Container maxWidth="xl">
           <Grid container>
-            <Grid item xs={6}>
+            {/* <GridCon> */}
+            <Grid item xs={5}>
               <Column>
                 <Text color="red">
                   <b>CONTACT US</b>
@@ -119,14 +123,15 @@ function contactUs() {
                 <Box maxWidth="sm">
                   <Subtitle>
                     Hey there! We&apos;d love to hear from you - go ahead and
-                    fill out our form, and we promise to get back to you within
-                    24 hours
+                    fill out our
+                    <br /> form, and we promise to get back to you within 24
+                    hours
                   </Subtitle>
                 </Box>
                 <Row
                   sx={{ flexWrap: 'wrap', gap: '1.25rem', marginTop: '2.5rem' }}
                 >
-                  <Column sx={{ marginTop: '2.5rem', gap: '3rem' }}>
+                  <Column sx={{ marginTop: '2.5rem', gap: '1.5rem' }}>
                     {contactDetails &&
                       contactDetails.map((item, idx) => {
                         return (
@@ -164,6 +169,7 @@ function contactUs() {
               </Row>
             </Grid>
           </Grid>
+          {/* </GridCon> */}
         </Container>
       </BGBox>
       <Footer />

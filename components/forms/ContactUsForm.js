@@ -192,8 +192,8 @@ function ContactUsForm() {
             onSubmit={submitHandler}
             sx={{ mt: 3 }}
           >
-            <Grid container spacing={4}>
-              <Grid item xs={12}>
+            <Grid container spacing={5}>
+              <Grid item xs={16}>
                 <Text>Full Name</Text>
                 <VerticalDivider />
                 <TextField
