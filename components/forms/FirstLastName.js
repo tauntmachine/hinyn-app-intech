@@ -6,7 +6,7 @@ import Button from '../shared/Button';
 import Modal2 from '../shared/Modal2';
 import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
-import { BackIcon } from '../shared/Icon';
+import { BackIcon, UserIcon } from '../shared/Icon';
 import { WebcamCapture } from '../shared/WebcamCapture';
 import AvatarUpload from '../shared/AvatarUpload';
 import { getClientData, updateClientData, updateUserData } from './formService';
@@ -76,10 +76,10 @@ const UploadButton = styled(CustomButton)`
   height: 170px;
   font-size: 12px;
   margin: 20px 0 0 0;
-  // display: flex;
-  // flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
-
+const IconCon = styled.div``;
 function FirstLastName({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const [openCameraModal, setOpenCameraModal] = useState(false);
@@ -199,7 +199,13 @@ function FirstLastName({ handleNextClick }) {
                 />
               ) : (
                 <>
-                  <Text color="green">Upload a photo</Text>
+                  <IconCon>
+                    <UserIcon isabsolute={false} />
+                  </IconCon>
+
+                  <Text color="green" fontSize="small">
+                    Upload a photo
+                  </Text>
                   <input
                     type="file"
                     accept="image/*,.pdf"

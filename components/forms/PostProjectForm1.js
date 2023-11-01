@@ -99,11 +99,8 @@ const CategoryItem = styled.div`
     }
 
     .icon-img-box img {
-      // filter: invert(0) sepia(100%) saturate(0%) hue-rotate(338deg)
-      //   brightness(101%) contrast(7);
-      // filter: hue-rotate(330deg);
-      filter: invert(0) sepia(0%) saturate(0%) hue-rotate(330deg) brightness(1%)
-        contrast(7);
+      filter: invert(0) sepia(100%) saturate(100%) hue-rotate(330deg)
+        brightness(100%) contrast(100%);
     }
   }
 `;

@@ -34,11 +34,12 @@ const LogoDiv = styled.div`
 const CustomBox = styled(Box)`
   box-shadow: 0px 3px 30px #00000029;
   background: #ffffff;
-  padding: ${(props) =>
-    props.isExpanded ? '1.5rem 7rem 1rem 7rem' : '1.5rem 7rem '};
+  padding: 1.5rem 7rem;
+
+  max-height: ${(props) => (props.isExpanded ? '170px' : '90px')};
 
   width: 100%;
-  // transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 `;
 const ParentContainer = styled.div`
   display: flex;
@@ -66,6 +67,9 @@ const LinkText = styled.div`
   &:hover {
     color: #eb4c60;
   }
+`;
+const ExpandedSearchBarContainer = styled.div`
+  transition: all 0.5s ease;
 `;
 
 const Header = () => {
@@ -125,9 +129,13 @@ const Header = () => {
           />
           {/* </SearchAdjust> */}
           <LoginContainer>
-            <Button onClick={() => showForm('register')}>
-              Create an account
-            </Button>
+            {isLoggedIn ? (
+              ''
+            ) : (
+              <Button onClick={() => showForm('register')}>
+                Create an account
+              </Button>
+            )}
             {isLoggedIn ? (
               <LinkText onClick={() => handleLogging()}>Logout</LinkText>
             ) : (
@@ -140,10 +148,11 @@ const Header = () => {
           </LoginContainer>
         </Head>
         {isExpanded ? (
-          // <SearchAdjust>
-          <ExpandedSearchBar
-            handleCloseExpandedSearchBar={handleCloseExpandedSearchBar}
-          ></ExpandedSearchBar>
+          <ExpandedSearchBarContainer>
+            <ExpandedSearchBar
+              handleCloseExpandedSearchBar={handleCloseExpandedSearchBar}
+            />
+          </ExpandedSearchBarContainer>
         ) : // </SearchAdjust>
         null}
       </CustomBox>

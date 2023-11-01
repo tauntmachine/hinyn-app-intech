@@ -16,6 +16,7 @@ const SearchContainer = styled.div`
   margin: auto;
   width: max-content;
   margin-top: 1rem;
+
   transition: all 0.5s ease-in-out;
   &:hover {
     cursor: pointer;

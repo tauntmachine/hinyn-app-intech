@@ -16,10 +16,15 @@ const Column = styled(Box)`
   flex-direction: column;
 `;
 
-const Title = styled(Text)`
+const Title = styled.div`
   font-size: 56px;
   font-weight: 600;
   line-height: 1.25;
+  background: linear-gradient(104deg, #ff5a5f 0%, #a52226 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline;
 
   .red {
     color: #eb4c60;
@@ -43,7 +48,7 @@ const Card = styled.div`
   justify-content: center;
   gap: 16px;
   padding: 1.5rem;
-  width: 16rem;
+  width: 22rem;
   height: auto;
   background: #ffffff;
   border-radius: 13px;
@@ -138,6 +143,20 @@ const ContainerDiv = styled.div`
   width: 84%;
   margin: auto;
 `;
+const Title2 = styled.div`
+  color: #525252;
+  font-size: 56px;
+  font-weight: 600;
+`;
+const Title3 = styled.div`
+  color: #4aa398;
+  font-size: 19px;
+  font-weight: '100px';
+  margin-bottom: 10px;
+`;
+const Title4 = styled.div`
+  color: ;
+`;
 const cardData = [
   {
     icon: 'icon-fastBids.svg',
@@ -228,9 +247,8 @@ function whyHinyn() {
                   <b>FOR CLIENTS</b>
                 </Text>
                 <Title>
-                  Find and book your
-                  <br />
-                  <span class="red">Media Professional</span>
+                  <Title2>Find and book your</Title2>
+                  Media Professional
                 </Title>
                 <Box maxWidth="sm">
                   <Subtitle>
@@ -288,7 +306,7 @@ function whyHinyn() {
       <BGBox color="white">
         <Container maxWidth="xl">
           <Row sx={{ justifyContent: 'center' }}>
-            <Title>Hiring made easy</Title>
+            <Title2>Hiring made easy</Title2>
           </Row>
           <Row sx={{ justifyContent: 'center' }}>
             <Box maxWidth="sm">
@@ -311,10 +329,8 @@ function whyHinyn() {
                 return (
                   <>
                     <RoundContainer key={'hiring-desc-' + idx}>
-                      <Text color="green" size="large" fontWeight="bold">
-                        {item?.title}
-                      </Text>
-                      <Text align="center">{item?.desc}</Text>
+                      <Title3>{item?.title}</Title3>
+                      <Title4 align="center">{item?.desc}</Title4>
                     </RoundContainer>
                     {idx === 0 ? <BrokenLine className="upper" /> : ''}
                     {idx === 1 ? <BrokenLine className="lower" /> : ''}

@@ -324,7 +324,8 @@ export const UserIcon = styled(BiUser)`
       ? '#EB4C60'
       : props.variant === 'green'
       ? '#4AA398'
-      : '#525252'};
+      : '#D3D3D3'};
+  font-size: 70px;
 `;
 
 export const UsersIcon = styled(FiUsers)`
