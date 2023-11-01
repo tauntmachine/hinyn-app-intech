@@ -2,7 +2,6 @@ import { CssBaseline, Grid, Box, Typography, Container } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import LogoImage from '/public/assets/img/logo-hinyn.svg';
 import { BackIcon, PhotoIcon, RightArrowIcon } from '../shared/Icon';
 import { addClientData, updateClientData } from './formService';
@@ -52,37 +51,11 @@ const StyledRightArrowIcon = styled(RightArrowIcon)`
 const DivLogo = styled.div`
   margin-top: 12px;
 `;
-function AccountTypeForm() {
-  const router = useRouter();
+function AccountTypeForm({ accountType }) {
 
   function submitHandler(event) {
     event.preventDefault();
     //call next one here
-  }
-  function createAccount(type) {
-    let accountType = type === 'professional' ? 1 : 2;
-    const clientId = localStorage.getItem('hinyn-cid');
-    const userId = localStorage.getItem('hinyn-uid');
-    const jwt = localStorage.getItem('hinyn-cjwt');
-    const userData = {
-      accountType: accountType,
-      user: userId,
-      uuid: `client-${clientId}`,
-    };
-
-    // addClientData(userData, jwt).then((res) => {
-    //   if (res?.status) {
-    //     localStorage.setItem('hinyn-cid', res?.data?.id);
-    //     localStorage.setItem('hinyn-clientData', JSON.stringify(res?.data));
-    //     if (accountType === 1) router.push('/professional');
-    //     else router.push('/dashboard');
-    //   }
-    // });
-    updateClientData(userData, clientId).then((res) => {
-      console.log(JSON.stringify(res));
-      if (accountType === 1) router.push('/professional');
-      else router.push('/dashboard');
-    });
   }
 
   return (
@@ -110,7 +83,7 @@ function AccountTypeForm() {
           >
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
-                <Item onClick={() => createAccount('client')} type="client">
+                <Item onClick={() => accountType('client')} type="client">
                   <PhotoIcon variant="red" fontSize={'2.5rem'} />
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Text className="title">
@@ -125,7 +98,7 @@ function AccountTypeForm() {
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
                 <Item
-                  onClick={() => createAccount('professional')}
+                  onClick={() => accountType('professional')}
                   type="professional"
                 >
                   <PhotoIcon variant="green" fontSize={'2.5rem'} />

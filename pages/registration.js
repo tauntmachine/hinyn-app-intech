@@ -7,9 +7,10 @@ import {
   addClientData,
   updateUserData,
 } from '../components/forms/formService';
+import { useRouter } from 'next/router';
 
 function Registration() {
-  const [clientData, setClientData] = useState({});
+  const router = useRouter();
   const [open, setOpen] = useState(true);
   const [message, setMessage] = useState(true);
   const [currentActiveForm, setCurrentActiveForm] = useState('default');
@@ -22,13 +23,6 @@ function Registration() {
   };
 
   const handleUsernameSubmit = (data) => {
-    // setClientData((prevData) => {
-    //   return {
-    //     ...prevData,
-    //     data,
-    //   };
-    // });
-
     const userId = localStorage.getItem('hinyn-uid');
     const jwt = localStorage.getItem('hinyn-cjwt');
     const clientData = {
@@ -40,9 +34,6 @@ function Registration() {
       uuid: 'client-' + userId,
       user: userId,
     };
-    addClientData(userData, jwt).then((result) => {
-      if (result?.data) localStorage.setItem('hinyn-cid', result?.data?.id);
-    });
     updateUserUsername(clientData).then((result) => {
       if (result.status) {
         const clientId = localStorage.getItem('hinyn-cid');
@@ -60,9 +51,35 @@ function Registration() {
     // setCurrentActiveForm(2);
   };
 
+  const accountType = (type) => {
+    let accountType = type === 'professional' ? 1 : 2;
+    const clientId = localStorage.getItem('hinyn-cid');
+    const userId = localStorage.getItem('hinyn-uid');
+    const jwt = localStorage.getItem('hinyn-cjwt');
+    const userData = {
+      accountType: accountType,
+      user: userId,
+      uuid: `client-${clientId}`,
+    };
+
+    addClientData(userData, jwt).then((res) => {
+      if (res?.status) {
+        localStorage.setItem('hinyn-cid', res?.data?.id);
+        localStorage.setItem('hinyn-clientData', JSON.stringify(res?.data));
+        if (accountType === 1) router.push('/professional');
+        else router.push('/dashboard');
+      }
+    });
+    // updateClientData(userData, clientId).then((res) => {
+    //   console.log(JSON.stringify(res));
+    //   if (accountType === 1) router.push('/professional');
+    //   else router.push('/dashboard');
+    // });
+  };
+
   const formsSequence = {
     default: <UsernameForm onUsernameSubmit={handleUsernameSubmit} />,
-    accountType: <AccountTypeForm />,
+    accountType: <AccountTypeForm accountType={accountType} />,
   };
 
   return (

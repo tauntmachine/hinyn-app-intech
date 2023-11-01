@@ -17,6 +17,7 @@ import { WebcamCapture } from '../shared/WebcamCapture';
 import AvatarUpload from '../shared/AvatarUpload';
 import Image from 'next/image';
 import { updateClientData } from './formService';
+import Filter from '../shared/Filter';
 
 const StyledButton = styled(Button)``;
 
@@ -105,6 +106,7 @@ function UploadDoc({ handleNextClick }) {
       return;
     }
     const file = e.target.files[0];
+    console.log('file', file);
     const { name } = file;
     setFilename(name);
   };

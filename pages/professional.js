@@ -32,7 +32,7 @@ const MainBox = styled(Box)`
 
 function Professional() {
   const [progressPercent, setProgressPercent] = useState(10);
-  const [currentActiveForm, setCurrentActiveForm] = useState(1);
+  const [currentActiveForm, setCurrentActiveForm] = useState(8);
   const isAccountVerified = true; //fetch from API
 
   const handleNextClick = (value) => {
@@ -46,14 +46,18 @@ function Professional() {
   const requestUpdate = async (item) => {
     const clientId = await localStorage.getItem('hinyn-cid');
     let clientData = await getStoredClient();
+    const newData = {
+      ...item,
+      id: clientData.id,
+    };
     clientData = {
       ...clientData.attributes,
-      id: clientData.id,
-      ...item,
+      ...newData,
     };
     updateClientData(clientData, clientId)
       .then((result) => {
         if (result?.data) {
+          console.log('update client -', JSON.stringify(result?.data));
           localStorage.setItem(
             'hinyn-clientData',
             JSON.stringify(result?.data)
