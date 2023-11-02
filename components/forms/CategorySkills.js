@@ -185,7 +185,7 @@ function CategorySkills({ handleNextClick }) {
   }, []);
 
   const onCategoryClick = (index) => {
-    setSelectedCategory(categories[index].id);
+    setSelectedCategory(categories[index]);
 
     let listSkill = [];
     categories[index]?.skills.data.map((item) => {

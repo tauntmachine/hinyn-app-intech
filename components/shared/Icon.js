@@ -33,6 +33,7 @@ import {
   BsCardImage,
   BsTelephone,
   BsThreeDotsVertical,
+  BsCheck2,
 } from 'react-icons/bs';
 import { BiUser } from 'react-icons/bi';
 import { RiSuitcaseLine } from 'react-icons/ri';
@@ -49,6 +50,15 @@ export const AddIcon = styled(IoAdd)`
       ? '#4AA398'
       : '#525252'};
   font-size: 24px;
+`;
+export const Check = styled(BsCheck2)`
+  color: ${(props) =>
+    props.variant === 'red'
+      ? '#EB4C60'
+      : props.variant === 'green'
+      ? '#4AA398'
+      : '#525252'};
+  font-size: 20px;
 `;
 export const AlertIcon = styled(FiAlertCircle)`
   color: ${(props) =>
@@ -134,6 +144,7 @@ export const CheckIcon = styled(AiOutlineCheck)`
       : props.variant === 'green'
       ? '#4AA398'
       : '#525252'};
+  font-size: 18px;
 `;
 
 export const CheckSquareIcon = styled(FiCheckSquare)`

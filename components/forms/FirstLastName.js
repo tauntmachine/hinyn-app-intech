@@ -13,6 +13,8 @@ import { getClientData, updateClientData, updateUserData } from './formService';
 import Router from 'next/router';
 import Image from 'next/image';
 import { Button as CustomButton } from '@mui/material';
+import Webcam from 'react-webcam';
+
 const StyledButton = styled(Button)``;
 
 const FormContainer = styled(Box)`
@@ -97,9 +99,7 @@ function FirstLastName({ handleNextClick }) {
     setOpenCameraModal(!openCameraModal);
     // }
   };
-  const UploadImage = () => {
-    handleCloseCameraModal();
-  };
+
   const [isValid, setValid] = useState({
     firstname: false,
     lastname: false,
@@ -174,7 +174,11 @@ function FirstLastName({ handleNextClick }) {
     };
     reader.readAsDataURL(file);
   };
-
+  const webRef = useRef(null);
+  const UploadImage = () => {
+    setSelectedImage(webRef.current.getScreenshot());
+    handleCloseCameraModal();
+  };
   return (
     <>
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
@@ -187,39 +191,37 @@ function FirstLastName({ handleNextClick }) {
             component="label"
             // variant="outlined"
             sx={{ marginRight: '1rem' }}
+            onClick={toggleOpenCameraModal}
           >
-            {
-              selectedImage ? (
-                <Image
-                  src={selectedImage}
-                  width="180px"
-                  height="180px"
-                  style={{ borderRadius: '70rem', overflow: 'hidden' }}
-                  alt="asd"
-                />
-              ) : (
-                <>
-                  <IconCon>
-                    <UserIcon isabsolute={false} />
-                  </IconCon>
+            {selectedImage ? (
+              <Image
+                src={selectedImage}
+                width="180px"
+                height="180px"
+                style={{ borderRadius: '70rem', overflow: 'hidden' }}
+                alt="asd"
+              />
+            ) : (
+              <>
+                <IconCon>
+                  <UserIcon isabsolute={false} />
+                </IconCon>
 
-                  <Text color="green" fontSize="small">
-                    Upload a photo
-                  </Text>
-                  <input
-                    type="file"
-                    accept="image/*,.pdf"
-                    hidden
-                    onChange={handleUpload}
-                    multiple
-                  />
-                </>
-              )
-              // <Text color="green">Upload a photo</Text>
-            }
+                <Text color="green" fontSize="small">
+                  Upload a photo
+                </Text>
+                {/* <input
+                  type="file"
+                  accept="image/*,.pdf"
+                  hidden
+                  onChange={handleUpload}
+                  multiple
+                /> */}
+              </>
+            )}
           </UploadButton>
           <Text color="green" marginBottom="10px" marginTop="20px">
-            What is your name?{' '}
+            What is your name?
           </Text>
           <Text>Please use your real name as this will be required for</Text>
           <Text>identity verification.</Text>
@@ -305,7 +307,7 @@ function FirstLastName({ handleNextClick }) {
           </Text>
         </CameraModel>
         <ImageDiv2>
-          {selectedImage ? ( // Display the selected image if available
+          {/* {selectedImage ? ( // Display the selected image if available
             <Image
               src={selectedImage}
               alt="Selected Image"
@@ -319,7 +321,8 @@ function FirstLastName({ handleNextClick }) {
               width="600rem"
               alt="asd"
             />
-          )}
+          )} */}
+          <Webcam ref={webRef} />
         </ImageDiv2>
         <TextDiv>
           <Text color="green" marginY="auto" marginRight="18px">

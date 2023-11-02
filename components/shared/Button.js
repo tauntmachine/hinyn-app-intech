@@ -9,7 +9,7 @@ const Button = styled.button`
   color: ${(props) => (props.variant === 'outlined' ? '#EB4C60' : '#ffffff')};
   border-radius: 21px;
   border: 1px solid
-    ${(props) => (props.variant === 'outlined' ? '#EB4C60' : 'red')};
+    ${(props) => (props.variant === 'outlined' ? '#EB4C60' : '')};
   font-family: 'DM Sans', sans-serif;
   font-size: ${(props) => (props.size === 'small' ? '10px' : '14px')};
   cursor: ${(props) =>
@@ -29,7 +29,7 @@ const Button = styled.button`
 
   &:hover {
     border: 1px solid
-      ${(props) => (props.variant === 'outlined' ? '#0F7669' : '#EB4C60')};
+      ${(props) => (props.variant === 'outlined' ? '#0F7669' : '')};
     box-shadow: ${(props) =>
       props.variant === 'outlined'
         ? ''

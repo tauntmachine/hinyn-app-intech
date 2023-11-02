@@ -9,6 +9,7 @@ import Button from '../components/shared/Button';
 
 const Row = styled(Box)`
   display: flex;
+  width: 60rem;
 `;
 
 const Column = styled(Box)`
@@ -154,8 +155,13 @@ const Title3 = styled.div`
   font-weight: '100px';
   margin-bottom: 10px;
 `;
+const Title5 = styled.div`
+  color: #4aa398;
+  font-size: 15px;
+`;
 const Title4 = styled.div`
-  color: ;
+  color: gray;
+  margin: 0 0 0 7px;
 `;
 const cardData = [
   {
@@ -271,9 +277,9 @@ function whyHinyn() {
                               alt="icon-img"
                             />
                           </IconContainer>
-                          <Text color="green">
+                          <Title5 color="green">
                             <b>{item?.title}</b>
-                          </Text>
+                          </Title5>
                           <Text align="center"> {item?.desc} </Text>
                         </Card>
                       );

@@ -35,7 +35,7 @@ const FormContainer = styled(Box)`
   align-items: center;
   border-radius: 20px;
   padding: 0 15px;
-  width: 100%;
+  width: 44rem;
 `;
 
 const Error = styled.p`
@@ -65,7 +65,9 @@ const StyledTextArea = styled(TextareaAutosize)`
     outline: none;
   }
 `;
-
+const ContainerDiv = styled.div`
+  width: 70rem;
+`;
 function ContactUsForm() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -183,7 +185,7 @@ function ContactUsForm() {
 
   return (
     <>
-      <Container sx={{ marginBottom: '2rem' }}>
+      <Container>
         <CssBaseline />
         <FormContainer>
           <Box

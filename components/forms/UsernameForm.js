@@ -45,11 +45,17 @@ const Error = styled.p`
   font-size: 0.75rem;
   font-family: 'Roboto', sans-serif;
 `;
-
+const TextCon = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+`;
 function UsernameForm({ onUsernameSubmit }) {
   const router = useRouter();
   const [message, setMessage] = useState(null);
   const [open, setOpen] = useState(false);
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -94,16 +100,7 @@ function UsernameForm({ onUsernameSubmit }) {
       setOpen(true);
     }
   };
-  const [suggestedUsernames, setSuggestedUsernames] = useState([]);
-  function getPreviouslyEnteredUsernames() {
-    const storedUsernames = localStorage.getItem('enteredUsernames');
-    return storedUsernames ? JSON.parse(storedUsernames) : [];
-  }
-  useEffect(() => {
-    const previouslyEnteredUsernames = getPreviouslyEnteredUsernames();
-    setSuggestedUsernames(previouslyEnteredUsernames);
-  }, []);
-  console.log(suggestedUsernames);
+
   return (
     <>
       <Container sx={{ marginBottom: '2rem' }}>
@@ -154,9 +151,12 @@ function UsernameForm({ onUsernameSubmit }) {
               }}
             >
               <Grid item sx={{ display: 'flex', direction: 'row' }}>
-                <Text color="green" fontSize="12px">
-                  Suggestions:{suggestedUsernames}
-                </Text>
+                <TextCon>
+                  <Text color="green">Suggestions:</Text>
+                  <Text color="gray" fontSize="12px">
+                    suggestion1/suggestion2/suggestion3
+                  </Text>
+                </TextCon>
                 {/* <Text fontSize="12px" color="#CACFD2" marginLeft="10px">
                   {suggestedUsernames.join(' / ')}
                 </Text> */}

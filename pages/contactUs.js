@@ -13,6 +13,7 @@ import ContactUsForm from '../components/forms/ContactUsForm';
 
 const Row = styled(Box)`
   display: flex;
+  width: 48rem;
 `;
 
 const Column = styled(Box)`

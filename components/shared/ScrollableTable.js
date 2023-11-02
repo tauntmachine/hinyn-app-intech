@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import styled from '@emotion/styled';
 import CategoryIcon from '../shared/categories/Category';
-import { RightChevronIcon, AddIcon } from './Icon';
+import { RightChevronIcon, AddIcon, Check } from './Icon';
 import Category3 from './categories/Category3';
 import { useState } from 'react';
 
@@ -27,7 +27,7 @@ const Row = styled.div`
   background-color: #ffffff;
   padding: 16px 32px;
   display: flex;
-
+  cursor: pointer;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #dddddd30;
@@ -63,6 +63,7 @@ const iconMap = {
   'right-arrow': <RightChevronIcon variant="green" />,
 
   'add-icon': <AddIcon variant="red" />,
+  check: <Check variant="green" />,
 };
 
 const ScrollableTable = ({
@@ -114,9 +115,14 @@ const ScrollableTable = ({
                 <span> {skill?.title} </span>
                 {/* {endAdornment && iconMap[endAdornment]} */}
                 {/* {endAdornment && !skillIsSelected ? iconMap[endAdornment] : ''} */}
-                {selectedSkills.includes(skill) &&
+                {/* {selectedSkills.includes(skill) &&
                   endAdornment &&
-                  iconMap[endAdornment]}
+                  iconMap[endAdornment]} */}
+                {
+                  selectedSkills.includes(skill) // Check if the skill is selected
+                    ? iconMap['check'] // Render 'RightChevronIcon' if selected
+                    : iconMap['add-icon'] // Render 'add-icon' by default
+                }
               </Row>
             ))}
         </StyledBox>
