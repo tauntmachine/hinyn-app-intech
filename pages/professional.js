@@ -31,7 +31,7 @@ const MainBox = styled(Box)`
 `;
 
 function Professional() {
-  const [currentActiveForm, setCurrentActiveForm] = useState(1);
+  const [currentActiveForm, setCurrentActiveForm] = useState(9);
   const [progressPercent, setProgressPercent] = useState(
     10 * currentActiveForm
   );
@@ -40,7 +40,7 @@ function Professional() {
   // const isAccountVerified = true; //fetch from API
 
   const handleNextClick = (value) => {
-    console.log('handleNextClick called with value:', value);
+    console.log('is verified', isAccountVerified);
     if (value) {
       setProgressPercent(progressPercent + 9);
       setCurrentActiveForm((prev) => prev + 1);
@@ -59,11 +59,16 @@ function Professional() {
       ...newData,
     };
     updateClientData(clientData, clientId)
-      .then((result) => {
+      .then(async (result) => {
         if (result?.data) {
-          setIsAccountVerified(result?.data.isEmailVerified);
-          setCurrClientData(result?.data);
-          console.log('update client -', JSON.stringify(result?.data));
+          console.log('stringify client -', JSON.stringify(result?.data));
+          // console.log('is verified - ', result?.data?.attributes?.isEmailVerified);
+          const res = result?.data?.attributes;
+          // const res = await JSON.parse(result?.data?.attributes);
+          setIsAccountVerified(
+            res?.data?.isEmailVerified == null ? false : res?.data?.isEmailVerified
+          );
+          setCurrClientData(res);
           localStorage.setItem(
             'hinyn-clientData',
             JSON.stringify(result?.data)
@@ -113,7 +118,8 @@ function Professional() {
         {/* {currentActiveForm === 9 && !isAccountVerified ? (
           <UnverifiedAccountForm />
         ) : null} */}
-        {currentActiveForm === 9 && isAccountVerified ? (
+        {currentActiveForm === 9 &&
+        (isAccountVerified == null || !isAccountVerified) ? (
           <EmailVerifyForm1
             handleNextClick={handleNextClick}
             name={currClientData?.firstName}
@@ -123,11 +129,11 @@ function Professional() {
         {/* {currentActiveForm === 10 && isAccountVerified ? (
           <EmailVerifyFormPopUp handleNextClick={handleNextClick} />
         ) : null} */}
-        {currentActiveForm === 10 && isAccountVerified ? (
+        {/* {currentActiveForm === 10 && isAccountVerified ? (
           <EmailVerifyForm2 handleNextClick={handleNextClick} />
-        ) : null}
+        ) : null} */}
 
-        {currentActiveForm === 12 ? (
+        {currentActiveForm === 10 ? (
           <MemberShip handleNextClick={handleNextClick} />
         ) : null}
         {/* {currentActiveForm === 11 ? (

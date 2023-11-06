@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { CssBaseline, Grid, Box, Typography, Container } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
@@ -6,6 +6,7 @@ import Button from '../shared/Button';
 import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
 import { BackIcon, EmailIcon } from '../shared/Icon';
+import { getUserData } from './formService';
 
 const StyledButton = styled(Button)``;
 const Div2 = styled.div`
@@ -65,15 +66,41 @@ const VerticalDivider = styled.div`
   width: 100%;
 `;
 
-function EmailVerifyForm1({ handleNextClick, name, email }) {
+function EmailVerifyForm1({ handleNextClick }) {
   const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    console.log('use effect - ', data);
+  }, [data]);
+
+  useEffect(() => {
+    getStoredClient();
+  }, []);
+
+  const getStoredClient = async () => {
+    const req = localStorage.getItem('hinyn-clientData');
+    const res = JSON.parse(req);
+    console.log('res - ', res);
+    setName(res?.data.attributes?.firstName);
+    setData(res.data.attributes);
+    getEmail(res.data.id);
   };
 
-  const data = {
-    firstName: 'Samanta',
-    email: 'test@email.com',
+  const getEmail = (id) => {
+    getUserData(id)
+      .then(async (result) => {
+        if (result?.data) {
+          setEmail(result.data?.email);
+        }
+      })
+      .catch((e) => console.log('request update', e));
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (

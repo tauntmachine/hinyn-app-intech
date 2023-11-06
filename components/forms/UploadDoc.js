@@ -118,13 +118,14 @@ function UploadDoc({ handleNextClick }) {
     }
 
     if (isValid.form) {
-      const clientId = localStorage.getItem('hinyn-cid');
+      // const clientId = localStorage.getItem('hinyn-cid');
       const clientData = {
         documents: filename,
       };
-      updateClientData(clientData, clientId).then((result) => {
-        if (result?.data) handleNextClick(true);
-      });
+      handleNextClick(clientData);
+      // updateClientData(clientData, clientId).then((result) => {
+      //   if (result?.data) handleNextClick(true);
+      // });
     } else {
       setOpen(true);
     }
