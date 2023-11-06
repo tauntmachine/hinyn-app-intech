@@ -99,7 +99,6 @@ function UploadDoc({ handleNextClick }) {
 
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [filename, setFilename] = useState('');
-  console.log(filename);
 
   const handleFileUpload = (e) => {
     if (!e.target.files) {
@@ -149,9 +148,8 @@ function UploadDoc({ handleNextClick }) {
           </Text>
           <Text fontSize="13px">
             We will need to verify your identity. Kindly upload a scanned ID
-            (Either
+            (Either your Passport, Government ID, or Driver’s License)
           </Text>
-          <Text> your Passport, Government ID, or Driver’s License)</Text>
           <VerticalDivider />
           <Box
             component="form"
