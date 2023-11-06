@@ -59,13 +59,16 @@ const LoginContainer = styled.div`
   display: flex;
   column-gap: 1rem;
   align-items: center;
+
   justify-content: space-evenly;
+
+  margin: ${(props) => (props.isLoggedIn ? '0 0 0 80px' : '')};
 `;
 const LinkText = styled.div`
   cursor: pointer;
 
   &:hover {
-    color: #eb4c60;
+    color: #4aa398;
   }
 `;
 const ExpandedSearchBarContainer = styled.div`

@@ -202,6 +202,12 @@ const Title3 = styled.div`
   font-weight: '100px';
   margin-bottom: 10px;
 `;
+const Title6 = styled.div`
+  color: #4aa398;
+  font-size: 15px;
+  font-weight: 100px;
+  margin-bottom: 10px;
+`;
 const Title5 = styled.div`
   color: #4aa398;
   font-size: 15px;
@@ -209,6 +215,11 @@ const Title5 = styled.div`
 const Title4 = styled.div`
   color: gray;
   margin: 0 0 0 7px;
+`;
+const TextBold = styled(Text)`
+  font-size: 15px;
+  font-weight: 600;
+  // line-height: 1.25;
 `;
 const cardData = [
   {
@@ -365,7 +376,7 @@ function whyHinyn() {
             <Title2>Hiring made easy</Title2>
           </Row>
           <Row sx={{ justifyContent: 'center' }}>
-            <Box maxWidth="sm">
+            <Box maxWidth="md">
               <Subtitle>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br />
                 Pellentesque tempus arcu et ipsum cursus dignissim.
@@ -386,7 +397,7 @@ function whyHinyn() {
                   <>
                     <RoundContainer key={'hiring-desc-' + idx}>
                       <Title3>{item?.title}</Title3>
-                      <Title4 align="center">{item?.desc}</Title4>
+                      <Text align="center">{item?.desc}</Text>
                     </RoundContainer>
                     {idx === 0 ? <BrokenLine className="upper" /> : ''}
                     {idx === 1 ? <BrokenLine className="lower" /> : ''}
@@ -438,7 +449,7 @@ function whyHinyn() {
                         </ImageContainer>
                       </Column>
                       <Column sx={{ width: '100%', padding: '1.25rem' }}>
-                        <Text>{item?.title}</Text>
+                        <TextBold>{item?.title}</TextBold>
                         <GrayText>by {item?.desc}</GrayText>
                       </Column>
                     </Row>
@@ -479,7 +490,7 @@ function whyHinyn() {
                     boss
                   </Subtitle>
                 </Box>
-                <Column sx={{ marginTop: '2.5rem', gap: '3rem' }}>
+                <Column sx={{ marginTop: '2.5rem', gap: '3rem', width: '80%' }}>
                   {professionalData &&
                     professionalData.map((item, idx) => {
                       return (
@@ -489,9 +500,9 @@ function whyHinyn() {
                           maxWidth="sm"
                         >
                           <Column>
-                            <Text color="green">
+                            <Title6>
                               <b>{item?.title}</b>
-                            </Text>
+                            </Title6>
                             <Text> {item?.desc} </Text>
                           </Column>
                         </Row>
