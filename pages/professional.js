@@ -31,9 +31,13 @@ const MainBox = styled(Box)`
 `;
 
 function Professional() {
-  const [progressPercent, setProgressPercent] = useState(10);
   const [currentActiveForm, setCurrentActiveForm] = useState(1);
-  const isAccountVerified = true; //fetch from API
+  const [progressPercent, setProgressPercent] = useState(
+    10 * currentActiveForm
+  );
+  const [isAccountVerified, setIsAccountVerified] = useState('');
+  const [currClientData, setCurrClientData] = useState(null);
+  // const isAccountVerified = true; //fetch from API
 
   const handleNextClick = (value) => {
     console.log('handleNextClick called with value:', value);
@@ -57,6 +61,8 @@ function Professional() {
     updateClientData(clientData, clientId)
       .then((result) => {
         if (result?.data) {
+          setIsAccountVerified(result?.data.isEmailVerified);
+          setCurrClientData(result?.data);
           console.log('update client -', JSON.stringify(result?.data));
           localStorage.setItem(
             'hinyn-clientData',
@@ -104,16 +110,20 @@ function Professional() {
         {currentActiveForm === 8 ? (
           <UploadDoc handleNextClick={handleNextClick} />
         ) : null}
-        {currentActiveForm === 9 && !isAccountVerified ? (
+        {/* {currentActiveForm === 9 && !isAccountVerified ? (
           <UnverifiedAccountForm />
-        ) : null}
+        ) : null} */}
         {currentActiveForm === 9 && isAccountVerified ? (
-          <EmailVerifyForm1 handleNextClick={handleNextClick} />
+          <EmailVerifyForm1
+            handleNextClick={handleNextClick}
+            name={currClientData?.firstName}
+            email={currClientData?.email}
+          />
         ) : null}
-        {currentActiveForm === 10 && isAccountVerified ? (
+        {/* {currentActiveForm === 10 && isAccountVerified ? (
           <EmailVerifyFormPopUp handleNextClick={handleNextClick} />
-        ) : null}
-        {currentActiveForm === 11 && isAccountVerified ? (
+        ) : null} */}
+        {currentActiveForm === 10 && isAccountVerified ? (
           <EmailVerifyForm2 handleNextClick={handleNextClick} />
         ) : null}
 

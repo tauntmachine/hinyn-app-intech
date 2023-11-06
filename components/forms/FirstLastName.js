@@ -87,6 +87,7 @@ function FirstLastName({ handleNextClick }) {
   const [openCameraModal, setOpenCameraModal] = useState(false);
   const [filename, setFilename] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
+  const webRef = useRef(null);
 
   const handleClose = () => {
     setOpen(false);
@@ -149,7 +150,9 @@ function FirstLastName({ handleNextClick }) {
       const data = {
         firstName: enteredFirstname,
         lastName: enteredLastname,
+        // displayPhoto: selectedImage,
       };
+      // console.log('image - ', selectedImage);
       handleNextClick(data);
     } else {
       setOpen(true);
@@ -174,7 +177,6 @@ function FirstLastName({ handleNextClick }) {
     };
     reader.readAsDataURL(file);
   };
-  const webRef = useRef(null);
   const UploadImage = () => {
     setSelectedImage(webRef.current.getScreenshot());
     handleCloseCameraModal();

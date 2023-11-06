@@ -65,7 +65,7 @@ const VerticalDivider = styled.div`
   width: 100%;
 `;
 
-function EmailVerifyForm1({ handleNextClick }) {
+function EmailVerifyForm1({ handleNextClick, name, email }) {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -82,7 +82,7 @@ function EmailVerifyForm1({ handleNextClick }) {
         <CssBaseline />
         <FormContainer>
           <Text fontSize="34px">
-            <b>Almost there, {data.firstName}!</b>
+            <b>Almost there, {name}!</b>
           </Text>
           <VerticalDivider />
           <EmailIconContainer>
@@ -96,7 +96,7 @@ function EmailVerifyForm1({ handleNextClick }) {
               <Grid item xs={12}>
                 <FieldVerify>
                   <Text marginTop="8px" marginLeft="120px" color="green">
-                    {data.email}
+                    {email}
                   </Text>
                 </FieldVerify>
                 <Div2>
