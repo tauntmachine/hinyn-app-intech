@@ -1,11 +1,11 @@
 import Head from 'next/head';
-import type { NextPage } from 'next';
 import Header from '../components/section/Header';
 import Main from '../components/section/Main';
 import Footer from '../components/section/Footer';
+// import Layout from '../components/Layout';
 export { getServerSideProps } from '../src/store';
 
-const Home: NextPage = () => {
+const Home = () => {
   return (
     <>
       <Head>
@@ -21,9 +21,11 @@ const Home: NextPage = () => {
           rel="stylesheet"
         />
       </Head>
+      {/* <Layout> */} {/* Wrap your content with the Layout component */}
       <Header />
       <Main />
       <Footer />
+      {/* </Layout> */}
     </>
   );
 };

@@ -4,6 +4,7 @@ import theme from '../components/ThemeConfig';
 import '../styles/globals.css';
 import { FreelancerProvider, ProjectProvider } from '../src/store';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import Layout from '../components/Layout';
 
 const queryClient = new QueryClient();
 
@@ -13,7 +14,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <FreelancerProvider freelancer={pageProps['freelancer']}>
         <ProjectProvider project={pageProps['project']}>
           <ThemeProvider theme={theme}>
-            <Component {...pageProps} />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </ThemeProvider>
         </ProjectProvider>
       </FreelancerProvider>

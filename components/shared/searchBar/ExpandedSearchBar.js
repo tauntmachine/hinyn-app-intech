@@ -36,6 +36,7 @@ const SearchOptionContainer = styled.div`
   border-radius: 50px;
   font-size: 15px;
   fontweight: 50px;
+  color: #bdc3c7;
 
   &:hover {
     // background: #f8f8f8;
@@ -48,6 +49,8 @@ const SearchOptionContainer = styled.div`
     background: #f8f8f8;
     border: 1px solid #eb4c60;
     box-shadow: 0px 3px 6px #eb4c603c;
+    color: #eb4c60;
+    font-weight: bold;
   }
 
   .pretitle {
@@ -83,7 +86,10 @@ const SearchIconContainer = styled.div`
   margin: 0 30px;
   transform: scale(2);
 `;
-
+const Text2 = styled.div`
+  color: #eb4c60;
+  font-weight: bold;
+`;
 const items = [
   {
     key: 'categories',
@@ -167,7 +173,7 @@ function ExpandedSearchBar({ handleCloseExpandedSearchBar }) {
                 {/* {userSelectedDetails ? (
                   showValue(item.key, item.value)
                 ) : ( */}
-                <span className="value">{item.value}</span>
+                <span>{item.value}</span>
                 {/* )} */}
               </SearchOptionContainer>
               {idx < items.length - 1 ? <VerticalDivider /> : null}

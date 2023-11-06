@@ -171,7 +171,7 @@ function CategorySkills({ handleNextClick }) {
 
   useEffect(() => {
     let catList = [];
-    console.log('useEffect');
+
     getCategories().then((result) => {
       if (result?.data) {
         result?.data?.data.map((item) => {
@@ -180,6 +180,7 @@ function CategorySkills({ handleNextClick }) {
           catList = [...catList, { ...temp }];
         });
         setCategories(catList);
+        console.log(categories);
       }
     });
   }, []);

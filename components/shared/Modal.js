@@ -13,7 +13,7 @@ const CustomDialog = styled(Dialog)`
   .MuiDialog-paper {
     background-color: #f8f8f8;
     box-shadow: 0px 3px 20px #0000003c;
-    border-radius: 13px;
+    border-radius: 23px;
     min-height: 15rem;
   }
 `;
