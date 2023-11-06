@@ -49,7 +49,6 @@ const TypoDiv2 = styled.div`
 
 const StyledButton = styled(Button)`
   margin: auto;
-
   width: 100%;
 `;
 

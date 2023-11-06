@@ -9,33 +9,58 @@ import Button from '../components/shared/Button';
 
 const Row = styled(Box)`
   display: flex;
+`;
+const Row2 = styled(Box)`
+  display: flex;
   width: 60rem;
 `;
-
 const Column = styled(Box)`
   display: flex;
   flex-direction: column;
 `;
 
-const Title = styled.div`
+// const Title = styled.div`
+//   font-size: 56px;
+//   font-weight: 600;
+//   line-height: 1.25;
+//   color: gray;
+
+//   // background: linear-gradient(104deg, #ff5a5f 0%, #a52226 100%);
+//   // -webkit-background-clip: text;
+//   // background-clip: text;
+//   color: transparent;
+//   display: inline;
+
+//   .red {
+//     color: #eb4c60;
+//   }
+
+//   .green {
+//     color: #4aa398;
+//   }
+//   .reg-gradient {
+//     background: linear-gradient(104deg, #ff5a5f 0%, #a52226 100%);
+//     -webkit-background-clip: text;
+//     background-clip: text;
+//   }
+// `;
+const Title = styled(Text)`
   font-size: 56px;
   font-weight: 600;
   line-height: 1.25;
-  background: linear-gradient(104deg, #ff5a5f 0%, #a52226 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: inline;
 
   .red {
     color: #eb4c60;
+    // // background: linear-gradient(104deg, #ff5a5f 0%, #a52226 100%);
+    // // -webkit-background-clip: text;
+    // // background-clip: text;
+    // color: linear-gradient(104deg, #ff5a5f 0%, #a52226 100%);
   }
 
   .green {
     color: #4aa398;
   }
 `;
-
 const Subtitle = styled(Text)`
   font-size: 16px;
   margin-top: 1.5rem;
@@ -48,8 +73,30 @@ const Card = styled.div`
   align-items: center;
   justify-content: center;
   gap: 16px;
-  padding: 1.5rem;
+  padding: 1rem 0.8rem;
   width: 22rem;
+  height: 13rem;
+  background: #ffffff;
+  border-radius: 13px;
+  filter: drop-shadow(0px 3px 30px #9393931a);
+  flex-basis: 35%;
+
+  &.projects-card {
+    padding: 0;
+
+    &:hover {
+      box-shadow: 0px 3px 20px #0000004b;
+    }
+  }
+`;
+const Card2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 1.5rem;
+  width: 16rem;
   height: auto;
   background: #ffffff;
   border-radius: 13px;
@@ -252,9 +299,14 @@ function whyHinyn() {
                 <Text color="red">
                   <b>FOR CLIENTS</b>
                 </Text>
-                <Title>
+                {/* <Title>
                   <Title2>Find and book your</Title2>
                   Media Professional
+                </Title> */}
+                <Title>
+                  Find and book your
+                  <br />
+                  <span class="red">Media Professional</span>
                 </Title>
                 <Box maxWidth="sm">
                   <Subtitle>
@@ -262,7 +314,7 @@ function whyHinyn() {
                     budget, and so on…
                   </Subtitle>
                 </Box>
-                <Row
+                <Row2
                   sx={{ flexWrap: 'wrap', gap: '1.25rem', marginTop: '2.5rem' }}
                 >
                   {cardData &&
@@ -277,14 +329,12 @@ function whyHinyn() {
                               alt="icon-img"
                             />
                           </IconContainer>
-                          <Title5 color="green">
-                            <b>{item?.title}</b>
-                          </Title5>
+                          <Title5 color="green">{item?.title}</Title5>
                           <Text align="center"> {item?.desc} </Text>
                         </Card>
                       );
                     })}
-                </Row>
+                </Row2>
               </Column>
             </Grid>
             <Grid item xs={5}>
@@ -293,7 +343,7 @@ function whyHinyn() {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  paddingTop: '2rem',
+                  paddingTop: '1rem',
                 }}
               >
                 <ImageContainer className="about-us-img1-box">
@@ -362,7 +412,7 @@ function whyHinyn() {
             {projectsData &&
               projectsData.map((item, idx) => {
                 return (
-                  <Card key={'project-card-' + idx} className="projects-card">
+                  <Card2 key={'project-card-' + idx} className="projects-card">
                     <ImageContainer className="projects-img-box">
                       <Image
                         src={imgpath + item?.img}
@@ -392,7 +442,7 @@ function whyHinyn() {
                         <GrayText>by {item?.desc}</GrayText>
                       </Column>
                     </Row>
-                  </Card>
+                  </Card2>
                 );
               })}
           </Row>

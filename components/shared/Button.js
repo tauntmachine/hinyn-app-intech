@@ -8,8 +8,8 @@ const Button = styled.button`
       : 'linear-gradient(104deg, #FF5A5F 0%, #A52226 100%)'};
   color: ${(props) => (props.variant === 'outlined' ? '#EB4C60' : '#ffffff')};
   border-radius: 21px;
-  border: 1px solid
-    ${(props) => (props.variant === 'outlined' ? '#EB4C60' : '')};
+  border: ${(props) =>
+    props.variant === 'outlined' ? ' 1px solid #EB4C60' : 'none'};
   font-family: 'DM Sans', sans-serif;
   font-size: ${(props) => (props.size === 'small' ? '10px' : '14px')};
   cursor: ${(props) =>
@@ -28,8 +28,8 @@ const Button = styled.button`
   // width: ${(props) => props.width ?? 'auto'};
 
   &:hover {
-    border: 1px solid
-      ${(props) => (props.variant === 'outlined' ? '#0F7669' : '')};
+    border: ${(props) =>
+      props.variant === ' outlined' ? '1px solid #0F7669' : 'none'};
     box-shadow: ${(props) =>
       props.variant === 'outlined'
         ? ''
