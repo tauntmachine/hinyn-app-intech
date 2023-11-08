@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
 import Modal from '../shared/Modal';
-import StyledTextField from '../shared/Textfield';
+
 import { BackIcon, EmailIcon } from '../shared/Icon';
 import { getUserData } from './formService';
 
@@ -26,7 +26,7 @@ const FieldVerify = styled.div`
   width: 25rem;
   color: cyan;
   justify-content: center;
-  height: 40px;
+  padding: 10px 0;
   margin: auto;
 `;
 const FormContainer = styled(Box)`
@@ -65,8 +65,12 @@ const VerticalDivider = styled.div`
   height: 2rem;
   width: 100%;
 `;
-
-function EmailVerifyForm1({ handleNextClick }) {
+const BackCon = styled.div`
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+`;
+function EmailVerifyForm1({ handleNextClick, handleBack }) {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -84,9 +88,9 @@ function EmailVerifyForm1({ handleNextClick }) {
     const req = localStorage.getItem('hinyn-clientData');
     const res = JSON.parse(req);
     console.log('res - ', res);
-    setName(res?.data.attributes?.firstName);
-    setData(res.data.attributes);
-    getEmail(res.data.id);
+    setName(res?.attributes?.firstName);
+    setData(res.attributes);
+    getEmail(res.id);
   };
 
   const getEmail = (id) => {
@@ -109,7 +113,7 @@ function EmailVerifyForm1({ handleNextClick }) {
         <CssBaseline />
         <FormContainer>
           <Text fontSize="34px">
-            <b>Almost there, {name}!</b>
+            <b>Almost there, {name ? name : 'Samantha'}!</b>
           </Text>
           <VerticalDivider />
           <EmailIconContainer>
@@ -122,8 +126,8 @@ function EmailVerifyForm1({ handleNextClick }) {
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
                 <FieldVerify>
-                  <Text marginTop="8px" marginLeft="120px" color="green">
-                    {email}
+                  <Text color="green" style={{ marginLeft: '14px' }}>
+                    {email ? email : 'Samantha12@gmail.com'}
                   </Text>
                 </FieldVerify>
                 <Div2>
@@ -150,10 +154,21 @@ function EmailVerifyForm1({ handleNextClick }) {
             </Grid>
 
             <ButtonContainer>
-              <Text>
-                <BackIcon isabsolute={false} />
-                <span style={{ marginLeft: '1rem' }}>Go Back</span>
-              </Text>
+              <BackCon onClick={handleBack}>
+                <BackIcon
+                  isabsolute={false}
+                  style={{ margin: 'auto', fontSize: '16.5px' }}
+                />
+                <Text
+                  style={{
+                    marginLeft: '1rem',
+                    fontSize: '12.5px',
+                    marginTop: '2px',
+                  }}
+                >
+                  Go Back
+                </Text>
+              </BackCon>
               <StyledButton onClick={handleNextClick}>NEXT</StyledButton>
             </ButtonContainer>
           </Box>

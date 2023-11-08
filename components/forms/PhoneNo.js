@@ -48,8 +48,12 @@ const VerticalDivider = styled.div`
   height: 2rem;
   width: 100%;
 `;
-
-function PhoneNo({ handleNextClick }) {
+const BackCon = styled.div`
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+`;
+function PhoneNo({ handleNextClick, handleBack }) {
   const [open, setOpen] = useState(false);
   const [mobileNumber, setMobileNumber] = useState(null);
 
@@ -123,7 +127,7 @@ function PhoneNo({ handleNextClick }) {
           <Text fontSize="38px" marginBottom="10px">
             <b>Let&apos;s make your profile</b>
           </Text>
-          <Text color="gray">
+          <Text>
             Fill out your profile for clients to better understand your
           </Text>
           <Text>services.</Text>
@@ -186,10 +190,21 @@ function PhoneNo({ handleNextClick }) {
             </Grid>
 
             <ButtonContainer>
-              <Text>
-                <BackIcon isabsolute={false} />
-                <span style={{ marginLeft: '1rem' }}>Go Back</span>
-              </Text>
+              <BackCon onClick={handleBack}>
+                <BackIcon
+                  isabsolute={false}
+                  style={{ margin: 'auto', fontSize: '16.5px' }}
+                />
+                <Text
+                  style={{
+                    marginLeft: '1rem',
+                    fontSize: '12.5px',
+                    marginTop: '2px',
+                  }}
+                >
+                  Go Back
+                </Text>
+              </BackCon>
               <StyledButton>NEXT</StyledButton>
             </ButtonContainer>
           </Box>

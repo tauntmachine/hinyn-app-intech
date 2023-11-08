@@ -34,6 +34,7 @@ import {
   BsTelephone,
   BsThreeDotsVertical,
   BsCheck2,
+  BsFillCheckCircleFill,
 } from 'react-icons/bs';
 import { BiUser } from 'react-icons/bi';
 import { RiSuitcaseLine } from 'react-icons/ri';
@@ -60,6 +61,15 @@ export const Check = styled(BsCheck2)`
       : '#525252'};
   font-size: 20px;
 `;
+// export const CheckMember = styled(BsFillCheckCircleFill)`
+//   color: ${(props) =>
+//     props.variant === 'red'
+//       ? '#EB4C60'
+//       : props.variant === 'green'
+//       ? '#4AA398'
+//       : '#8c8b8b'};
+//   font-size: 30px;
+// `;
 export const AlertIcon = styled(FiAlertCircle)`
   color: ${(props) =>
     props.variant === 'red'
@@ -308,7 +318,10 @@ export const SearchIcon = styled(FaSearch)`
       ? '#EB4C60'
       : props.variant === 'green'
       ? '#4AA398'
+      : props.variant === 'gray'
+      ? '#939393'
       : '#525252'};
+  font-size: ${(props) => (props.siz === 'large' ? '20px' : '14px')};
 `;
 
 export const TelephoneIcon = styled(BsTelephone)`

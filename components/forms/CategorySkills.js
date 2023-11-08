@@ -39,7 +39,7 @@ const Error = styled.p`
 `;
 
 const ButtonContainer = styled.div`
-  margin: 0 0 20px 105rem;
+  margin: auto;
 `;
 
 const ORLine = styled.div`
@@ -306,7 +306,7 @@ function CategorySkills({ handleNextClick }) {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <SearchIcon />
+                        <SearchIcon variant="gray" siz="large" />
                       </InputAdornment>
                     ),
                   }}
@@ -356,12 +356,18 @@ function CategorySkills({ handleNextClick }) {
               endAdornment={'cross-icon'}
             />
           </Grid>
+          {/* <ButtonContainer> */}
+          <Grid
+            sx={{
+              marginTop: '18px',
+              marginLeft: '100rem',
+            }}
+          >
+            <StyledButton onClick={submitHandler}>NEXT</StyledButton>
+          </Grid>
+          {/* </ButtonContainer> */}
         </Grid>
       </Container>
-
-      <ButtonContainer>
-        <StyledButton onClick={submitHandler}>NEXT</StyledButton>
-      </ButtonContainer>
 
       <Modal
         handleClose={handleClose}

@@ -7,6 +7,7 @@ export const StyledTextField = styled(TextField)`
     border-radius: 40rem;
 
     width: 100%;
+    // padding: 0 12px;
     align-items: center;
   }
 `;

@@ -7,6 +7,7 @@ import { BackIcon, CheckIcon, CheckSquareIcon, LockIcon } from '../shared/Icon';
 import { BiCheckCircle } from 'react-icons/bi';
 import Button from '../shared/Button';
 import { useRouter } from 'next/router';
+import MemberShipCard from '../shared/MemberShipCard';
 
 const StyledButton = styled(Button)`
   margin: 2rem auto;
@@ -30,12 +31,11 @@ const StyledButton2 = styled.div`
 const ContainersMain = styled.div`
   width: 44rem;
   height: 35rem;
-  //   background: green;
-  margin: auto;
+  margin: 60px 0 0 0;
+
   display: flex;
   gap: 0 16px;
   direction: row;
-  padding: 0 13px;
 `;
 const ContainerBox = styled.div`
   width: 20rem;
@@ -141,10 +141,20 @@ const Text3 = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
-  width:
-  justify-content: space-between;
+  margin: 0 0 0 11rem;
 `;
-function MemberShip({ handleNextClick }) {
+const TitleCon = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-left: 20rem;
+`;
+const BackCon = styled.div`
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+`;
+
+function MemberShip({ handleNextClick, handleBack }) {
   const [switchActive, setSwitchActive] = useState(false);
 
   const router = useRouter();
@@ -167,104 +177,74 @@ function MemberShip({ handleNextClick }) {
         <Text fontSize="35px" fontWeight="bold" marginLeft="10rem">
           Maximize your success earnings!
         </Text>
-        <Text marginLeft="20rem" fontSize="13px">
-          Try a <span>HINYN</span> Membership to enjoy greater benefits
-        </Text>
-        <ButtonDiv active={switchActive} onClick={toggleSwitch}>
+        <TitleCon>
+          <Text style={{ display: 'flex' }}>
+            Try a{' '}
+            <Text
+              style={{
+                display: 'flex',
+                margin: '0 4px 0 4px',
+                fontWeight: 'bold',
+                color: '#eb4c60',
+              }}
+            >
+              {' '}
+              HINYN
+            </Text>
+            Membership to enjoy greater benefits
+          </Text>
+        </TitleCon>
+        {/* <ButtonDiv active={switchActive} onClick={toggleSwitch}>
           <Text1 active={switchActive}>Pay Monthly</Text1>
-          {/* Display the switch state */}
+
           <SwitchDiv active={switchActive}>
             <div className="switch-button"></div>
           </SwitchDiv>
           <Text2 active={switchActive}>Pay Yearly</Text2>
-        </ButtonDiv>
+        </ButtonDiv> */}
         <ContainersMain>
-          <ContainerBox>
-            <EmailIconContainer>
-              <StyledEmailIcon />
-            </EmailIconContainer>
-            <TextCenter>
-              <Text color="green">Trial Membership</Text>
-              <DivText>
-                <Text fontSize="21px" fontWeight="bold">
-                  0 AED
-                </Text>
-                <Text marginLeft="10px" marginTop="6px" fontSize="15px">
-                  /month
-                </Text>
-              </DivText>
-            </TextCenter>
-            <IconText>
-              <StyledCheckIcon />
-              <Text marginLeft="8px">1 Contract</Text>
-            </IconText>
-            <IconText>
-              <StyledCheckIcon />
-              <Text marginLeft="8px">3 Bids</Text>
-            </IconText>
-            <IconText>
-              <StyledCheckIcon />
-              <Text marginLeft="8px">Limited Notifications</Text>
-            </IconText>
-            <IconText>
-              <StyledCheckIcon />
-              <Text marginLeft="8px">Contract Recomendations</Text>
-            </IconText>
-            <IconText>
-              <StyledCheckIcon />
-              <Text marginLeft="8px">Preffered professional</Text>
-            </IconText>
-            {/* <ButtonOuline>Start Free Trial</ButtonOuline> */}
-            <StyledButton2 onClick={Next}>
-              <Text3>Start Free Trial</Text3>
-            </StyledButton2>
-          </ContainerBox>
-          <ContainerBox>
-            <EmailIconContainer active={switchActive}>
-              <StyledEmailIcon />
-            </EmailIconContainer>
-            <TextCenter>
-              <Text color="green" marginLeft="20px">
-                Professional
-              </Text>
-              <DivText>
-                <Text fontSize="21px" fontWeight="bold" active={switchActive}>
-                  {switchActive ? '499 AED' : '60 AED'}
-                </Text>
-                <Text marginLeft="9px" marginTop="6px" fontSize="15px">
-                  /Year
-                </Text>
-              </DivText>
-            </TextCenter>
-            <IconText>
-              <StyledCheckIcon />
-              <Text marginLeft="8px">1 Contract</Text>
-            </IconText>
-            <IconText>
-              <StyledCheckIcon />
-              <Text marginLeft="8px">3 Bids</Text>
-            </IconText>
-            <IconText>
-              <StyledCheckIcon />
-              <Text marginLeft="8px">Limited Notifications</Text>
-            </IconText>
-            <IconText>
-              <StyledCheckIcon />
-              <Text marginLeft="8px">Contract Recomendations</Text>
-            </IconText>
-            <IconText>
-              <StyledCheckIcon />
-              <Text marginLeft="8px">Preffered professional</Text>
-            </IconText>
-            {/* <ButtonOuline>Start Free Trial</ButtonOuline> */}
-            <StyledButton>Signup for Today</StyledButton>
-          </ContainerBox>
+          <MemberShipCard
+            Title={'Trial Membership'}
+            Amount={'0'}
+            Time={'1 month'}
+            onClick={Next}
+            btn={'false'}
+          />
+          <MemberShipCard
+            Title={'Professional'}
+            Amount={'499'}
+            Time={'year'}
+            btn={'true'}
+            btnText={'Sign up yearly'}
+          />
+          <MemberShipCard
+            Title={'Professional'}
+            Amount={'60'}
+            Time={'month'}
+            btn={'true'}
+            btnText={'Sign up monthly'}
+          />
         </ContainersMain>
         <ButtonContainer>
-          <Text marginLeft="9rem">
+          {/* <Text marginLeft="9rem">
             <BackIcon isabsolute={false} />
             <span style={{ marginLeft: '.5rem' }}>Go Back</span>
-          </Text>
+          </Text> */}
+          <BackCon onClick={handleBack}>
+            <BackIcon
+              isabsolute={false}
+              style={{ margin: 'auto', fontSize: '16.5px' }}
+            />
+            <Text
+              style={{
+                marginLeft: '1rem',
+                fontSize: '12.5px',
+                marginTop: '2px',
+              }}
+            >
+              Go Back
+            </Text>
+          </BackCon>
         </ButtonContainer>
       </Container>
     </>

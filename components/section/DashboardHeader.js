@@ -7,6 +7,7 @@ import {
   BellIcon,
   ChatIcon,
   CloseIconCircle,
+  EmailIcon,
   LogoutIcon,
 } from '../shared/Icon';
 import Button, { GreenButton } from '../shared/Button';
@@ -102,6 +103,7 @@ const StyledLogoutIcon = styled(LogoutIcon)`
 const TopBar = styled.div`
   background: #4aa398;
   height: 50px;
+  padding: 0 8rem;
   width: 100%;
 `;
 const Text1 = styled.div`
@@ -112,12 +114,12 @@ const Text1 = styled.div`
 const Text2 = styled.div`
   color: white;
   font-size: 10px;
-  margin: 2px 23px;
+  margin: 2px 27px;
 `;
 const Text3 = styled.div`
   color: white;
   font-size: 10px;
-  padding: 10px 25px;
+  padding: 6px 25px;
   border: 1px solid white;
   border-radius: 40px;
 `;
@@ -127,7 +129,13 @@ const StyledCloseIcon = styled(CloseIconCircle)`
   cursor: pointer;
   margin: auto 20px;
 `;
-
+const Box2 = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const Box3 = styled.div`
+  display: flex;
+`;
 function DashboardHeader({ currentTab, setTabChange }) {
   const imgpath = '/assets/img/avatars/';
   const [userData, setUserData] = useState({});
@@ -209,22 +217,22 @@ function DashboardHeader({ currentTab, setTabChange }) {
     <>
       {currentTab == 0 ? (
         <TopBar>
-          <Box display="flex">
-            <Box padding="10px" marginLeft="8rem">
-              <Box display="flex">
-                <ChatIcon />
+          <Box display="flex" justifyContent="space-between">
+            <Box padding="10px">
+              <Box2>
+                <EmailIcon color="white" fontSize="20px" />
                 <Text1>Email verification required</Text1>
-              </Box>
+              </Box2>
               <Text2>
                 To activate your account, please click verify your email adresss
                 on the Emial we sent to
                 <span>samantha12@gmail.com</span>
               </Text2>
             </Box>
-            <Box paddingY="8px" marginLeft="44rem" display="flex">
+            <Box3>
               <Text3>Resend Email</Text3>
               <StyledCloseIcon color="white" />
-            </Box>
+            </Box3>
           </Box>
         </TopBar>
       ) : null}

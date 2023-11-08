@@ -36,7 +36,6 @@ const Layout = ({ children }) => {
             left: '50%',
             transform: 'translate(-50%, -50%)',
             zIndex: 9999,
-            // Adjust the z-index as needed
           }}
         >
           <Loader />

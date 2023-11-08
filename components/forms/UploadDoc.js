@@ -73,8 +73,12 @@ const VerticalDivider = styled.div`
   height: 2rem;
   width: 100%;
 `;
-
-function UploadDoc({ handleNextClick }) {
+const BackCon = styled.div`
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+`;
+function UploadDoc({ handleNextClick, handleBack }) {
   const [open, setOpen] = useState(false);
   const [openCameraModal, setOpenCameraModal] = useState(false);
   const handleClose = () => {
@@ -208,10 +212,21 @@ function UploadDoc({ handleNextClick }) {
             </Grid>
 
             <ButtonContainer>
-              <Text>
-                <BackIcon isabsolute={false} />
-                <span style={{ marginLeft: '1rem' }}>Go Back</span>
-              </Text>
+              <BackCon onClick={handleBack}>
+                <BackIcon
+                  isabsolute={false}
+                  style={{ margin: 'auto', fontSize: '16.5px' }}
+                />
+                <Text
+                  style={{
+                    marginLeft: '1rem',
+                    fontSize: '12.5px',
+                    marginTop: '2px',
+                  }}
+                >
+                  Go Back
+                </Text>
+              </BackCon>
               <StyledButton>NEXT</StyledButton>
             </ButtonContainer>
           </Box>

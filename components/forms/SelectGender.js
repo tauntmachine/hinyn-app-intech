@@ -38,15 +38,20 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 78%;
-  margin: 5rem 4rem;
+  width: 80%;
+  margin-left: 50px;
+  margin-top: 60px;
 `;
 const VerticalDivider = styled.div`
   height: 2rem;
   width: 100%;
 `;
-
-function SelectGender({ handleNextClick }) {
+const BackCon = styled.div`
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+`;
+function SelectGender({ handleNextClick, handleBack }) {
   const [open, setOpen] = useState(false);
   const [dobValue, setDobValue] = useState(null);
   const [selectedGender, setSelectedGender] = useState(null);
@@ -158,7 +163,7 @@ function SelectGender({ handleNextClick }) {
           <Text
             color="#424949"
             fontWeight="bold"
-            marginBottom="20px"
+            marginBottom="4px"
             fontSize="34px"
           >
             Let&apos;s make your profile
@@ -214,7 +219,7 @@ function SelectGender({ handleNextClick }) {
               <Grid item xs={9} sx={{ width: '100%', marginLeft: '4.5rem' }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
-                    label="Date of Birth"
+                    label="mm-dd-yyyy"
                     inputFormat="dd/MM/yyyy"
                     value={dobValue}
                     onChange={checkDOB}
@@ -239,11 +244,29 @@ function SelectGender({ handleNextClick }) {
               </StyledGenderF>
             </Genderdiv>
             <VerticalDivider />
-            <ButtonContainer>
+            {/* <ButtonContainer>
               <Text>
                 <BackIcon isabsolute={false} />
                 <span style={{ marginLeft: '1rem' }}>Go Back</span>
               </Text>
+              <StyledButton>NEXT</StyledButton>
+            </ButtonContainer> */}
+            <ButtonContainer>
+              <BackCon onClick={handleBack}>
+                <BackIcon
+                  isabsolute={false}
+                  style={{ margin: 'auto', fontSize: '16.5px' }}
+                />
+                <Text
+                  style={{
+                    marginLeft: '1rem',
+                    fontSize: '12.5px',
+                    marginTop: '4px',
+                  }}
+                >
+                  Go Back
+                </Text>
+              </BackCon>
               <StyledButton>NEXT</StyledButton>
             </ButtonContainer>
           </Box>

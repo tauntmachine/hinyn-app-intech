@@ -31,7 +31,7 @@ const MainBox = styled(Box)`
 `;
 
 function Professional() {
-  const [currentActiveForm, setCurrentActiveForm] = useState(9);
+  const [currentActiveForm, setCurrentActiveForm] = useState(1);
   const [progressPercent, setProgressPercent] = useState(
     10 * currentActiveForm
   );
@@ -46,7 +46,10 @@ function Professional() {
       setCurrentActiveForm((prev) => prev + 1);
     }
   };
-
+  const goBack = () => {
+    setProgressPercent(progressPercent - 9);
+    setCurrentActiveForm((prev) => prev - 1);
+  };
   const requestUpdate = async (item) => {
     const clientId = await localStorage.getItem('hinyn-cid');
     let clientData = await getStoredClient();
@@ -66,7 +69,9 @@ function Professional() {
           const res = result?.data?.attributes;
           // const res = await JSON.parse(result?.data?.attributes);
           setIsAccountVerified(
-            res?.data?.isEmailVerified == null ? false : res?.data?.isEmailVerified
+            res?.data?.isEmailVerified == null
+              ? false
+              : res?.data?.isEmailVerified
           );
           setCurrClientData(res);
           localStorage.setItem(
@@ -98,22 +103,22 @@ function Professional() {
           <CategorySkills handleNextClick={requestUpdate} />
         ) : null}
         {currentActiveForm === 3 ? (
-          <WhatYouDo handleNextClick={requestUpdate} />
+          <WhatYouDo handleNextClick={requestUpdate} handleBack={goBack} />
         ) : null}
         {currentActiveForm === 4 ? (
-          <SelectGender handleNextClick={requestUpdate} />
+          <SelectGender handleNextClick={requestUpdate} handleBack={goBack} />
         ) : null}
         {currentActiveForm === 5 ? (
-          <Location handleNextClick={requestUpdate} />
+          <Location handleNextClick={requestUpdate} handleBack={goBack} />
         ) : null}
         {currentActiveForm === 6 ? (
-          <PhoneNo handleNextClick={requestUpdate} />
+          <PhoneNo handleNextClick={requestUpdate} handleBack={goBack} />
         ) : null}
         {currentActiveForm === 7 ? (
-          <Ott handleNextClick={handleNextClick} />
+          <Ott handleNextClick={handleNextClick} handleBack={goBack} />
         ) : null}
         {currentActiveForm === 8 ? (
-          <UploadDoc handleNextClick={handleNextClick} />
+          <UploadDoc handleNextClick={handleNextClick} handleBack={goBack} />
         ) : null}
         {/* {currentActiveForm === 9 && !isAccountVerified ? (
           <UnverifiedAccountForm />
@@ -124,6 +129,7 @@ function Professional() {
             handleNextClick={handleNextClick}
             name={currClientData?.firstName}
             email={currClientData?.email}
+            handleBack={goBack}
           />
         ) : null}
         {/* {currentActiveForm === 10 && isAccountVerified ? (
@@ -134,7 +140,7 @@ function Professional() {
         ) : null} */}
 
         {currentActiveForm === 10 ? (
-          <MemberShip handleNextClick={handleNextClick} />
+          <MemberShip handleNextClick={handleNextClick} handleBack={goBack} />
         ) : null}
         {/* {currentActiveForm === 11 ? (
           <ProfessionalFormPayment handleNextClick={handleNextClick} />

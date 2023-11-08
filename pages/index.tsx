@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Header from '../components/section/Header';
 import Main from '../components/section/Main';
 import Footer from '../components/section/Footer';
-// import Layout from '../components/Layout';
+
 export { getServerSideProps } from '../src/store';
 
 const Home = () => {
@@ -21,11 +21,10 @@ const Home = () => {
           rel="stylesheet"
         />
       </Head>
-      {/* <Layout> */} {/* Wrap your content with the Layout component */}
+
       <Header />
       <Main />
       <Footer />
-      {/* </Layout> */}
     </>
   );
 };

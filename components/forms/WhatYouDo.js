@@ -14,6 +14,7 @@ import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
 import { BackIcon } from '../shared/Icon';
 import { updateClientData } from './formService';
+import { IoChevronBackCircleOutline } from 'react-icons/io5';
 
 const StyledButton = styled(Button)``;
 
@@ -37,6 +38,7 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
   width: 80%;
   margin-left: 50px;
+  cursor: pointer;
 `;
 const VerticalDivider = styled.div`
   height: 2rem;
@@ -52,8 +54,11 @@ const StyledTextArea = styled(TextareaAutosize)`
   padding: 10px;
   font-family: inherit;
 `;
-
-function WhatYouDo({ handleNextClick }) {
+const BackCon = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+function WhatYouDo({ handleNextClick, handleBack }) {
   const [open, setOpen] = useState(false);
   const [enteredBroadDescription, setBroadDescription] = useState('');
   const handleClose = () => {
@@ -174,11 +179,22 @@ function WhatYouDo({ handleNextClick }) {
               </Grid>
             </Grid>
             <ButtonContainer>
-              <Text>
-                <BackIcon isabsolute={false} />
-                <span style={{ marginLeft: '1rem' }}>Go Back</span>
-              </Text>
-              <StyledButton>NEXT</StyledButton>
+              <BackCon onClick={handleBack}>
+                <BackIcon
+                  isabsolute={false}
+                  style={{ margin: 'auto', fontSize: '16.5px' }}
+                />
+                <Text
+                  style={{
+                    marginLeft: '1rem',
+                    fontSize: '12.5px',
+                    marginTop: '2px',
+                  }}
+                >
+                  Go Back
+                </Text>
+              </BackCon>
+              <StyledButton onClick={submitHandler}>NEXT</StyledButton>
             </ButtonContainer>
           </Box>
         </FormContainer>
