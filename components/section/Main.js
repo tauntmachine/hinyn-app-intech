@@ -18,10 +18,10 @@ const ContainerCustom = styled.div`
 function Main() {
   const { freelancer } = useFreelancer();
   const [currCatSelected, setCurrCatSelected] = useState();
-  // const [category, setCategory] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [filteredArray, setFilteredArray] = useState([]);
 
   // useEffect(() => {
-  //   // Fetch categories when the component mounts
   //   const fetchCategories = async () => {
   //     const categoriesPromise = getCategories();
   //     try {
@@ -30,7 +30,7 @@ function Main() {
   //       if (result.status) {
   //         const data = result.data;
   //         setCategory(data.data);
-  //         // console.log('THIS IS ????' + category);
+  //         console.log(category);
   //       } else {
   //         console.error('Error fetching categories: ' + result.data);
   //       }
@@ -41,24 +41,41 @@ function Main() {
 
   //   fetchCategories(); // Call the function to fetch categories
   // }, []);
+  useEffect(() => {
+    getCategories().then((result) => {
+      if (result?.data) {
+        console.log(result);
+        setCategories(() => []);
+        result?.data?.data.map((item) => {
+          let temp = { id: item.id };
+          setCategories((prev) => prev.concat({ ...item.attributes, ...temp }));
+        });
+      }
+    });
+  }, []);
 
   const handleButtonClick = () => {};
 
   const handleSelectedCategory = (category) => {
-    setCurrCatSelected(category.title);
+    setCurrCatSelected(category);
+    setFilteredArray(
+      freelancer.filter((item) => item.attributes.headline === category)
+    );
   };
-
-  // console.log(category);
 
   return (
     <ContainerCustom>
       <CategoryList
-        categories={category}
+        categories={categories}
         handleSelectedCategory={handleSelectedCategory}
         currCatSelected={currCatSelected}
       />
       {/* <Text>{freelancer}</Text> */}
-      <CardsSection cards={freelancer} handleButtonClick={handleButtonClick} />
+      <CardsSection
+        cards={filteredArray}
+        handleButtonClick={handleButtonClick}
+        selectedCategory={currCatSelected}
+      />
     </ContainerCustom>
   );
 }

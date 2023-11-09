@@ -10,7 +10,6 @@ const SwiperBox = styled.div`
   margin-top: 3rem;
 `;
 function CategoryList({ categories, handleSelectedCategory, currCatSelected }) {
-  // console.log(categories);
   return (
     <SwiperBox>
       <Swiper
@@ -22,7 +21,7 @@ function CategoryList({ categories, handleSelectedCategory, currCatSelected }) {
         {categories.map((category, idx) => (
           <SwiperSlide
             key={idx}
-            onClick={() => handleSelectedCategory(category)}
+            onClick={() => handleSelectedCategory(category.title)}
           >
             <Category
               data={category}

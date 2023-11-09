@@ -73,7 +73,7 @@ function CustomCard({ data, cardText, handleButtonClick }) {
   // let imgsrc = data?.displayPhoto
   //   ? '/assets/img/avatars/' + data.displayPhoto
   //   : '/assets/img/avatars/img-avatar1.png';
-
+  // console.log(data);
   const handleClick = (data) => {
     handleButtonClick(data);
   };
@@ -88,16 +88,21 @@ function CustomCard({ data, cardText, handleButtonClick }) {
       </HeaderBackground>
       <ImageContainer>
         {/* <StyledImage src={data.imgsrc} layout="fill" alt="icon-img" /> */}
-        <StyledImage src={require('../../public/assets/img/avatars/img-avatar1.png')} layout="fill" alt="icon-img" />
+        <StyledImage
+          src={require('../../public/assets/img/avatars/img-avatar1.png')}
+          layout="fill"
+          alt="icon-img"
+        />
       </ImageContainer>
       <Title>{`${data.attributes.firstName} ${data.attributes.lastName}`}</Title>
 
-      <Label variant="green">{data.work}</Label>
+      <Label variant="green">{data.attributes.headline}</Label>
 
       <StarRating data={data?.attributes.rating ?? 5} />
 
       <Label>
         <LocationIcon />
+        <div>{data.attributes.city}</div>
         <div>{data.attributes.country}</div>
       </Label>
 
