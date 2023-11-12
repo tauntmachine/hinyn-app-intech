@@ -69,3 +69,7 @@ export const getApiProfSkillByID = async (id) => {
       return { status: false, data: error };
     });
 };
+
+export const getLoggedClient = async () => {
+  
+}

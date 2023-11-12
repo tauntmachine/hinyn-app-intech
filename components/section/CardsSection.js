@@ -46,7 +46,6 @@ function CardsSection({
   handleButtonClick,
   selectedCategory,
 }) {
-  // console.log(selectedCategory);
   return (
     <GridContainer>
       {hasTools ? (

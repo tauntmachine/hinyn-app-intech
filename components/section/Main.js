@@ -52,6 +52,7 @@ function Main() {
         });
       }
     });
+    setFilteredArray(freelancer ?? []);
   }, []);
 
   const handleButtonClick = () => {};

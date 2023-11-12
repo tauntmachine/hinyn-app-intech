@@ -118,11 +118,13 @@ const NewsfeedSection = () => {
   };
   useEffect(() => {
     const clientId = localStorage.getItem('hinyn-cid');
+    console.log('use effect');
     if (clientId) {
       getLoggedInUserData().then((res) => {
+        console.log('res me' + res);
         if (res.data) {
-          setAccountType(() => res.data?.client?.accountType);
-          console.log('as' + accountType);
+          // setAccountType(() => res.data?.client?.accountType);
+          setAccountType(1);
         }
       });
     }
@@ -477,7 +479,7 @@ const NewsfeedSection = () => {
                 })}
             </Grid>
             <Grid item xs={4}>
-              {userProjects && getUserProjects()}
+              {userProjects.length > 0 && getUserProjects()}
               {userData && getUserData()}
             </Grid>
           </Grid>

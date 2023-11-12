@@ -52,29 +52,23 @@ function Registration() {
   };
 
   const accountType = (type) => {
-    let accountType = type === 'professional' ? 1 : 2;
-    const clientId = localStorage.getItem('hinyn-cid');
+    let clientType = type === 'professional' ? 1 : 2;
     const userId = localStorage.getItem('hinyn-uid');
     const jwt = localStorage.getItem('hinyn-cjwt');
     const userData = {
-      accountType: accountType,
+      accountType: clientType,
       user: userId,
-      uuid: `client-${clientId}`,
+      uuid: `client-${userId}`,
     };
 
     addClientData(userData, jwt).then((res) => {
       if (res?.status) {
         localStorage.setItem('hinyn-cid', res?.data?.id);
         localStorage.setItem('hinyn-clientData', JSON.stringify(res?.data));
-        if (accountType === 1) router.push('/professional');
+        if (clientType === 1) router.push('/professional');
         else router.push('/dashboard');
       }
     });
-    // updateClientData(userData, clientId).then((res) => {
-    //   console.log(JSON.stringify(res));
-    //   if (accountType === 1) router.push('/professional');
-    //   else router.push('/dashboard');
-    // });
   };
 
   const formsSequence = {

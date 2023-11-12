@@ -364,14 +364,15 @@ export const addClientData = async (userData, jwt) => {
   const req = await getUserData(userData.user);
   let clientData = {
     ...req.data,
-    uuid: `client-${userData.user}`,
+    // uuid: `client-${userData.user}`,
     ...userData,
   };
   return axios
     .post(
       origin + '/clients',
       {
-        data: { ...req.data, uuid: `client-${userData.user}` },
+        data: clientData,
+        // data: { ...req.data, uuid: `client-${userData.user}` },
       },
       {
         headers: {

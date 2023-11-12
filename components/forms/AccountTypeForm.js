@@ -78,7 +78,7 @@ function AccountTypeForm({ accountType }) {
           <Box
             component="form"
             noValidate
-            onSubmit={submitHandler}
+            // onSubmit={submitHandler}
             sx={{ mt: 3, width: '100%' }}
           >
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>

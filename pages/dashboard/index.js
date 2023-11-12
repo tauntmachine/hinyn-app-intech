@@ -7,8 +7,8 @@ import BrowseProjectsSection from '../../components/section/BrowseProjectsSectio
 import MyProjectsSection from '../../components/section/MyProjectsSection';
 export { getServerSideProps } from '../../src/store';
 import {
+  getClientData,
   getLoggedInUserData,
-  getProposalsOfClient,
 } from '../../components/forms/formService';
 import ClientProjectsSection from '../../components/section/ClientProjectsSection';
 import BrowseFreelancersSection from '../../components/section/BrowseFreelancersSection';
@@ -26,12 +26,16 @@ const Index = () => {
   useEffect(() => {
     // if (project && screen) setCurrentTab(1);
     // if (screen === 'browse') setCurrentTab(1);
-    const clientId = localStorage.getItem('hinyn-cid');
-    if (clientId) {
-      getLoggedInUserData().then((res) => {
+    const id = localStorage.getItem('hinyn-cid');
+    if (id) {
+      getClientData({ id }).then((res) => {
         if (res.data) {
-          setAccountType(() => res.data?.client?.accountType);
-          console.log(accountType);
+          localStorage.setItem(
+            'hinyn-client-profile',
+            JSON.stringify(res.data)
+          );
+          setAccountType(res.data.data.attributes.accountType);
+          // setAccountType(() => res.data?.client?.accountType);
         }
       });
     }

@@ -17,7 +17,7 @@ export async function getServerSideProps() {
   const res = await getClients()
     .then(async (response) => {
       if (response.data) {
-        return (freelancerResult = response.data?.data); //response.data?.data.map((item)=> ({"clientId": item.id, ...item.attributes}));
+        return (freelancerResult = response.data ? response.data?.data : null); //response.data?.data.map((item)=> ({"clientId": item.id, ...item.attributes}));
       }
     })
     .catch(function (error) {

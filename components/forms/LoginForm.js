@@ -71,14 +71,14 @@ function LoginForm(props) {
     loginUser(loginData).then((response) => {
       if (response.status === true && response?.data?.jwt) {
         localStorage.setItem('hinyn-uid', response.data.user.id);
+        localStorage.setItem('hinyn-cid', response.data.user.id);
         localStorage.setItem('hinyn-cjwt', response?.data?.jwt);
-        getLoggedInUserData().then((res) => {
-          console.log('client iddd', res);
-          if (res.data) {
-            router.push('/dashboard');
-            localStorage.setItem('hinyn-cid', res.data?.client?.id);
-          }
-        });
+        router.push('/dashboard');
+        // getLoggedInUserData().then((res) => {
+        //   if (res.data) {
+        //     router.push('/dashboard');
+        //   }
+        // });
       } else {
         setMessage(response.data);
         setOpen(true);
