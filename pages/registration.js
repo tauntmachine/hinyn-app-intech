@@ -66,7 +66,7 @@ function Registration() {
         localStorage.setItem('hinyn-cid', res?.data?.id);
         localStorage.setItem('hinyn-clientData', JSON.stringify(res?.data));
         if (clientType === 1) router.push('/professional');
-        else router.push('/dashboard');
+        else router.push('/Client');
       }
     });
   };

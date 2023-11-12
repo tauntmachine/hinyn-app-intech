@@ -51,7 +51,7 @@ const Index = () => {
       //professional
       switch (currentTab) {
         case 0:
-          return <NewsfeedSection />;
+          return <NewsfeedSection accountType={accountType}/>;
         case 1:
           return <BrowseProjectsSection mainScreen={screen} />;
         case 2:

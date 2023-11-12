@@ -11,9 +11,7 @@ import AlertBox from '../../components/shared/AlertBox';
 import ClickableStarRating from '../../components/shared/ClickableStarRating';
 import ProgressBar from '../../components/shared/ProgressBar';
 import Text, { GrayText } from '../../components/shared/Typography';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { getLoggedInUserData } from '../forms/formService';
+import { useState } from 'react';
 const ContainerDiv = styled.div`
   width: 112rem;
   margin: 4rem 0 0 0;
@@ -103,10 +101,8 @@ const WelcomeCon = styled.div`
   background: green;
   margin: auto;
 `;
-const NewsfeedSection = () => {
-  const [accountType, setAccountType] = useState(0);
+const NewsfeedSection = ({ accountType }) => {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
   const handleClose = () => {
     setOpen(false);
   };
@@ -116,19 +112,6 @@ const NewsfeedSection = () => {
   const handleSubmit = () => {
     handleClose();
   };
-  useEffect(() => {
-    const clientId = localStorage.getItem('hinyn-cid');
-    console.log('use effect');
-    if (clientId) {
-      getLoggedInUserData().then((res) => {
-        console.log('res me' + res);
-        if (res.data) {
-          // setAccountType(() => res.data?.client?.accountType);
-          setAccountType(1);
-        }
-      });
-    }
-  }, []);
 
   const professionalNewsfeedData = [
     {
