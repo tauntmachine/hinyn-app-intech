@@ -5,9 +5,9 @@ import { GooeyLoader2 } from 'react-loaders-kit';
 function Loader() {
   const loaderProps = {
     loading: true,
-    size: 175,
-    duration: 2,
-    colors: ['#009999', '#00cccc', '#00ffff'],
+    size: 80,
+    duration: 1,
+    color: 'linear-gradient(to right, #FF5A5F,#A52226 )',
   };
 
   return (
