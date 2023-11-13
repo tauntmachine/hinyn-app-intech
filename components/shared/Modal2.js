@@ -15,7 +15,7 @@ const CustomDialog = styled(Dialog)`
     box-shadow: 0px 3px 20px #0000003c;
     border-radius: 13px;
     min-height: 42rem;
-    min-width: 57rem;
+    min-width: ${(props) => (props.Widthmax ? '40rem' : '57rem')};
   }
 `;
 const StyledButton = styled(Button)`
@@ -52,6 +52,7 @@ const Modal2 = ({
   hasFooter,
   maxWidth,
   children,
+  Widthmax,
 }) => {
   return (
     <>
@@ -62,6 +63,7 @@ const Modal2 = ({
         aria-describedby="alert-dialog-description"
         fullWidth={true}
         maxWidth={maxWidth ? maxWidth : 'xs'}
+        Widthmax={Widthmax}
       >
         {hasHeader === true ? (
           <StyledHeader>

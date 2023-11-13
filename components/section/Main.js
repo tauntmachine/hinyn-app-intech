@@ -16,7 +16,7 @@ const ContainerCustom = styled.div`
 `;
 
 function Main() {
-  const { freelancer } = useFreelancer();
+  const { freelancer, filter } = useFreelancer();
   const [currCatSelected, setCurrCatSelected] = useState();
   const [categories, setCategories] = useState([]);
   const [filteredArray, setFilteredArray] = useState([]);
@@ -43,6 +43,7 @@ function Main() {
   // }, []);
   useEffect(() => {
     getCategories().then((result) => {
+      // console.log(filter);
       if (result?.data) {
         console.log(result);
         setCategories(() => []);

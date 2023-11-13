@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
-import Modal from './Modal';
-import Dropdown from './Dropdown';
+import Modal2 from './Modal2';
+import DropdownO from './DropdownO';
 import { Container } from '@mui/material';
 import ClickableStarRating from './ClickableStarRating';
 import { getCategories } from '../forms/formService';
@@ -36,83 +36,47 @@ const ItemLabel = styled.span`
 `;
 function Filter() {
   const [open, setOpen] = useState(false);
-  const [categories, setCategories] = useState([
-    'photographer',
-    'videographer',
-    'Editor',
-  ]);
-  const [skills, setSkills] = useState([
-    'photographer',
-    'videographer',
-    'Editor',
-  ]);
+  const [categories, setCategories] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState([]);
+  const [selectedBudget, setSelectedBudget] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSkill, setSelectedSkill] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState([
-    'photographer',
-    'videographer',
-    'Editor',
-  ]);
-  const [selectedBudget, setSelectedBudget] = useState([
-    'photographer',
-    'videographer',
-    'Editor',
-  ]);
-  const { freelancer, filter, setFilter } = useFreelancer();
+
+  const { freelancer, setFilter } = useFreelancer();
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  // useEffect(() => {
-  //   const getCategories = async () => {
-  //     // const jwt = localStorage.getItem('hinyn-cjwt');
-  //     console.log(origin + '/categories?populate=*');
-  //     const response = await axios
-  //       .get(origin + '/categories?populate=*', {
-  //         withCredentials: true,
-  //         crossDomain: true,
-  //       })
-  //       .then(async (response) => {
-  //         if (response.data) {
-  //           return { status: true, data: response.data };
-  //         } else {
-  //           return { status: false, data: response.data.message };
-  //         }
-  //       })
-  //       .catch(function (error) {
-  //         return { status: false, data: error };
-  //       });
-
-  //     // console.log(response);
-  //     return response;
-  //   };
-
-  //   getCategories();
-  // });
-
-  // useEffect(()=>{
-  //   getCategories().then((result)=>{
-  //     if(result?.data){
-  //       setCategories(()=>[])
-  //       result?.data?.data.map((item,idx)=>{
-  //         const temp = {"id":item.id}
-  //         setCategories((prev => prev.concat({
-  //           ...item?.attributes,
-  //           ...temp
-  //         })));
-  //         if(idx === 0){
-  //           setSelectedCategory(()=>item.attributes.key)
-  //           const res = item?.attributes?.skills?.data.map((skill)=> {
-  //             return {"id":skill.id, "key":skill?.attributes?.slug, ...skill?.attributes}
-  //           })
-  //           setSkills(()=>res);
-  //           setSelectedSkill(()=>res[0]?.key);
-  //         }
-  //       })
-  //     }
-  //   });
-  // },[open])
+  useEffect(() => {
+    getCategories().then((result) => {
+      if (result?.data) {
+        setCategories(() => []);
+        result?.data?.data.map((item, idx) => {
+          const temp = { id: item.id };
+          setCategories((prev) =>
+            prev.concat({
+              ...item?.attributes,
+              ...temp,
+            })
+          );
+          if (idx === 0) {
+            setSelectedCategory(() => item.attributes.key);
+            const res = item?.attributes?.skills?.data.map((skill) => {
+              return {
+                id: skill.id,
+                key: skill?.attributes?.slug,
+                ...skill?.attributes,
+              };
+            });
+            setSkills(() => res);
+            setSelectedSkill(() => res[0]?.key);
+          }
+        });
+      }
+    });
+  }, [open]);
 
   const handleCategoryChange = (val) => {
     const selected = categories.filter((category) => category.key === val);
@@ -142,19 +106,20 @@ function Filter() {
   };
 
   const handleSubmit = () => {
-    setFilter({
-      category: selectedCategory,
-      skill: selectedSkill,
-      location: selectedLocation,
-      budget: selectedBudget,
-    });
+    // setFilter({
+    //   category: selectedCategory,
+    //   skill: selectedSkill,
+    //   location: selectedLocation,
+    //   budget: selectedBudget,
+    // });
+    console.log(selectedCategory, selectedSkill);
     handleClose();
   };
 
   return (
     <>
       <FilterButton onClick={() => setOpen(true)}>Filters</FilterButton>
-      <Modal
+      <Modal2
         handleClose={handleClose}
         handleSubmit={handleSubmit}
         isOpen={open}
@@ -162,50 +127,55 @@ function Filter() {
         description="desc"
         hasHeader={true}
         hasFooter={true}
+        Widthmax={true}
       >
         <Container>
           <Item>
             <ItemLabel>Category</ItemLabel>
-            <Dropdown
+            <DropdownO
               hasLabel={false}
               items={categories}
-              // setHandleOnChange={handleCategoryChange}
-              // selected={selectedCategory}
+              setHandleOnChange={handleCategoryChange}
+              selected={selectedCategory}
               width="100%"
               type="standard"
+              color="red"
             />
           </Item>
           <Item>
             <ItemLabel>Skills</ItemLabel>
-            <Dropdown
+            <DropdownO
               hasLabel={false}
               items={skills}
-              // setHandleOnChange={handleSkillsChange}
-              // selected={selectedSkill}
+              setHandleOnChange={handleSkillsChange}
+              selected={selectedSkill}
               width="100%"
               type="standard"
+              color="red"
             />
           </Item>
           <Item>
             <ItemLabel>Location</ItemLabel>
-            <Dropdown
+            <DropdownO
               hasLabel={false}
               items={locations}
-              // setHandleOnChange={handleLocationChange}
-              // selected={selectedLocation}
+              setHandleOnChange={handleLocationChange}
+              selected={selectedLocation}
               width="100%"
               type="standard"
+              color="red"
             />
           </Item>
           <Item>
             <ItemLabel>Budget</ItemLabel>
-            <Dropdown
+            <DropdownO
               hasLabel={true}
               items={budget}
-              // setHandleOnChange={handleBudgetChange}
-              // selected={selectedBudget}
+              setHandleOnChange={handleBudgetChange}
+              selected={selectedBudget}
               width="100%"
               type="standard"
+              color="red"
             />
           </Item>
           <Item>
@@ -213,7 +183,7 @@ function Filter() {
             <ClickableStarRating />
           </Item>
         </Container>
-      </Modal>
+      </Modal2>
     </>
   );
 }

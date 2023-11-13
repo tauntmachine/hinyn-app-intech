@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { MenuItem, FormControl, Select } from '@mui/material';
-// import { Box } from '@mui/system';
+import { Box } from '@mui/system';
 
-const DropdownC = styled.div`
+const DropdownContainer = styled(Box)`
   display: flex;
   align-items: center;
 `;
@@ -14,6 +14,9 @@ const Label = styled.span`
 const Option = styled(MenuItem)`
   font-family: 'DM Sans', sans-serif !important;
   color: ${(props) => (props.color === 'red' ? '#FF5A5F' : '#0F7669')};
+  background: transparent;
+  background: ${(props) =>
+    props.bgcolor === 'transparent' ? 'transparent' : ''};
 `;
 const CustomSelect = styled(Select)`
   font-family: 'DM Sans', sans-serif !important;
@@ -21,30 +24,30 @@ const CustomSelect = styled(Select)`
     props.type === 'standard'
       ? '#ffffff'
       : props.color === 'red'
-      ? '#FADBD8 '
-      : '#e6e6e6'};
-
+      ? '#FFEEEF'
+      : 'transparent'};
+  background: ${(props) =>
+    props.bgcolor === 'transparent' ? 'transparent' : ''};
   color: ${(props) => (props.color === 'red' ? '#FF5A5F' : '#0F7669')};
   border: ${(props) =>
-    props.type === 'outlined' ? '1px solid #94949470' : ''};
+    props.type === 'outlined' ? '1px solid #94949470' : 'none'};
   border-bottom: ${(props) =>
-    props.type === 'standard' || props.typology === 'okok'
-      ? 'none'
-      : '1px solid #94949470'};
+    props.type === 'standard' ? 'none' : '1px solid #94949470'};
   padding: 0.5rem 1rem;
   border-radius: ${(props) =>
-    props.type === 'standard' || props.type === 'outlined' ? '7px' : '7px'};
+    props.type === 'standard' || props.type === 'outlined' ? '4px' : 'none'};
 
   &:before {
     border-bottom: 0;
   }
 
   &:hover {
-    background: ${(props) => (props.hovercolor === 'pink' ? '#FADBD8' : '')};
+    background: ${(props) =>
+      props.type === 'standard' ? '#ffffff' : 'transparent'};
   }
 `;
 
-export default function Dropdown({
+export default function DropdownO({
   hasLabel,
   label,
   items,
@@ -54,7 +57,6 @@ export default function Dropdown({
   color,
   selected,
   bgcolor,
-  typology,
 }) {
   const handleChange = (event) => {
     console.log('event', event.target.value);
@@ -62,18 +64,23 @@ export default function Dropdown({
   };
 
   return (
-    <DropdownC>
+    <DropdownContainer>
       {hasLabel && <Label>{label}</Label>}
       <FormControl variant="standard" sx={{ m: 1, minWidth: { width } }}>
         {items ? (
           <CustomSelect
             labelId="dropdown-select-label"
             id="dropdown-select"
-            value={3}
+            value={
+              (selected
+                ? selected
+                : items[0].key
+                ? items[0].key
+                : items[0].value) ?? ''
+            }
             onChange={handleChange}
-            label={handleChange}
+            label={label ?? ''}
             type={type}
-            typology={typology}
             color={color}
             bgcolor={bgcolor}
             disableUnderline={true}
@@ -81,10 +88,10 @@ export default function Dropdown({
             {items &&
               items.map((item, idx) => (
                 <Option
-                  key={item.key}
-                  value={item.value}
-                  color="red"
-                  bgcolor="green"
+                  key={(item?.key ?? item?.value) + '-' + idx}
+                  value={item?.key ?? item?.value}
+                  color={color}
+                  bgcolor={bgcolor}
                 >
                   {item?.title ?? item}
                 </Option>
@@ -92,6 +99,6 @@ export default function Dropdown({
           </CustomSelect>
         ) : null}
       </FormControl>
-    </DropdownC>
+    </DropdownContainer>
   );
 }
