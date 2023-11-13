@@ -1,18 +1,18 @@
 import React from 'react';
-import { GooeyLoader2 } from 'react-loaders-kit';
+import { CircleFadeLoader } from 'react-loaders-kit';
 // import Typed from 'react-typed';
 
 function Loader() {
   const loaderProps = {
     loading: true,
-    size: 80,
-    duration: 1,
+    size: 90,
+    duration: 0.6,
     color: 'linear-gradient(to right, #FF5A5F,#A52226 )',
   };
 
   return (
     <div className="loader">
-      <GooeyLoader2 {...loaderProps} />
+      <CircleFadeLoader {...loaderProps} />
       {/* <Typed
         className="loader-text"
         strings={['Loading...']}
