@@ -94,6 +94,7 @@ const ImgDiv = styled.div`
   }
 `;
 const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
+  console.log(bidData);
   const projectDetails = {
     attachments: [
       'project-temp-1.jpeg',

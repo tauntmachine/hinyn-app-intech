@@ -16,7 +16,7 @@ const ContainerCustom = styled.div`
 `;
 
 function Main() {
-  const { freelancer, filter } = useFreelancer();
+  const { freelancer } = useFreelancer();
   const [currCatSelected, setCurrCatSelected] = useState();
   const [categories, setCategories] = useState([]);
   const [filteredArray, setFilteredArray] = useState([]);
@@ -45,14 +45,15 @@ function Main() {
     getCategories().then((result) => {
       // console.log(filter);
       if (result?.data) {
-        console.log(result);
         setCategories(() => []);
         result?.data?.data.map((item) => {
           let temp = { id: item.id };
           setCategories((prev) => prev.concat({ ...item.attributes, ...temp }));
         });
       }
+      // console.log(freelancer);
     });
+
     setFilteredArray(freelancer ?? []);
   }, []);
 

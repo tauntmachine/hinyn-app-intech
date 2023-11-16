@@ -65,7 +65,7 @@ export const GreenButton = styled.button`
       ? '0.75rem 2.5rem'
       : props.size === 'small'
       ? '0.75rem 1.5rem'
-      : '0.75rem 2.5rem'};
+      : '0.75rem 3.5rem'};
   pointer-events: ${(props) => (props.disabled === 'disabled' ? 'none' : '')};
   text-align: center;
   transition: all 0.3s ease-in-out;

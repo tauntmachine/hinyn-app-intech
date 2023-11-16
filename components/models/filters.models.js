@@ -69,17 +69,6 @@ export const budget = [
   },
 ];
 
-export const Budget = [
-  {
-    title: '0-Free collaboration',
-  },
-  {
-    title: '11-18',
-  },
-  {
-    title: '18-30',
-  },
-];
 export const ageGroupOptions = [
   {
     title: '0-10',
@@ -103,12 +92,12 @@ export const ageGroupOptions = [
   },
 ];
 export const locations = [
-  { title: 'Dubai' },
-  { title: 'Sharjah' },
-  { title: 'America' },
-  { title: 'Dubai' },
-  { title: 'America' },
-  { title: 'Sharjah' },
+  { title: 'Dubai', value: 'Dubai' },
+  { title: 'Sharjah', value: 'Sharjah' },
+  { title: 'America', value: 'America' },
+  { title: 'UAE', value: 'UAE' },
+  { title: 'Saudi', value: 'Saudi' },
+  { title: 'Pakistan', value: 'Pakistan' },
 ];
 
 export const skills = [

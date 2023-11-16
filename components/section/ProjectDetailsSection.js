@@ -188,48 +188,38 @@ const CustomGreenButton = styled(GreenButton)`
   }
 `;
 
-const ProjectDetailsSection = () => {
+const ProjectDetailsSection = (project) => {
   const router = useRouter();
   const [currentTab, setCurrentTab] = useState(0);
-  const [bidData, setBidData] = useState(
-    [
-      { role: 'Photographer', icon: 'icn-photographer.svg' },
-      { role: 'Model', icon: 'icn-model.svg' },
-      { role: 'Stylist', icon: 'icn-model.svg' },
-    ],
-    [{ city: 'Fairmont, The Palm Dubai', Country: 'UAE' }]
-  );
-  const [clientData, setClientData] = useState({
-    title: 'Kate and Joeys Wedding',
-    minBudget: '500',
-    maxBudget: '600',
-  });
+  const [bidData, setBidData] = useState([]);
+  const [clientData, setClientData] = useState({});
   const [userHasProposal, setUserHasProposal] = useState(false);
-  const { project } = router.query;
+  // const { project } = router.query;
   const [isBidOwner, setIsBidOwner] = useState(false);
   const [openCancelProject, setOpenCancelProject] = useState(false);
   const [openSuccessCancelModal, setOpenSuccessCancelModal] = useState(false);
   const loggedInCid = localStorage.getItem('hinyn-cid');
 
-  // useEffect(() => {
-  //   getProposalsOfClientOnABid(project).then((res) => {
-  //     if (res?.data?.data) {
-  //       if (res?.data?.data.length > 0) setUserHasProposal(() => true);
-  //     }
-  //   });
-  //   getBidData(project).then((res) => {
-  //     if (res?.data?.data) {
-  //       const temp = {
-  //         id: res?.data?.data?.id,
-  //         ...res?.data?.data?.attributes,
-  //       };
-  //       setBidData(() => temp);
-  //       if (temp?.client?.data?.id === parseInt(loggedInCid))
-  //         setIsBidOwner(() => true);
-  //       setClientData(() => temp?.client?.data?.attributes);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    getProposalsOfClientOnABid(project).then((res) => {
+      console.log(res);
+      if (res?.data?.data) {
+        if (res?.data?.data.length > 0) setUserHasProposal(() => true);
+      }
+    });
+    getBidData(project).then((res) => {
+      if (res?.data?.data) {
+        const temp = {
+          id: res?.data?.data?.id,
+          ...res?.data?.data?.attributes,
+        };
+        setBidData(() => temp);
+        if (temp?.client?.data?.id === parseInt(loggedInCid))
+          setIsBidOwner(() => true);
+        setClientData(() => temp?.client?.data?.attributes);
+      }
+    });
+  }, []);
 
   const handleClose = (e, reason) => {
     if (openCancelProject) setOpenCancelProject(() => false);

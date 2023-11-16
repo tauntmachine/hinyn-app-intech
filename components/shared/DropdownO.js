@@ -57,6 +57,7 @@ export default function DropdownO({
   color,
   selected,
   bgcolor,
+  defaultLabel,
 }) {
   const handleChange = (event) => {
     console.log('event', event.target.value);
@@ -72,11 +73,12 @@ export default function DropdownO({
             labelId="dropdown-select-label"
             id="dropdown-select"
             value={
-              (selected
+              selected
                 ? selected
-                : items[0].key
-                ? items[0].key
-                : items[0].value) ?? ''
+                : // : items[0].key
+                  // ? items[0].key
+                  // : items[0].value) ?? ''
+                  ''
             }
             onChange={handleChange}
             label={label ?? ''}
@@ -84,6 +86,7 @@ export default function DropdownO({
             color={color}
             bgcolor={bgcolor}
             disableUnderline={true}
+            placeholder="asdjh"
           >
             {items &&
               items.map((item, idx) => (

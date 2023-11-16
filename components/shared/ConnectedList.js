@@ -97,19 +97,15 @@ const ConnectedList = ({ projects }) => {
               <Desc>{project?.description}</Desc>
             </Row>
             <Row sx={{ columnGap: '8px' }}>
-              {project?.categories ? (
-                project?.categories?.data.map((category, id) => {
-                  return (
-                    <Pill key={'pill' + id} color="green">
-                      {category?.attributes?.title}
-                    </Pill>
-                  );
-                })
-              ) : (
-                <Pill key={'pill-'} color="green">
-                  Photography
-                </Pill>
-              )}
+              {project?.categories
+                ? project?.categories?.data.map((category, id) => {
+                    return (
+                      <Pill key={'pill' + id} color="green">
+                        {category?.attributes?.title}
+                      </Pill>
+                    );
+                  })
+                : ''}
             </Row>
             <Row
               sx={{ justifyContent: 'space-between', alignItems: 'flex-start' }}
@@ -122,11 +118,8 @@ const ConnectedList = ({ projects }) => {
               </Row>
               {accountType && accountType === 1 ? (
                 <Row>
-                  <GreenButton
-                    size="small"
-                    onClick={() => showProjectDetails(project?.id)}
-                  >
-                    Place a bid
+                  <GreenButton onClick={() => showProjectDetails(project?.id)}>
+                    Apply
                   </GreenButton>
                 </Row>
               ) : null}

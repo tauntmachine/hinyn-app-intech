@@ -8,6 +8,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import SidebarFilterForm from '../forms/ProjectFilterForm';
 import { useProject } from '../../src/store';
+import Text from '../shared/Typography';
 
 const SearchBarContainer = styled.div`
   background: #d8d8d8;
@@ -48,9 +49,12 @@ const AllProjectsSection = ({ handleScreenChange }) => {
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
       <SearchBarContainer>
-        <Typography component="h1" variant="h4" align="center">
-          Browser
-        </Typography>
+        {/* <Typography component="h1" variant="h3" align="center">
+          Browse
+        </Typography> */}
+        <Text style={{ margin: 'auto', fontWeight: 'bold', fontSize: '34px' }}>
+          Browse
+        </Text>
         <VerticalDivider />
         <SimpleSearchBar
           handleSearchValue={handleSearchValue}

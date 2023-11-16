@@ -94,16 +94,16 @@ function CustomCard({ data, cardText, handleButtonClick }) {
           alt="icon-img"
         />
       </ImageContainer>
-      <Title>{`${data.attributes.firstName} ${data.attributes.lastName}`}</Title>
+      <Title>{`${data?.attributes.firstName} ${data?.attributes.lastName}`}</Title>
 
-      <Label variant="green">{data.attributes.headline}</Label>
+      <Label variant="green">{data?.attributes.headline}</Label>
 
       <StarRating data={data?.attributes.rating ?? 5} />
 
       <Label>
         <LocationIcon />
-        <div>{data.attributes.city}</div>
-        <div>{data.attributes.country}</div>
+        <div>{data?.attributes.city}</div>
+        <div>{data?.attributes.country}</div>
       </Label>
 
       <StyledButton variant="outlined" onClick={() => handleClick(data)}>

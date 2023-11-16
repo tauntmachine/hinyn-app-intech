@@ -78,8 +78,8 @@ const TabItem = styled.div`
   &.active {
     // border-bottom: 4px solid #ff5a5f;
     border-bottom: ${(props) =>
-      props.accountType == 1 ? ' 4px solid #4AA398' : ' 4px solid #ff5a5f'};
-    color: ${(props) => (props.accountType == 1 ? '  #4AA398' : '  #ff5a5f')};
+      props.account == 1 ? ' 4px solid #4AA398' : ' 4px solid #ff5a5f'};
+    color: ${(props) => (props.account == 1 ? '  #4AA398' : '  #ff5a5f')};
   }
 `;
 
@@ -119,9 +119,12 @@ const Text2 = styled.div`
 const Text3 = styled.div`
   color: white;
   font-size: 10px;
-  padding: 6px 25px;
+  padding: 9px 25px;
   border: 1px solid white;
   border-radius: 40px;
+`;
+const Text3Con = styled.div`
+  margin: auto;
 `;
 const StyledCloseIcon = styled(CloseIconCircle)`
   color: #525252;
@@ -136,15 +139,16 @@ const Box2 = styled.div`
 const Box3 = styled.div`
   display: flex;
 `;
-function DashboardHeader({ currentTab, setTabChange }) {
+function DashboardHeader({ currentTab, setTabChange, account, userData }) {
   const imgpath = '/assets/img/avatars/';
-  const [userData, setUserData] = useState({});
-  const [accountType, setAccountType] = useState(0);
+  // const [userData, setUserData] = useState({});
+  // const [account, setaccount] = useState(account);
+  console.log(account);
   const [hover, setHover] = useState(false);
   const router = useRouter();
 
   const showUserProfile = () => {
-    if (accountType === 1) router.push('/dashboard/professionalProfile');
+    if (account === 1) router.push('/dashboard/professionalProfile');
     else router.push('/dashboard/clientProfile');
   };
   const loginHover = () => {
@@ -169,8 +173,8 @@ function DashboardHeader({ currentTab, setTabChange }) {
   //   if (clientId) {
   //     getLoggedInUserData().then((res) => {
   //       if (res.data) {
-  //         setUserData(() => res.data?.client);
-  //         setAccountType(() => res.data?.client?.accountType);
+  //         setUserData(() => res.data);
+  //         // setaccount(() => res.data?.client?.account);
   //         console.log(userData);
   //       }
   //     });
@@ -182,7 +186,7 @@ function DashboardHeader({ currentTab, setTabChange }) {
   const clientTabs = ['Dashboard', 'Browse', 'My Freelancers', 'My Projects'];
 
   const showTabs = () => {
-    const tabs = accountType === 1 ? professionalTabs : clientTabs;
+    const tabs = account === 1 ? professionalTabs : clientTabs;
     return (
       <Tabs>
         {tabs.map((tabName, idx) => (
@@ -199,7 +203,7 @@ function DashboardHeader({ currentTab, setTabChange }) {
   };
 
   const showCTAButton = () => {
-    if (accountType === 1)
+    if (account === 1)
       return (
         <GreenButton onClick={() => showBrowseProjects()}>
           Place a bid
@@ -230,7 +234,10 @@ function DashboardHeader({ currentTab, setTabChange }) {
               </Text2>
             </Box>
             <Box3>
-              <Text3>Resend Email</Text3>
+              <Text3Con>
+                <Text3>Resend Email</Text3>
+              </Text3Con>
+
               <StyledCloseIcon color="white" />
             </Box3>
           </Box>
@@ -286,8 +293,8 @@ function DashboardHeader({ currentTab, setTabChange }) {
                 />
               </ImageContainer>
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <Text color={accountType === 1 ? 'green' : 'red'}>
-                  {/* Hi, {userData.firstName} */}
+                <Text color={account === 1 ? 'green' : 'red'}>
+                  Hi, {userData?.firstName}
                 </Text>
                 <Text>
                   {userData?.cash?.toLocaleString() ?? ''} {'$49,320 USD'}

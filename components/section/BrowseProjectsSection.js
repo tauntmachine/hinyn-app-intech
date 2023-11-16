@@ -14,10 +14,10 @@ const BrowseProjectsSection = ({ mainScreen }) => {
 
   const [currentScreen, setCurrentScreen] = useState(SCREENS.list);
 
-  // useEffect(() => {
-  //   if (mainScreen === SCREENS.details) setCurrentScreen(() => SCREENS.details);
-  //   else setCurrentScreen(() => SCREENS.list);
-  // });
+  useEffect(() => {
+    if (mainScreen === SCREENS.details) setCurrentScreen(() => SCREENS.details);
+    else setCurrentScreen(() => SCREENS.list);
+  });
 
   const handleScreenChange = (screen) => {
     setCurrentScreen(() => screen);
@@ -28,7 +28,7 @@ const BrowseProjectsSection = ({ mainScreen }) => {
       {currentScreen === SCREENS.list ? (
         <AllProjectsSection handleScreenChange={handleScreenChange} />
       ) : (
-        <ProjectDetailsSection projectId={projectId} />
+        <ProjectDetailsSection project={projectId} />
       )}
     </Box>
   );

@@ -111,11 +111,11 @@ const Row = styled.div`
   }
 `;
 export const Pill = styled.div`
-  background: #ffffff;
-  border-radius: 13px;
+  background: white;
+  border-radius: 20px;
   display: flex;
   color: #eb4c60;
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem 0.8rem;
   column-gap: 1rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -124,9 +124,9 @@ export const Pill = styled.div`
     box-shadow: 0px 0px 3px #eb4c6060;
   }
 
-  &.active {
-    background-color: #eb4c6020;
-  }
+  // &.active {
+  //   background-color: #eb4c6020;
+  // }
 `;
 
 const List = styled.ul`
@@ -240,7 +240,7 @@ const SkillsDetailsContainer = ({ handleSelectedSkills }) => {
       }
     });
   }, []);
-  console.log(categorySkills);
+
   //   const togglePillActive = (item) => {
   //     const isActive = selectedSkills.find((data) => data === item)
   //       ? true

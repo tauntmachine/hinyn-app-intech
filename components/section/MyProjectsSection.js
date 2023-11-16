@@ -1,12 +1,11 @@
 import { Container, Box, Grid, Pagination, Stack } from '@mui/material';
 import ProjectCard from '../shared/myProjects/ProjectCard';
 import styled from '@emotion/styled';
-import Dropdown from '../shared/Dropdown';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getProposalsOfClient } from '../forms/formService';
-import Text from '../shared/Typography';
-import { useQuery } from 'react-query';
+// import { useQuery } from 'react-query';
+import Dropdown2 from '../shared/Dropdown2';
 
 const CustomPagination = styled(Pagination)`
   button {
@@ -23,14 +22,7 @@ const NoDataContainer = styled.div`
 const MyProjectsSection = () => {
   const router = useRouter();
   const [proposals, setProposals] = useState([]);
-  // const proposals = [
-  //   {
-  //     title: 'Joe and Kate Wedding',
-  //     price: '5000',
-  //     location: 'Fairmont, palm dubai',
-  //     date: 'Nov,7 2023',
-  //   },
-  // ];
+
   const sortOptions = [
     {
       title: 'Newest to Oldest',
@@ -88,12 +80,13 @@ const MyProjectsSection = () => {
           display: 'flex',
           gap: '1rem',
           marginTop: '1rem',
-          marginLeft: '6rem',
+          marginLeft: '13rem',
+          marginBottom: '10px',
         }}
         maxWidth="xl"
       >
-        <Dropdown hasLabel={true} label="Show" items={showOptions} />
-        <Dropdown hasLabel={true} label="Sort" items={sortOptions} />
+        <Dropdown2 hasLabel={true} label="Show" items={showOptions} />
+        <Dropdown2 hasLabel={true} label="Sort" items={sortOptions} />
       </Container>
 
       <Container sx={{ paddingBottom: '2rem' }} maxWidth="lg">

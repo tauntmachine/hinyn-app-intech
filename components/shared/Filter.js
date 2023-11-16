@@ -4,9 +4,9 @@ import Modal2 from './Modal2';
 import DropdownO from './DropdownO';
 import { Container } from '@mui/material';
 import ClickableStarRating from './ClickableStarRating';
-import { getCategories } from '../forms/formService';
+import { getCategories, getSkills } from '../forms/formService';
 import { useFreelancer } from '../../src/store';
-import { locations, budget } from '../models/filters.models';
+// import { locations, budget } from '../models/filters.models';
 import axios from 'axios';
 import { origin } from '../../src/config';
 
@@ -32,7 +32,8 @@ const Item = styled.div`
 `;
 const ItemLabel = styled.span`
   font-size: 14px;
-  color: #525252;
+  color: #3d3d3d;
+  padding-vertical: 10px;
 `;
 function Filter() {
   const [open, setOpen] = useState(false);
@@ -42,12 +43,69 @@ function Filter() {
   const [selectedBudget, setSelectedBudget] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSkill, setSelectedSkill] = useState('');
+  const locations = [
+    { title: 'Dubai', value: 'Dubai' },
 
-  const { freelancer, setFilter } = useFreelancer();
+    { title: 'Sharjah', value: 'Sharjah' },
+    { title: 'America', value: 'America' },
+    { title: 'UAE', value: 'UAE' },
+    { title: 'Saudi', value: 'Saudi' },
+    { title: 'Pakistan', value: 'Pakistan' },
+  ];
+  const budget = [
+    {
+      title: '0-free collaboration',
+      value: '0',
+    },
+    {
+      title: '1-100',
+      value: '1',
+    },
+    {
+      title: '101-200',
+      value: '101',
+    },
+    {
+      title: '201-500',
+      value: '201',
+    },
+    {
+      title: '500+',
+      value: '500',
+    },
+  ];
+  const { freelancer, filter, setFilter } = useFreelancer();
 
   const handleClose = () => {
     setOpen(false);
   };
+
+  // useEffect(() => {
+  //   const getCategories = async () => {
+  //     // const jwt = localStorage.getItem('hinyn-cjwt');
+  //     console.log(origin + '/categories?populate=*');
+  //     const response = await axios
+  //       .get(origin + '/categories?populate=*', {
+  //         withCredentials: true,
+  //         crossDomain: true,
+  //       })
+  //       .then(async (response) => {
+  //         if (response.data) {
+  //           return { status: true, data: response.data };
+  //         } else {
+  //           return { status: false, data: response.data.message };
+  //         }
+  //       })
+  //       .catch(function (error) {
+  //         return { status: false, data: error };
+  //       });
+
+  //     // console.log(response);
+  //     return response;
+  //   };
+
+  //   getCategories();
+  // });
 
   useEffect(() => {
     getCategories().then((result) => {
@@ -104,18 +162,16 @@ function Filter() {
   const handleBudgetChange = (val) => {
     setSelectedBudget(() => val);
   };
-
   const handleSubmit = () => {
-    // setFilter({
-    //   category: selectedCategory,
-    //   skill: selectedSkill,
-    //   location: selectedLocation,
-    //   budget: selectedBudget,
-    // });
-    console.log(selectedCategory, selectedSkill);
+    setFilter({
+      category: selectedCategory,
+      skill: selectedSkill,
+      location: selectedLocation,
+      budget: selectedBudget,
+    });
+
     handleClose();
   };
-
   return (
     <>
       <FilterButton onClick={() => setOpen(true)}>Filters</FilterButton>
@@ -140,6 +196,7 @@ function Filter() {
               width="100%"
               type="standard"
               color="red"
+              defaultLabel="Select Categories"
             />
           </Item>
           <Item>
@@ -152,6 +209,7 @@ function Filter() {
               width="100%"
               type="standard"
               color="red"
+              defaultLabel="Select Skills"
             />
           </Item>
           <Item>
@@ -164,18 +222,20 @@ function Filter() {
               width="100%"
               type="standard"
               color="red"
+              defaultLabel="Select Location"
             />
           </Item>
           <Item>
-            <ItemLabel>Budget</ItemLabel>
+            <ItemLabel style={{ fontWeight: 100 }}>Budget</ItemLabel>
             <DropdownO
-              hasLabel={true}
+              hasLabel={false}
               items={budget}
               setHandleOnChange={handleBudgetChange}
               selected={selectedBudget}
               width="100%"
               type="standard"
               color="red"
+              defaultLabel="Select Budget Range"
             />
           </Item>
           <Item>

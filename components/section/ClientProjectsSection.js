@@ -21,44 +21,7 @@ const NoDataContainer = styled.div`
 
 const ClientProjectsSection = () => {
   const router = useRouter();
-  const [clientBids, setClientBids] = useState([
-    // {
-    //   title: 'Kate and Joeys spanish wedding',
-    //   price: '3000',
-    //   location: 'Fairmont, The palm Dubai',
-    //   date: 'Nov, 12 2023',
-    // },
-    // {
-    //   title: 'Kate and Joeys spanish wedding',
-    //   price: '3000',
-    //   location: 'Fairmont, The palm Dubai',
-    //   date: 'Nov, 12 2023',
-    // },
-    // {
-    //   title: 'Kate and Joeys spanish wedding',
-    //   price: '3000',
-    //   location: 'Fairmont, The palm Dubai',
-    //   date: 'Nov, 12 2023',
-    // },
-    // {
-    //   title: 'Kate and Joeys spanish wedding',
-    //   price: '3000',
-    //   location: 'Fairmont, The palm Dubai',
-    //   date: 'Nov, 12 2023',
-    // },
-    // {
-    //   title: 'Kate and Joeys spanish wedding',
-    //   price: '3000',
-    //   location: 'Fairmont, The palm Dubai',
-    //   date: 'Nov, 12 2023',
-    // },
-    // {
-    //   title: 'Kate and Joeys spanish wedding',
-    //   price: '3000',
-    //   location: 'Fairmont, The palm Dubai',
-    //   date: 'Nov, 12 2023',
-    // },
-  ]);
+  const [clientBids, setClientBids] = useState([]);
 
   const sortOptions = [
     {

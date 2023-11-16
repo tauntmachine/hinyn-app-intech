@@ -21,6 +21,7 @@ const Index = () => {
   const { screen, project } = router.query;
   const [currentTab, setCurrentTab] = useState(0);
   const [accountType, setAccountType] = useState(0);
+  const [userData, setUserData] = useState({});
   const [proposals, setProposals] = useState([]);
 
   useEffect(() => {
@@ -30,11 +31,14 @@ const Index = () => {
     if (id) {
       getClientData({ id }).then((res) => {
         if (res.data) {
+          console.log('data', res);
           localStorage.setItem(
             'hinyn-client-profile',
             JSON.stringify(res.data)
           );
           setAccountType(res.data.data.attributes.accountType);
+          setUserData(res.data.data.attributes);
+          console.log('index', accountType);
           // setAccountType(() => res.data?.client?.accountType);
         }
       });
@@ -51,7 +55,7 @@ const Index = () => {
       //professional
       switch (currentTab) {
         case 0:
-          return <NewsfeedSection accountType={accountType}/>;
+          return <NewsfeedSection accountType={accountType} />;
         case 1:
           return <BrowseProjectsSection mainScreen={screen} />;
         case 2:
@@ -78,7 +82,12 @@ const Index = () => {
   //client account type = 2, professional = 1
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto', minHeight: '100vh' }}>
-      <DashboardHeader setTabChange={handleChangeTab} currentTab={currentTab} />
+      <DashboardHeader
+        setTabChange={handleChangeTab}
+        currentTab={currentTab}
+        account={accountType}
+        userData={userData}
+      />
       {renderScreenSection(currentTab)}
     </Box>
   );
