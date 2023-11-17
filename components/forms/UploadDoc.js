@@ -53,6 +53,7 @@ const FormContainer = styled(Box)`
   flex-direction: column;
   align-items: center;
   width: 100%;
+
   border-radius: 20px;
 `;
 
@@ -77,6 +78,9 @@ const BackCon = styled.div`
   display: flex;
   flex-direction: row;
   cursor: pointer;
+`;
+const TextDiv = styled.div`
+  width: 27rem;
 `;
 function UploadDoc({ handleNextClick, handleBack }) {
   const [open, setOpen] = useState(false);
@@ -151,10 +155,12 @@ function UploadDoc({ handleNextClick, handleBack }) {
           <Text color="green" marginBottom="10px">
             Upload your document
           </Text>
-          <Text fontSize="13px">
-            We will need to verify your identity. Kindly upload a scanned ID
-            (Either your Passport, Government ID, or Driver’s License)
-          </Text>
+          <TextDiv>
+            <Text fontSize="13px">
+              We will need to verify your identity. Kindly upload a scanned ID
+              (Either your Passport, Government ID, or Driver’s License)
+            </Text>
+          </TextDiv>
           <VerticalDivider />
           <Box
             component="form"

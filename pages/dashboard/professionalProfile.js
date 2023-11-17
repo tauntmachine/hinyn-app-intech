@@ -93,19 +93,15 @@ const DivB = styled.div`
 const DivButton = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 280px;
+  justify-content: space-between;
+
+  width: 50rem;
 `;
 const ProfessionalProfile = () => {
   const router = useRouter();
   let imgPath = '/assets/img/avatars/';
-  const [clientData, setClientData] = useState([
-    {
-      firstName: 'Samantha',
-      lastName: 'David',
-      noJobs: '32',
-      insta: 'samantha123',
-    },
-  ]);
+  const [clientData, setClientData] = useState([]);
+  const [clientSkills, setClientSkills] = useState([]);
   const [clientCategories, setClientCategories] = useState(null);
   const [currentTab, setCurrentTab] = useState(0);
   const [open, setOpen] = useState(false);
@@ -154,9 +150,6 @@ const ProfessionalProfile = () => {
       'project-temp-2.jpeg',
       'project-temp-3.jpeg',
       'project-temp-4.jpeg',
-      'project-temp-5.jpeg',
-      'project-temp-6.jpeg',
-      'project-temp-7.jpeg',
     ],
   };
   const userData = {
@@ -184,34 +177,38 @@ const ProfessionalProfile = () => {
     ],
   };
 
-  // useEffect(() => {
-  //   if (fid) {
-  //     const clientData = {
-  //       user: {
-  //         data: {
-  //           id: fid,
-  //         },
-  //       },
-  //     };
-  //     getClientData(clientData).then((res) => {
-  //       if (res?.data?.data) {
-  //         console.log('res data', res?.data?.data);
-  //       }
-  //     });
-  //   }
-  //   const clientData = {
-  //     id: localStorage.getItem('hinyn-cid'),
-  //   };
-  //   getClientData(clientData).then((res) => {
-  //     if (res?.data?.data) {
-  //       setClientData(() => res?.data?.data?.attributes);
-  //       if (res?.data?.data?.attributes?.categories?.data)
-  //         setClientCategories(
-  //           () => res?.data?.data?.attributes?.categories?.data
-  //         );
-  //     }
-  //   });
-  // }, [fid]);
+  useEffect(() => {
+    if (fid) {
+      const clientData = {
+        user: {
+          data: {
+            id: fid,
+          },
+        },
+      };
+
+      getClientData(clientData.user.data).then((res) => {
+        if (res?.data?.data) {
+          // console.log('res data', res?.data?.data.attributes);
+          setClientData(() => res?.data?.data?.attributes);
+          // setClientSkills(clientData.categories.data.attributes);
+          // console.log(clientSkills);
+        }
+      });
+    }
+    // const clientData = {
+    //   id: localStorage.getItem('hinyn-cid'),
+    // };
+    // getClientData(clientData).then((res) => {
+    //   if (res?.data?.data) {
+    //     setClientData(() => res?.data?.data?.attributes);
+    //     if (res?.data?.data?.attributes?.categories?.data)
+    //       setClientCategories(
+    //         () => res?.data?.data?.attributes?.categories?.data
+    //       );
+    //   }
+    // });
+  }, [fid]);
 
   const handleChangeTab = (val) => {
     setCurrentTab(val);
@@ -250,18 +247,23 @@ const ProfessionalProfile = () => {
                 </Column>
                 <Column>
                   <DivButton>
-                    <Row sx={{ gap: '14px', alignItems: 'center' }}>
+                    <Row
+                      sx={{
+                        gap: '14px',
+                        alignItems: 'center',
+
+                        width: '40rem',
+                      }}
+                    >
                       <Name color="green">
                         <b>
-                          {/* {clientData?.firstName} {clientData?.lastName} */}
-                          Steve Washington
+                          {clientData?.firstName} {clientData?.lastName}
                         </b>
                       </Name>
                       <GrayText size="large">
                         {' '}
-                        {/* {clientData?.instagramProfile ??
-                        '@' + clientData?.firstName} */}
-                        @samantha123{''}
+                        {clientData?.instagramProfile ??
+                          '@' + clientData?.firstName}
                       </GrayText>
                     </Row>
                     {/* <Button onClick={handleOpen}>Send Bid</Button> */}
@@ -303,15 +305,7 @@ const ProfessionalProfile = () => {
                     </Row>
                   </Column>
                   <Row>
-                    <GrayText>
-                      {/* {clientData?.headline ?? 'Headline'} */}
-                      Lorems ipsum dolor sit amet, consectetur adipiscing elit.
-                      Aliquam non orci vestibulum, congue est et, lacinia neque.
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Aliquam non orci vestibulum, congue est et, lacinia neque.
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </GrayText>
+                    <GrayText>{clientData?.description}</GrayText>
                   </Row>
                 </Column>
               </Row>
@@ -334,7 +328,6 @@ const ProfessionalProfile = () => {
               <VerticalDivider />
               <Row>
                 <ImageSlider images={projectDetails?.attachments} />
-                {/* <ImageSlider images={projectDetails?.attachments} /> */}
               </Row>
             </ContentBox>
             <VerticalDivider />
@@ -402,7 +395,7 @@ const ProfessionalProfile = () => {
               headerColor="green"
             >
               <DivB>
-                <ButtonSkills>Skills</ButtonSkills>
+                <ButtonSkills>{clientData.skills}</ButtonSkills>
                 <ButtonSkills>Skills</ButtonSkills>
                 <ButtonSkills>Skills</ButtonSkills>
               </DivB>

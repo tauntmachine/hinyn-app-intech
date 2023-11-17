@@ -8,18 +8,24 @@ import Text from './Typography';
 const ImageWrapper = styled.div`
   position: relative;
   background: #ffffff;
-  width: 170px;
-  height: 80px;
+  width: 190px;
+  height: 90px;
   border-radius: 10px;
   overflow: hidden;
 `;
-
+const SwiperSlide2 = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+`;
+const SwiperSlide3 = styled.div``;
 const ImageSlider = ({ images }) => {
   const path = '/assets/img/temp/';
   return (
-    <Swiper spaceBetween={40} slidesPerView={4} loop={true}>
+    // <Swiper spaceBetween={40} slidesPerView={4} loop={true}>
+    <SwiperSlide2>
       {images.map((image, idx) => (
-        <SwiperSlide key={'img-' + idx}>
+        <SwiperSlide3 key={'img-' + idx}>
           <ImageWrapper>
             <Image src={path + image} layout="fill" />
           </ImageWrapper>
@@ -29,9 +35,10 @@ const ImageSlider = ({ images }) => {
           <Text color="gray" fontSize="11px">
             5 pictures
           </Text>
-        </SwiperSlide>
+        </SwiperSlide3>
       ))}
-    </Swiper>
+    </SwiperSlide2>
+    // </Swiper>
   );
 };
 

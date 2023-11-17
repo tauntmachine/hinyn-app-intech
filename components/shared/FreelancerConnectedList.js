@@ -50,8 +50,8 @@ const CustomRedButton = styled(RedButton)`
 `;
 
 const ImageContainer = styled.div`
-  width: 5rem;
-  height: 5rem;
+  width: 6rem;
+  height: 6rem;
   position: relative;
   border-radius: 9px;
   box-shadow: 0px 3px 6px #00000029;
@@ -66,60 +66,20 @@ const FreelancerConnectedList = () => {
 
   const router = useRouter();
   const [accountType, setAccountType] = useState({});
-  // const [freelancer, setFreelancer] = useState([
-  //   {
-  //     firstName: 'Samantha',
-  //     lastName: 'Davis',
-  //     city: 'Dubai',
-  //     country: 'United Arab Emirates',
-  //     para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
-  //     insta: '(@sampleFrelancer)',
-  //   },
-  //   {
-  //     firstName: 'M.',
-  //     lastName: 'assadullah',
-  //     city: 'lahore',
-  //     country: 'pakistan',
-  //     para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
-  //     insta: '@sampleFrelancer',
-  //   },
-  //   {
-  //     firstName: 'M.',
-  //     lastName: 'assadullah',
-  //     city: 'lahore',
-  //     country: 'pakistan',
-  //     para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
-  //     insta: '@sampleFrelancer',
-  //   },
-  //   {
-  //     firstName: 'Samantha',
-  //     lastName: 'Davis',
-  //     city: 'Dubai',
-  //     country: 'United Arab Emirates',
-  //     para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
-  //     insta: '@sampleFrelancer',
-  //   },
-  //   {
-  //     firstName: 'Samantha',
-  //     lastName: 'Davis',
-  //     city: 'Dubai',
-  //     country: 'United Arab Emirates',
-  //     para: 've checked all of these aspects and the issue persists, please provide additional information or any error messages you may encounter, and I can provide further assistance.',
-  //     insta: '@sampleFrelancer',
-  //   },
-  // ]);
-  console.log(freelancer);
-  const showFreelancerProfile = () => {
-    router.push('/dashboard/professionalProfile');
+
+  const showFreelancerProfile = (freelancerId) => {
+    // console.log(freelancerId);
+    router.push('/dashboard/professionalProfile?fid=' + freelancerId);
   };
 
-  //   useEffect(()=>{
-  //     getLoggedInUserData().then((res)=>{
-  //         if(res?.data?.client){
-  //             setAccountType(()=>res?.data?.client?.accountType)
-  //         }
-  //     });
-  //   },[]);
+  useEffect(() => {
+    getLoggedInUserData().then((res) => {
+      if (res?.data?.client) {
+        setAccountType(() => res?.data?.client?.accountType);
+        // console.log(freelancer);
+      }
+    });
+  }, []);
 
   return (
     <Box>
@@ -151,14 +111,19 @@ const FreelancerConnectedList = () => {
                   <Box sx={{ display: 'flex' }}>
                     <Text color="red">
                       <b>
-                        {freelancer.attributes.firstName}{' '}
-                        {freelancer.attributes.lastName}
+                        {freelancer?.attributes.firstName}{' '}
+                        {freelancer?.attributes.lastName}
                       </b>
                     </Text>
-                    <GrayText> {freelancer.insta} </GrayText>
+                    <GrayText style={{ marginLeft: '12px' }}>
+                      {' '}
+                      {freelancer?.attributes.instagramProfile ?? ''}{' '}
+                    </GrayText>
                   </Box>
                   <Box>
-                    <CustomRedButton onClick={() => showFreelancerProfile()}>
+                    <CustomRedButton
+                      onClick={() => showFreelancerProfile(freelancer?.id)}
+                    >
                       Hire Me
                     </CustomRedButton>
                   </Box>
@@ -173,15 +138,30 @@ const FreelancerConnectedList = () => {
                 </Row>
                 <Row>
                   <Box
-                    sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}
+                    sx={{
+                      display: 'flex',
+                      gap: '1rem',
+                      alignItems: 'center',
+                      paddingY: '5px',
+                    }}
                   >
-                    <StarRating data={freelancer?.rating ?? 3} sz="lg" />
-                    <GrayText> {freelancer.city} </GrayText>
+                    <StarRating
+                      data={freelancer?.attributes.rating ?? 3}
+                      sz="lg"
+                    />
+                    <GrayText>
+                      {' '}
+                      {freelancer?.attributes.categories?.data[0]?.attributes
+                        ?.title ?? ''}{' '}
+                    </GrayText>
                   </Box>
                 </Row>
                 <Row>
                   <Box sx={{ display: 'flex' }}>
-                    <GrayText> {freelancer.para} </GrayText>
+                    <GrayText>
+                      {' '}
+                      {freelancer?.attributes.description ?? ''}{' '}
+                    </GrayText>
                   </Box>
                 </Row>
               </Column>

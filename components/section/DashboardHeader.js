@@ -139,11 +139,11 @@ const Box2 = styled.div`
 const Box3 = styled.div`
   display: flex;
 `;
-function DashboardHeader({ currentTab, setTabChange, account, userData }) {
+
+function DashboardHeader({ currentTab, setTabChange, account }) {
   const imgpath = '/assets/img/avatars/';
-  // const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({});
   // const [account, setaccount] = useState(account);
-  console.log(account);
   const [hover, setHover] = useState(false);
   const router = useRouter();
 
@@ -168,18 +168,18 @@ function DashboardHeader({ currentTab, setTabChange, account, userData }) {
     router.push('/');
   };
 
-  // useEffect(() => {
-  //   const clientId = localStorage.getItem('hinyn-cid');
-  //   if (clientId) {
-  //     getLoggedInUserData().then((res) => {
-  //       if (res.data) {
-  //         setUserData(() => res.data);
-  //         // setaccount(() => res.data?.client?.account);
-  //         console.log(userData);
-  //       }
-  //     });
-  //   }
-  // }, []);
+  useEffect(() => {
+    const clientId = localStorage.getItem('hinyn-cid');
+    if (clientId) {
+      getLoggedInUserData().then((res) => {
+        if (res.data) {
+          setUserData(() => res.data.client);
+          // setaccount(() => res.data?.client?.account);
+          // console.log(account);
+        }
+      });
+    }
+  }, []);
 
   const professionalTabs = ['Dashboard', 'Browse', 'My Projects'];
 

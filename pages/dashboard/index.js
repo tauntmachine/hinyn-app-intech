@@ -37,7 +37,7 @@ const Index = () => {
             JSON.stringify(res.data)
           );
           setAccountType(res.data.data.attributes.accountType);
-          setUserData(res.data.data.attributes);
+          // setUserData(res.data.data.attributes);
           console.log('index', accountType);
           // setAccountType(() => res.data?.client?.accountType);
         }
@@ -86,7 +86,7 @@ const Index = () => {
         setTabChange={handleChangeTab}
         currentTab={currentTab}
         account={accountType}
-        userData={userData}
+        // userData={userData}
       />
       {renderScreenSection(currentTab)}
     </Box>

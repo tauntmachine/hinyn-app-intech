@@ -21,7 +21,8 @@ export const SmallText = styled(Text)`
 `;
 
 export const GrayText = styled(Text)`
-  color: #bababa;
+  color: #a6a6a6;
+  padding-horizontal: 10px;
 `;
 
 export default Text;

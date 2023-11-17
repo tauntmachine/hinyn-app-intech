@@ -227,6 +227,7 @@ export const LocationIcon = styled(GoLocation)`
       : props.variant === 'green'
       ? '#4AA398'
       : '#525252'};
+  font-size: 16px;
 `;
 
 export const LogoutIcon = styled(FiLogOut)`
