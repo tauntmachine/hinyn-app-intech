@@ -1,10 +1,10 @@
 import { Container, Box, Grid, Pagination, Stack } from '@mui/material';
-import ProjectCard from '../shared/myProjects/ProjectCard';
+import ProjectCard from '../shared/myProjects/ProjectCardClient';
 import styled from '@emotion/styled';
 import Dropdown2 from '../shared/Dropdown2';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getBidsOfClient, getProposalsOfClient } from '../forms/formService';
+import { getBidsOfClient, getProposalsOfClient, getClientData } from '../forms/formService';
 import Text from '../shared/Typography';
 
 const CustomPagination = styled(Pagination)`
@@ -63,14 +63,29 @@ const ClientProjectsSection = () => {
 
   useEffect(() => {
     getBidsOfClient().then((res) => {
-      setClientBids(() => []);
+      let resList = [];
       if (res?.data?.data) {
         res?.data?.data.map((item) => {
-          let temp = { id: item?.id, ...item?.attributes };
-          setClientBids((prevData) => prevData.concat(item));
+          let resObj = { id: item?.id, ...item?.attributes };
+          resList = [...resList, resObj];
         });
+        console.log('list -- ', resList[0]);
+        setClientBids(resList);
       }
     });
+    // const id = localStorage.getItem('hinyn-cid');
+    // getClientData({ id }).then((res) => {
+    //   let resList = [];
+    //   if (res?.data?.data) {
+    //     console.log('item - ', res?.data?.data.attributes);
+        // res?.data?.data?.attributes?.bids?.data?.map((item) => {
+        //   let resObj = { id: item?.id, ...item?.attributes };
+        //   resList = [...resList, resObj];
+        // });
+        // console.log('list -- ', resList[0]);
+        // setClientBids(resList);
+    //   }
+    // });
   }, []);
 
   return (

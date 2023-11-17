@@ -22,7 +22,7 @@ const MainBox = styled(Box)`
 `;
 
 function Client() {
-  const progressRate = 12;
+  const progressRate = 14;
   const [currentActiveForm, setCurrentActiveForm] = useState(1);
   const [progressPercent, setProgressPercent] = useState(
     progressRate * currentActiveForm
@@ -97,13 +97,13 @@ function Client() {
         {currentActiveForm === 4 ? (
           <PhoneNo handleNextClick={requestUpdate} handleBack={goBack} />
         ) : null}
-        {currentActiveForm === 5 ? (
+        {/* {currentActiveForm === 5 ? (
           <Ott handleNextClick={handleNextClick} handleBack={goBack} />
-        ) : null}
-        {currentActiveForm === 6 ? (
+        ) : null} */}
+        {currentActiveForm === 5 ? (
           <UploadDoc handleNextClick={handleNextClick} handleBack={goBack} />
         ) : null}
-        {currentActiveForm === 7 &&
+        {currentActiveForm === 6 &&
         (isAccountVerified == null || !isAccountVerified) ? (
           <EmailVerifyForm1
             handleNextClick={handleNextClick}
@@ -112,7 +112,7 @@ function Client() {
             handleBack={goBack}
           />
         ) : null}
-        {currentActiveForm === 8 ? (
+        {currentActiveForm === 7 ? (
           <MemberShip handleNextClick={handleNextClick} handleBack={goBack} />
         ) : null}
       </MainBox>

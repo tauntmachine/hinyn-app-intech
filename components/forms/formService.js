@@ -94,7 +94,7 @@ export const getBidData = async (bidId) => {
 
 export const getBidsOfClient = async () => {
   const jwt = localStorage.getItem('hinyn-cjwt');
-  const cid = localStorage.getItem('hinyn-cid');
+  const uid = localStorage.getItem('hinyn-uid');
   return axios
     .get(
       // origin + '/bids?filters[client][id][$eq]=' + cid + '&populate=*',
