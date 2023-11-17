@@ -63,12 +63,14 @@ const MyProjectsSection = () => {
 
   useEffect(() => {
     getProposalsOfClient().then((res) => {
-      setProposals(() => []);
       if (res?.data?.data) {
+        let resList = [];
         res?.data?.data.map((item) => {
-          let temp = { id: item?.id, ...item?.attributes };
-          setProposals((prevData) => prevData.concat(temp));
+          let resObj = { id: item?.id, ...item?.attributes };
+          resList = [...resList, resObj];
         });
+        console.log('list -- ', resList[0]);
+        setProposals(resList);
       }
     });
   }, []);

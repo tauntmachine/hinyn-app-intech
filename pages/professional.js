@@ -31,9 +31,10 @@ const MainBox = styled(Box)`
 `;
 
 function Professional() {
+  const progressRate = 11;
   const [currentActiveForm, setCurrentActiveForm] = useState(1);
   const [progressPercent, setProgressPercent] = useState(
-    10 * currentActiveForm
+    progressRate * currentActiveForm
   );
   const [isAccountVerified, setIsAccountVerified] = useState('');
   const [currClientData, setCurrClientData] = useState(null);
@@ -42,7 +43,7 @@ function Professional() {
   const handleNextClick = (value) => {
     console.log('is verified', isAccountVerified);
     if (value) {
-      setProgressPercent(progressPercent + 9);
+      setProgressPercent(progressPercent + progressRate);
       setCurrentActiveForm((prev) => prev + 1);
     }
   };
@@ -114,16 +115,16 @@ function Professional() {
         {currentActiveForm === 6 ? (
           <PhoneNo handleNextClick={requestUpdate} handleBack={goBack} />
         ) : null}
-        {currentActiveForm === 7 ? (
+        {/* {currentActiveForm === 7 ? (
           <Ott handleNextClick={handleNextClick} handleBack={goBack} />
-        ) : null}
-        {currentActiveForm === 8 ? (
+        ) : null} */}
+        {currentActiveForm === 7 ? (
           <UploadDoc handleNextClick={handleNextClick} handleBack={goBack} />
         ) : null}
         {/* {currentActiveForm === 9 && !isAccountVerified ? (
           <UnverifiedAccountForm />
         ) : null} */}
-        {currentActiveForm === 9 &&
+        {currentActiveForm === 8 &&
         (isAccountVerified == null || !isAccountVerified) ? (
           <EmailVerifyForm1
             handleNextClick={handleNextClick}
@@ -139,7 +140,7 @@ function Professional() {
           <EmailVerifyForm2 handleNextClick={handleNextClick} />
         ) : null} */}
 
-        {currentActiveForm === 10 ? (
+        {currentActiveForm === 9 ? (
           <MemberShip handleNextClick={handleNextClick} handleBack={goBack} />
         ) : null}
         {/* {currentActiveForm === 11 ? (

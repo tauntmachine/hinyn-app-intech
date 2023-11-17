@@ -67,7 +67,7 @@ const Index = () => {
       //client
       switch (currentTab) {
         case 0:
-          return <NewsfeedSection />;
+          return <NewsfeedSection accountType={accountType}/>;
         case 1:
           if (screen !== 'details') return <BrowseFreelancersSection />;
           return <BrowseProjectsSection mainScreen={screen} />;
