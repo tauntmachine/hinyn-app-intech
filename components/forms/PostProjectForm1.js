@@ -341,7 +341,10 @@ function PostProjectForm1({ handleNextClick }) {
     uploadedFiles: null,
     deliverables: null,
     deliveryDays: null,
-    upgrades: null,
+    upgrades: {
+      featured: true,
+      urgent: false,
+    },
   });
   const [isValid, setValid] = useState({
     title: false,
@@ -800,27 +803,28 @@ function PostProjectForm1({ handleNextClick }) {
       const clientId = localStorage.getItem('hinyn-cid');
       const bidData = {
         title: projectData.title,
-        // description: projectData.projectDescription,
-        // city: projectData.location,
-        // country: 'United Arab Emirates',
-        // // deliveryDate: projectData.projectDate,
-        // minBudget: projectData.projectBudget[0],
-        // maxBudget:
-        //   projectData.projectBudget.length > 1
-        //     ? projectData.projectBudget[1]
-        //     : '',
-        // deliveryDays: projectData.deliveryDays,
-        // numDeliverables: projectData.deliverables,
-        // isFeatured: projectData.upgrades.featured,
-        // isUrgent: projectData.upgrades.urgent,
+        description: projectData.projectDescription,
+        minBudget: projectData.projectBudget[0],
         status: 1,
-        // categories: [selectedCategory?.id],
-        // skills: projectData.skills,
+        city: projectData.location,
+        country: 'United Arab Emirates',
+        deliveryDate: projectData.projectDate,
+        maxBudget:
+          projectData.projectBudget.length > 1
+            ? projectData.projectBudget[1]
+            : '',
+        deliveryDays: projectData.deliveryDays,
+        numDeliverables: projectData.deliverables,
+        isFeatured: projectData.upgrades.featured,
+        isUrgent: projectData.upgrades.urgent,
+        categories: [selectedCategory?.id],
+        skills: projectData.skills,
         client: clientId,
       };
       if (clientId) {
         addBidData(bidData).then((res) => {
           if (res.data) {
+            console.log('res -- ', res.data);
             setFilter(selectedCategory?.key);
             handleNextClick(true);
           }
