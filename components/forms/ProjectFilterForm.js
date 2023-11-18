@@ -11,14 +11,20 @@ import {
 } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
-import Button, { GreenButton } from '../shared/Button';
-import Dropdown from '../shared/Dropdown';
+import Button, { GreenButton, RedButton } from '../shared/Button';
 import { locations, budget } from '../models/filters.models';
 import { getCategories } from './formService';
-import { projectFilter, setProjectFilter, useProject } from '../../src/store';
+import {
+  projectFilter,
+  setProjectFilter,
+  useFreelancer,
+  useProject,
+} from '../../src/store';
 import ClickableStarRating from '../shared/ClickableStarRating';
 import { StaticPill } from '../shared/Pill';
 import { CloseIcon, OutlineSearchIcon } from '../shared/Icon';
+import DropdownO from '../shared/DropdownO';
+// import { truncate } from 'fs';
 
 const CustomTextField = styled(TextField)`
   background: transparent;
@@ -95,7 +101,8 @@ const VerticalDivider = styled.div`
   height: 1rem;
 `;
 
-function ProjectFilterForm() {
+function ProjectFilterForm(filterType) {
+  console.log(filterType);
   const [categories, setCategories] = useState([]);
   const [skills, setSkills] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -103,31 +110,38 @@ function ProjectFilterForm() {
   const [categorySkills, setCategorySkills] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedBudget, setSelectedBudget] = useState('');
-  const { project, projectFilter, setProjectFilter } = useProject();
+  const { projectFilter, setProjectFilter } = useProject();
+  const { freelancer, filter, setFilter } = useFreelancer();
   const [isFetched, setIsFetched] = useState(false);
 
-  // useEffect(()=>{
-  //   getCategories().then((result)=>{
-  //     if(result?.data && !isFetched){
-  //       setCategories(()=>[]);
-  //       result?.data?.data.map((item,idx)=>{
-  //         const temp = {"id":item.id}
-  //         setCategories((prev => prev.concat({
-  //           ...item?.attributes,
-  //           ...temp
-  //         })));
-  //         if(idx === 0){
-  //           setSelectedCategory(()=>item.attributes.key)
-  //           const res = item?.attributes?.skills?.data.map((skill)=> {
-  //             return {"id":skill.id, "key":skill?.attributes?.slug, ...skill?.attributes}
-  //           })
-  //           setSkills(()=>res);
-  //         }
-  //       })
-  //     }
-  //     setIsFetched(()=>true)
-  //   });
-  // },[isFetched])
+  useEffect(() => {
+    getCategories().then((result) => {
+      if (result?.data && !isFetched) {
+        setCategories(() => []);
+        result?.data?.data.map((item, idx) => {
+          const temp = { id: item.id };
+          setCategories((prev) =>
+            prev.concat({
+              ...item?.attributes,
+              ...temp,
+            })
+          );
+          if (idx === 0) {
+            setSelectedCategory(() => item.attributes.key);
+            const res = item?.attributes?.skills?.data.map((skill) => {
+              return {
+                id: skill.id,
+                key: skill?.attributes?.slug,
+                ...skill?.attributes,
+              };
+            });
+            setSkills(() => res);
+          }
+        });
+      }
+      setIsFetched(() => true);
+    });
+  }, [isFetched]);
 
   const handleCategoryChange = (val) => {
     const selected = categories.filter((category) => category.key === val);
@@ -172,7 +186,7 @@ function ProjectFilterForm() {
   };
 
   const resetField = (field) => {
-    if (field === 'buget') setSelectedBudget(() => undefined);
+    if (field === 'budget') setSelectedBudget(() => undefined);
     else if (field === 'location') setSelectedLocation(() => undefined);
     else if (field === 'category') setSelectedCategory(() => '');
     else if (field === 'skills') setSelectedSkills(() => []);
@@ -180,12 +194,21 @@ function ProjectFilterForm() {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    setProjectFilter({
-      category: selectedCategory,
-      skill: selectedSkills,
-      location: selectedLocation,
-      budget: selectedBudget,
-    });
+    if (filterType === 'freelancer') {
+      setFilter({
+        category: selectedCategory,
+        skill: selectedSkills,
+        location: selectedLocation,
+        budget: selectedBudget,
+      });
+    } else {
+      setProjectFilter({
+        category: selectedCategory,
+        skill: selectedSkills,
+        location: selectedLocation,
+        budget: selectedBudget,
+      });
+    }
   };
 
   return (
@@ -197,17 +220,26 @@ function ProjectFilterForm() {
             component="form"
             noValidate
             onSubmit={submitHandler}
-            sx={{ mt: 3, width: '100%' }}
+            sx={{ width: '100%' }}
           >
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                  }}
+                >
                   <Text>Budget</Text>
-                  <Text color="green" onClick={() => resetField('budget')}>
+                  <Text
+                    color="green"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => resetField('budget')}
+                  >
                     Clear
                   </Text>
                 </Box>
-                <Dropdown
+                <DropdownO
                   hasLabel={false}
                   items={budget}
                   width="100%"
@@ -217,16 +249,26 @@ function ProjectFilterForm() {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} xs={{ mt: 4 }}>
               <Grid item xs={12}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    mt: '15px',
+                  }}
+                >
                   <Text>Categories </Text>
-                  <Text color="green" onClick={() => resetField('category')}>
+                  <Text
+                    color="green"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => resetField('category')}
+                  >
                     Clear
                   </Text>
                 </Box>
                 {categories?.length > 0 && (
-                  <Dropdown
+                  <DropdownO
                     hasLabel={false}
                     items={categories}
                     width="100%"
@@ -239,9 +281,19 @@ function ProjectFilterForm() {
             </Grid>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    mt: '15px',
+                  }}
+                >
                   <Text>Skills</Text>
-                  <Text color="green" onClick={() => resetField('skills')}>
+                  <Text
+                    color="green"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => resetField('skills')}
+                  >
                     Clear
                   </Text>
                 </Box>
@@ -279,7 +331,7 @@ function ProjectFilterForm() {
                           <StyledStaticPill key={'category-skill-' + id}>
                             {skill?.title}
                             <StyledCloseIcon
-                              variant="red"
+                              variant="green"
                               onClick={() => onSkillClick(skill?.id, skill)}
                             />
                           </StyledStaticPill>
@@ -294,17 +346,22 @@ function ProjectFilterForm() {
                 {locations && (
                   <>
                     <Box
-                      sx={{ display: 'flex', justifyContent: 'space-between' }}
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        mt: '15px',
+                      }}
                     >
                       <Text>Location</Text>
                       <Text
                         color="green"
+                        style={{ cursor: 'pointer' }}
                         onClick={() => resetField('location')}
                       >
                         Clear
                       </Text>
                     </Box>
-                    <Dropdown
+                    <DropdownO
                       hasLabel={false}
                       items={locations}
                       width="100%"
@@ -316,20 +373,41 @@ function ProjectFilterForm() {
                 )}
               </Grid>
             </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Text>Rating</Text>
-                  <Text color="green">Clear</Text>
-                </Box>
-                <Box>
-                  <ClickableStarRating />
-                </Box>
+            {filterType ? (
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      mt: '15px',
+                    }}
+                  >
+                    <Text>Rating</Text>
+                    <Text
+                      color="green"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => resetField('budget')}
+                    >
+                      Clear
+                    </Text>
+                  </Box>
+                  <Box>
+                    <ClickableStarRating />
+                  </Box>
+                </Grid>
               </Grid>
-            </Grid>
-            <ButtonContainer>
-              <GreenButton size="small">Filter</GreenButton>
-            </ButtonContainer>
+            ) : (
+              ''
+            )}
+
+            {/* <ButtonContainer>
+              {filterType === 'freelancer' ? (
+                <RedButton>Filter</RedButton>
+              ) : (
+                <GreenButton size="small">Filter</GreenButton>
+              )}
+            </ButtonContainer> */}
           </Box>
         </FormContainer>
       </Box>

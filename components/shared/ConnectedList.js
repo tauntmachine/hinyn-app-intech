@@ -44,6 +44,7 @@ const Desc = styled.div`
 `;
 
 const ConnectedList = ({ projects }) => {
+  console.log(projects);
   const router = useRouter();
   const [accountType, setAccountType] = useState({});
 
@@ -66,14 +67,18 @@ const ConnectedList = ({ projects }) => {
           <ProjectContainer key={idx}>
             <Row sx={{ justifyContent: 'space-between' }}>
               <Column>
-                <Title onClick={() => showProjectDetails(project?.id)}>
-                  {project?.title}
+                <Title
+                  onClick={() => showProjectDetails(project?.attributes.id)}
+                >
+                  {project?.attributes.title}
                 </Title>
-                {project?.minBudget === 1 && project.maxBudget === 0 ? (
+                {project?.attributes.minBudget === 1 &&
+                project.maxBudget === 0 ? (
                   <SmallText>Free Collaboration</SmallText>
                 ) : (
                   <SmallText>
-                    {project?.minBudget} - {project?.maxBudget}
+                    {project?.attributes.minBudget} -{' '}
+                    {project?.attributes.maxBudget}
                   </SmallText>
                 )}
               </Column>
@@ -82,23 +87,25 @@ const ConnectedList = ({ projects }) => {
               >
                 <Column>
                   <SmallText>
-                    <b>{project?.proposals?.data.length ?? '0'} Bids</b>
+                    <b>
+                      {project?.attributes.proposals?.data.length ?? '0'} Bids
+                    </b>
                   </SmallText>
                 </Column>
                 <Column sx={{ alignItems: 'flex-end' }}>
                   <Text color="green">
-                    ${project?.bidPrice?.average ?? '100'} AED
+                    ${project?.attributes.bidPrice?.average ?? '100'} AED
                   </Text>
                   <SmallText color="green">Average Bid</SmallText>
                 </Column>
               </Box>
             </Row>
             <Row>
-              <Desc>{project?.description}</Desc>
+              <Desc>{project?.attributes.description}</Desc>
             </Row>
             <Row sx={{ columnGap: '8px' }}>
-              {project?.categories
-                ? project?.categories?.data.map((category, id) => {
+              {project?.attributes.categories
+                ? project?.attributes.categories?.data.map((category, id) => {
                     return (
                       <Pill key={'pill' + id} color="green">
                         {category?.attributes?.title}
@@ -111,14 +118,18 @@ const ConnectedList = ({ projects }) => {
               sx={{ justifyContent: 'space-between', alignItems: 'flex-start' }}
             >
               <Row sx={{ columnGap: '16px' }}>
-                <StarRating data={project?.rating ?? 3} sz="lg" />
+                <StarRating data={project?.attributes.rating ?? 3} sz="lg" />
                 <SmallText>
-                  {moment(project?.createdDate).format('DD-MMM-YYYY')}
+                  {moment(project?.attributes.createdDate).format(
+                    'DD-MMM-YYYY'
+                  )}
                 </SmallText>
               </Row>
               {accountType && accountType === 1 ? (
                 <Row>
-                  <GreenButton onClick={() => showProjectDetails(project?.id)}>
+                  <GreenButton
+                    onClick={() => showProjectDetails(project?.attributes.id)}
+                  >
                     Apply
                   </GreenButton>
                 </Row>

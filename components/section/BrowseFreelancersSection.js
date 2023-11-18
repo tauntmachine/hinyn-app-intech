@@ -6,10 +6,12 @@ import ContentBox from '../shared/ContentBox';
 import ConnectedList from '../shared/ConnectedList';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import SidebarFilterForm from '../forms/SidebarFilterForm';
+
 import { useFreelancer, useProject } from '../../src/store';
 import FreelancerConnectedList from '../shared/FreelancerConnectedList';
 import Text from '../shared/Typography';
+
+import ProjectFilterForm from '../forms/ProjectFilterForm';
 
 const SearchBarContainer = styled.div`
   background: #d8d8d8;
@@ -72,7 +74,7 @@ const MyFreelancersSection = () => {
                 noPadding={true}
               >
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                  <SidebarFilterForm filterType="freelancer" />
+                  <ProjectFilterForm filterType="freelancer" />
                 </Box>
               </ContentBox>
             </Grid>

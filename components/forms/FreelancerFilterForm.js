@@ -26,6 +26,7 @@ import {
 import ClickableStarRating from '../shared/ClickableStarRating';
 import { StaticPill } from '../shared/Pill';
 import { CloseIcon, OutlineSearchIcon } from '../shared/Icon';
+import DropdownO from '../shared/DropdownO';
 
 const CustomTextField = styled(TextField)`
   background: transparent;
@@ -102,7 +103,7 @@ const VerticalDivider = styled.div`
   height: 1rem;
 `;
 
-function SidebarFilterForm({ filterType }) {
+function FreelancerFilterForm({ filterType }) {
   const [categories, setCategories] = useState([]);
   const [skills, setSkills] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -114,28 +115,34 @@ function SidebarFilterForm({ filterType }) {
   const { freelancer, filter, setFilter } = useFreelancer();
   const [isFetched, setIsFetched] = useState(false);
 
-  // useEffect(()=>{
-  //   getCategories().then((result)=>{
-  //     if(result?.data && !isFetched){
-  //       setCategories(()=>[]);
-  //       result?.data?.data.map((item,idx)=>{
-  //         const temp = {"id":item.id}
-  //         setCategories((prev => prev.concat({
-  //           ...item?.attributes,
-  //           ...temp
-  //         })));
-  //         if(idx === 0){
-  //           setSelectedCategory(()=>item.attributes.key)
-  //           const res = item?.attributes?.skills?.data.map((skill)=> {
-  //             return {"id":skill.id, "key":skill?.attributes?.slug, ...skill?.attributes}
-  //           })
-  //           setSkills(()=>res);
-  //         }
-  //       })
-  //     }
-  //     setIsFetched(()=>true)
-  //   });
-  // },[isFetched])
+  useEffect(() => {
+    getCategories().then((result) => {
+      if (result?.data && !isFetched) {
+        setCategories(() => []);
+        result?.data?.data.map((item, idx) => {
+          const temp = { id: item.id };
+          setCategories((prev) =>
+            prev.concat({
+              ...item?.attributes,
+              ...temp,
+            })
+          );
+          if (idx === 0) {
+            setSelectedCategory(() => item.attributes.key);
+            const res = item?.attributes?.skills?.data.map((skill) => {
+              return {
+                id: skill.id,
+                key: skill?.attributes?.slug,
+                ...skill?.attributes,
+              };
+            });
+            setSkills(() => res);
+          }
+        });
+      }
+      setIsFetched(() => true);
+    });
+  }, [isFetched]);
 
   const handleCategoryChange = (val) => {
     const selected = categories.filter((category) => category.key === val);
@@ -188,21 +195,21 @@ function SidebarFilterForm({ filterType }) {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    if (filterType === 'freelancer') {
-      setFilter({
-        category: selectedCategory,
-        skill: selectedSkills,
-        location: selectedLocation,
-        budget: selectedBudget,
-      });
-    } else {
-      setProjectFilter({
-        category: selectedCategory,
-        skill: selectedSkills,
-        location: selectedLocation,
-        budget: selectedBudget,
-      });
-    }
+    // if (filterType === 'freelancer') {
+    setFilter({
+      category: selectedCategory,
+      skill: selectedSkills,
+      location: selectedLocation,
+      budget: selectedBudget,
+    });
+    // } else {
+    //   setProjectFilter({
+    //     category: selectedCategory,
+    //     skill: selectedSkills,
+    //     location: selectedLocation,
+    //     budget: selectedBudget,
+    //   });
+    // }
   };
 
   return (
@@ -224,7 +231,7 @@ function SidebarFilterForm({ filterType }) {
                     Clear
                   </Text>
                 </Box>
-                <Dropdown
+                <DropdownO
                   hasLabel={false}
                   items={budget}
                   width="100%"
@@ -249,7 +256,7 @@ function SidebarFilterForm({ filterType }) {
                   </Text>
                 </Box>
                 {
-                  <Dropdown
+                  <DropdownO
                     hasLabel={false}
                     items={category}
                     width="100%"
@@ -280,12 +287,15 @@ function SidebarFilterForm({ filterType }) {
                     id="search-skills-input"
                     fullWidth
                     disableClearable
-                    options={categorySkills.map((skill) => skill.title)}
+                    options={
+                      categorySkills &&
+                      categorySkills.map((skill) => skill.title)
+                    }
                     onChange={onSkillsSearchChange}
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label=""
+                        label="select skills"
                         placeholder="Search skills here"
                         InputProps={{
                           ...params.InputProps,
@@ -333,7 +343,7 @@ function SidebarFilterForm({ filterType }) {
                         Clear
                       </Text>
                     </Box>
-                    <Dropdown
+                    <DropdownO
                       hasLabel={false}
                       items={locations}
                       width="100%"
@@ -372,4 +382,4 @@ function SidebarFilterForm({ filterType }) {
   );
 }
 
-export default SidebarFilterForm;
+export default FreelancerFilterForm;

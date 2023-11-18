@@ -6,7 +6,7 @@ axios.defaults.withCredentials = true;
 
 interface Freelancer {
   id: string;
-  attributes: {};
+  attributes: { headline: string };
 }
 
 let freelancerResult = [];
@@ -58,35 +58,39 @@ export async function getSkill() {
 const useFreelancerController = (freelancer: Freelancer[]) => {
   const [filter, setFilter] = useState(undefined);
 
-  const checkCategories = (val) => {
-    if (typeof filter === 'object')
-      return val?.data.some((category) =>
-        category?.attributes?.key
-          .toLowerCase()
-          .includes(filter?.category?.toLowerCase() ?? '')
-      );
-    return val?.data.some((category) =>
-      category?.attributes?.key
-        .toLowerCase()
-        .includes(filter?.toLowerCase() ?? '')
-    );
-  };
+  // const checkCategories = (val) => {
+  //   if (typeof filter === 'object')
+  //     return val?.data.some((category) =>
+  //       category?.attributes?.key
+  //         .toLowerCase()
+  //         .includes(filter?.category?.toLowerCase() ?? '')
+  //     );
+  //   return val?.data.some((category) =>
+  //     category?.attributes?.key
+  //       .toLowerCase()
+  //       .includes(filter?.toLowerCase() ?? '')
+  //   );
+  // };
 
-  const checkSkill = (val) => {
-    // if((typeof filter) === 'object') return val?.data.some(res => res?.attributes?.slug.toLowerCase().includes(filter?.skill?.toLowerCase() ?? ''));
-    return 1;
-  };
+  // const checkSkill = (val) => {
+  //   // if((typeof filter) === 'object') return val?.data.some(res => res?.attributes?.slug.toLowerCase().includes(filter?.skill?.toLowerCase() ?? ''));
+  //   return 1;
+  // };
 
-  const checkLocation = (val) => {
-    if (typeof filter === 'object')
-      return val.replace(' ', '').toLowerCase().includes(filter?.location);
-    return 1;
-  };
+  // const checkLocation = (val) => {
+  //   if (typeof filter === 'object')
+  //     return val.replace(' ', '').toLowerCase().includes(filter?.location);
+  //   return 1;
+  // };
 
   // const filteredCategories = getCategories();
 
   const filteredFreelancer = useMemo(() => {
-    return freelancer;
+    // console.log('yes this is', freelancer);
+
+    return freelancer.filter((item) =>
+      item.attributes.headline === filter ? filteredFreelancer : freelancer
+    );
     // return (
     //   freelancer &&
     //   freelancer
@@ -171,20 +175,22 @@ const useProjectController = (project: Project[]) => {
   };
 
   const filteredProject = useMemo(
-    () =>
-      project &&
-      project
-        .map((p) => {
-          return { id: p.id, ...p.attributes };
-        })
-        .filter((val: Project) => {
-          return (
-            val?.status < 99 &&
-            checkCategories(val) &&
-            checkBudget(val) &&
-            checkLocation(val)
-          ); //&& (val?.title?.toLowerCase().includes(projectFilter.toLowerCase()) || val?.description?.toLowerCase().includes(projectFilter.toLowerCase()))
-        }),
+    () => {
+      return project;
+    },
+    // project &&
+    // project
+    //   .map((p) => {
+    //     return { id: p.id, ...p.attributes };
+    //   })
+    //   .filter((val: Project) => {
+    //     return (
+    //       val?.status < 99 &&
+    //       checkCategories(val) &&
+    //       checkBudget(val) &&
+    //       checkLocation(val)
+    //     ); //&& (val?.title?.toLowerCase().includes(projectFilter.toLowerCase()) || val?.description?.toLowerCase().includes(projectFilter.toLowerCase()))
+    //   }),
     [projectFilter, project]
   );
   return {

@@ -16,7 +16,7 @@ const ContainerCustom = styled.div`
 `;
 
 function Main() {
-  const { freelancer } = useFreelancer();
+  const { freelancer, freelancerArray } = useFreelancer();
   const [currCatSelected, setCurrCatSelected] = useState();
   const [categories, setCategories] = useState([]);
   const [filteredArray, setFilteredArray] = useState([]);

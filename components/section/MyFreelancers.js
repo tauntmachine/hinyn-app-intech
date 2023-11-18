@@ -113,7 +113,7 @@ const MyFreelancers = () => {
   //       }
   //     });
   //   }, []);
-
+  const handleButtonClick = () => {};
   return (
     <Box sx={{ height: 'auto' }}>
       <Container
@@ -129,7 +129,12 @@ const MyFreelancers = () => {
         <Dropdown2 hasLabel={true} label="Sort" items={sortOptions} />
       </Container>
       <Container maxWidth="lg" sx={{ marginBottom: '50px' }}>
-        <CardsSection cards={freelancer} hasTools={false} cardText="Hire me" />
+        <CardsSection
+          cards={freelancer}
+          hasTools={false}
+          cardText="Hire me"
+          handleButtonClick={handleButtonClick}
+        />
       </Container>
       {/* <Container sx={{ paddingBottom: '2rem' }} maxWidth="lg">
         <Grid container spacing={4} sx={{ marginTop: '0.25rem' }}>

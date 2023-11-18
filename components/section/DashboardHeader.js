@@ -34,14 +34,14 @@ const Head = styled(Container)`
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  width: 88%;
+  width: ${(props) => (props.account == 1 ? '100%' : '88%')};
 `;
 const LoginContainer = styled.div`
   display: flex;
-  column-gap: 1rem;
+  column-gap: ${(props) => (props.account == 1 ? '1rem' : '2.4rem')};
   align-items: center;
   padding-left: 20px;
-  justify-content: space-between;
+  // justify-content: space-between;
 `;
 const LoginHoverBox = styled.div`
   background: green;
@@ -139,6 +139,10 @@ const Box2 = styled.div`
 const Box3 = styled.div`
   display: flex;
 `;
+const IconsDiv = styled.div`
+  width: 30rem;
+  background: green;
+`;
 
 function DashboardHeader({ currentTab, setTabChange, account }) {
   const imgpath = '/assets/img/avatars/';
@@ -203,15 +207,10 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
   };
 
   const showCTAButton = () => {
-    if (account === 1)
-      return (
-        <GreenButton onClick={() => showBrowseProjects()}>
-          Place a bid
-        </GreenButton>
-      );
+    if (account === 1) '';
     else
       return (
-        <Button width="10rem" onClick={() => showPostProject()}>
+        <Button width="11rem" onClick={() => showPostProject()}>
           Post a Project
         </Button>
       );
@@ -256,6 +255,9 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
               <Logo2 />
               {showTabs()}
             </Box>
+            {/* {account === 1 ? <IconsDiv></IconsDiv> : ''} */}
+          </Box>
+          <LoginContainer onFocus={loginHover}>
             <Box
               sx={{
                 display: 'flex',
@@ -273,12 +275,12 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
                   gap: '20px',
                 }}
               >
+                {/* <IconsDiv> */}
                 <BellIcon />
                 <ChatIcon />
+                {/* </IconsDiv> */}
               </Box>
             </Box>
-          </Box>
-          <LoginContainer onFocus={loginHover}>
             {showCTAButton()}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
               <ImageContainer onClick={() => showUserProfile()}>
@@ -292,7 +294,13 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
                   alt="icon-img"
                 />
               </ImageContainer>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '8rem',
+                }}
+              >
                 <Text color={account === 1 ? 'green' : 'red'}>
                   Hi, {userData?.firstName}
                 </Text>

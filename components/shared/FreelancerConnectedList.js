@@ -63,7 +63,6 @@ const StyledImage = styled(Image)`
 const FreelancerConnectedList = () => {
   const { freelancer } = useFreelancer();
   const imgPath = '/assets/img/avatars/';
-
   const router = useRouter();
   const [accountType, setAccountType] = useState({});
 

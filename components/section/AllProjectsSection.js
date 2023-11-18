@@ -6,9 +6,10 @@ import ContentBox from '../shared/ContentBox';
 import ConnectedList from '../shared/ConnectedList';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import SidebarFilterForm from '../forms/ProjectFilterForm';
+
 import { useProject } from '../../src/store';
 import Text from '../shared/Typography';
+import ProjectFilterForm from '../forms/ProjectFilterForm';
 
 const SearchBarContainer = styled.div`
   background: #d8d8d8;
@@ -49,9 +50,6 @@ const AllProjectsSection = ({ handleScreenChange }) => {
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
       <SearchBarContainer>
-        {/* <Typography component="h1" variant="h3" align="center">
-          Browse
-        </Typography> */}
         <Text style={{ margin: 'auto', fontWeight: 'bold', fontSize: '34px' }}>
           Browse
         </Text>
@@ -68,12 +66,12 @@ const AllProjectsSection = ({ handleScreenChange }) => {
               <ContentBox
                 hasHeader={true}
                 headerTitle="Filters"
-                headerColor={'gray'}
+                headerColor={'darkGray'}
                 hasBodyIcon={false}
                 noPadding={true}
               >
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                  <SidebarFilterForm />
+                  <ProjectFilterForm filterType />
                 </Box>
               </ContentBox>
             </Grid>
