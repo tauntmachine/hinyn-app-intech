@@ -39,7 +39,7 @@ const CustomSelect = styled(Select)`
   }
 `;
 
-export default function Dropdown({
+export default function Dropdown3({
   hasLabel,
   label,
   items,
@@ -49,6 +49,7 @@ export default function Dropdown({
   color,
   selected,
   bgcolor,
+  defaultLabel,
 }) {
   const handleChange = (event) => {
     console.log('event', event.target.value);
@@ -63,21 +64,29 @@ export default function Dropdown({
           <CustomSelect
             labelId="dropdown-select-label"
             id="dropdown-select"
-            value={3}
+            value={
+              selected
+                ? selected
+                : // : items[0].key
+                  // ? items[0].key
+                  // : items[0].value) ?? ''
+                  ''
+            }
             onChange={handleChange}
             label={label ?? ''}
             type={type}
             color={color}
             bgcolor={bgcolor}
             disableUnderline={true}
+            placeholder="asdjh"
           >
             {items &&
               items.map((item, idx) => (
                 <Option
-                  key={item.key}
-                  value={item.value}
-                  color="red"
-                  bgcolor="green"
+                  key={(item?.key ?? item?.value) + '-' + idx}
+                  value={item?.key ?? item?.value}
+                  color={color}
+                  bgcolor={bgcolor}
                 >
                   {item?.title ?? item}
                 </Option>

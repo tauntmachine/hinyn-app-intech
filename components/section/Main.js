@@ -16,7 +16,7 @@ const ContainerCustom = styled.div`
 `;
 
 function Main() {
-  const { freelancer, freelancerArray } = useFreelancer();
+  const { freelancer, filter } = useFreelancer();
   const [currCatSelected, setCurrCatSelected] = useState();
   const [categories, setCategories] = useState([]);
   const [filteredArray, setFilteredArray] = useState([]);
@@ -55,8 +55,10 @@ function Main() {
     });
 
     setFilteredArray(freelancer ?? []);
-  }, []);
-
+    // setFilteredArray(
+    //   freelancer.filter((item) => item.attributes.headline === filter)
+    // );
+  });
   const handleButtonClick = () => {};
 
   const handleSelectedCategory = (category) => {

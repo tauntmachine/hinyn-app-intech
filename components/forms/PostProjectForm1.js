@@ -38,7 +38,7 @@ import moment from 'moment';
 import { Button as CustomButton } from '@mui/material';
 import { useFreelancer } from '../../src/store';
 import { addBidData, getCategories, getSkills } from './formService';
-import Dropdown from '../shared/Dropdown';
+import DropdownO from '../shared/DropdownO';
 import {
   budget,
   locations,
@@ -195,9 +195,9 @@ const StyledCheckbox = styled(Checkbox)`
   }
 `;
 
-const CustomDropdown = styled(Dropdown)`
+const CustomDropdown = styled(DropdownO)`
   .MuiInputBase-root {
-    border-radius: 12px;
+    border-radius: 18px;
     background: red;
   }
 `;
@@ -945,6 +945,7 @@ function PostProjectForm1({ handleNextClick }) {
             type="outlined"
             selected={ageGroup}
             setHandleOnChange={onChangeAgeGroup}
+            color={'red'}
           />
           {errorMessage.ageGroup && <Error>{errorMessage.ageGroup}</Error>}
         </Grid>

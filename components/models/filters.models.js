@@ -71,23 +71,23 @@ export const budget = [
 
 export const ageGroupOptions = [
   {
-    title: '0-10',
+    title: '0-10 years old',
     value: '10',
   },
   {
-    title: '11-18',
+    title: '11-18 years old',
     value: '18',
   },
   {
-    title: '18-30',
+    title: '18-30 years old',
     value: '30',
   },
   {
-    title: '31-45',
+    title: '31-45 years old',
     value: '45',
   },
   {
-    title: '46+',
+    title: '46+ years old',
     value: '46',
   },
 ];

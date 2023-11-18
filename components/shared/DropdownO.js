@@ -24,7 +24,7 @@ const CustomSelect = styled(Select)`
     props.type === 'standard'
       ? '#ffffff'
       : props.color === 'red'
-      ? '#FFEEEF'
+      ? 'transparent'
       : 'transparent'};
   background: ${(props) =>
     props.bgcolor === 'transparent' ? 'transparent' : ''};

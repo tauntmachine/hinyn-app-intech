@@ -109,6 +109,14 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
       title: 'USD',
       value: 'usd',
     },
+    {
+      title: 'AED',
+      value: 'aed',
+    },
+    {
+      title: 'PKR',
+      value: 'pkr',
+    },
   ];
 
   const router = useRouter();
@@ -187,10 +195,9 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
           </ImageContainer>
           <Text color="red" fontSize="20px">
             <b>
-              Put a bid for John Doe
-              {/* <Capitalize>
-                {data?.firstName} {data?.lastName}
-              </Capitalize> */}
+              Put a bid for {/* <Capitalize> */}
+              {data?.attributes.firstName} {data?.attributes.lastName}
+              {/* </Capitalize> */}
             </b>
           </Text>
           <Container maxWidth="sm">
@@ -225,8 +232,6 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
                     type="outlined"
                     selected="usd"
                     color="red"
-
-                    // bgcolor="transparent"
                   />
                   {/* <StyledTextArea
                     required

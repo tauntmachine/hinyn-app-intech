@@ -58,39 +58,40 @@ export async function getSkill() {
 const useFreelancerController = (freelancer: Freelancer[]) => {
   const [filter, setFilter] = useState(undefined);
 
-  // const checkCategories = (val) => {
-  //   if (typeof filter === 'object')
-  //     return val?.data.some((category) =>
-  //       category?.attributes?.key
-  //         .toLowerCase()
-  //         .includes(filter?.category?.toLowerCase() ?? '')
-  //     );
-  //   return val?.data.some((category) =>
-  //     category?.attributes?.key
-  //       .toLowerCase()
-  //       .includes(filter?.toLowerCase() ?? '')
-  //   );
-  // };
+  const checkCategories = (val) => {
+    if (typeof filter === 'object')
+      return val?.data.some((category) =>
+        category?.attributes?.key
+          .toLowerCase()
+          .includes(filter?.category?.toLowerCase() ?? '')
+      );
+    return val?.data.some((category) =>
+      category?.attributes?.key
+        .toLowerCase()
+        .includes(filter?.toLowerCase() ?? '')
+    );
+  };
 
-  // const checkSkill = (val) => {
-  //   // if((typeof filter) === 'object') return val?.data.some(res => res?.attributes?.slug.toLowerCase().includes(filter?.skill?.toLowerCase() ?? ''));
-  //   return 1;
-  // };
+  const checkSkill = (val) => {
+    // if((typeof filter) === 'object') return val?.data.some(res => res?.attributes?.slug.toLowerCase().includes(filter?.skill?.toLowerCase() ?? ''));
+    return 1;
+  };
 
-  // const checkLocation = (val) => {
-  //   if (typeof filter === 'object')
-  //     return val.replace(' ', '').toLowerCase().includes(filter?.location);
-  //   return 1;
-  // };
+  const checkLocation = (val) => {
+    if (typeof filter === 'object')
+      return val.replace(' ', '').toLowerCase().includes(filter?.location);
+    return 1;
+  };
 
   // const filteredCategories = getCategories();
 
   const filteredFreelancer = useMemo(() => {
     // console.log('yes this is', freelancer);
 
-    return freelancer.filter((item) =>
-      item.attributes.headline === filter ? filteredFreelancer : freelancer
-    );
+    return freelancer;
+    //  freelancer.filter((item) =>
+    //   item.attributes.headline === filter ? filteredFreelancer : freelancer
+    // );
     // return (
     //   freelancer &&
     //   freelancer
