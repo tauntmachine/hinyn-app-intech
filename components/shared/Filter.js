@@ -163,16 +163,12 @@ function Filter() {
     setSelectedBudget(() => val);
   };
   const handleSubmit = () => {
-    // console.log(selectedCategory);
-    setFilter(
-      //   {
-      //   category: selectedCategory,
-      //   skill: selectedSkill,
-      //   location: selectedLocation,
-      //   budget: selectedBudget,
-      // }
-      selectedCategory
-    );
+    setFilter({
+      category: selectedCategory,
+      skill: selectedSkill,
+      location: selectedLocation,
+      budget: selectedBudget,
+    });
 
     handleClose();
   };

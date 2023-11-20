@@ -42,6 +42,7 @@ function Main() {
   //   fetchCategories(); // Call the function to fetch categories
   // }, []);
   useEffect(() => {
+    console.log(filter);
     getCategories().then((result) => {
       // console.log(filter);
       if (result?.data) {
@@ -51,18 +52,19 @@ function Main() {
           setCategories((prev) => prev.concat({ ...item.attributes, ...temp }));
         });
       }
-      // console.log(freelancer);
     });
-
     setFilteredArray(freelancer ?? []);
+
     // setFilteredArray(
     //   freelancer.filter((item) => item.attributes.headline === filter)
     // );
-  });
+  }, []);
   const handleButtonClick = () => {};
 
   const handleSelectedCategory = (category) => {
+    console.log(filter);
     setCurrCatSelected(category);
+
     setFilteredArray(
       freelancer.filter((item) => item.attributes.headline === category)
     );

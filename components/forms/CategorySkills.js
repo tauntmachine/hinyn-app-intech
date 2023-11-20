@@ -180,7 +180,7 @@ function CategorySkills({ handleNextClick }) {
           catList = [...catList, { ...temp }];
         });
         setCategories(catList);
-        console.log(categories);
+        // console.log(categories);
       }
     });
   }, []);

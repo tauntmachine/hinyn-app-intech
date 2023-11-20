@@ -44,6 +44,7 @@ import {
   locations,
   ageGroupOptions,
   Budget,
+  skills,
 } from '../models/filters.models';
 
 const FormContainer = styled(Box)`
@@ -94,15 +95,15 @@ const CategoryItem = styled.div`
     border: 1px solid #eb4c60;
     color: #eb4c60;
 
-    span {
-      color: #eb4c60;
-    }
+    // span {
+    //   color: #eb4c60;
+    // }
 
-    .icon-img-box img {
-      filter: invert(0) sepia(100%) saturate(100%) hue-rotate(330deg)
-        brightness(100%) contrast(100%);
-    }
-  }
+  //   .icon-img-box img {
+  //     filter: invert(0) sepia(100%) saturate(100%) hue-rotate(330deg)
+  //       brightness(100%) contrast(100%);
+  //   }
+  // }
 `;
 
 const VerticalDivider = styled.div`
@@ -273,45 +274,15 @@ function PostProjectForm1({ handleNextClick }) {
     setOpen(false);
   };
   const { freelancer, filter, setFilter } = useFreelancer();
-  const [categories, setCategories] = useState([
-    {
-      title: 'Photographer',
-      img: '/assets/img/categories/icon-photographer.svg',
-    },
-    {
-      title: 'Videographer',
-      img: '/assets/img/categories/icon-videographer.svg',
-    },
-    {
-      title: 'Editor',
-      img: '/assets/img/categories/icon-editor.svg',
-    },
-    {
-      title: 'Stylist',
-      img: '/assets/img/categories/icon-stylist.svg',
-    },
-    {
-      title: 'Makeup Artist',
-      img: '/assets/img/categories/icon-makeup-Artist.svg',
-    },
-    {
-      title: 'Hairstylist',
-      img: '/assets/img/categories/icon-hair-Stylist.svg',
-    },
-    {
-      title: 'Drone Operator',
-      img: '/assets/img/categories/icon-drone.svg',
-    },
-    {
-      title: 'Studio/Location',
-      img: '/assets/img/categories/icon-studio-location.svg',
-    },
-  ]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
+
   const [selectedGender, setSelectedGender] = useState(null);
   const [ageGroup, setAgeGroup] = useState(null);
-  const [categorySkills, setCategorySkills] = useState([]);
-  const [selectedSkills, setSelectedSkills] = useState([]);
+  // const [categorySkills, setCategorySkills] = useState([]);
+  const [skills, setSkills] = useState([]);
+  // const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedSkill, setSelectedSkill] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [location, setLocation] = useState(null);
   const [projectBudget, setProjectBudget] = useState(null);
@@ -380,19 +351,19 @@ function PostProjectForm1({ handleNextClick }) {
   const deliveryDaysInputRef = useRef();
   const { featured, urgent } = upgrades;
 
-  const onSkillClick = (clickedSkillId, clickedSkill) => {
-    let temp = [];
-    if (selectedSkills.find((skill) => skill?.id === clickedSkillId)) {
-      temp = selectedSkills.filter((skill) => skill?.id !== clickedSkillId);
-    } else {
-      temp = selectedSkills.concat(clickedSkill);
-    }
-    setSelectedSkills(() => temp);
-    setProjectData((prevState) => ({
-      ...prevState,
-      ['skills']: temp,
-    }));
-  };
+  // const onSkillClick = (clickedSkillId, clickedSkill) => {
+  //   let temp = [];
+  //   if (selectedSkills.find((skill) => skill?.id === clickedSkillId)) {
+  //     temp = selectedSkills.filter((skill) => skill?.id !== clickedSkillId);
+  //   } else {
+  //     temp = selectedSkills.concat(clickedSkill);
+  //   }
+  //   setSelectedSkills(() => temp);
+  //   setProjectData((prevState) => ({
+  //     ...prevState,
+  //     ['skills']: temp,
+  //   }));
+  // };
 
   const checkDOB = (dobdate) => {
     const dateFormat = 'YYYY-MM-DD';
@@ -447,53 +418,68 @@ function PostProjectForm1({ handleNextClick }) {
   //   });
   // }, [isFetched]);
 
-  function getCategorySkills2(category) {
-    setSelectedCategory(() => category);
-    setCategorySkills(() => []);
-    setSelectedSkills(() => []);
-    getSkills(category?.id).then((result) => {
-      const temp = result?.data?.data?.attributes?.skills?.data ?? [];
-      temp.map((item) => {
-        let skillId = { id: item.id };
-        setCategorySkills((prev) =>
-          prev.concat({ ...item.attributes, ...skillId })
-        );
-        setSelectedSkills((prev) =>
-          prev.concat({ ...item.attributes, ...skillId })
-        );
-      });
+  // function getCategorySkills2(category) {
+  //   setSelectedCategory(() => category);
+  //   setCategorySkills(() => []);
+  //   setSelectedSkills(() => []);
+  //   getSkills(category?.id).then((result) => {
+  //     const temp = result?.data?.data?.attributes?.skills?.data ?? [];
+  //     temp.map((item) => {
+  //       let skillId = { id: item.id };
+  //       setCategorySkills((prev) =>
+  //         prev.concat({ ...item.attributes, ...skillId })
+  //       );
+  //       setSelectedSkills((prev) =>
+  //         prev.concat({ ...item.attributes, ...skillId })
+  //       );
+  //     });
+  //   });
+  //   setSelectedLanguages(() => languages);
+
+  //   setErrorMessage((prevState) => ({
+  //     ...prevState,
+  //     ['category']: null,
+  //   }));
+  //   setValid((prevState) => ({
+  //     ...prevState,
+  //     ['category']: true,
+  //   }));
+  //   setProjectData((prevState) => ({
+  //     ...prevState,
+  //     ['category']: category.slug,
+  //   }));
+  //   setProjectData((prevState) => ({
+  //     ...prevState,
+  //     ['skills']: selectedSkills.map((skill) => skill?.id),
+  //   }));
+  //   setProjectData((prevState) => ({
+  //     ...prevState,
+  //     ['languages']: languages,
+  //   }));
+  // }
+
+  // const onSkillsSearchChange = (e) => {
+  //   const clickedSkill = categorySkills.find(
+  //     (skill) => skill.title === e.target.textContent
+  //   );
+  //   onSkillClick(clickedSkill?.id, clickedSkill);
+  // };
+
+  useEffect(() => {
+    let catList = [];
+
+    getCategories().then((result) => {
+      if (result?.data) {
+        result?.data?.data.map((item) => {
+          let temp = { id: item.id, ...item.attributes };
+          // setCategories((prev) => prev.concat({ ...item.attributes, ...temp }));
+          catList = [...catList, { ...temp }];
+        });
+        setCategories(catList);
+        // console.log(categories);
+      }
     });
-    setSelectedLanguages(() => languages);
-
-    setErrorMessage((prevState) => ({
-      ...prevState,
-      ['category']: null,
-    }));
-    setValid((prevState) => ({
-      ...prevState,
-      ['category']: true,
-    }));
-    setProjectData((prevState) => ({
-      ...prevState,
-      ['category']: category.slug,
-    }));
-    setProjectData((prevState) => ({
-      ...prevState,
-      ['skills']: selectedSkills.map((skill) => skill?.id),
-    }));
-    setProjectData((prevState) => ({
-      ...prevState,
-      ['languages']: languages,
-    }));
-  }
-
-  const onSkillsSearchChange = (e) => {
-    const clickedSkill = categorySkills.find(
-      (skill) => skill.title === e.target.textContent
-    );
-    onSkillClick(clickedSkill?.id, clickedSkill);
-  };
-
+  }, []);
   const onLanguagesSearchChange = (e) => {
     onLanguageClick(e.target.textContent);
   };
@@ -835,6 +821,22 @@ function PostProjectForm1({ handleNextClick }) {
     }
   };
 
+  const handleSkillsChange = (val) => {
+    // console.log(val);
+    setSelectedSkill(() => val);
+  };
+  const handleCategoryChange = (index) => {
+    // setSelectedCategory(categories[index]);
+
+    let listSkill = [];
+    categories[index]?.skills.data.map((item) => {
+      let temp = { id: item.id, ...item.attributes };
+      listSkill = [...listSkill, { ...temp }];
+    });
+    setSkills(listSkill);
+    // getCategorySkills(categoryId);
+    setSelectedSkill(() => []);
+  };
   const progress1 = () => {
     // Create an array of states to track the active state for each category
 
@@ -843,6 +845,7 @@ function PostProjectForm1({ handleNextClick }) {
       const updatedActiveStates = [...activeStates];
       updatedActiveStates[index] = !updatedActiveStates[index];
       setActiveStates(updatedActiveStates);
+      handleCategoryChange(index);
     };
     return (
       <>
@@ -891,7 +894,7 @@ function PostProjectForm1({ handleNextClick }) {
                 >
                   <ImageContainer className="icon-img-box">
                     <Image
-                      src={category.img}
+                      src={imgsrc + category.icon}
                       layout="fill"
                       className="icon-img"
                       alt="icon-img"
@@ -958,47 +961,18 @@ function PostProjectForm1({ handleNextClick }) {
           free to modify these choices to best suit your needs.
         </Text>
         <Grid item xs={12}>
-          <SearchContainer>
-            <PillsContainer>
-              {selectedSkills.map((skill, id) => {
-                return (
-                  <StyledStaticPill key={'category-skill-' + id}>
-                    {skill?.title}
-                    <StyledCloseIcon
-                      variant="red"
-                      onClick={() => onSkillClick(skill?.id, skill)}
-                    />
-                  </StyledStaticPill>
-                );
-              })}
-            </PillsContainer>
-            <Autocomplete
-              freeSolo
-              id="search-skills-input"
-              disableClearable
-              options={categorySkills.map((skill) => skill.title)}
-              onChange={onSkillsSearchChange}
-              renderInput={(params) => (
-                <WithoutTextField
-                  {...params}
-                  label=""
-                  placeholder="Search skills here"
-                  InputProps={{
-                    ...params.InputProps,
-                    type: 'search',
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton edge="end">
-                          <OutlineSearchIcon className="icon" />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              )}
-            />
-          </SearchContainer>
+          <DropdownO
+            hasLabel={false}
+            items={skills}
+            width="100%"
+            type="outlined"
+            selected={selectedSkill}
+            setHandleOnChange={handleSkillsChange}
+            color={'red'}
+          />
+          {/* {errorMessage.ageGroup && <Error>{errorMessage.ageGroup}</Error>} */}
         </Grid>
+
         <VerticalDivider />
         <Grid item xs={12}>
           <Text fontSize="18px">

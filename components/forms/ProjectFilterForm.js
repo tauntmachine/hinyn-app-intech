@@ -192,24 +192,24 @@ function ProjectFilterForm(filterType) {
     else if (field === 'skills') setSelectedSkills(() => []);
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    if (filterType === 'freelancer') {
-      setFilter({
-        category: selectedCategory,
-        skill: selectedSkills,
-        location: selectedLocation,
-        budget: selectedBudget,
-      });
-    } else {
-      setProjectFilter({
-        category: selectedCategory,
-        skill: selectedSkills,
-        location: selectedLocation,
-        budget: selectedBudget,
-      });
-    }
-  };
+  // const submitHandler = (event) => {
+  //   event.preventDefault();
+  //   if (filterType === 'freelancer') {
+  //     setFilter({
+  //       category: selectedCategory,
+  //       skill: selectedSkills,
+  //       location: selectedLocation,
+  //       budget: selectedBudget,
+  //     });
+  //   } else {
+  //     setProjectFilter({
+  //       category: selectedCategory,
+  //       skill: selectedSkills,
+  //       location: selectedLocation,
+  //       budget: selectedBudget,
+  //     });
+  //   }
+  // };
 
   return (
     <>
@@ -219,7 +219,7 @@ function ProjectFilterForm(filterType) {
           <Box
             component="form"
             noValidate
-            onSubmit={submitHandler}
+            // onSubmit={submitHandler}
             sx={{ width: '100%' }}
           >
             <Grid container spacing={2}>

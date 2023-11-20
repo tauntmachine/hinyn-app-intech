@@ -6,7 +6,7 @@ axios.defaults.withCredentials = true;
 
 interface Freelancer {
   id: string;
-  attributes: { headline: string };
+  attributes: {};
 }
 
 let freelancerResult = [];
@@ -86,8 +86,6 @@ const useFreelancerController = (freelancer: Freelancer[]) => {
   // const filteredCategories = getCategories();
 
   const filteredFreelancer = useMemo(() => {
-    // console.log('yes this is', freelancer);
-
     return freelancer;
     //  freelancer.filter((item) =>
     //   item.attributes.headline === filter ? filteredFreelancer : freelancer

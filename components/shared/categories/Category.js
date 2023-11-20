@@ -44,7 +44,7 @@ const ImageContainer = styled.div`
 
 function Category({ data, isSelected }) {
   const imgsrc = '/assets/img/categories/' + data.icon;
-  // console.log(data.attributes);
+  // console.log(data.icon);
   return (
     <IconContainer isSelected={isSelected}>
       <ImageContainer className="icon-img-box">
