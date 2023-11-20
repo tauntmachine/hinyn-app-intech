@@ -150,7 +150,8 @@ export default function MemberShipCard({
         {/* <ButtonOuline>Start Free Trial</ButtonOuline> */}
         {btn === 'true' ? (
           <StyledButton>
-            <Text4>{btnText}</Text4>
+            {/* <Text4>{btnText}</Text4> */}
+            <a href="https://secure.telr.com/gateway/ql/RelityGroup_736370.html">{btnText}</a>
           </StyledButton>
         ) : (
           <StyledButton2 onClick={onClick}>
