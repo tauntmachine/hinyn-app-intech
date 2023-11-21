@@ -7,6 +7,7 @@ import { BsFillCheckCircleFill } from 'react-icons/bs';
 
 const StyledButton = styled.div`
   margin: 2rem auto;
+
   width: 11rem;
   background: linear-gradient(104deg, #ff5a5f 0%, #a52226 100%);
   color: white;
@@ -150,8 +151,11 @@ export default function MemberShipCard({
         {/* <ButtonOuline>Start Free Trial</ButtonOuline> */}
         {btn === 'true' ? (
           <StyledButton>
-            {/* <Text4>{btnText}</Text4> */}
-            <a href="https://secure.telr.com/gateway/ql/RelityGroup_736370.html">{btnText}</a>
+            <Text4>
+              <a href="https://secure.telr.com/gateway/ql/RelityGroup_736370.html">
+                {btnText}
+              </a>
+            </Text4>
           </StyledButton>
         ) : (
           <StyledButton2 onClick={onClick}>
