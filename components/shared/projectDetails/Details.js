@@ -94,16 +94,12 @@ const ImgDiv = styled.div`
   }
 `;
 const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
-  console.log(bidData);
+  // console.log(bidData);
   const projectDetails = {
     attachments: [
       'project-temp-1.jpeg',
       'project-temp-2.jpeg',
       'project-temp-3.jpeg',
-      'project-temp-4.jpeg',
-      'project-temp-5.jpeg',
-      'project-temp-6.jpeg',
-      'project-temp-7.jpeg',
     ],
   };
 
@@ -172,13 +168,12 @@ const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
           <DescTitle>Skills required for this project</DescTitle>
         </Row>
         <Row sx={{ gap: '1rem', flexWrap: 'wrap' }}>
-          {bidData?.map((skill, idx) => {
-            return (
+          {Array.isArray(bidData) &&
+            bidData.map((skill, idx) => (
               <StaticPill bg="green" key={'skill-reqd-' + idx}>
                 {skill?.role}
               </StaticPill>
-            );
-          })}
+            ))}
         </Row>
         <Row>
           <DescTitle>Languages required for this project</DescTitle>
@@ -200,36 +195,36 @@ const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
           <DescTitle>Location</DescTitle>
         </Row>
         <Row className="green-bg">
-          {/* {bidData?.city} {bidData?.country ?? 'N/A'} */}
-          Fairmont, The Palm Dubai, United Arab Emirates
+          {bidData?.city} {bidData?.country ?? 'N/A'}
+          {/* Fairmont, The Palm Dubai, United Arab Emirates */}
         </Row>
         <Row>
           <DescTitle>Event Date</DescTitle>
         </Row>
         <Row className="green-bg">
-          {/* {bidData?.deliveryDate
+          {bidData?.deliveryDate
             ? moment(bidData?.deliveryDate).format('DD-MMM-YYYY')
-            : 'NA'} */}
-          November, 7 2023
+            : 'NA'}
+          {/* November, 7 2023 */}
         </Row>
         <Row>
           <DescTitle>Budget Range</DescTitle>
         </Row>
         <Row className="green-bg">
-          {/* {bidData?.minBudget} - {bidData?.maxBudget} AED */}
-          $500+
+          {bidData?.minBudget} - {bidData?.maxBudget} AED
+          {/* $500+ */}
         </Row>
         <Row>
           <DescTitle>Description</DescTitle>
         </Row>
         <Row className="green-bg">
-          {/* {bidData?.description} */}
-          You can start editing the page by modifying pages/index.tsx. The page
+          {bidData?.description}
+          {/* You can start editing the page by modifying pages/index.tsx. The page
           auto-updates as you edit the file. API routes can be accessed on This
           endpoint can be edited in page sapi hello.ts. The pages/api directory
           is mapped to api. Files in this directory You can start editing the
           page by modifying pages/index.tsx. The page auto-updates as you edit
-          the file.
+          the file. */}
         </Row>
         <Row>
           <DescTitle>Attachments</DescTitle>
@@ -241,15 +236,15 @@ const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
           <DescTitle>Deliverables</DescTitle>
         </Row>
         <Row className="green-bg">
-          {/* {bidData?.numDeliverables ?? 0} */}
-          5,000 Pictures
+          {bidData?.numDeliverables ?? 0}
+          {/* 5,000 Pictures */}
         </Row>
         <Row>
           <DescTitle>Deadline</DescTitle>
         </Row>
         <Row className="green-bg">
-          {/* {bidData?.deliveryDate ?? 'NA'} */}
-          November, 7 2023
+          {bidData?.deliveryDate ?? 'NA'}
+          {/* November, 7 2023 */}
         </Row>
         <Row sx={{ display: 'flex', justifyContent: 'center' }}>
           {userHasProposal ? (

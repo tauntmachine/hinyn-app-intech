@@ -132,7 +132,7 @@ const NewsfeedSection = ({ accountType }) => {
           let resObj = { id: item?.id, ...item?.attributes };
           resList = [...resList, resObj];
         });
-        console.log('list -- ', resList);
+        // console.log('list -- ', resList);
         setUserProjects(resList);
       }
     });

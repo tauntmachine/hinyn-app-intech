@@ -187,20 +187,21 @@ const CustomGreenButton = styled(GreenButton)`
     opacity: 0.5;
   }
 `;
-
-const ProjectDetailsSection = (project) => {
+const ProjectDetailsSection = () => {
   const router = useRouter();
   const [currentTab, setCurrentTab] = useState(0);
   const [bidData, setBidData] = useState([]);
   const [clientData, setClientData] = useState({});
   const [userHasProposal, setUserHasProposal] = useState(false);
-  // const { project } = router.query;
+  const { project } = router.query;
+
   const [isBidOwner, setIsBidOwner] = useState(false);
   const [openCancelProject, setOpenCancelProject] = useState(false);
   const [openSuccessCancelModal, setOpenSuccessCancelModal] = useState(false);
   const loggedInCid = localStorage.getItem('hinyn-cid');
 
   useEffect(() => {
+    console.log('id of project', project);
     getProposalsOfClientOnABid(project).then((res) => {
       console.log(res);
       if (res?.data?.data) {
@@ -214,8 +215,9 @@ const ProjectDetailsSection = (project) => {
           ...res?.data?.data?.attributes,
         };
         setBidData(() => temp);
-        if (temp?.client?.data?.id === parseInt(loggedInCid))
-          setIsBidOwner(() => true);
+
+        // if (temp?.client?.data?.id === parseInt(loggedInCid))
+        setIsBidOwner(() => true);
         setClientData(() => temp?.client?.data?.attributes);
       }
     });
@@ -243,56 +245,56 @@ const ProjectDetailsSection = (project) => {
 
   const tabs = ['Details', 'Proposals'];
 
-  const projectDetails = {
-    id: '1235670808857',
-    title: "Kate and Joe's Wedding",
-    bid: {
-      min: 500,
-      max: 600,
-      currency: 'USD',
-      endDate: '10/01/2023',
-      numBids: 76,
-    },
-    requirements: {
-      categoryKey: 'photographer',
-      skills: ['Fashion', 'Beauty', 'Lifestyle', 'Wedding'],
-      languages: ['English', 'Arabic'],
-    },
-    location: 'Fairmont, The Palm, Dubai, United Arab Emirates',
-    eventDate: 'November 7, 2023',
-    budget: {
-      amount: 500,
-      currency: 'USD',
-    },
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum',
-    attachments: [
-      'project-temp-1.jpeg',
-      'project-temp-2.jpeg',
-      'project-temp-3.jpeg',
-      'project-temp-4.jpeg',
-      'project-temp-5.jpeg',
-      'project-temp-6.jpeg',
-      'project-temp-7.jpeg',
-    ],
-    deliverables: '5000 pictures',
-    deadline: '30/01/2023',
-    client: {
-      name: 'Joe Addams',
-      location: 'Dubai, United Arab Emirates',
-      rating: 4,
-      ratingNUmber: 16,
-      memberSince: 'November 2020',
-      verified: [
-        'Identity Verified',
-        'Payment Verified',
-        'Deposit Made',
-        'Email Verified',
-        'Profile Completed',
-      ],
-      unverified: ['Phone Verified'],
-    },
-  };
+  // const projectDetails = {
+  //   id: '1235670808857',
+  //   title: "Kate and Joe's Wedding",
+  //   bid: {
+  //     min: 500,
+  //     max: 600,
+  //     currency: 'USD',
+  //     endDate: '10/01/2023',
+  //     numBids: 76,
+  //   },
+  //   requirements: {
+  //     categoryKey: 'photographer',
+  //     skills: ['Fashion', 'Beauty', 'Lifestyle', 'Wedding'],
+  //     languages: ['English', 'Arabic'],
+  //   },
+  //   location: 'Fairmont, The Palm, Dubai, United Arab Emirates',
+  //   eventDate: 'November 7, 2023',
+  //   budget: {
+  //     amount: 500,
+  //     currency: 'USD',
+  //   },
+  //   description:
+  //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum',
+  //   attachments: [
+  //     'project-temp-1.jpeg',
+  //     'project-temp-2.jpeg',
+  //     'project-temp-3.jpeg',
+  //     'project-temp-4.jpeg',
+  //     'project-temp-5.jpeg',
+  //     'project-temp-6.jpeg',
+  //     'project-temp-7.jpeg',
+  //   ],
+  //   deliverables: '5000 pictures',
+  //   deadline: '30/01/2023',
+  //   client: {
+  //     name: 'Joe Addams',
+  //     location: 'Dubai, United Arab Emirates',
+  //     rating: 4,
+  //     ratingNUmber: 16,
+  //     memberSince: 'November 2020',
+  //     verified: [
+  //       'Identity Verified',
+  //       'Payment Verified',
+  //       'Deposit Made',
+  //       'Email Verified',
+  //       'Profile Completed',
+  //     ],
+  //     unverified: ['Phone Verified'],
+  //   },
+  // };
 
   const userDetails = {
     isLoggedIn: true,
@@ -321,25 +323,23 @@ const ProjectDetailsSection = (project) => {
                 <TitleWrapper>
                   <Box>
                     <Row sx={{ justifyContent: 'space-between' }}>
-                      <Title color="red">{projectDetails?.title}</Title>
+                      <Title color="red">{bidData?.title}</Title>
                       <Column>
                         <Text color="green" fontWeight="bold">
-                          ${projectDetails?.bid.min} - $
-                          {projectDetails?.bid.max}
-                          {/* {bidData?.maxBudget === 0 ? '' : bidData?.maxBudget} */}
-                          {/* {bidData?.currency ?? 'AED'} */}
+                          {/* ${bidData?.bid.min} - $ */}
+                          {/* {bidData?.bid.max} */}
+                          {bidData?.maxBudget === 0 ? '' : bidData?.maxBudget}
+                          {bidData?.currency ?? 'AED'}
                         </Text>
                         <Text>
-                          {/* {moment(bidData?.createdDate).format('DD-MMM-YYYY')} */}
-                          Bidding end in 5 days
+                          {moment(bidData?.createdDate).format('DD-MMM-YYYY')}
+                          {/* Bidding end in 5 days */}
                         </Text>
                       </Column>
                     </Row>
 
                     <Row>
-                      <SmallText>
-                        Project ID 12335341453 {bidData?.id}
-                      </SmallText>
+                      <SmallText>Project ID {bidData?.id}</SmallText>
                     </Row>
                   </Box>
                   <Row>
@@ -362,7 +362,7 @@ const ProjectDetailsSection = (project) => {
               <ContentBox className="main-wrapper">
                 {currentTab === 0 ? (
                   <Details
-                    userDetails={userDetails}
+                    // userDetails={userDetails}
                     bidData={bidData}
                     userHasProposal={userHasProposal}
                     isBidOwner={isBidOwner}
@@ -400,8 +400,8 @@ const ProjectDetailsSection = (project) => {
                     </Text>
                   </Row>
                   <Row sx={{ gap: '1rem' }}>
-                    <StarRating data={projectDetails?.client?.rating} sz="lg" />
-                    <div>( {projectDetails?.client?.ratingNUmber} )</div>
+                    <StarRating data={bidData?.client?.rating} sz="lg" />
+                    <div>( {bidData?.client?.ratingNUmber} )</div>
                   </Row>
                   <Row>
                     <Text>
@@ -413,8 +413,8 @@ const ProjectDetailsSection = (project) => {
                   <Text color="green" sx={{ fontSize: '16px' }}>
                     Client Verification
                   </Text>
-                  {projectDetails?.client?.verified &&
-                    projectDetails?.client?.verified.map((item, idx) => {
+                  {bidData?.client?.verified &&
+                    bidData?.client?.verified.map((item, idx) => {
                       return (
                         <Row
                           sx={{ alignItems: 'center', gap: '1rem' }}
@@ -425,8 +425,8 @@ const ProjectDetailsSection = (project) => {
                         </Row>
                       );
                     })}
-                  {projectDetails?.client?.unverified &&
-                    projectDetails?.client?.unverified.map((item, idx) => {
+                  {bidData?.client?.unverified &&
+                    bidData?.client?.unverified.map((item, idx) => {
                       return (
                         <Row
                           sx={{ alignItems: 'center', gap: '1rem' }}

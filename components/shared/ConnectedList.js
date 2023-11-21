@@ -44,12 +44,12 @@ const Desc = styled.div`
 `;
 
 const ConnectedList = ({ projects }) => {
-  console.log(projects);
+  // console.log(projects);
   const router = useRouter();
   const [accountType, setAccountType] = useState({});
 
   const showProjectDetails = (projectId) => {
-    router.push('/dashboard?screen=details&project=' + projectId);
+    router.push(`/dashboard?screen=details&project=${projectId}`);
   };
 
   useEffect(() => {
@@ -67,11 +67,7 @@ const ConnectedList = ({ projects }) => {
           <ProjectContainer key={idx}>
             <Row sx={{ justifyContent: 'space-between' }}>
               <Column>
-                <Title
-                  onClick={() => showProjectDetails(project?.attributes.id)}
-                >
-                  {project?.attributes.title}
-                </Title>
+                <Title>{project?.attributes.title}</Title>
                 {project?.attributes.minBudget === 1 &&
                 project.maxBudget === 0 ? (
                   <SmallText>Free Collaboration</SmallText>
@@ -127,9 +123,7 @@ const ConnectedList = ({ projects }) => {
               </Row>
               {accountType && accountType === 1 ? (
                 <Row>
-                  <GreenButton
-                    onClick={() => showProjectDetails(project?.attributes.id)}
-                  >
+                  <GreenButton onClick={() => showProjectDetails(project?.id)}>
                     Apply
                   </GreenButton>
                 </Row>

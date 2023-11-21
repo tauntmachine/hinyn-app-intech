@@ -15,6 +15,7 @@ const BrowseProjectsSection = ({ mainScreen }) => {
   const [currentScreen, setCurrentScreen] = useState(SCREENS.list);
 
   useEffect(() => {
+    // console.log('id', projectId);
     if (mainScreen === SCREENS.details) setCurrentScreen(() => SCREENS.details);
     else setCurrentScreen(() => SCREENS.list);
   });
@@ -28,7 +29,7 @@ const BrowseProjectsSection = ({ mainScreen }) => {
       {currentScreen === SCREENS.list ? (
         <AllProjectsSection handleScreenChange={handleScreenChange} />
       ) : (
-        <ProjectDetailsSection project={projectId} />
+        <ProjectDetailsSection projectId={projectId} />
       )}
     </Box>
   );
