@@ -48,10 +48,6 @@ export const category = [
 
 export const budget = [
   {
-    title: '0-free collaboration',
-    value: '0',
-  },
-  {
     title: '1-100',
     value: '1',
   },

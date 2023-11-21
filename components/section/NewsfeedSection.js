@@ -11,7 +11,13 @@ import AlertBox from '../../components/shared/AlertBox';
 import ClickableStarRating from '../../components/shared/ClickableStarRating';
 import ProgressBar from '../../components/shared/ProgressBar';
 import Text, { GrayText } from '../../components/shared/Typography';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  getBidData,
+  getBidsOfClient,
+  getLoggedInUserData,
+} from '../forms/formService';
+import ProjectDetailsSection from './ProjectDetailsSection';
 const ContainerDiv = styled.div`
   width: 112rem;
   margin: 4rem 0 0 0;
@@ -54,7 +60,7 @@ const ListItem = styled.div`
   font-weight: bold;
   display: flex;
   justify-content: space-between;
-  padding: 14px 0;
+  padding: 14px 10px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 
@@ -103,6 +109,34 @@ const WelcomeCon = styled.div`
 `;
 const NewsfeedSection = ({ accountType }) => {
   const [open, setOpen] = useState(false);
+  const [userProjects, setUserProjects] = useState([]);
+
+  // useEffect(() => {
+  //   const clientId = localStorage.getItem('hinyn-cid');
+  //   if(clientId){
+  //     getLoggedInUserData().then((res)=>{
+  //       if(res.data){
+  //         setAccountType(()=>res.data?.client?.accountType);
+  //       }
+  //     })
+  //   }
+  // }, [])
+
+  useEffect(() => {
+    const clientId = localStorage.getItem('hinyn-cid');
+
+    getBidsOfClient().then((res) => {
+      let resList = [];
+      if (res?.data?.data) {
+        res?.data?.data.map((item) => {
+          let resObj = { id: item?.id, ...item?.attributes };
+          resList = [...resList, resObj];
+        });
+        console.log('list -- ', resList);
+        setUserProjects(resList);
+      }
+    });
+  }, []);
   const handleClose = () => {
     setOpen(false);
   };
@@ -196,32 +230,32 @@ const NewsfeedSection = ({ accountType }) => {
     currency: 'USD',
   };
 
-  const userProjects = [
-    {
-      id: 10001,
-      title: 'Wedding Day Photography in Abu Dhabi',
-      bids: 23,
-      status: 'active',
-    },
-    {
-      id: 10002,
-      title: 'Models required for fitness app',
-      bids: 23,
-      status: 'done',
-    },
-    {
-      id: 10003,
-      title: 'Hand models required for jewelry shoot',
-      bids: 23,
-      status: 'done',
-    },
-    {
-      id: 10004,
-      title: 'Bridal make-up artist required',
-      bids: 23,
-      status: 'done',
-    },
-  ];
+  // const userProjects = [
+  //   {
+  //     id: 10001,
+  //     title: 'Wedding Day Photography in Abu Dhabi',
+  //     bids: 23,
+  //     status: 'active',
+  //   },
+  //   {
+  //     id: 10002,
+  //     title: 'Models required for fitness app',
+  //     bids: 23,
+  //     status: 'done',
+  //   },
+  //   {
+  //     id: 10003,
+  //     title: 'Hand models required for jewelry shoot',
+  //     bids: 23,
+  //     status: 'done',
+  //   },
+  //   {
+  //     id: 10004,
+  //     title: 'Bridal make-up artist required',
+  //     bids: 23,
+  //     status: 'done',
+  //   },
+  // ];
 
   const getNewsFeedByType = (item) => {
     if (item.type === 'action-required') {

@@ -176,7 +176,7 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
         bidDescription: enteredBidDescription,
         isSuccess: isValid.form,
       };
-      handleBidSubmit();
+      handleBidSubmit(clientData);
     }
   }
   return (

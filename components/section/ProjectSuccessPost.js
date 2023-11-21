@@ -71,9 +71,9 @@ const ProjectSuccessPost = () => {
     setOpen(() => true);
   };
 
-  const handleBidSubmit = () => {
-    setOpenSuccessModal(true);
-    setOpen(() => false);
+  const handleBidSubmit = (clientData) => {
+    // setOpenSuccessModal(true);
+    // setOpen(() => false);
   };
 
   const handleBackClick = () => {

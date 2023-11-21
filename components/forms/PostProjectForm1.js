@@ -37,15 +37,9 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import moment from 'moment';
 import { Button as CustomButton } from '@mui/material';
 import { useFreelancer } from '../../src/store';
-import { addBidData, getCategories, getSkills } from './formService';
+import { addBidData, getCategories } from './formService';
 import DropdownO from '../shared/DropdownO';
-import {
-  budget,
-  locations,
-  ageGroupOptions,
-  Budget,
-  skills,
-} from '../models/filters.models';
+import { budget, locations, ageGroupOptions } from '../models/filters.models';
 
 const FormContainer = styled(Box)`
   display: flex;
@@ -282,6 +276,7 @@ function PostProjectForm1({ handleNextClick }) {
   const [skills, setSkills] = useState([]);
   // const [selectedSkills, setSelectedSkills] = useState([]);
   const [selectedSkill, setSelectedSkill] = useState('');
+  const [selectedSkillName, setSelectedSkillName] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [location, setLocation] = useState(null);
@@ -291,6 +286,8 @@ function PostProjectForm1({ handleNextClick }) {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [filename, setFilename] = useState(null);
   const [isFetched, setIsFetched] = useState(false);
+  const [deliverables, setDeliverables] = useState(false);
+  const [deliveryDays, setDeliveryDays] = useState(false);
   const [activeStates, setActiveStates] = useState(categories.map(() => false));
   const [upgrades, setUpgrades] = useState({
     featured: true,
@@ -346,10 +343,6 @@ function PostProjectForm1({ handleNextClick }) {
     deliverables: null,
     deliveryDays: null,
   });
-  const titleInputRef = useRef();
-  const deliverablesInputRef = useRef();
-  const deliveryDaysInputRef = useRef();
-  const { featured, urgent } = upgrades;
 
   // const onSkillClick = (clickedSkillId, clickedSkill) => {
   //   let temp = [];
@@ -772,7 +765,10 @@ function PostProjectForm1({ handleNextClick }) {
       ['upgrades']: { featured: featured, urgent: urgent },
     }));
   };
-
+  const titleInputRef = useRef();
+  const deliverablesInputRef = useRef();
+  const deliveryDaysInputRef = useRef();
+  const { featured, urgent } = upgrades;
   const submitHandler = (event) => {
     event.preventDefault();
 
@@ -807,6 +803,7 @@ function PostProjectForm1({ handleNextClick }) {
         skills: projectData.skills,
         client: clientId,
       };
+      console.log(bidData);
       if (clientId) {
         addBidData(bidData).then((res) => {
           if (res.data) {
@@ -822,11 +819,11 @@ function PostProjectForm1({ handleNextClick }) {
   };
 
   const handleSkillsChange = (val) => {
-    // console.log(val);
     setSelectedSkill(() => val);
+    // console.log(selectedSkill);
   };
   const handleCategoryChange = (index) => {
-    // setSelectedCategory(categories[index]);
+    setSelectedCategory(categories[index]);
 
     let listSkill = [];
     categories[index]?.skills.data.map((item) => {
@@ -838,9 +835,6 @@ function PostProjectForm1({ handleNextClick }) {
     setSelectedSkill(() => []);
   };
   const progress1 = () => {
-    // Create an array of states to track the active state for each category
-
-    // Function to toggle the active state of a category
     const toggleCategoryActiveState = (index) => {
       const updatedActiveStates = [...activeStates];
       updatedActiveStates[index] = !updatedActiveStates[index];
@@ -966,8 +960,8 @@ function PostProjectForm1({ handleNextClick }) {
             items={skills}
             width="100%"
             type="outlined"
-            selected={selectedSkill}
             setHandleOnChange={handleSkillsChange}
+            selected={selectedSkill}
             color={'red'}
           />
           {/* {errorMessage.ageGroup && <Error>{errorMessage.ageGroup}</Error>} */}
@@ -1209,7 +1203,26 @@ function PostProjectForm1({ handleNextClick }) {
           <Text fontSize="13.7px" fontWeight="bold" marginY="7px">
             How many pictures will be delivered in total?
           </Text>
-          <MyOutlinedTextField placeholder="Enter number of required images" />
+          <MyOutlinedTextField
+            placeholder="Enter number of required images"
+            id="deliverables"
+            name="deliverables"
+            inputRef={deliverablesInputRef}
+            onKeyUp={(e) => {
+              setErrorMessage((prevState) => ({
+                ...prevState,
+                ['deliverables']: null,
+              }));
+              setValid((prevState) => ({
+                ...prevState,
+                ['deliverables']: true,
+              }));
+              setProjectData((prevState) => ({
+                ...prevState,
+                ['deliverables']: e.target.value,
+              }));
+            }}
+          />
           {errorMessage.deliverables && (
             <Error>{errorMessage.deliverables}</Error>
           )}
@@ -1219,7 +1232,25 @@ function PostProjectForm1({ handleNextClick }) {
           <Text fontSize="13.7px" fontWeight="bold" marginY="7px">
             How many days for delivery of pictures?
           </Text>
-          <MyOutlinedTextField placeholder="Enter number of days" />
+          <MyOutlinedTextField
+            placeholder="Enter number of days"
+            name="deliveryDate"
+            inputRef={deliveryDaysInputRef}
+            onKeyUp={(e) => {
+              setErrorMessage((prevState) => ({
+                ...prevState,
+                ['deliveryDays']: null,
+              }));
+              setValid((prevState) => ({
+                ...prevState,
+                ['deliveryDays']: true,
+              }));
+              setProjectData((prevState) => ({
+                ...prevState,
+                ['deliveryDays']: e.target.value,
+              }));
+            }}
+          />
           {errorMessage.deliveryDays && (
             <Error>{errorMessage.deliveryDays}</Error>
           )}

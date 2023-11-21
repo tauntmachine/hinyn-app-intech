@@ -31,7 +31,7 @@ const Index = () => {
     if (id) {
       getClientData({ id }).then((res) => {
         if (res.data) {
-          console.log('data', res);
+          // console.log('data', res);
           localStorage.setItem(
             'hinyn-client-profile',
             JSON.stringify(res.data)
