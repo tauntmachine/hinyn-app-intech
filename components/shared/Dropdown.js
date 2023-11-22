@@ -69,7 +69,7 @@ export default function Dropdown({
           <CustomSelect
             labelId="dropdown-select-label"
             id="dropdown-select"
-            value={3}
+            value={selected ? selected : ''}
             onChange={handleChange}
             label={handleChange}
             type={type}
@@ -83,8 +83,8 @@ export default function Dropdown({
                 <Option
                   key={item.key}
                   value={item.value}
-                  color="red"
-                  bgcolor="green"
+                  color={color}
+                  bgcolor={bgcolor}
                 >
                   {item?.title ?? item}
                 </Option>

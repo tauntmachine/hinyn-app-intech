@@ -819,6 +819,7 @@ function PostProjectForm1({ handleNextClick }) {
   };
 
   const handleSkillsChange = (val) => {
+    console.log('skill', val);
     setSelectedSkill(() => val);
     // console.log(selectedSkill);
   };
@@ -963,6 +964,7 @@ function PostProjectForm1({ handleNextClick }) {
             setHandleOnChange={handleSkillsChange}
             selected={selectedSkill}
             color={'red'}
+            defaultLabel="Select Skill"
           />
           {/* {errorMessage.ageGroup && <Error>{errorMessage.ageGroup}</Error>} */}
         </Grid>

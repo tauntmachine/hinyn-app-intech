@@ -14,6 +14,7 @@ import Button, { GreenButton } from '../shared/Button';
 import StyledTextField from '../shared/Textfield';
 import Dropdown from '../shared/Dropdown';
 import { addProposal, updateBidData } from './formService';
+import DropdownO from '../shared/DropdownO';
 
 const StyledButton = styled(Button)``;
 
@@ -72,7 +73,7 @@ const StyledTextArea = styled(TextareaAutosize)`
   border-radius: 20px;
   padding: 10px;
   font-family: inherit;
-  background-color: #f2f2f2;
+  background-color: #e6e6e6;
   opacity: 1;
   border: none;
   color: #949494;
@@ -84,10 +85,15 @@ const StyledTextArea = styled(TextareaAutosize)`
 `;
 
 const BidOnProjectForm = ({ handleSubmit, proposals }) => {
+  const [selectedCurrency, setSelectedCurrency] = useState([]);
   const currencies = [
     {
       title: 'AED',
-      value: 'aed',
+      value: 'AED',
+    },
+    {
+      title: 'USD',
+      value: 'USD',
     },
   ];
 
@@ -152,11 +158,12 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
         bid: project,
         isDirectBidAssignment: false,
       };
-      let existingProposals =  proposals?.data.map((item)=>item.id) ?? [];
+
+      let existingProposals = proposals?.data.map((item) => item.id) ?? [];
       addProposal(proposalData).then((res) => {
         if (res?.data) {
           let newProposal = { proposals: [res?.data?.id] };
-          if(existingProposals){
+          if (existingProposals) {
             existingProposals.push(res?.data?.id);
             newProposal.proposals = existingProposals;
           }
@@ -170,8 +177,10 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
 
       //
     }
-  }
-
+  };
+  const handleCurrencyChange = (val) => {
+    setSelectedCurrency(() => val);
+  };
   return (
     <>
       <Container maxWidth="lg" sx={{ margin: '2rem 0' }}>
@@ -208,7 +217,8 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
                     items={currencies}
                     width="100%"
                     type="outlined"
-                    selected="USD"
+                    setHandleOnChange={handleCurrencyChange}
+                    selected={selectedCurrency}
                   />
                   <CustomTextField
                     required
@@ -239,7 +249,7 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
                 <GrayText>Bid Proposal </GrayText>
                 <StyledTextArea
                   rowsMin={3}
-                  placeholder="Enter bid proposal"
+                  // placeholder="Enter bid proposal"
                   id="bidDescription"
                   name="bidDescription"
                   maxLength={500}

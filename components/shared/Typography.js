@@ -11,7 +11,7 @@ const Text = styled(Typography)`
       : props.color === 'gray' // New condition for gray color
       ? '#a6a6a6'
       : '#525252'};
-  // font-size: ${(props) =>
+  font-size: ${(props) =>
     props.size === 'large' ? '20px' : props.size === 'small' ? '10px' : '14px'};
   text-align: ${(props) => (props.align === 'center' ? 'center' : 'left')};
 `;

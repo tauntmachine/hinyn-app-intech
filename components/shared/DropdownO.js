@@ -87,6 +87,7 @@ export default function DropdownO({
             bgcolor={bgcolor}
             disableUnderline={true}
             placeholder="asdjh"
+            defaultLabel={defaultLabel}
           >
             {items &&
               items.map((item, idx) => (

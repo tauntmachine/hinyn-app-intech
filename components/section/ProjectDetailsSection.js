@@ -201,9 +201,9 @@ const ProjectDetailsSection = () => {
   const loggedInCid = localStorage.getItem('hinyn-cid');
 
   useEffect(() => {
-    console.log('id of project', project);
+    // console.log('id of project', project);
     getProposalsOfClientOnABid(project).then((res) => {
-      console.log(res);
+      // console.log(res);
       if (res?.data?.data) {
         if (res?.data?.data.length > 0) setUserHasProposal(() => true);
       }
@@ -326,14 +326,11 @@ const ProjectDetailsSection = () => {
                       <Title color="red">{bidData?.title}</Title>
                       <Column>
                         <Text color="green" fontWeight="bold">
-                          {/* ${bidData?.bid.min} - $ */}
-                          {/* {bidData?.bid.max} */}
                           {bidData?.maxBudget === 0 ? '' : bidData?.maxBudget}
                           {bidData?.currency ?? 'AED'}
                         </Text>
                         <Text>
                           {moment(bidData?.createdDate).format('DD-MMM-YYYY')}
-                          {/* Bidding end in 5 days */}
                         </Text>
                       </Column>
                     </Row>
@@ -388,8 +385,7 @@ const ProjectDetailsSection = () => {
                 <SideboxWrapper>
                   <Row>
                     <Text color="red" fontSize="14px">
-                      {/* {clientData?.firstName} {clientData?.lastName} */}
-                      State Washington
+                      {clientData?.firstName} {clientData?.lastName}
                     </Text>
                   </Row>
                   <Row sx={{ alignItems: 'center' }}>
