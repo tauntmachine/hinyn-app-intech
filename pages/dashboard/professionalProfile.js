@@ -191,8 +191,8 @@ const ProfessionalProfile = () => {
         if (res?.data?.data) {
           // console.log('res data', res?.data?.data.attributes);
           setClientData(() => res?.data?.data?.attributes);
-          // setClientSkills(clientData.categories.data.attributes);
-          // console.log(clientSkills);
+          // if (res) setClientCategories(() => res);
+          // console.log(clientCategories);
         }
       });
     }
@@ -403,7 +403,10 @@ const ProfessionalProfile = () => {
           </Grid>
         </Grid>
         <Modal2 handleClose={handleClose} isOpen={open} maxWidth="md">
-          <BidFreelancerForm2 handleBidSubmit={handleBidSubmit} />
+          <BidFreelancerForm2
+            handleBidSubmit={handleBidSubmit}
+            data={clientData}
+          />
         </Modal2>
       </Container>
       <Footer />

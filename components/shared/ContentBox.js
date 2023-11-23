@@ -4,7 +4,7 @@ import { UserIcon } from './Icon';
 
 const Container = styled.div`
   margin-bottom: 1rem;
-  width: ${(props) => (props.setWidth ? '30rem' : '')};
+  width: ${(props) => (props.setWidth ? '32rem' : '')};
 `;
 
 const Header = styled.div`

@@ -39,9 +39,12 @@ import {
 import { BiUser } from 'react-icons/bi';
 import { RiSuitcaseLine } from 'react-icons/ri';
 import { GoLocation } from 'react-icons/go';
-
+import { PiProjectorScreen } from 'react-icons/pi';
 export const Cross = styled(RxCross1)`
   font-size: 12px;
+`;
+export const ProjectIcon = styled(PiProjectorScreen)`
+  font-size: 20px;
 `;
 export const AddIcon = styled(IoAdd)`
   color: ${(props) =>

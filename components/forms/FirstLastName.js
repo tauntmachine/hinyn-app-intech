@@ -95,11 +95,11 @@ function FirstLastName({ handleNextClick }) {
   const handleCloseCameraModal = () => {
     setOpenCameraModal(false);
   };
-  const toggleOpenCameraModal = () => {
-    // if (filename) {
-    setOpenCameraModal(!openCameraModal);
-    // }
-  };
+  // const toggleOpenCameraModal = () => {
+  //   // if (filename) {
+  //   setOpenCameraModal(!openCameraModal);
+  //   // }
+  // };
 
   const [isValid, setValid] = useState({
     firstname: false,
@@ -163,20 +163,20 @@ function FirstLastName({ handleNextClick }) {
     Router.push('/RegistrationForm');
   };
 
-  const handleUpload = (e) => {
-    if (!e.target.files) {
-      return;
-    }
-    const file = e.target.files[0];
-    const { name } = file;
-    setFilename(name);
-    toggleOpenCameraModal();
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setSelectedImage(e.target.result);
-    };
-    reader.readAsDataURL(file);
-  };
+  // const handleUpload = (e) => {
+  //   if (!e.target.files) {
+  //     return;
+  //   }
+  //   const file = e.target.files[0];
+  //   const { name } = file;
+  //   setFilename(name);
+  //   toggleOpenCameraModal();
+  //   const reader = new FileReader();
+  //   reader.onload = (e) => {
+  //     setSelectedImage(e.target.result);
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
   const UploadImage = () => {
     setSelectedImage(webRef.current.getScreenshot());
     handleCloseCameraModal();
@@ -193,7 +193,7 @@ function FirstLastName({ handleNextClick }) {
             component="label"
             // variant="outlined"
             sx={{ marginRight: '1rem' }}
-            onClick={toggleOpenCameraModal}
+            // onClick={toggleOpenCameraModal}
           >
             {selectedImage ? (
               <Image

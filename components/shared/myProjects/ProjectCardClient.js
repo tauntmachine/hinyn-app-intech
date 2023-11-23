@@ -106,31 +106,30 @@ const ProjectCardClient = ({ projectDetail, budget }) => {
       </Row>
       <Row>
         <Container maxWidth="md">
-          <Text color="red" fontSize="20px" align="center">
+          <Text color="red" size="large" align="center">
             <b>{projectDetail.title}</b>
           </Text>
         </Container>
       </Row>
       <Row sx={{ justifyContent: 'center' }}>
-        <GrayText fontSize="10px">Project ID {12313123123}</GrayText>
+        <Text color="gray" size="small">
+          Project ID {projectDetail.id}
+        </Text>
       </Row>
       <VerticalDivider />
       <Row sx={{ justifyContent: 'space-between' }}>
         <Text>Price</Text>
-        <Text color="green">{projectDetail.price} USD</Text>
+        <Text color="green">{projectDetail.maxBudget} USD</Text>
       </Row>
       <Row sx={{ justifyContent: 'space-between' }}>
         <Text>Location</Text>
         <Text color="green">
-          {projectDetail.city ??
-            '' + projectDetail.country}
+          {projectDetail.city ?? '' + projectDetail.country}
         </Text>
       </Row>
       <Row sx={{ justifyContent: 'space-between' }}>
         <Text>Date</Text>
-        <Text color="green">
-          {formatDate(projectDetail.deliveryDate)}
-        </Text>
+        <Text color="green">{formatDate(projectDetail.deliveryDate)}</Text>
       </Row>
       <VerticalDivider />
       <Row sx={{ justifyContent: 'center' }}>

@@ -1,6 +1,7 @@
 import { Box, Grid, Container, Typography, Modal } from '@mui/material';
 import ContentBox from '../../components/shared/ContentBox';
 import {
+  ProjectIcon,
   RightChevronIcon,
   RssIcon,
   UsersIcon,
@@ -18,6 +19,7 @@ import {
   getLoggedInUserData,
 } from '../forms/formService';
 import ProjectDetailsSection from './ProjectDetailsSection';
+import { useRouter } from 'next/router';
 const ContainerDiv = styled.div`
   width: 112rem;
   margin: 4rem 0 0 0;
@@ -107,10 +109,19 @@ const WelcomeCon = styled.div`
   background: green;
   margin: auto;
 `;
+const ListItemDiv = styled.div`
+  color: #707070;
+  padding: 15px 0;
+  align-items: center;
+  display: flex;
+  width: 91%;
+  justify-content: space-between;
+  // font-weight: bold;
+`;
 const NewsfeedSection = ({ accountType }) => {
   const [open, setOpen] = useState(false);
   const [userProjects, setUserProjects] = useState([]);
-
+  const router = useRouter();
   // useEffect(() => {
   //   const clientId = localStorage.getItem('hinyn-cid');
   //   if(clientId){
@@ -354,7 +365,7 @@ const NewsfeedSection = ({ accountType }) => {
   const getUserData = () => {
     return (
       <ContentBox
-        isScrollable={true}
+        isScrollable={false}
         hasHeader={true}
         headerTitle="Your Account"
         headerColor={'gray'}
@@ -395,15 +406,19 @@ const NewsfeedSection = ({ accountType }) => {
       </ContentBox>
     );
   };
-
+  const headerName =
+    accountType === 1 ? 'Your current projects' : 'Your projects';
   const getUserProjects = () => {
+    const showDetails = (projectId) => {
+      router.push(`/dashboard?screen=details&project=${projectId}`);
+    };
     return (
       <ContentBox
         isScrollable={false}
         hasHeader={true}
-        headerTitle="Your Projects"
+        headerTitle={headerName}
         headerColor={'gray'}
-        headerIcon={<UsersIcon />}
+        headerIcon={<ProjectIcon />}
         hasBodyIcon={false}
         padding={true}
         setWidth={true}
@@ -413,10 +428,13 @@ const NewsfeedSection = ({ accountType }) => {
             userProjects.map((project, idx) => (
               <>
                 {accountType === 1 ? (
-                  <ListItem key={'userprojects-' + idx}>
+                  <ListItemDiv
+                    key={'userprojects-' + idx}
+                    onClick={() => showDetails(project.id)}
+                  >
                     {project?.title}{' '}
                     <RightChevronIcon className="right-caret" />
-                  </ListItem>
+                  </ListItemDiv>
                 ) : (
                   <ListItem key={'userprojects-' + idx}>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -467,13 +485,13 @@ const NewsfeedSection = ({ accountType }) => {
         //   width: '97rem',
         // }}
         >
-          <Modal
+          {/* <Modal
             handleClose={handleClose}
             handleSubmit={handleSubmit}
             isOpen={true}
           >
             <WelcomeCon>asdasd</WelcomeCon>
-          </Modal>
+          </Modal> */}
           <Grid container columnSpacing={4}>
             <Grid item xs={6}>
               {newsfeedData &&
