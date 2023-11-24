@@ -112,7 +112,7 @@ export default function MemberShipCard({
             </TextCon>
 
             <DivText>
-              <Text fontSize="21px" fontWeight="bold">
+              <Text size="large" fontWeight="bold">
                 {Amount} AED
               </Text>
               <Text

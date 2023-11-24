@@ -12,7 +12,15 @@ const Text = styled(Typography)`
       ? '#a6a6a6'
       : '#525252'};
   font-size: ${(props) =>
-    props.size === 'large' ? '20px' : props.size === 'small' ? '10px' : '14px'};
+    props.size === 'large'
+      ? '20px'
+      : props.size === 'small'
+      ? '10px'
+      : props.size === 'xl'
+      ? '32px'
+      : props.size === 'xxl'
+      ? '37px'
+      : '14px'};
   text-align: ${(props) => (props.align === 'center' ? 'center' : 'left')};
 `;
 

@@ -58,16 +58,15 @@ const VerticalDivider = styled.div`
   height: 2rem;
   width: 100%;
 `;
-
-function EmailVerifyForm2({ handleNextClick }) {
+const BackCon = styled.div`
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+`;
+function EmailVerifyForm2({ handleNextClick, handleBack, name, email }) {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const data = {
-    firstName: 'Samantha',
-    email: 'test@email.com',
   };
 
   function submitHandler(event) {
@@ -80,39 +79,42 @@ function EmailVerifyForm2({ handleNextClick }) {
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Text fontSize="38px">
-            <b>Thanks, {data.firstName}!</b>
+          <Text size="xl">
+            <b>Thanks, {name}!</b>
           </Text>
           <VerticalDivider />
           <EmailIconContainer>
             <StyledEmailIcon />
           </EmailIconContainer>
           <VerticalDivider />
-          <Text fontSize="28px">Your email is verified</Text>
+          <Text size="large">Your email is verified</Text>
           <Box sx={{ mt: 3, width: '100%' }}>
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
                 <FieldVerify>
-                  <Text marginTop="8px" marginLeft="120px" color="green">
-                    {data.email}
+                  <Text marginTop="8px" marginLeft="20px" color="green">
+                    {email}
                   </Text>
                 </FieldVerify>
-                {/* <StyledTextField
-                      required
-                      fullWidth
-                      id="email"
-                      name="email"
-                      value={data.email}
-                      disabled="true"
-                    /> */}
               </Grid>
             </Grid>
             <ButtonContainer>
-              <Text>
-                <BackIcon isabsolute={false} />
-                <span style={{ marginLeft: '1rem' }}>Go Back</span>
-              </Text>
-              <StyledButton onClick={submitHandler}>NEXT</StyledButton>
+              <BackCon onClick={handleBack}>
+                <BackIcon
+                  isabsolute={false}
+                  style={{ margin: 'auto', fontSize: '16.5px' }}
+                />
+                <Text
+                  style={{
+                    marginLeft: '1rem',
+                    fontSize: '12.5px',
+                    marginTop: '2px',
+                  }}
+                >
+                  Go Back
+                </Text>
+              </BackCon>
+              <StyledButton onClick={handleNextClick}>NEXT</StyledButton>
             </ButtonContainer>
           </Box>
         </FormContainer>

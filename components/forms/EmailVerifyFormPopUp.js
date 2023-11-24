@@ -45,7 +45,7 @@ const LogoDiv = styled.div`
   width: 50px;
   margin: 0 30px 0 0;
 `;
-function EmailVerifyFormPopUp({ handleNextClick }) {
+function EmailVerifyFormPopUp({ handleNextClick, name, email }) {
   return (
     <MainContainer>
       <TopDiv>
@@ -70,7 +70,7 @@ function EmailVerifyFormPopUp({ handleNextClick }) {
       <SecondDiv>
         <Logo />
         <Text fontWeight="bold" marginTop="13px" fontSize="15px">
-          Hi Samantha,
+          Hi {name},
         </Text>
         <Text marginTop="13px">
           We Hinyn To learn more about Next.js, take a look at the following

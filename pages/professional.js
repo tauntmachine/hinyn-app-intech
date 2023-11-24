@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Box, Container } from '@mui/material';
 import Logo from '../components/shared/Logo';
 import ProgressBar from '../components/shared/ProgressBar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FirstLastName from '../components/forms/FirstLastName';
 import CategorySkills from '../components/forms/CategorySkills';
 import WhatYouDo from '../components/forms/WhatYouDo';
@@ -19,7 +19,7 @@ import UnverifiedAccountForm from '../components/forms/UnverifiedAccountForm';
 import ProfessionalFormPayment from '../components/forms/MemberShip';
 import MemberShip from '../components/forms/MemberShip';
 import EmailVerifyFormPopUp from '../components/forms/EmailVerifyFormPopUp';
-import { updateClientData } from '../components/forms/formService';
+import { getUserData, updateClientData } from '../components/forms/formService';
 import { async } from '../src/store';
 
 const MainBox = styled(Box)`
@@ -32,14 +32,28 @@ const MainBox = styled(Box)`
 
 function Professional() {
   const progressRate = 11;
-  const [currentActiveForm, setCurrentActiveForm] = useState(1);
+  const [currentActiveForm, setCurrentActiveForm] = useState(7);
   const [progressPercent, setProgressPercent] = useState(
     progressRate * currentActiveForm
   );
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [isAccountVerified, setIsAccountVerified] = useState('');
   const [currClientData, setCurrClientData] = useState(null);
   // const isAccountVerified = true; //fetch from API
-
+  useEffect(() => {
+    const req = localStorage.getItem('hinyn-clientData');
+    const res = JSON.parse(req);
+    // const getEmail = (res.id) => {
+    getUserData(res.id).then(async (result) => {
+      if (result?.data) {
+        setEmail(result.data?.email);
+        setName(result.data?.username);
+      }
+    });
+    //     .catch((e) => console.log('request update', e));
+    // };
+  }, []);
   const handleNextClick = (value) => {
     console.log('is verified', isAccountVerified);
     if (value) {
@@ -75,6 +89,7 @@ function Professional() {
               : res?.data?.isEmailVerified
           );
           setCurrClientData(res);
+
           localStorage.setItem(
             'hinyn-clientData',
             JSON.stringify(result?.data)
@@ -128,19 +143,28 @@ function Professional() {
         (isAccountVerified == null || !isAccountVerified) ? (
           <EmailVerifyForm1
             handleNextClick={handleNextClick}
-            name={currClientData?.firstName}
-            email={currClientData?.email}
+            name={name}
+            email={email}
             handleBack={goBack}
           />
         ) : null}
-        {/* {currentActiveForm === 10 && isAccountVerified ? (
-          <EmailVerifyFormPopUp handleNextClick={handleNextClick} />
-        ) : null} */}
-        {/* {currentActiveForm === 10 && isAccountVerified ? (
-          <EmailVerifyForm2 handleNextClick={handleNextClick} />
-        ) : null} */}
-
         {currentActiveForm === 9 ? (
+          <EmailVerifyFormPopUp
+            handleNextClick={handleNextClick}
+            name={name}
+            email={email}
+          />
+        ) : null}
+        {currentActiveForm === 10 ? (
+          <EmailVerifyForm2
+            handleNextClick={handleNextClick}
+            handleBack={goBack}
+            name={name}
+            email={email}
+          />
+        ) : null}
+
+        {currentActiveForm === 11 ? (
           <MemberShip handleNextClick={handleNextClick} handleBack={goBack} />
         ) : null}
         {/* {currentActiveForm === 11 ? (

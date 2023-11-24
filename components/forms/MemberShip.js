@@ -146,7 +146,8 @@ const ButtonContainer = styled.div`
 const TitleCon = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: 20rem;
+
+  justify-content: center;
 `;
 const BackCon = styled.div`
   display: flex;
@@ -174,9 +175,12 @@ function MemberShip({ handleNextClick, handleBack }) {
   return (
     <>
       <Container maxWidth="md" sx={{ marginBottom: '2rem', marginTop: '4rem' }}>
-        <Text fontSize="35px" fontWeight="bold" marginLeft="10rem">
-          Maximize your success earnings!
-        </Text>
+        <TitleCon>
+          <Text size="xxl" fontWeight="bold">
+            Maximize your success earnings!
+          </Text>
+        </TitleCon>
+
         <TitleCon>
           <Text style={{ display: 'flex' }}>
             Try a{' '}

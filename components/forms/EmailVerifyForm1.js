@@ -70,38 +70,8 @@ const BackCon = styled.div`
   flex-direction: row;
   cursor: pointer;
 `;
-function EmailVerifyForm1({ handleNextClick, handleBack }) {
+function EmailVerifyForm1({ handleNextClick, handleBack, name, email }) {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    console.log('use effect - ', data);
-  }, [data]);
-
-  useEffect(() => {
-    getStoredClient();
-  }, []);
-
-  const getStoredClient = async () => {
-    const req = localStorage.getItem('hinyn-clientData');
-    const res = JSON.parse(req);
-    console.log('res - ', res);
-    setName(res?.attributes?.firstName);
-    setData(res.attributes);
-    getEmail(res.id);
-  };
-
-  const getEmail = (id) => {
-    getUserData(id)
-      .then(async (result) => {
-        if (result?.data) {
-          setEmail(result.data?.email);
-        }
-      })
-      .catch((e) => console.log('request update', e));
-  };
 
   const handleClose = () => {
     setOpen(false);
@@ -112,7 +82,7 @@ function EmailVerifyForm1({ handleNextClick, handleBack }) {
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Text fontSize="34px">
+          <Text size="xl">
             <b>Almost there, {name ? name : 'Samantha'}!</b>
           </Text>
           <VerticalDivider />
@@ -120,8 +90,8 @@ function EmailVerifyForm1({ handleNextClick, handleBack }) {
             <StyledEmailIcon />
           </EmailIconContainer>
           <VerticalDivider />
-          <Text fontSize="25px">Check your email to Verify </Text>
-          <Text fontSize="25px">your account</Text>
+          <Text size="large">Check your email to Verify </Text>
+          <Text size="large">your account</Text>
           <Box sx={{ mt: 3, width: '100%' }}>
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
