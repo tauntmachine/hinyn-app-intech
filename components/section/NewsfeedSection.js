@@ -16,6 +16,8 @@ import { useEffect, useState } from 'react';
 import {
   getBidData,
   getBidsOfClient,
+  getClientData,
+  getClientDataBids,
   getLoggedInUserData,
 } from '../forms/formService';
 import ProjectDetailsSection from './ProjectDetailsSection';
@@ -56,6 +58,7 @@ const UploadIdBox = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px 25px;
+  margin: 16px 0;
 `;
 const ListItem = styled.div`
   color: #555555;
@@ -117,11 +120,15 @@ const ListItemDiv = styled.div`
   width: 91%;
   justify-content: space-between;
   // font-weight: bold;
+  cursor: pointer;
 `;
 const NewsfeedSection = ({ accountType }) => {
   const [open, setOpen] = useState(false);
   const [userProjects, setUserProjects] = useState([]);
   const router = useRouter();
+  const showDetails = (projectId) => {
+    router.push(`/dashboard?screen=details&project=${projectId}`);
+  };
   // useEffect(() => {
   //   const clientId = localStorage.getItem('hinyn-cid');
   //   if(clientId){
@@ -133,20 +140,30 @@ const NewsfeedSection = ({ accountType }) => {
   //   }
   // }, [])
 
-  useEffect(() => {
-    const clientId = localStorage.getItem('hinyn-cid');
+  const clientId = localStorage.getItem('hinyn-cid');
+  const clientData = {
+    id: clientId,
+  };
 
-    getBidsOfClient().then((res) => {
-      let resList = [];
-      if (res?.data?.data) {
-        res?.data?.data.map((item) => {
-          let resObj = { id: item?.id, ...item?.attributes };
-          resList = [...resList, resObj];
+  useEffect(() => {
+    accountType === 2
+      ? getClientDataBids(clientData).then((res) => {
+          if (res) {
+            setUserProjects(res.data.data.attributes.bids.data);
+            console.log(res.data.data.attributes.bids.data);
+          }
+        })
+      : getBidsOfClient().then((res) => {
+          let resList = [];
+          if (res?.data?.data) {
+            res?.data?.data.map((item) => {
+              let resObj = { id: item?.id, ...item?.attributes };
+              resList = [...resList, resObj];
+            });
+            // console.log('list -- ', resList);
+            setUserProjects(resList);
+          }
         });
-        // console.log('list -- ', resList);
-        setUserProjects(resList);
-      }
-    });
   }, []);
   const handleClose = () => {
     setOpen(false);
@@ -408,10 +425,8 @@ const NewsfeedSection = ({ accountType }) => {
   };
   const headerName =
     accountType === 1 ? 'Your current projects' : 'Your projects';
+
   const getUserProjects = () => {
-    const showDetails = (projectId) => {
-      router.push(`/dashboard?screen=details&project=${projectId}`);
-    };
     return (
       <ContentBox
         isScrollable={false}
@@ -436,9 +451,12 @@ const NewsfeedSection = ({ accountType }) => {
                     <RightChevronIcon className="right-caret" />
                   </ListItemDiv>
                 ) : (
-                  <ListItem key={'userprojects-' + idx}>
+                  <ListItem
+                    key={'userprojects-' + idx}
+                    onClick={() => showDetails(project.id)}
+                  >
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                      {project?.title}
+                      {project?.attributes.title}
                       {accountType === 2 ? (
                         <Box
                           sx={{

@@ -40,6 +40,7 @@ import { useFreelancer } from '../../src/store';
 import { addBidData, getCategories } from './formService';
 import DropdownO from '../shared/DropdownO';
 import { budget, locations, ageGroupOptions } from '../models/filters.models';
+import { RxValue } from 'react-icons/rx';
 
 const FormContainer = styled(Box)`
   display: flex;
@@ -459,19 +460,45 @@ function PostProjectForm1({ handleNextClick }) {
   // };
 
   useEffect(() => {
-    let catList = [];
-
     getCategories().then((result) => {
       if (result?.data) {
-        result?.data?.data.map((item) => {
-          let temp = { id: item.id, ...item.attributes };
-          // setCategories((prev) => prev.concat({ ...item.attributes, ...temp }));
-          catList = [...catList, { ...temp }];
+        setCategories(() => []);
+        result?.data?.data.map((item, idx) => {
+          const temp = { id: item.id };
+          setCategories((prev) =>
+            prev.concat({
+              ...item?.attributes,
+              ...temp,
+            })
+          );
+          if (idx === 0) {
+            setSelectedCategory(() => item.attributes.key);
+            const res = item?.attributes?.skills?.data.map((skill) => {
+              return {
+                id: skill.id,
+                key: skill?.attributes?.slug,
+                ...skill?.attributes,
+              };
+            });
+            setSkills(() => res);
+            setSelectedSkill(() => res[0]?.key);
+          }
         });
-        setCategories(catList);
-        // console.log(categories);
       }
     });
+    // let catList = [];
+
+    // getCategories().then((result) => {
+    //   if (result?.data) {
+    //     result?.data?.data.map((item) => {
+    //       let temp = { id: item.id, ...item.attributes };
+    //       // setCategories((prev) => prev.concat({ ...item.attributes, ...temp }));
+    //       catList = [...catList, { ...temp }];
+    //     });
+    //     setCategories(catList);
+    //     // console.log(categories);
+    //   }
+    // });
   }, []);
   const onLanguagesSearchChange = (e) => {
     onLanguageClick(e.target.textContent);
@@ -818,10 +845,8 @@ function PostProjectForm1({ handleNextClick }) {
     }
   };
 
-  const handleSkillsChange = (val) => {
-    console.log('skill', val);
-    setSelectedSkill(() => val);
-    // console.log(selectedSkill);
+  const handleSkillsChange = (value) => {
+    setSelectedSkill(() => value);
   };
   const handleCategoryChange = (index) => {
     setSelectedCategory(categories[index]);
@@ -832,8 +857,9 @@ function PostProjectForm1({ handleNextClick }) {
       listSkill = [...listSkill, { ...temp }];
     });
     setSkills(listSkill);
+    console.log('PostForm Skills', skills);
     // getCategorySkills(categoryId);
-    setSelectedSkill(() => []);
+    // setSelectedSkill(() => []);
   };
   const progress1 = () => {
     const toggleCategoryActiveState = (index) => {
@@ -956,14 +982,14 @@ function PostProjectForm1({ handleNextClick }) {
           free to modify these choices to best suit your needs.
         </Text>
         <Grid item xs={12}>
-          <DropdownO
+          <CustomDropdown
             hasLabel={false}
             items={skills}
             width="100%"
             type="outlined"
             setHandleOnChange={handleSkillsChange}
             selected={selectedSkill}
-            color={'red'}
+            color="red"
             defaultLabel="Select Skill"
           />
           {/* {errorMessage.ageGroup && <Error>{errorMessage.ageGroup}</Error>} */}

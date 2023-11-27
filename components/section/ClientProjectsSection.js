@@ -4,7 +4,11 @@ import styled from '@emotion/styled';
 import Dropdown2 from '../shared/Dropdown2';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getBidsOfClient, getProposalsOfClient, getClientData } from '../forms/formService';
+import {
+  getBidsOfClient,
+  getProposalsOfClient,
+  getClientData,
+} from '../forms/formService';
 import Text from '../shared/Typography';
 
 const CustomPagination = styled(Pagination)`
@@ -78,12 +82,12 @@ const ClientProjectsSection = () => {
     //   let resList = [];
     //   if (res?.data?.data) {
     //     console.log('item - ', res?.data?.data.attributes);
-        // res?.data?.data?.attributes?.bids?.data?.map((item) => {
-        //   let resObj = { id: item?.id, ...item?.attributes };
-        //   resList = [...resList, resObj];
-        // });
-        // console.log('list -- ', resList[0]);
-        // setClientBids(resList);
+    // res?.data?.data?.attributes?.bids?.data?.map((item) => {
+    //   let resObj = { id: item?.id, ...item?.attributes };
+    //   resList = [...resList, resObj];
+    // });
+    // console.log('list -- ', resList[0]);
+    // setClientBids(resList);
     //   }
     // });
   }, []);
@@ -95,8 +99,8 @@ const ClientProjectsSection = () => {
           display: 'flex',
           gap: '1rem',
           marginTop: '1rem',
-          marginLeft: '13rem',
-          marginBottom: '10px',
+          marginBottom: '1rem',
+          width: '75%',
         }}
         maxWidth="xl"
       >

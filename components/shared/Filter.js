@@ -147,6 +147,7 @@ function Filter() {
         };
       });
       setSkills(() => res);
+      console.log('Filter Skills', skills);
     }
     setSelectedCategory(() => val);
   };

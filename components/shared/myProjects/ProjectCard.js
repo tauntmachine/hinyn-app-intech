@@ -107,7 +107,7 @@ const ProjectCard = ({ projectDetail, budget }) => {
       <Row>
         <Container maxWidth="md">
           <Text color="red" fontSize="20px" align="center">
-            <b>{projectDetail.bid.data.attributes.title}</b>
+            <b>{projectDetail.title}</b>
           </Text>
         </Container>
       </Row>
@@ -122,15 +122,12 @@ const ProjectCard = ({ projectDetail, budget }) => {
       <Row sx={{ justifyContent: 'space-between' }}>
         <Text>Location</Text>
         <Text color="green">
-          {projectDetail.bid.data.attributes.city ??
-            '' + projectDetail.bid.data.attributes.country}
+          {projectDetail.city ?? '' + projectDetail.country}
         </Text>
       </Row>
       <Row sx={{ justifyContent: 'space-between' }}>
         <Text>Date</Text>
-        <Text color="green">
-          {formatDate(projectDetail.bid.data.attributes.deliveryDate)}
-        </Text>
+        <Text color="green">{formatDate(projectDetail.deliveryDate)}</Text>
       </Row>
       <VerticalDivider />
       <Row sx={{ justifyContent: 'center' }}>

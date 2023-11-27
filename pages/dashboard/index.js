@@ -26,7 +26,7 @@ const Index = () => {
 
   useEffect(() => {
     if (project && screen) setCurrentTab(1);
-    if (screen === 'browse') setCurrentTab(1);
+    // if (screen === 'browse') setCurrentTab(1);
     const id = localStorage.getItem('hinyn-cid');
     if (id) {
       getClientData({ id }).then((res) => {

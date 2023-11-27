@@ -3,7 +3,7 @@ import ProjectCard from '../shared/myProjects/ProjectCard';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getProposalsOfClient } from '../forms/formService';
+import { getBidsOfClient, getProposalsOfClient } from '../forms/formService';
 // import { useQuery } from 'react-query';
 import Dropdown2 from '../shared/Dropdown2';
 
@@ -62,9 +62,9 @@ const MyProjectsSection = () => {
   ];
 
   useEffect(() => {
-    getProposalsOfClient().then((res) => {
+    getBidsOfClient().then((res) => {
+      let resList = [];
       if (res?.data?.data) {
-        let resList = [];
         res?.data?.data.map((item) => {
           let resObj = { id: item?.id, ...item?.attributes };
           resList = [...resList, resObj];
@@ -73,6 +73,17 @@ const MyProjectsSection = () => {
         setProposals(resList);
       }
     });
+    //   getProposalsOfClient().then((res) => {
+    //     if (res?.data?.data) {
+    //       let resList = [];
+    //       res?.data?.data.map((item) => {
+    //         let resObj = { id: item?.id, ...item?.attributes };
+    //         resList = [...resList, resObj];
+    //       });
+    //       console.log('list -- ', resList[0]);
+    //       setProposals(resList);
+    //     }
+    //   });
   }, []);
 
   return (
@@ -82,8 +93,7 @@ const MyProjectsSection = () => {
           display: 'flex',
           gap: '1rem',
           marginTop: '1rem',
-          marginLeft: '13rem',
-          marginBottom: '10px',
+          width: '75%',
         }}
         maxWidth="xl"
       >
