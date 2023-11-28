@@ -41,17 +41,20 @@ const LoginContainer = styled.div`
   column-gap: ${(props) => (props.account == 1 ? '1rem' : '2.4rem')};
   align-items: center;
   padding-left: 20px;
-  // justify-content: space-between;
+  
+ =
 `;
 const LoginHoverBox = styled.div`
-  background: green;
+  background: white;
   position: absolute;
-  top: 100%; /* Position it below the parent element */
-  left: 0;
-  width: 100%;
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0.3s, opacity 0.3s;
+  top: 100%;
+  width: 16rem;
+  visibility: ${(props) => (props.hover ? '' : 'hidden')};
+  opacity: ${(props) => (props.hover ? '1' : '0.6')};
+  transition: 0.3s;
+  paddding: 2px 0;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 const LinkText = styled.div`
   cursor: pointer;
@@ -143,12 +146,38 @@ const IconsDiv = styled.div`
   width: 30rem;
   background: green;
 `;
+const CustomText = styled.div`
+  padding: 13px 20px;
+  color: ${(props) => (props.hovered ? '#eb4c60' : '')};
+  background: ${(props) => (props.hovered ? '#f5f5f5' : 'transparent')};
+  transition: color 0.3s, background 0.3s;
 
+  &:hover {
+    color: #eb4c60;
+    background: #ffedef;
+  }
+`;
+const Line = styled.div`
+  width: 100%;
+  background: #eb4c60;
+  height: 3px;
+`;
+const Line2 = styled.div`
+  width: 70%;
+  background: #eb4c60;
+  height: 0.5px;
+  opacity: 0.3;
+  margin: auto;
+`;
+const ContainerHover = styled.div`
+  width: 15rem;
+`;
 function DashboardHeader({ currentTab, setTabChange, account }) {
   const imgpath = '/assets/img/avatars/';
   const [userData, setUserData] = useState({});
   // const [account, setaccount] = useState(account);
   const [hover, setHover] = useState(false);
+
   const router = useRouter();
 
   const showUserProfile = () => {
@@ -159,6 +188,9 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
     setHover(true);
   };
 
+  const loginHoverOut = () => {
+    setHover(false);
+  };
   const showBrowseProjects = () => {
     router.push('/dashboard?screen=browse');
   };
@@ -257,7 +289,7 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
             </Box>
             {/* {account === 1 ? <IconsDiv></IconsDiv> : ''} */}
           </Box>
-          <LoginContainer onFocus={loginHover}>
+          <LoginContainer>
             <Box
               sx={{
                 display: 'flex',
@@ -282,8 +314,19 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
               </Box>
             </Box>
             {showCTAButton()}
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-              <ImageContainer onClick={() => showUserProfile()}>
+
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '20px',
+                cursor: 'pointer',
+                marginLeft: '26px',
+              }}
+              onMouseEnter={loginHover}
+              onMouseLeave={loginHoverOut}
+            >
+              <ImageContainer>
                 <StyledImage
                   src={
                     userData?.displayPhoto
@@ -302,18 +345,29 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
                 }}
               >
                 <Text color={account === 1 ? 'green' : 'red'}>
-                  Hi, {userData?.firstName}
+                  <b> Hi, {userData?.firstName}!</b>
                 </Text>
                 <Text>
                   {userData?.cash?.toLocaleString() ?? ''} {'$49,320 USD'}
                 </Text>
               </Box>
-              <Box>
-                <StyledLogoutIcon onClick={handleLogoutUser} />
-              </Box>
+              <LoginHoverBox hover={hover}>
+                <Line></Line>
+                <a onClick={showUserProfile}>
+                  {' '}
+                  <CustomText hover={hover}>Profile</CustomText>
+                </a>
+
+                <CustomText hover={hover}>Settings</CustomText>
+                <CustomText hover={hover}>Wallet</CustomText>
+                <CustomText hover={hover}>Support</CustomText>
+                <Line2></Line2>
+                <a onClick={handleLogoutUser}>
+                  <CustomText hover={hover}>Logout</CustomText>
+                </a>
+              </LoginHoverBox>
             </Box>
           </LoginContainer>
-          {/* <LoginHoverBox></LoginHoverBox> */}
         </Head>
       </CustomBox>
     </>

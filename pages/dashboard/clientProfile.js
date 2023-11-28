@@ -110,16 +110,16 @@ const ClientProfile = () => {
     },
   ];
 
-  // useEffect(() => {
-  //   const clientData = {
-  //     id: localStorage.getItem('hinyn-cid'),
-  //   };
-  //   getClientData(clientData).then((res) => {
-  //     if (res?.data?.data) {
-  //       setClientData(res?.data?.data?.attributes);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    const clientData = {
+      id: localStorage.getItem('hinyn-cid'),
+    };
+    getClientData(clientData).then((res) => {
+      if (res?.data?.data) {
+        setClientData(res?.data?.data?.attributes);
+      }
+    });
+  }, []);
 
   const handleChangeTab = (val) => {
     setCurrentTab(val);
@@ -152,15 +152,13 @@ const ClientProfile = () => {
                   <Row sx={{ gap: '14px', alignItems: 'center' }}>
                     <Name color="red">
                       <b>
-                        {/* {clientData?.firstName} {clientData?.lastName} */}
-                        Steve Washington
+                        {clientData?.firstName} {clientData?.lastName}
                       </b>
                     </Name>
                     <GrayText size="large">
                       {' '}
-                      {/* {clientData?.instagramProfile ??
-                        '@' + clientData?.firstName} */}
-                      @samantha123{' '}
+                      {clientData?.instagramProfile ??
+                        '@' + clientData?.firstName}
                     </GrayText>
                   </Row>
                   <Row sx={{ gap: '16px', alignItems: 'center' }}>
@@ -199,15 +197,7 @@ const ClientProfile = () => {
                     </Row>
                   </Column>
                   <Row>
-                    <GrayText>
-                      {/* {clientData?.headline ?? 'Headline'} */}
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Aliquam non orci vestibulum, congue est et, lacinia neque.
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Aliquam non orci vestibulum, congue est et, lacinia neque.
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </GrayText>
+                    <GrayText>{clientData?.headline ?? 'Headline'}</GrayText>
                   </Row>
                 </Column>
               </Row>

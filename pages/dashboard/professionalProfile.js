@@ -97,6 +97,35 @@ const DivButton = styled.div`
 
   width: 50rem;
 `;
+const LoginHoverBox = styled.div`
+  background: white;
+  position: absolute;
+  width: 16rem;
+  visibility: ${(props) => (props.hover ? '' : 'hidden')};
+  opacity: ${(props) => (props.hover ? '1' : '0.6')};
+  transition: 0.3s;
+  padding: 2px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1; // Make sure it's above other elements
+
+  /* Add some margin to prevent the box from closing when moving to it */
+  margin-top: 10px; // Adjust the value as needed
+`;
+
+const CustomText = styled.div`
+  padding: 13px 20px;
+  color: ${(props) => (props.hovered ? '#eb4c60' : '')};
+  background: ${(props) => (props.hovered ? '#f5f5f5' : 'transparent')};
+  transition: color 0.3s, background 0.3s;
+
+  &:hover {
+    color: #eb4c60;
+    background: #ffedef;
+  }
+`;
+
+const DivCon = styled.div``;
 const ProfessionalProfile = () => {
   const router = useRouter();
   let imgPath = '/assets/img/avatars/';
@@ -105,6 +134,7 @@ const ProfessionalProfile = () => {
   const [clientCategories, setClientCategories] = useState(null);
   const [currentTab, setCurrentTab] = useState(0);
   const [open, setOpen] = useState(false);
+  const [hover, setHover] = useState(false);
   const { fid } = router.query;
 
   const reviews = [
@@ -223,7 +253,13 @@ const ProfessionalProfile = () => {
   const handleBidSubmit = () => {
     setOpen(() => false);
   };
+  const loginHover = () => {
+    setHover(true);
+  };
 
+  const loginHoverOut = () => {
+    setHover(false);
+  };
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
       <DashboardHeader setTabChange={handleChangeTab} currentTab={currentTab} />
@@ -251,7 +287,6 @@ const ProfessionalProfile = () => {
                       sx={{
                         gap: '14px',
                         alignItems: 'center',
-
                         width: '40rem',
                       }}
                     >
@@ -267,7 +302,24 @@ const ProfessionalProfile = () => {
                       </GrayText>
                     </Row>
                     {/* <Button onClick={handleOpen}>Send Bid</Button> */}
-                    <Dots color="red" onClick={handleOpen} />
+                    <DivCon>
+                      <Dots
+                        color="red"
+                        onMouseEnter={loginHover}
+                        onMouseLeave={loginHoverOut}
+                      />
+                      <LoginHoverBox hover={hover}>
+                        {' '}
+                        <CustomText hover={hover}>
+                          Add to My Freelancers
+                        </CustomText>
+                        <a onClick={handleOpen}>
+                          <CustomText hover={hover}>send a bid</CustomText>
+                        </a>
+                        <CustomText hover={hover}>send a message</CustomText>
+                        <CustomText hover={hover}>Report</CustomText>
+                      </LoginHoverBox>
+                    </DivCon>
                   </DivButton>
                   <Row sx={{ gap: '16px', alignItems: 'center' }}>
                     <StarRating data={clientData?.rating ?? 3} sz="xl" />
