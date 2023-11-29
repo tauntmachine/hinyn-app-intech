@@ -207,39 +207,48 @@ const ProfessionalProfile = () => {
     ],
   };
 
+  // useEffect(() => {
+  //   if (fid) {
+  //     const clientData = {
+  //       user: {
+  //         data: {
+  //           id: fid,
+  //         },
+  //       },
+  //     };
+
+  //     getClientData(clientData.user.data).then((res) => {
+  //       if (res?.data?.data) {
+  //         // console.log('res data', res?.data?.data.attributes);
+  //         setClientData(() => res?.data?.data?.attributes);
+  //         // if (res) setClientCategories(() => res);
+  //         console.log(clientData);
+  //       }
+  //     });
+  //   }
+  //   // const clientData = {
+  //   //   id: localStorage.getItem('hinyn-cid'),
+  //   // };
+  //   // getClientData(clientData).then((res) => {
+  //   //   if (res?.data?.data) {
+  //   //     setClientData(() => res?.data?.data?.attributes);
+  //   //     if (res?.data?.data?.attributes?.categories?.data)
+  //   //       setClientCategories(
+  //   //         () => res?.data?.data?.attributes?.categories?.data
+  //   //       );
+  //   //   }
+  //   // });
+  // }, [fid]);
   useEffect(() => {
-    if (fid) {
-      const clientData = {
-        user: {
-          data: {
-            id: fid,
-          },
-        },
-      };
-
-      getClientData(clientData.user.data).then((res) => {
-        if (res?.data?.data) {
-          // console.log('res data', res?.data?.data.attributes);
-          setClientData(() => res?.data?.data?.attributes);
-          // if (res) setClientCategories(() => res);
-          // console.log(clientCategories);
-        }
-      });
-    }
-    // const clientData = {
-    //   id: localStorage.getItem('hinyn-cid'),
-    // };
-    // getClientData(clientData).then((res) => {
-    //   if (res?.data?.data) {
-    //     setClientData(() => res?.data?.data?.attributes);
-    //     if (res?.data?.data?.attributes?.categories?.data)
-    //       setClientCategories(
-    //         () => res?.data?.data?.attributes?.categories?.data
-    //       );
-    //   }
-    // });
-  }, [fid]);
-
+    const clientData = {
+      id: localStorage.getItem('hinyn-cid'),
+    };
+    getClientData(clientData).then((res) => {
+      if (res?.data?.data) {
+        setClientData(res?.data?.data?.attributes);
+      }
+    });
+  }, []);
   const handleChangeTab = (val) => {
     setCurrentTab(val);
     router.push('/dashboard');

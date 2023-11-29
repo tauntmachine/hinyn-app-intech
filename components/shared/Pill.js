@@ -119,8 +119,7 @@ export const PillWithIcon = ({ color, bg, category, noPadding }) => {
     <IconWrapper color={color} bg={bg} noPadding={noPadding}>
       <Icon>
         <Image
-          //   src={iconPath + data?.icon}
-
+          src={iconPath + data?.icon}
           alt="hinyn logo"
           layout="fill"
           class="icon-img"

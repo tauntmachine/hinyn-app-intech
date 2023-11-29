@@ -22,6 +22,7 @@ import {
 import { useRouter } from 'next/router';
 import moment from 'moment';
 import Modal from '../shared/Modal';
+import BidOnProjectForm from '../forms/BidOnProjectForm';
 
 const HeaderContainer = styled.div`
   background: #4aa398;
@@ -194,16 +195,15 @@ const ProjectDetailsSection = () => {
   const [clientData, setClientData] = useState({});
   const [userHasProposal, setUserHasProposal] = useState(false);
   const { project } = router.query;
-
+  const [open, setOpen] = useState(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [isBidOwner, setIsBidOwner] = useState(false);
   const [openCancelProject, setOpenCancelProject] = useState(false);
   const [openSuccessCancelModal, setOpenSuccessCancelModal] = useState(false);
   const loggedInCid = localStorage.getItem('hinyn-cid');
 
   useEffect(() => {
-    // console.log('id of project', project);
     getProposalsOfClientOnABid(project).then((res) => {
-      // console.log(res);
       if (res?.data?.data) {
         if (res?.data?.data.length > 0) setUserHasProposal(() => true);
       }
@@ -215,19 +215,26 @@ const ProjectDetailsSection = () => {
           ...res?.data?.data?.attributes,
         };
         setBidData(() => temp);
-
-        // if (temp?.client?.data?.id === parseInt(loggedInCid))
         setIsBidOwner(() => true);
-        setClientData(() => temp?.client?.data?.attributes);
+        if (temp?.client?.data?.id === parseInt(loggedInCid))
+          setClientData(() => temp?.client?.data?.attributes);
       }
     });
   }, []);
 
   const handleClose = (e, reason) => {
+    if (open) setOpen(false);
     if (openCancelProject) setOpenCancelProject(() => false);
     if (openSuccessCancelModal) setOpenSuccessCancelModal(() => false);
   };
 
+  const handleSubmit = (isSuccess) => {
+    if (isSuccess) {
+      setOpen(false);
+      setOpenSuccessModal(true);
+      // setOpenFinishModal(true);
+    }
+  };
   const handleCancelProject = () => {
     const statusData = {
       status: 99,
@@ -326,8 +333,8 @@ const ProjectDetailsSection = () => {
                       <Title color="red">{bidData?.title}</Title>
                       <Column>
                         <Text color="green" fontWeight="bold">
-                          {bidData?.maxBudget === 0 ? '' : bidData?.maxBudget}
-                          {bidData?.currency ?? 'AED'}
+                          {bidData?.maxBudget}
+                          {bidData?.currency ?? ' AED'}
                         </Text>
                         <Text>
                           {moment(bidData?.createdDate).format('DD-MMM-YYYY')}
@@ -376,7 +383,7 @@ const ProjectDetailsSection = () => {
             <Grid item xs={2.4}>
               <ContentBox className="title-wrapper">
                 <Box sx={{ display: 'flex', padding: '1.3rem ' }}>
-                  <Text color="green" fontSize="21px">
+                  <Text color="green" size="large">
                     Client Information
                   </Text>
                 </Box>
@@ -384,7 +391,7 @@ const ProjectDetailsSection = () => {
               <ContentBox className="main-wrapper">
                 <SideboxWrapper>
                   <Row>
-                    <Text color="red" fontSize="14px">
+                    <Text color="red" size="md">
                       {clientData?.firstName} {clientData?.lastName}
                     </Text>
                   </Row>
@@ -406,7 +413,7 @@ const ProjectDetailsSection = () => {
                     </Text>
                   </Row>
                   <VerticalDivider />
-                  <Text color="green" sx={{ fontSize: '16px' }}>
+                  <Text color="green" size="md">
                     Client Verification
                   </Text>
                   {bidData?.client?.verified &&
@@ -481,7 +488,9 @@ const ProjectDetailsSection = () => {
                           Applied
                         </CustomGreenButton>
                       ) : isBidOwner ? (
-                        <CustomGreenButton>Apply</CustomGreenButton>
+                        <CustomGreenButton onClick={() => setOpen(true)}>
+                          Apply
+                        </CustomGreenButton>
                       ) : (
                         <RedButton onClick={() => setOpenCancelProject(true)}>
                           Cancel Project
@@ -495,6 +504,12 @@ const ProjectDetailsSection = () => {
           </Grid>
         </Container>
       </ContentBoxWrapper>
+      <Modal handleClose={handleClose} isOpen={open} maxWidth="md">
+        <BidOnProjectForm
+          handleSubmit={handleSubmit}
+          proposals={bidData?.proposals}
+        />
+      </Modal>
       <Modal handleClose={handleClose} isOpen={openCancelProject} maxWidth="md">
         <Box sx={{ padding: '5rem 0' }}>
           <Column sx={{ alignItems: 'center' }}>

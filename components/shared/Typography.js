@@ -16,6 +16,8 @@ const Text = styled(Typography)`
       ? '20px'
       : props.size === 'small'
       ? '10px'
+      : props.size === 'md'
+      ? '17px'
       : props.size === 'xl'
       ? '32px'
       : props.size === 'xxl'

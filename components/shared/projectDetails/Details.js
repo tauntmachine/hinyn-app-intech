@@ -11,7 +11,6 @@ import BidOnProjectForm from '../../forms/BidOnProjectForm';
 import { Container } from '@mui/system';
 import { CautionIcon, CheckIcon } from '../Icon';
 import moment from 'moment';
-import Image from 'next/image';
 
 const VerticalDivider = styled.div`
   height: 1rem;
@@ -75,26 +74,8 @@ const CustomGreenButton = styled(GreenButton)`
     pointer-events: none;
   }
 `;
-const PillButton = styled.div`
-  padding: 7px 20px;
-  cursor: pointer;
-  border: 1px solid #4aa398;
-  border-radius: 40px;
-  color: #4aa398;
-  display: flex;
-  .Asad {
-  }
-  .Qwe {
-    margin: 5px 0 0 12px;
-  }
-`;
-const ImgDiv = styled.div`
-  .icon-img-box img {
-    filter: red;
-  }
-`;
+
 const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
-  // console.log(bidData);
   const projectDetails = {
     attachments: [
       'project-temp-1.jpeg',
@@ -145,35 +126,23 @@ const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
           <DescTitle>Looking for</DescTitle>
         </Row>
         <Row>
-          {/* <PillWithIcon color="green" bg="transparent" category={bidData} /> */}
-          <PillButton>
-            <Image
-              src={require('../../../public/assets/img/categories/icon-videographer.svg')}
-              alt="icon-img"
-              width="30px"
-              height="30px"
-              className="Asad"
-            />
-            <Text
-              color="green"
-              marginBottom="10px"
-              display="flex"
-              className="Qwe"
-            >
-              Photographer
-            </Text>
-          </PillButton>
+          <PillWithIcon
+            color="green"
+            bg="transparent"
+            category={bidData?.categories?.data[0]?.attributes?.slug}
+          />
         </Row>
         <Row>
           <DescTitle>Skills required for this project</DescTitle>
         </Row>
         <Row sx={{ gap: '1rem', flexWrap: 'wrap' }}>
-          {Array.isArray(bidData) &&
-            bidData.map((skill, idx) => (
+          {bidData?.skills?.data?.map((skill, idx) => {
+            return (
               <StaticPill bg="green" key={'skill-reqd-' + idx}>
-                {skill?.role}
+                {skill?.attributes?.title}
               </StaticPill>
-            ))}
+            );
+          })}
         </Row>
         <Row>
           <DescTitle>Languages required for this project</DescTitle>
@@ -196,7 +165,6 @@ const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
         </Row>
         <Row className="green-bg">
           {bidData?.city} {bidData?.country ?? 'N/A'}
-          {/* Fairmont, The Palm Dubai, United Arab Emirates */}
         </Row>
         <Row>
           <DescTitle>Event Date</DescTitle>
@@ -205,27 +173,17 @@ const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
           {bidData?.deliveryDate
             ? moment(bidData?.deliveryDate).format('DD-MMM-YYYY')
             : 'NA'}
-          {/* November, 7 2023 */}
         </Row>
         <Row>
           <DescTitle>Budget Range</DescTitle>
         </Row>
         <Row className="green-bg">
           {bidData?.minBudget} - {bidData?.maxBudget} AED
-          {/* $500+ */}
         </Row>
         <Row>
           <DescTitle>Description</DescTitle>
         </Row>
-        <Row className="green-bg">
-          {bidData?.description}
-          {/* You can start editing the page by modifying pages/index.tsx. The page
-          auto-updates as you edit the file. API routes can be accessed on This
-          endpoint can be edited in page sapi hello.ts. The pages/api directory
-          is mapped to api. Files in this directory You can start editing the
-          page by modifying pages/index.tsx. The page auto-updates as you edit
-          the file. */}
-        </Row>
+        <Row className="green-bg">{bidData?.description}</Row>
         <Row>
           <DescTitle>Attachments</DescTitle>
         </Row>
@@ -235,17 +193,11 @@ const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
         <Row>
           <DescTitle>Deliverables</DescTitle>
         </Row>
-        <Row className="green-bg">
-          {bidData?.numDeliverables ?? 0}
-          {/* 5,000 Pictures */}
-        </Row>
+        <Row className="green-bg">{bidData?.numDeliverables ?? 0}</Row>
         <Row>
           <DescTitle>Deadline</DescTitle>
         </Row>
-        <Row className="green-bg">
-          {bidData?.deliveryDate ?? 'NA'}
-          {/* November, 7 2023 */}
-        </Row>
+        <Row className="green-bg">{bidData?.deliveryDate ?? 'NA'}</Row>
         <Row sx={{ display: 'flex', justifyContent: 'center' }}>
           {userHasProposal ? (
             userDetails?.isProposedProject ? (
@@ -257,7 +209,7 @@ const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
                 Applied
               </CustomGreenButton>
             )
-          ) : isBidOwner ? (
+          ) : !isBidOwner ? (
             <CustomGreenButton onClick={() => setOpen(true)}>
               Apply
             </CustomGreenButton>
