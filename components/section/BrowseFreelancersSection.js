@@ -52,7 +52,7 @@ const MyFreelancersSection = () => {
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
       <SearchBarContainer>
-        <Text fontSize="31px" fontWeight="bold" margin="auto">
+        <Text size="xxl" fontWeight="bold" margin="auto">
           Browse
         </Text>
         <VerticalDivider />

@@ -75,7 +75,13 @@ const CustomGreenButton = styled(GreenButton)`
   }
 `;
 
-const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
+const Details = ({
+  userDetails,
+  bidData,
+  userHasProposal,
+  isBidOwner,
+  account,
+}) => {
   const projectDetails = {
     attachments: [
       'project-temp-1.jpeg',
@@ -126,11 +132,11 @@ const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
           <DescTitle>Looking for</DescTitle>
         </Row>
         <Row>
-          <PillWithIcon
+          {/* <PillWithIcon
             color="green"
             bg="transparent"
             category={bidData?.categories?.data[0]?.attributes?.slug}
-          />
+          /> */}
         </Row>
         <Row>
           <DescTitle>Skills required for this project</DescTitle>
@@ -198,7 +204,7 @@ const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
           <DescTitle>Deadline</DescTitle>
         </Row>
         <Row className="green-bg">{bidData?.deliveryDate ?? 'NA'}</Row>
-        <Row sx={{ display: 'flex', justifyContent: 'center' }}>
+        {/* <Row sx={{ display: 'flex', justifyContent: 'center' }}>
           {userHasProposal ? (
             userDetails?.isProposedProject ? (
               <CustomGreenButton onClick={() => setOpenFinishModal(true)}>
@@ -213,12 +219,12 @@ const Details = ({ userDetails, bidData, userHasProposal, isBidOwner }) => {
             <CustomGreenButton onClick={() => setOpen(true)}>
               Apply
             </CustomGreenButton>
-          ) : null}
-          {/* {userDetails?.isProposedProject  
+          ) : null} */}
+        {/* {userDetails?.isProposedProject  
                     ?  <CustomGreenButton onClick={() => setOpenFinishModal(true)}>Complete Project</CustomGreenButton>
                     : <CustomGreenButton onClick={() => setOpen(true)}>Apply</CustomGreenButton>
                 } */}
-        </Row>
+        {/* </Row> */}
       </MainWrapper>
       <Modal handleClose={handleClose} isOpen={open} maxWidth="md">
         <BidOnProjectForm

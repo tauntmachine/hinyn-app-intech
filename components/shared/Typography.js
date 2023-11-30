@@ -21,7 +21,7 @@ const Text = styled(Typography)`
       : props.size === 'xl'
       ? '32px'
       : props.size === 'xxl'
-      ? '37px'
+      ? '34px'
       : '14px'};
   text-align: ${(props) => (props.align === 'center' ? 'center' : 'left')};
 `;

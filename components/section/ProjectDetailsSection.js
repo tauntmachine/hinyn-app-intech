@@ -16,6 +16,8 @@ import Proposals from '../shared/projectDetails/Proposals';
 import Link from 'next/link';
 import {
   getBidData,
+  getClientData,
+  getLoggedInUserData,
   getProposalsOfClientOnABid,
   updateBidData,
 } from '../forms/formService';
@@ -200,9 +202,16 @@ const ProjectDetailsSection = () => {
   const [isBidOwner, setIsBidOwner] = useState(false);
   const [openCancelProject, setOpenCancelProject] = useState(false);
   const [openSuccessCancelModal, setOpenSuccessCancelModal] = useState(false);
+  const [accountType, setAccountType] = useState(0);
   const loggedInCid = localStorage.getItem('hinyn-cid');
 
   useEffect(() => {
+    getLoggedInUserData().then((res) => {
+      if (res.data) {
+        // console.log('asd', res.data?.client?.accountType);
+        setAccountType(res.data?.client?.accountType);
+      }
+    });
     getProposalsOfClientOnABid(project).then((res) => {
       if (res?.data?.data) {
         if (res?.data?.data.length > 0) setUserHasProposal(() => true);
@@ -215,9 +224,10 @@ const ProjectDetailsSection = () => {
           ...res?.data?.data?.attributes,
         };
         setBidData(() => temp);
-        setIsBidOwner(() => true);
+
         if (temp?.client?.data?.id === parseInt(loggedInCid))
-          setClientData(() => temp?.client?.data?.attributes);
+          setIsBidOwner(() => true);
+        setClientData(() => temp?.client?.data?.attributes);
       }
     });
   }, []);
@@ -367,6 +377,7 @@ const ProjectDetailsSection = () => {
                 {currentTab === 0 ? (
                   <Details
                     // userDetails={userDetails}
+                    account={accountType}
                     bidData={bidData}
                     userHasProposal={userHasProposal}
                     isBidOwner={isBidOwner}
@@ -487,14 +498,16 @@ const ProjectDetailsSection = () => {
                         <CustomGreenButton className="disabled">
                           Applied
                         </CustomGreenButton>
-                      ) : isBidOwner ? (
+                      ) : accountType === 1 ? (
                         <CustomGreenButton onClick={() => setOpen(true)}>
                           Apply
                         </CustomGreenButton>
-                      ) : (
+                      ) : isBidOwner ? (
                         <RedButton onClick={() => setOpenCancelProject(true)}>
                           Cancel Project
                         </RedButton>
+                      ) : (
+                        ''
                       )}
                     </Column>
                   </BidBoxWrapper>
