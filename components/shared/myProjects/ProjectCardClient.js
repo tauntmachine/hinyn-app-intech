@@ -75,7 +75,17 @@ const StyledPill = styled.div`
 const StatusText = styled.div`
   text-transform: capitalize;
 `;
-
+const GreenButtonCustom = styled.div`
+  border-radius: 21px;
+  border: 1px solid #4aa398;
+  padding: 0.75rem 2.5rem;
+  color: #4aa398;
+  cursor: pointer;
+  &:hover {
+    background: #4aa398;
+    color: white;
+  }
+`;
 const ProjectCardClient = ({ projectDetail, budget }) => {
   const router = useRouter();
 
@@ -133,13 +143,13 @@ const ProjectCardClient = ({ projectDetail, budget }) => {
       </Row>
       <VerticalDivider />
       <Row sx={{ justifyContent: 'center' }}>
-        <GreenButton
+        <GreenButtonCustom
           variant="outlined"
           onClick={() => showProjectDetails(projectDetail.id)}
           //
         >
           View Project
-        </GreenButton>
+        </GreenButtonCustom>
       </Row>
     </StyledCard>
   );

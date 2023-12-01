@@ -870,7 +870,7 @@ function PostProjectForm1({ handleNextClick }) {
     };
     return (
       <>
-        <Text fontSize="18px">
+        <Text size="md">
           <b>Choose a name for your project</b>
         </Text>
         <Grid item xs={12}>
@@ -899,7 +899,7 @@ function PostProjectForm1({ handleNextClick }) {
           {errorMessage.title && <Error>{errorMessage.title}</Error>}
         </Grid>
         <VerticalDivider />
-        <Text fontSize="18px">
+        <Text size="md">
           <b>Tell us the type of professional you&apos;ll need</b>
         </Text>
         <Grid item xs={12}>
@@ -930,7 +930,7 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         {/* start of gender */}
         <VerticalDivider />
-        <Text fontSize="18px">
+        <Text size="md">
           <b>Select the gender of the professional you&apos;ll need</b>
         </Text>
         <Grid item xs={12}>
@@ -958,7 +958,7 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         {/* start of age */}
         <VerticalDivider />
-        <Text fontSize="18px">
+        <Text size="md">
           <b>Select the age of the professional you&apos;ll need</b>
         </Text>
         <Grid item xs={12}>
@@ -974,7 +974,7 @@ function PostProjectForm1({ handleNextClick }) {
           {errorMessage.ageGroup && <Error>{errorMessage.ageGroup}</Error>}
         </Grid>
         <VerticalDivider />
-        <Text fontSize="18px">
+        <Text size="md">
           <b>What skills are required?</b>
         </Text>
         <Text marginY="10px">
@@ -997,7 +997,7 @@ function PostProjectForm1({ handleNextClick }) {
 
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text fontSize="18px">
+          <Text size="md">
             <b>Language</b>
           </Text>
           <Typography component="p" align="left" marginY="10px">
@@ -1053,7 +1053,7 @@ function PostProjectForm1({ handleNextClick }) {
       <>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text fontSize="19px" marginY="6px">
+          <Text size="md" marginY="6px">
             <b>Tell us where is the location of your project</b>
           </Text>
           <Autocomplete
@@ -1085,7 +1085,7 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text fontSize="19px" marginY="6px">
+          <Text size="md" marginY="6px">
             <b>Select the day required for your project</b>
           </Text>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -1104,7 +1104,7 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text fontSize="19px" marginY="6px">
+          <Text size="md" marginY="6px">
             <b>What is your budget?</b>
           </Text>
           <Autocomplete
@@ -1145,7 +1145,7 @@ function PostProjectForm1({ handleNextClick }) {
       <>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text fontSize="19px" marginY="6px">
+          <Text size="md" marginY="6px">
             <b>Tell us the story behind your project</b>
           </Text>
           <StyledTextArea
@@ -1182,7 +1182,7 @@ function PostProjectForm1({ handleNextClick }) {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <Text fontSize="19px">
+          <Text size="md">
             <b>Upload files</b>
           </Text>
           <Text marginY="6px">
@@ -1225,7 +1225,7 @@ function PostProjectForm1({ handleNextClick }) {
       <>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text fontSize="19px">
+          <Text size="md">
             <b>Deliverables</b>
           </Text>
           <Text fontSize="13.7px" fontWeight="bold" marginY="7px">
@@ -1285,7 +1285,7 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text fontSize="19px">
+          <Text size="md">
             <b>Choose upgrades for your project</b>
           </Text>
           <FormControl

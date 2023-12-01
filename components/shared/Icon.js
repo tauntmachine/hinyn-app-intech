@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FaChevronLeft, FaSearch } from 'react-icons/fa';
+import { FaChevronLeft, FaSearch, FaLongArrowAltLeft } from 'react-icons/fa';
 import { IoAdd } from 'react-icons/io5';
 import { RxCross1 } from 'react-icons/rx';
 import { MdOutlinePhotoSizeSelectActual, MdBrokenImage } from 'react-icons/md';
@@ -53,6 +53,10 @@ export const AddIcon = styled(IoAdd)`
       : props.variant === 'green'
       ? '#4AA398'
       : '#525252'};
+  font-size: 24px;
+`;
+export const BackIconForDetails = styled(FaLongArrowAltLeft)`
+  color: white;
   font-size: 24px;
 `;
 export const Check = styled(BsCheck2)`

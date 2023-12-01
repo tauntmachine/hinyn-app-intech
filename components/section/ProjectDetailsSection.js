@@ -9,12 +9,14 @@ import {
   XSquareIcon,
   LocationIcon,
   CheckIcon,
+  BackIconForDetails,
 } from '../shared/Icon';
 import StarRating from '../shared/StarRating';
 import Details from '../shared/projectDetails/Details';
 import Proposals from '../shared/projectDetails/Proposals';
 import Link from 'next/link';
 import {
+  deleteBidData,
   getBidData,
   getClientData,
   getLoggedInUserData,
@@ -38,7 +40,7 @@ const HeaderContainer = styled.div`
 
 const BackIcon = styled(MdKeyboardBackspace)`
   font-size: 24px;
-  font-weight: 600;
+
   margin: 0 9px 0 0;
 `;
 
@@ -184,10 +186,9 @@ const CustomLocationIcon = styled(LocationIcon)`
 `;
 
 const CustomGreenButton = styled(GreenButton)`
-  width: 60%;
   &.disabled {
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.7;
   }
 `;
 const ProjectDetailsSection = () => {
@@ -208,7 +209,6 @@ const ProjectDetailsSection = () => {
   useEffect(() => {
     getLoggedInUserData().then((res) => {
       if (res.data) {
-        // console.log('asd', res.data?.client?.accountType);
         setAccountType(res.data?.client?.accountType);
       }
     });
@@ -246,14 +246,15 @@ const ProjectDetailsSection = () => {
     }
   };
   const handleCancelProject = () => {
-    const statusData = {
-      status: 99,
-    };
-    updateBidData(statusData, bidData?.id).then((result) => {
-      if (result?.data) {
-        setOpenSuccessCancelModal(() => true);
-      }
-    });
+    if (deleteBidData(project))
+      // const statusData = {
+      //   status: 99,
+      // };
+      // updateBidData(statusData, bidData?.id).then((result) => {
+      //   if (result?.data) {
+      setOpenSuccessCancelModal(() => true);
+    //   }
+    // });
   };
 
   const listAllProjects = () => {
@@ -323,8 +324,15 @@ const ProjectDetailsSection = () => {
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
       <HeaderContainer>
-        <Container sx={{ display: 'flex', marginLeft: '8.5rem' }} maxWidth="xl">
-          <BackIcon />
+        <Container
+          sx={{
+            display: 'flex',
+            marginLeft: '6.5rem',
+          }}
+        >
+          <BackIconForDetails
+            style={{ marginRight: '14px', marginBottom: '2px' }}
+          />
           <BackText>
             <Link href="/dashboard">
               <a>Back to Project</a>
@@ -334,9 +342,9 @@ const ProjectDetailsSection = () => {
       </HeaderContainer>
       <ContentBoxWrapper>
         <Container maxWidth="xl">
-          <Grid container columnSpacing={1} marginLeft="85px">
+          <Grid container columnSpacing={1} sx={{ marginLeft: '4rem' }}>
             <Grid item xs={8}>
-              <ContentBox className="title-wrapper" background="red">
+              <ContentBox className="title-wrapper">
                 <TitleWrapper>
                   <Box>
                     <Row sx={{ justifyContent: 'space-between' }}>
@@ -384,6 +392,7 @@ const ProjectDetailsSection = () => {
                   ></Details>
                 ) : (
                   <Proposals
+                    account={accountType}
                     projectId={project}
                     bidData={bidData}
                     isBidOwner={isBidOwner}

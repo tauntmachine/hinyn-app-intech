@@ -76,13 +76,11 @@ const Tabs = styled.div`
 
 const TabItem = styled.div`
   cursor: pointer;
-  font-weight: ;
 
   &.active {
-    // border-bottom: 4px solid #ff5a5f;
-    border-bottom: ${(props) =>
-      props.account == 1 ? ' 4px solid #4AA398' : ' 4px solid #ff5a5f'};
-    color: ${(props) => (props.account == 1 ? '  #4AA398' : '  #ff5a5f')};
+    border-bottom: 4px solid
+      ${(props) => (props.account === 1 ? '#4AA398' : '#ff5a5f')};
+    color: ${(props) => (props.account === 1 ? '#4AA398' : '#ff5a5f')};
   }
 `;
 
@@ -210,8 +208,6 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
       getLoggedInUserData().then((res) => {
         if (res.data) {
           setUserData(() => res.data.client);
-          // setaccount(() => res.data?.client?.account);
-          // console.log(account);
         }
       });
     }
@@ -221,13 +217,14 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
 
   const clientTabs = ['Dashboard', 'Browse', 'My Freelancers', 'My Projects'];
 
-  const showTabs = () => {
+  const showTabs = (account) => {
     const tabs = account === 1 ? professionalTabs : clientTabs;
     return (
       <Tabs>
         {tabs.map((tabName, idx) => (
           <TabItem
             key={'tab-' + idx}
+            account={account} // Pass the account prop here
             className={idx === currentTab ? 'active' : ''}
             onClick={() => setTabChange(idx)}
           >
@@ -285,7 +282,7 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
           >
             <Box sx={{ display: 'flex' }}>
               <Logo2 />
-              {showTabs()}
+              {showTabs(account)}
             </Box>
             {/* {account === 1 ? <IconsDiv></IconsDiv> : ''} */}
           </Box>

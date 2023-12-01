@@ -73,17 +73,6 @@ const MyProjectsSection = () => {
         setProposals(resList);
       }
     });
-    //   getProposalsOfClient().then((res) => {
-    //     if (res?.data?.data) {
-    //       let resList = [];
-    //       res?.data?.data.map((item) => {
-    //         let resObj = { id: item?.id, ...item?.attributes };
-    //         resList = [...resList, resObj];
-    //       });
-    //       console.log('list -- ', resList[0]);
-    //       setProposals(resList);
-    //     }
-    //   });
   }, []);
 
   return (

@@ -75,7 +75,17 @@ const StyledPill = styled.div`
 const StatusText = styled.div`
   text-transform: capitalize;
 `;
-
+const GreenButtonCustom = styled.div`
+  border-radius: 21px;
+  border: 1px solid #4aa398;
+  padding: 0.75rem 2.5rem;
+  color: #4aa398;
+  cursor: pointer;
+  &:hover {
+    background: #4aa398;
+    color: white;
+  }
+`;
 const ProjectCard = ({ projectDetail, budget }) => {
   const router = useRouter();
 
@@ -106,18 +116,18 @@ const ProjectCard = ({ projectDetail, budget }) => {
       </Row>
       <Row>
         <Container maxWidth="md">
-          <Text color="red" fontSize="20px" align="center">
+          <Text color="red" size="large" align="center">
             <b>{projectDetail.title}</b>
           </Text>
         </Container>
       </Row>
       <Row sx={{ justifyContent: 'center' }}>
-        <GrayText fontSize="10px">Project ID {12313123123}</GrayText>
+        <GrayText size="small">Project ID {projectDetail.id}</GrayText>
       </Row>
       <VerticalDivider />
       <Row sx={{ justifyContent: 'space-between' }}>
         <Text>Price</Text>
-        <Text color="green">{projectDetail.price} USD</Text>
+        <Text color="green">{projectDetail.maxBudget} USD</Text>
       </Row>
       <Row sx={{ justifyContent: 'space-between' }}>
         <Text>Location</Text>
@@ -131,13 +141,13 @@ const ProjectCard = ({ projectDetail, budget }) => {
       </Row>
       <VerticalDivider />
       <Row sx={{ justifyContent: 'center' }}>
-        <GreenButton
+        <GreenButtonCustom
           variant="outlined"
           onClick={() => showProjectDetails(projectDetail.id)}
           //
         >
           View Project
-        </GreenButton>
+        </GreenButtonCustom>
       </Row>
     </StyledCard>
   );
