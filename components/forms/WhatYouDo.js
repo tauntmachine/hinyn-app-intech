@@ -105,7 +105,7 @@ function WhatYouDo({ handleNextClick, handleBack }) {
       <Container maxWidth="sm" sx={{ marginBottom: '6rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Text fontSize="34px" marginBottom="10px">
+          <Text size="xxl" marginBottom="10px">
             <b>Let&apos;s make your profile</b>
           </Text>
           <Text>

@@ -2,6 +2,35 @@ import axios from 'axios';
 import { origin } from '../../src/config';
 axios.defaults.withCredentials = true;
 
+export const emialVerify = async (email) => {
+  const jwt = localStorage.getItem('hinyn-cjwt');
+  return axios
+    .put(
+      origin + '/auth/send-email-confirmation',
+      {
+        email: email,
+      },
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${jwt}`,
+        },
+        withCredentials: true,
+        crossDomain: true,
+      }
+    )
+    .then(async (response) => {
+      if (response.data) {
+        return { status: true, data: response.data };
+      } else {
+        return { status: false, data: response.data.message };
+      }
+    })
+    .catch(function (error) {
+      return { status: false, data: error };
+    });
+};
 /* BIDS */
 export const addBidData = async (bidData) => {
   const jwt = localStorage.getItem('hinyn-cjwt');

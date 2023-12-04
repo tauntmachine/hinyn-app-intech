@@ -6,7 +6,7 @@ import Button from '../shared/Button';
 import Modal from '../shared/Modal';
 
 import { BackIcon, EmailIcon } from '../shared/Icon';
-import { getUserData } from './formService';
+import { emialVerify, getUserData } from './formService';
 
 const StyledButton = styled(Button)``;
 const Div2 = styled.div`
@@ -76,13 +76,17 @@ function EmailVerifyForm1({ handleNextClick, handleBack, name, email }) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const EmailVerification = async (email) => {
+    return emialVerify(email).then((response) => {
+      if (response) handleNextClick;
+    });
+  };
   return (
     <>
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Text size="xl">
+          <Text size="xxl">
             <b>Almost there, {name ? name : 'Samantha'}!</b>
           </Text>
           <VerticalDivider />
@@ -139,7 +143,9 @@ function EmailVerifyForm1({ handleNextClick, handleBack, name, email }) {
                   Go Back
                 </Text>
               </BackCon>
-              <StyledButton onClick={handleNextClick}>NEXT</StyledButton>
+              <StyledButton onClick={() => EmailVerification(email)}>
+                NEXT
+              </StyledButton>
             </ButtonContainer>
           </Box>
         </FormContainer>

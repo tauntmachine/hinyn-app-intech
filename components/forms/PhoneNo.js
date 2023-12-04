@@ -124,7 +124,7 @@ function PhoneNo({ handleNextClick, handleBack }) {
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Text fontSize="38px" marginBottom="10px">
+          <Text size="xxl" marginBottom="10px">
             <b>Let&apos;s make your profile</b>
           </Text>
           <Text>

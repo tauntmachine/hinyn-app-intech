@@ -133,7 +133,7 @@ function Location({ handleNextClick, handleBack }) {
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Text fontSize="34px">
+          <Text size="xxl">
             <b>Let&apos;s make your profile</b>
           </Text>
           <Text>
@@ -144,6 +144,7 @@ function Location({ handleNextClick, handleBack }) {
           <Text color="green" marginBottom="8px">
             Where are you located?
           </Text>
+
           <Text fontSize="12px">
             Please use your real address as this will be used for identity
             verification.

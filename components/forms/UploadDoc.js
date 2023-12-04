@@ -144,7 +144,7 @@ function UploadDoc({ handleNextClick, handleBack }) {
       <Container maxWidth="sm" sx={{ marginBottom: '6rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Text fontSize="34px" marginBottom="6px">
+          <Text size="xxl" marginBottom="6px">
             <b>Let&apos;s make your profile</b>
           </Text>
           <Text>

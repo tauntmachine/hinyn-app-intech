@@ -160,12 +160,7 @@ function SelectGender({ handleNextClick, handleBack }) {
           {/* <Typography component="h1" variant="h4">
             <b>Let&apos;s make your profile</b>
           </Typography> */}
-          <Text
-            color="#424949"
-            fontWeight="bold"
-            marginBottom="4px"
-            fontSize="34px"
-          >
+          <Text color="#424949" fontWeight="bold" marginBottom="4px" size="xxl">
             Let&apos;s make your profile
           </Text>
           <Text>

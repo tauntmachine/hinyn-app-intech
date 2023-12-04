@@ -281,7 +281,7 @@ function CategorySkills({ handleNextClick }) {
       <Container maxWidth="md" sx={{ marginBottom: '1rem', marginTop: '4rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Text fontSize="34px">
+          <Text size="xxl">
             <b>Tell us what you do</b>
           </Text>
           <Text>
