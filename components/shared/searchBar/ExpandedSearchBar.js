@@ -6,6 +6,7 @@ import { Box } from '@mui/material';
 import { useEffect } from 'react';
 import { getCategories } from '../../forms/formService';
 import { useFreelancer } from '../../../src/store';
+import Modal3 from '../Modal3';
 
 const SearchContainer = styled.div`
   display: flex;

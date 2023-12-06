@@ -170,7 +170,7 @@ function Filter() {
       location: selectedLocation,
       budget: selectedBudget,
     });
-
+    console.log('filter', filter);
     handleClose();
   };
   return (

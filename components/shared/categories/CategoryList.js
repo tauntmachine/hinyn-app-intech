@@ -9,6 +9,7 @@ import styled from '@emotion/styled';
 const SwiperBox = styled.div`
   margin-top: 3rem;
 `;
+
 function CategoryList({ categories, handleSelectedCategory, currCatSelected }) {
   return (
     <SwiperBox>

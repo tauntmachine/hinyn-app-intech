@@ -1,12 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { CssBaseline, Grid, Box, Typography, Container } from '@mui/material';
+import React, { useState } from 'react';
+import { CssBaseline, Grid, Box, Container } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
 import Modal from '../shared/Modal';
 
 import { BackIcon, EmailIcon } from '../shared/Icon';
-import { emialVerify, getUserData } from './formService';
+import { emailVerify } from './formService';
 
 const StyledButton = styled(Button)``;
 const Div2 = styled.div`
@@ -48,12 +48,6 @@ const EmailIconContainer = styled.div`
   box-shadow: 0 0 4px 10px #4aa39820;
 `;
 
-const Error = styled.p`
-  color: purple;
-  font-size: 0.75rem;
-  font-family: 'Roboto', sans-serif;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
@@ -77,7 +71,7 @@ function EmailVerifyForm1({ handleNextClick, handleBack, name, email }) {
     setOpen(false);
   };
   const EmailVerification = async (email) => {
-    return emialVerify(email).then((response) => {
+    return emailVerify(email).then((response) => {
       if (response) handleNextClick;
     });
   };
@@ -143,9 +137,7 @@ function EmailVerifyForm1({ handleNextClick, handleBack, name, email }) {
                   Go Back
                 </Text>
               </BackCon>
-              <StyledButton onClick={() => EmailVerification(email)}>
-                NEXT
-              </StyledButton>
+              <StyledButton onClick={handleNextClick}>NEXT</StyledButton>
             </ButtonContainer>
           </Box>
         </FormContainer>

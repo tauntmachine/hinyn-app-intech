@@ -186,7 +186,7 @@ function FirstLastName({ handleNextClick }) {
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>
         <CssBaseline />
         <FormContainer>
-          <Text fontSize="34px">
+          <Text size="xxl">
             <b>Let&apos;s make your account</b>
           </Text>
           <UploadButton

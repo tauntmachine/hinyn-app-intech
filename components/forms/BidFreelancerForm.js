@@ -193,11 +193,10 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
               alt="icon-img"
             />
           </ImageContainer>
-          <Text color="red" fontSize="20px">
+          <Text color="red" size="large">
             <b>
-              Put a bid for {/* <Capitalize> */}
+              Put a bid for
               {data?.attributes.firstName} {data?.attributes.lastName}
-              {/* </Capitalize> */}
             </b>
           </Text>
           <Container maxWidth="sm">

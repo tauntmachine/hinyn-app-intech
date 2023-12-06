@@ -135,6 +135,7 @@ const ProfessionalProfile = () => {
   const [currentTab, setCurrentTab] = useState(0);
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
+  const [accountType, setAccountType] = useState();
   const { fid } = router.query;
 
   const reviews = [
@@ -206,7 +207,7 @@ const ProfessionalProfile = () => {
       },
     ],
   };
-
+  //  id:localStorage.getItem('hinyn-cid');
   // useEffect(() => {
   //   if (fid) {
   //     const clientData = {
@@ -240,12 +241,24 @@ const ProfessionalProfile = () => {
   //   // });
   // }, [fid]);
   useEffect(() => {
-    const clientData = {
+    const clientData = fid
+      ? {
+          id: fid,
+        }
+      : { id: localStorage.getItem('hinyn-cid') };
+    const client = {
       id: localStorage.getItem('hinyn-cid'),
     };
     getClientData(clientData).then((res) => {
       if (res?.data?.data) {
         setClientData(res?.data?.data?.attributes);
+        // setAccountType(res.data.data.attributes.accountType);
+        // console.log(accountType);
+      }
+    });
+    getClientData(client).then((res) => {
+      if (res?.data?.data) {
+        setAccountType(res.data.data.attributes.accountType);
       }
     });
   }, []);
@@ -271,7 +284,11 @@ const ProfessionalProfile = () => {
   };
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
-      <DashboardHeader setTabChange={handleChangeTab} currentTab={currentTab} />
+      <DashboardHeader
+        setTabChange={handleChangeTab}
+        currentTab={currentTab}
+        account={accountType}
+      />
       <Container maxWidth="xl">
         <Grid container spacing={4} sx={{ padding: '5rem 0 7rem 0' }}>
           <Grid item xs={7.5} sx={{ margin: '0 0 0 5.9rem' }}>

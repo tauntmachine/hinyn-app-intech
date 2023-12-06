@@ -77,7 +77,7 @@ const ClientProfile = () => {
   let imgPath = '/assets/img/avatars/';
   const [clientData, setClientData] = useState(null);
   const [currentTab, setCurrentTab] = useState(0);
-
+  const { fid } = router.query;
   const verifications = ['Identity', 'Payment Method', 'Phone', 'Email'];
 
   const projectDetails = {
@@ -111,9 +111,10 @@ const ClientProfile = () => {
   ];
 
   useEffect(() => {
-    const clientData = {
-      id: localStorage.getItem('hinyn-cid'),
-    };
+    const clientData = fid
+      ? { id: fid }
+      : { id: localStorage.getItem('hinyn-cid') };
+
     getClientData(clientData).then((res) => {
       if (res?.data?.data) {
         setClientData(res?.data?.data?.attributes);

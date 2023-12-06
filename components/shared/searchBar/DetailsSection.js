@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 // import { useFreelancer } from '../../../src/store';
 import { getCategories, getSkills } from '../../forms/formService';
 import { locations, budget, skills } from '../../models/filters.models';
+import Modal3 from '../Modal3';
 
 const DetailsContainer = styled.div`
   border: 1px solid #ebebeb;
@@ -192,6 +193,7 @@ const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
   }, [isFetched]);
 
   return (
+    // <Modal3 isOpen={true}>
     <DetailsContainer>
       <GridContainer>
         {categories.map((category, idx) => {
@@ -219,6 +221,7 @@ const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
         })}
       </GridContainer>
     </DetailsContainer>
+    // </Modal3>
   );
 };
 const SkillsDetailsContainer = ({ handleSelectedSkills }) => {

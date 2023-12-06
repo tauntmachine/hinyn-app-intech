@@ -90,22 +90,21 @@ const useFreelancerController = (freelancer: Freelancer[]) => {
     //  freelancer.filter((item) =>
     //   item.attributes.headline === filter ? filteredFreelancer : freelancer
     // );
-    // return (
-    //   freelancer &&
-    //   freelancer
-    //     .map((f) => {
-    //       // console.log(f)
-    //       // return 1
-    //       return Object.values(f).filter(
-    //         (val) =>
-    //           val.accountType === 1 &&
-    //           checkCategories(val?.categories) &&
-    //           checkSkill(val?.skills) &&
-    //           checkLocation(val?.city)
-    //       )[0];
-    //     })
-    //     .filter((data) => data !== undefined)
-    // );
+    //   return (
+    //     freelancer &&
+    //     freelancer
+    //       .map((f) => {
+    //         // console.log(f)
+    //         // return 1
+    //         return Object.values(f).filter(
+    //           (val) => val.accountType === 1 && checkCategories(val?.categories)
+    //           // &&
+    //           // checkSkill(val?.skills) &&
+    //           // checkLocation(val?.city)
+    //         )[0];
+    //       })
+    //       .filter((data) => data !== undefined)
+    //   );
   }, [filter, freelancer]);
 
   return {

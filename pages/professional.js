@@ -32,7 +32,7 @@ const MainBox = styled(Box)`
 
 function Professional() {
   const progressRate = 11;
-  const [currentActiveForm, setCurrentActiveForm] = useState(7);
+  const [currentActiveForm, setCurrentActiveForm] = useState(8);
   const [progressPercent, setProgressPercent] = useState(
     progressRate * currentActiveForm
   );

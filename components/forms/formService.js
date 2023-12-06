@@ -2,7 +2,7 @@ import axios from 'axios';
 import { origin } from '../../src/config';
 axios.defaults.withCredentials = true;
 
-export const emialVerify = async (email) => {
+export const emailVerify = async (email) => {
   const jwt = localStorage.getItem('hinyn-cjwt');
   return axios
     .put(

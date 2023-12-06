@@ -42,9 +42,8 @@ function Main() {
   //   fetchCategories(); // Call the function to fetch categories
   // }, []);
   useEffect(() => {
-    console.log(filter);
+    // console.log(filter);
     getCategories().then((result) => {
-      // console.log(filter);
       if (result?.data) {
         setCategories(() => []);
         result?.data?.data.map((item) => {
@@ -62,7 +61,7 @@ function Main() {
   const handleButtonClick = () => {};
 
   const handleSelectedCategory = (category) => {
-    console.log(filter);
+    // console.log(filter);
     setCurrCatSelected(category);
 
     setFilteredArray(
