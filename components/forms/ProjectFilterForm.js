@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   CssBaseline,
   Grid,
@@ -7,20 +7,14 @@ import {
   IconButton,
   TextField,
   Autocomplete,
-  TextareaAutosize,
 } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
-import Button, { GreenButton, RedButton } from '../shared/Button';
+import { GreenButton } from '../shared/Button';
 import { locations, budget } from '../models/filters.models';
 import { getCategories } from './formService';
-import {
-  projectFilter,
-  setProjectFilter,
-  useFreelancer,
-  useProject,
-} from '../../src/store';
-import ClickableStarRating from '../shared/ClickableStarRating';
+import { useProject } from '../../src/store';
+
 import { StaticPill } from '../shared/Pill';
 import { CloseIcon, OutlineSearchIcon } from '../shared/Icon';
 import DropdownO from '../shared/DropdownO';
@@ -97,12 +91,7 @@ const StyledCloseIcon = styled(CloseIcon)`
   cursor: pointer;
 `;
 
-const VerticalDivider = styled.div`
-  height: 1rem;
-`;
-
-function ProjectFilterForm(filterType) {
-  console.log(filterType);
+function ProjectFilterForm() {
   const [categories, setCategories] = useState([]);
   const [skills, setSkills] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -110,8 +99,8 @@ function ProjectFilterForm(filterType) {
   const [categorySkills, setCategorySkills] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedBudget, setSelectedBudget] = useState('');
-  const { projectFilter, setProjectFilter } = useProject();
-  const { freelancer, filter, setFilter } = useFreelancer();
+  const { setProjectFilter } = useProject();
+
   const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
@@ -192,24 +181,16 @@ function ProjectFilterForm(filterType) {
     else if (field === 'skills') setSelectedSkills(() => []);
   };
 
-  // const submitHandler = (event) => {
-  //   event.preventDefault();
-  //   if (filterType === 'freelancer') {
-  //     setFilter({
-  //       category: selectedCategory,
-  //       skill: selectedSkills,
-  //       location: selectedLocation,
-  //       budget: selectedBudget,
-  //     });
-  //   } else {
-  //     setProjectFilter({
-  //       category: selectedCategory,
-  //       skill: selectedSkills,
-  //       location: selectedLocation,
-  //       budget: selectedBudget,
-  //     });
-  //   }
-  // };
+  const handleFilter = (event) => {
+    event.preventDefault();
+
+    setProjectFilter({
+      category: selectedCategory,
+      skill: selectedSkills,
+      location: selectedLocation,
+      budget: selectedBudget,
+    });
+  };
 
   return (
     <>
@@ -373,41 +354,12 @@ function ProjectFilterForm(filterType) {
                 )}
               </Grid>
             </Grid>
-            {filterType ? (
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      mt: '15px',
-                    }}
-                  >
-                    <Text>Rating</Text>
-                    <Text
-                      color="green"
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => resetField('budget')}
-                    >
-                      Clear
-                    </Text>
-                  </Box>
-                  <Box>
-                    <ClickableStarRating />
-                  </Box>
-                </Grid>
-              </Grid>
-            ) : (
-              ''
-            )}
 
-            {/* <ButtonContainer>
-              {filterType === 'freelancer' ? (
-                <RedButton>Filter</RedButton>
-              ) : (
-                <GreenButton size="small">Filter</GreenButton>
-              )}
-            </ButtonContainer> */}
+            <ButtonContainer>
+              <GreenButton size="small" onClick={handleFilter}>
+                Filter
+              </GreenButton>
+            </ButtonContainer>
           </Box>
         </FormContainer>
       </Box>

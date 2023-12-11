@@ -12,6 +12,7 @@ import FreelancerConnectedList from '../shared/FreelancerConnectedList';
 import Text from '../shared/Typography';
 
 import ProjectFilterForm from '../forms/ProjectFilterForm';
+import FreelancerFilterForm from '../forms/FreelancerFilterForm';
 
 const SearchBarContainer = styled.div`
   background: #d8d8d8;
@@ -74,7 +75,7 @@ const MyFreelancersSection = () => {
                 noPadding={true}
               >
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                  <ProjectFilterForm filterType="freelancer" />
+                  <FreelancerFilterForm />
                 </Box>
               </ContentBox>
             </Grid>

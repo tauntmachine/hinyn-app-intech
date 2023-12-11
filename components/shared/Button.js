@@ -106,6 +106,7 @@ export const GrayButton = styled(Button)`
 export const RedButton = styled(Button)`
   background: ${(props) =>
     props.variant === 'outlined' ? 'transparent' : '#EB4C60'};
+  padding: ${(props) => (props.width === 'more' ? '0.75rem 1.5rem' : '')};
   color: ${(props) => (props.variant === 'outlined' ? '#EB4C60' : '#ffffff')};
   border: 1px solid #eb4c60;
   font-size: ${(props) => (props.size === 'small' ? '10px' : '12px')};

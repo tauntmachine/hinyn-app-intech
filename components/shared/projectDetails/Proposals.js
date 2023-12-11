@@ -195,7 +195,7 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
                   <Row>
                     <Box sx={{ display: 'flex' }}>
                       <StarRating data={bidder?.rating ?? 3} sz="lg" />
-                      <GrayText> {bidder?.instagramProfile ?? ''} </GrayText>
+                      <GrayText> {bidder?.category ?? ''} </GrayText>
                     </Box>
                   </Row>
                   <Row>

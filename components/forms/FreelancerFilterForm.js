@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   CssBaseline,
   Grid,
@@ -7,26 +7,18 @@ import {
   IconButton,
   TextField,
   Autocomplete,
-  TextareaAutosize,
 } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
-import Button, { GreenButton } from '../shared/Button';
-import Dropdown from '../shared/Dropdown';
-import { locations, budget, category } from '../models/filters.models';
+import { RedButton } from '../shared/Button';
+import { locations, budget } from '../models/filters.models';
 import { getCategories } from './formService';
-import {
-  filter,
-  setFilter,
-  projectFilter,
-  setProjectFilter,
-  useFreelancer,
-  useProject,
-} from '../../src/store';
+import { useFreelancer } from '../../src/store';
 import ClickableStarRating from '../shared/ClickableStarRating';
 import { StaticPill } from '../shared/Pill';
 import { CloseIcon, OutlineSearchIcon } from '../shared/Icon';
 import DropdownO from '../shared/DropdownO';
+// import { truncate } from 'fs';
 
 const CustomTextField = styled(TextField)`
   background: transparent;
@@ -99,11 +91,7 @@ const StyledCloseIcon = styled(CloseIcon)`
   cursor: pointer;
 `;
 
-const VerticalDivider = styled.div`
-  height: 1rem;
-`;
-
-function FreelancerFilterForm({ filterType }) {
+function FreelancerFilterForm() {
   const [categories, setCategories] = useState([]);
   const [skills, setSkills] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -111,8 +99,8 @@ function FreelancerFilterForm({ filterType }) {
   const [categorySkills, setCategorySkills] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedBudget, setSelectedBudget] = useState('');
-  const { project, projectFilter, setProjectFilter } = useProject();
-  const { freelancer, filter, setFilter } = useFreelancer();
+
+  const { setFilter } = useFreelancer();
   const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
@@ -187,29 +175,21 @@ function FreelancerFilterForm({ filterType }) {
   };
 
   const resetField = (field) => {
-    if (field === 'buget') setSelectedBudget(() => undefined);
+    if (field === 'budget') setSelectedBudget(() => undefined);
     else if (field === 'location') setSelectedLocation(() => undefined);
     else if (field === 'category') setSelectedCategory(() => '');
     else if (field === 'skills') setSelectedSkills(() => []);
   };
 
-  const submitHandler = (event) => {
+  const handleFilter = (event) => {
     event.preventDefault();
-    // if (filterType === 'freelancer') {
+
     setFilter({
       category: selectedCategory,
       skill: selectedSkills,
       location: selectedLocation,
       budget: selectedBudget,
     });
-    // } else {
-    //   setProjectFilter({
-    //     category: selectedCategory,
-    //     skill: selectedSkills,
-    //     location: selectedLocation,
-    //     budget: selectedBudget,
-    //   });
-    // }
   };
 
   return (
@@ -220,14 +200,23 @@ function FreelancerFilterForm({ filterType }) {
           <Box
             component="form"
             noValidate
-            onSubmit={submitHandler}
-            sx={{ mt: 3, width: '100%' }}
+            // onSubmit={submitHandler}
+            sx={{ width: '100%' }}
           >
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                  }}
+                >
                   <Text>Budget</Text>
-                  <Text color="green" onClick={() => resetField('budget')}>
+                  <Text
+                    color="green"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => resetField('budget')}
+                  >
                     Clear
                   </Text>
                 </Box>
@@ -241,30 +230,34 @@ function FreelancerFilterForm({ filterType }) {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} xs={{ mt: 4 }}>
               <Grid item xs={12}>
                 <Box
                   sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
-                    marginTop: '14px',
+                    mt: '15px',
                   }}
                 >
                   <Text>Categories </Text>
-                  <Text color="green" onClick={() => resetField('category')}>
+                  <Text
+                    color="green"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => resetField('category')}
+                  >
                     Clear
                   </Text>
                 </Box>
-                {
+                {categories?.length > 0 && (
                   <DropdownO
                     hasLabel={false}
-                    items={category}
+                    items={categories}
                     width="100%"
                     type="outlined"
                     selected={selectedCategory}
                     setHandleOnChange={handleCategoryChange}
                   />
-                }
+                )}
               </Grid>
             </Grid>
             <Grid container spacing={2}>
@@ -273,11 +266,15 @@ function FreelancerFilterForm({ filterType }) {
                   sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
-                    marginTop: '14px',
+                    mt: '15px',
                   }}
                 >
                   <Text>Skills</Text>
-                  <Text color="green" onClick={() => resetField('skills')}>
+                  <Text
+                    color="green"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => resetField('skills')}
+                  >
                     Clear
                   </Text>
                 </Box>
@@ -287,15 +284,12 @@ function FreelancerFilterForm({ filterType }) {
                     id="search-skills-input"
                     fullWidth
                     disableClearable
-                    options={
-                      categorySkills &&
-                      categorySkills.map((skill) => skill.title)
-                    }
+                    options={categorySkills.map((skill) => skill.title)}
                     onChange={onSkillsSearchChange}
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label="select skills"
+                        label=""
                         placeholder="Search skills here"
                         InputProps={{
                           ...params.InputProps,
@@ -318,7 +312,7 @@ function FreelancerFilterForm({ filterType }) {
                           <StyledStaticPill key={'category-skill-' + id}>
                             {skill?.title}
                             <StyledCloseIcon
-                              variant="red"
+                              variant="green"
                               onClick={() => onSkillClick(skill?.id, skill)}
                             />
                           </StyledStaticPill>
@@ -333,11 +327,16 @@ function FreelancerFilterForm({ filterType }) {
                 {locations && (
                   <>
                     <Box
-                      sx={{ display: 'flex', justifyContent: 'space-between' }}
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        mt: '15px',
+                      }}
                     >
                       <Text>Location</Text>
                       <Text
                         color="green"
+                        style={{ cursor: 'pointer' }}
                         onClick={() => resetField('location')}
                       >
                         Clear
@@ -355,26 +354,36 @@ function FreelancerFilterForm({ filterType }) {
                 )}
               </Grid>
             </Grid>
+
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Box
                   sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
-                    marginTop: '14px',
+                    mt: '15px',
                   }}
                 >
                   <Text>Rating</Text>
-                  <Text color="green">Clear</Text>
+                  <Text
+                    color="green"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => resetField('budget')}
+                  >
+                    Clear
+                  </Text>
                 </Box>
-                <Box sx={{ marginTop: '1rem' }}>
+                <Box>
                   <ClickableStarRating />
                 </Box>
               </Grid>
             </Grid>
-            {/* <ButtonContainer>
-              <GreenButton size="small">Filter</GreenButton>
-            </ButtonContainer> */}
+
+            <ButtonContainer>
+              <RedButton width="more" onClick={handleFilter}>
+                Filter
+              </RedButton>
+            </ButtonContainer>
           </Box>
         </FormContainer>
       </Box>

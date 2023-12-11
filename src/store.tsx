@@ -54,57 +54,57 @@ export async function getSkill() {
       return { status: false, data: error };
     });
 }
-
 const useFreelancerController = (freelancer: Freelancer[]) => {
-  const [filter, setFilter] = useState(undefined);
+  const [filter, setFilter] = useState<{
+    category?: string | null;
+    skill?: string | null;
+  }>({});
 
-  const checkCategories = (val) => {
-    if (typeof filter === 'object')
-      return val?.data.some((category) =>
-        category?.attributes?.key
-          .toLowerCase()
-          .includes(filter?.category?.toLowerCase() ?? '')
-      );
-    return val?.data.some((category) =>
-      category?.attributes?.key
-        .toLowerCase()
-        .includes(filter?.toLowerCase() ?? '')
+  const hasCategoriesAndSkills = (
+    val: any
+  ): val is {
+    attributes: {
+      categories: { data: { attributes: { key: string } }[] };
+      skills: { data: { attributes: { slug: string } }[] };
+    };
+  } => {
+    return (
+      val &&
+      val.attributes &&
+      val.attributes.categories &&
+      val.attributes.categories.data &&
+      val.attributes.skills &&
+      val.attributes.skills.data
     );
   };
 
-  const checkSkill = (val) => {
-    // if((typeof filter) === 'object') return val?.data.some(res => res?.attributes?.slug.toLowerCase().includes(filter?.skill?.toLowerCase() ?? ''));
-    return 1;
-  };
+  const checkCategoriesAndSkills = (val: any) => {
+    if (filter && hasCategoriesAndSkills(val)) {
+      const categoryMatch = val.attributes.categories.data.some((category) =>
+        category.attributes.key
+          .toLowerCase()
+          .includes(filter?.category?.toLowerCase() ?? '')
+      );
 
-  const checkLocation = (val) => {
-    if (typeof filter === 'object')
-      return val.replace(' ', '').toLowerCase().includes(filter?.location);
-    return 1;
-  };
+      // const skillMatch = val.attributes.skills.data.some((skill) =>
+      //   skill.attributes.slug
+      //     .toLowerCase()
+      //     .includes(filter?.skill?.toLowerCase() ?? '')
+      // );
 
-  // const filteredCategories = getCategories();
+      return categoryMatch;
+    }
+    return false;
+  };
 
   const filteredFreelancer = useMemo(() => {
-    return freelancer;
-    //  freelancer.filter((item) =>
-    //   item.attributes.headline === filter ? filteredFreelancer : freelancer
-    // );
-    //   return (
-    //     freelancer &&
-    //     freelancer
-    //       .map((f) => {
-    //         // console.log(f)
-    //         // return 1
-    //         return Object.values(f).filter(
-    //           (val) => val.accountType === 1 && checkCategories(val?.categories)
-    //           // &&
-    //           // checkSkill(val?.skills) &&
-    //           // checkLocation(val?.city)
-    //         )[0];
-    //       })
-    //       .filter((data) => data !== undefined)
-    //   );
+    if (!freelancer || filter.category === null) {
+      return freelancer || []; // Return an empty array if freelancer is undefined
+    }
+
+    return freelancer.filter((f) => {
+      return hasCategoriesAndSkills(f) && checkCategoriesAndSkills(f);
+    });
   }, [filter, freelancer]);
 
   return {
@@ -117,7 +117,7 @@ const useFreelancerController = (freelancer: Freelancer[]) => {
 const FreelancerContext = createContext<
   ReturnType<typeof useFreelancerController>
 >({
-  filter: '',
+  filter: {},
   setFilter: () => {},
   freelancer: [],
 });

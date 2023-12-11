@@ -152,7 +152,7 @@ export const deleteBidData = async (bidId) => {
 
 export const getBidsOfClient = async () => {
   const jwt = localStorage.getItem('hinyn-cjwt');
-  const uid = localStorage.getItem('hinyn-uid');
+  // const uid = localStorage.getItem('hinyn-uid');
   return axios
     .get(
       // origin + '/bids?filters[client][id][$eq]=' + cid + '&populate=*',
@@ -328,6 +328,34 @@ export const getClientData = async (clientData) => {
   return axios
     .get(
       origin + '/clients/' + clientData.id + '?populate=categories',
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${jwt}`,
+        },
+      },
+      {
+        withCredentials: true,
+        crossDomain: true,
+      }
+    )
+    .then(async (response) => {
+      if (response.data) {
+        return { status: true, data: response.data };
+      } else {
+        return { status: false, data: response.data.message };
+      }
+    })
+    .catch(function (error) {
+      return { status: false, data: error };
+    });
+};
+export const getClientDataProposals = async (clientData) => {
+  const jwt = localStorage.getItem('hinyn-cjwt');
+  return axios
+    .get(
+      origin + '/clients/' + clientData.id + '?populate=proposals',
       {
         headers: {
           Accept: 'application/json',

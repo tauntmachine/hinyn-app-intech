@@ -273,9 +273,9 @@ function PostProjectForm1({ handleNextClick }) {
 
   const [selectedGender, setSelectedGender] = useState(null);
   const [ageGroup, setAgeGroup] = useState(null);
-  // const [categorySkills, setCategorySkills] = useState([]);
+
   const [skills, setSkills] = useState([]);
-  // const [selectedSkills, setSelectedSkills] = useState([]);
+
   const [selectedSkill, setSelectedSkill] = useState('');
   const [selectedSkillName, setSelectedSkillName] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -345,20 +345,6 @@ function PostProjectForm1({ handleNextClick }) {
     deliveryDays: null,
   });
 
-  // const onSkillClick = (clickedSkillId, clickedSkill) => {
-  //   let temp = [];
-  //   if (selectedSkills.find((skill) => skill?.id === clickedSkillId)) {
-  //     temp = selectedSkills.filter((skill) => skill?.id !== clickedSkillId);
-  //   } else {
-  //     temp = selectedSkills.concat(clickedSkill);
-  //   }
-  //   setSelectedSkills(() => temp);
-  //   setProjectData((prevState) => ({
-  //     ...prevState,
-  //     ['skills']: temp,
-  //   }));
-  // };
-
   const checkDOB = (dobdate) => {
     const dateFormat = 'YYYY-MM-DD';
     const dob = moment(dobdate, dateFormat, true).isValid();
@@ -398,66 +384,6 @@ function PostProjectForm1({ handleNextClick }) {
       ['languages']: temp,
     }));
   };
-
-  // useEffect(() => {
-  //   getCategories().then((result) => {
-  //     if (result?.data?.data && !isFetched) {
-  //       setCategories(() => []);
-  //       result?.data?.data.map((item) => {
-  //         let temp = { id: item.id };
-  //         setCategories((prev) => prev.concat({ ...item.attributes, ...temp }));
-  //       });
-  //       setIsFetched(true);
-  //     }
-  //   });
-  // }, [isFetched]);
-
-  // function getCategorySkills2(category) {
-  //   setSelectedCategory(() => category);
-  //   setCategorySkills(() => []);
-  //   setSelectedSkills(() => []);
-  //   getSkills(category?.id).then((result) => {
-  //     const temp = result?.data?.data?.attributes?.skills?.data ?? [];
-  //     temp.map((item) => {
-  //       let skillId = { id: item.id };
-  //       setCategorySkills((prev) =>
-  //         prev.concat({ ...item.attributes, ...skillId })
-  //       );
-  //       setSelectedSkills((prev) =>
-  //         prev.concat({ ...item.attributes, ...skillId })
-  //       );
-  //     });
-  //   });
-  //   setSelectedLanguages(() => languages);
-
-  //   setErrorMessage((prevState) => ({
-  //     ...prevState,
-  //     ['category']: null,
-  //   }));
-  //   setValid((prevState) => ({
-  //     ...prevState,
-  //     ['category']: true,
-  //   }));
-  //   setProjectData((prevState) => ({
-  //     ...prevState,
-  //     ['category']: category.slug,
-  //   }));
-  //   setProjectData((prevState) => ({
-  //     ...prevState,
-  //     ['skills']: selectedSkills.map((skill) => skill?.id),
-  //   }));
-  //   setProjectData((prevState) => ({
-  //     ...prevState,
-  //     ['languages']: languages,
-  //   }));
-  // }
-
-  // const onSkillsSearchChange = (e) => {
-  //   const clickedSkill = categorySkills.find(
-  //     (skill) => skill.title === e.target.textContent
-  //   );
-  //   onSkillClick(clickedSkill?.id, clickedSkill);
-  // };
 
   useEffect(() => {
     getCategories().then((result) => {
@@ -815,9 +741,9 @@ function PostProjectForm1({ handleNextClick }) {
         description: projectData.projectDescription,
         minBudget: projectData.projectBudget[0],
         status: 1,
-        city: projectData.location,
-        country: 'United Arab Emirates',
-        deliveryDate: projectData.projectDate,
+        // city: projectData.location,
+        country: projectData.location,
+        // deliveryDate: projectData.projectDate,
         maxBudget:
           projectData.projectBudget.length > 1
             ? projectData.projectBudget[1]
@@ -830,11 +756,12 @@ function PostProjectForm1({ handleNextClick }) {
         skills: projectData.skills,
         client: clientId,
       };
-      console.log(bidData);
+      // console.log(bidData);
       if (clientId) {
         addBidData(bidData).then((res) => {
           if (res.data) {
             console.log('res -- ', res.data);
+
             setFilter(selectedCategory?.key);
             handleNextClick(true);
           }

@@ -44,7 +44,7 @@ const Desc = styled.div`
 `;
 
 const ConnectedList = ({ projects }) => {
-  // console.log(projects);
+  console.log(projects);
   const router = useRouter();
   const [accountType, setAccountType] = useState({});
 

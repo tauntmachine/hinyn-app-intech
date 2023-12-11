@@ -39,7 +39,7 @@ const CustomPagination = styled(Pagination)`
 
 const AllProjectsSection = ({ handleScreenChange }) => {
   const [searchInput, setSearchInput] = useState('');
-  const { project, projectFilter, setProjectFilter } = useProject();
+  const { project, setProjectFilter } = useProject();
 
   const handleSearchValue = (e) => {
     e.preventDefault();
@@ -71,7 +71,7 @@ const AllProjectsSection = ({ handleScreenChange }) => {
                 noPadding={true}
               >
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                  <ProjectFilterForm filterType />
+                  <ProjectFilterForm filterType={false} />
                 </Box>
               </ContentBox>
             </Grid>

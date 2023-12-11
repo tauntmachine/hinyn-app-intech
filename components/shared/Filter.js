@@ -170,7 +170,13 @@ function Filter() {
       location: selectedLocation,
       budget: selectedBudget,
     });
-    console.log('filter', filter);
+    // console.log(
+    //   'filter',
+    //   selectedCategory,
+    //   selectedSkill,
+    //   selectedLocation,
+    //   selectedBudget
+    // );
     handleClose();
   };
   return (

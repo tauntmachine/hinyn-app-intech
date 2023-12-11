@@ -18,6 +18,7 @@ import {
   getBidsOfClient,
   getClientData,
   getClientDataBids,
+  getClientDataProposals,
   getLoggedInUserData,
 } from '../forms/formService';
 import ProjectDetailsSection from './ProjectDetailsSection';
@@ -153,7 +154,13 @@ const NewsfeedSection = ({ accountType }) => {
             console.log(res.data.data.attributes.bids.data);
           }
         })
-      : getBidsOfClient().then((res) => {
+      : // : getClientDataProposals(clientData).then((res) => {
+        //     if (res) {
+        //       setUserProjects(res.data.data.attributes.proposals.data);
+        //       console.log(res.data.data.attributes.proposals.data);
+        //     }
+        //   });
+        getBidsOfClient().then((res) => {
           let resList = [];
           if (res?.data?.data) {
             res?.data?.data.map((item) => {
@@ -257,33 +264,6 @@ const NewsfeedSection = ({ accountType }) => {
     balance: 123456,
     currency: 'USD',
   };
-
-  // const userProjects = [
-  //   {
-  //     id: 10001,
-  //     title: 'Wedding Day Photography in Abu Dhabi',
-  //     bids: 23,
-  //     status: 'active',
-  //   },
-  //   {
-  //     id: 10002,
-  //     title: 'Models required for fitness app',
-  //     bids: 23,
-  //     status: 'done',
-  //   },
-  //   {
-  //     id: 10003,
-  //     title: 'Hand models required for jewelry shoot',
-  //     bids: 23,
-  //     status: 'done',
-  //   },
-  //   {
-  //     id: 10004,
-  //     title: 'Bridal make-up artist required',
-  //     bids: 23,
-  //     status: 'done',
-  //   },
-  // ];
 
   const getNewsFeedByType = (item) => {
     if (item.type === 'action-required') {
@@ -467,8 +447,8 @@ const NewsfeedSection = ({ accountType }) => {
                           }}
                         >
                           <GrayText size="small">
-                            <Text component="span">{project?.bids}</Text> Total
-                            Bids
+                            <Text component="span">{project?.proposals}</Text>{' '}
+                            Total Bids
                           </GrayText>
                           <StyledPill status={project?.status}>
                             <StatusText>{project?.status}</StatusText>

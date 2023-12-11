@@ -263,57 +263,6 @@ const ProjectDetailsSection = () => {
 
   const tabs = ['Details', 'Proposals'];
 
-  // const projectDetails = {
-  //   id: '1235670808857',
-  //   title: "Kate and Joe's Wedding",
-  //   bid: {
-  //     min: 500,
-  //     max: 600,
-  //     currency: 'USD',
-  //     endDate: '10/01/2023',
-  //     numBids: 76,
-  //   },
-  //   requirements: {
-  //     categoryKey: 'photographer',
-  //     skills: ['Fashion', 'Beauty', 'Lifestyle', 'Wedding'],
-  //     languages: ['English', 'Arabic'],
-  //   },
-  //   location: 'Fairmont, The Palm, Dubai, United Arab Emirates',
-  //   eventDate: 'November 7, 2023',
-  //   budget: {
-  //     amount: 500,
-  //     currency: 'USD',
-  //   },
-  //   description:
-  //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non orci vestibulum',
-  //   attachments: [
-  //     'project-temp-1.jpeg',
-  //     'project-temp-2.jpeg',
-  //     'project-temp-3.jpeg',
-  //     'project-temp-4.jpeg',
-  //     'project-temp-5.jpeg',
-  //     'project-temp-6.jpeg',
-  //     'project-temp-7.jpeg',
-  //   ],
-  //   deliverables: '5000 pictures',
-  //   deadline: '30/01/2023',
-  //   client: {
-  //     name: 'Joe Addams',
-  //     location: 'Dubai, United Arab Emirates',
-  //     rating: 4,
-  //     ratingNUmber: 16,
-  //     memberSince: 'November 2020',
-  //     verified: [
-  //       'Identity Verified',
-  //       'Payment Verified',
-  //       'Deposit Made',
-  //       'Email Verified',
-  //       'Profile Completed',
-  //     ],
-  //     unverified: ['Phone Verified'],
-  //   },
-  // };
-
   const userDetails = {
     isLoggedIn: true,
     isProposedProject: false,
@@ -348,7 +297,9 @@ const ProjectDetailsSection = () => {
                 <TitleWrapper>
                   <Box>
                     <Row sx={{ justifyContent: 'space-between' }}>
-                      <Title color="red">{bidData?.title}</Title>
+                      <Title color="red">
+                        <b>{bidData?.title}</b>
+                      </Title>
                       <Column>
                         <Text color="green" fontWeight="bold">
                           {bidData?.maxBudget}

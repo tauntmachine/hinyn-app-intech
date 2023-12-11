@@ -13,17 +13,15 @@ import {
 } from '../../components/shared/Icon';
 import StarRating from '../../components/shared/StarRating';
 import Footer from '../../components/section/Footer';
-import { StaticPill, PillWithIcon } from '../../components/shared/Pill';
+import { StaticPill } from '../../components/shared/Pill';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import { getClientData, getUserData } from '../../components/forms/formService';
+import { getClientData } from '../../components/forms/formService';
 import ImageSlider from '../../components/shared/ImageSlider';
 import ReviewBox from '../../components/shared/ReviewBox';
 import { CheckSquareIcon } from '../../components/shared/Icon';
 import moment from 'moment';
-import Button from '../../components/shared/Button';
-import Modal from '../../components/shared/Modal';
-import BidFreelancerForm from '../../components/forms/BidFreelancerForm';
+
 import BidFreelancerForm2 from '../../components/forms/BidFreelancerForm2';
 import Modal2 from '../../components/shared/Modal2';
 
@@ -51,14 +49,6 @@ const Name = styled(Text)`
 
 const StyledImage = styled(Image)`
   border-radius: 50%;
-`;
-const LeftBorder = styled.div`
-  margin: 0 16px;
-  border-left: 1px solid #e96e3f;
-`;
-
-const CustomStaticPill = styled(StaticPill)`
-  color: #4aa398;
 `;
 
 const LargeIcon = styled.div`
@@ -130,8 +120,8 @@ const ProfessionalProfile = () => {
   const router = useRouter();
   let imgPath = '/assets/img/avatars/';
   const [clientData, setClientData] = useState([]);
-  const [clientSkills, setClientSkills] = useState([]);
-  const [clientCategories, setClientCategories] = useState(null);
+  // const [clientSkills, setClientSkills] = useState([]);
+  // const [clientCategories, setClientCategories] = useState(null);
   const [currentTab, setCurrentTab] = useState(0);
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
@@ -158,23 +148,6 @@ const ProfessionalProfile = () => {
 
   const verifications = ['Identity', 'Payment Method', 'Phone', 'Email'];
 
-  const skills = [
-    'Fashion',
-    'Beauty',
-    'Lifestyle',
-    'Corporate',
-    'E-commerce',
-    'Watches / Jewelry',
-    'Products',
-    'Cars',
-    'Sports',
-    'Wedding',
-    'Event',
-    'Kids / Baby',
-    'Animal',
-    'Architecture / Real estate',
-    'Food',
-  ];
   const projectDetails = {
     attachments: [
       'project-temp-1.jpeg',
@@ -183,30 +156,7 @@ const ProfessionalProfile = () => {
       'project-temp-4.jpeg',
     ],
   };
-  const userData = {
-    portfolios: [
-      {
-        category: 'photographer',
-        title: 'Photographer Portfolio',
-        projectDetails: [
-          'project-temp-1.jpeg',
-          'project-temp-2.jpeg',
-          'project-temp-3.jpeg',
-          'project-temp-4.jpeg',
-        ],
-      },
-      {
-        category: 'model',
-        title: 'Model Portfolio',
-        projectDetails: [
-          'project-temp-5.jpeg',
-          'project-temp-6.jpeg',
-          'project-temp-7.jpeg',
-          'project-temp-1.jpeg',
-        ],
-      },
-    ],
-  };
+
   //  id:localStorage.getItem('hinyn-cid');
   // useEffect(() => {
   //   if (fid) {

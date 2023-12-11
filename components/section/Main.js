@@ -16,7 +16,7 @@ const ContainerCustom = styled.div`
 `;
 
 function Main() {
-  const { freelancer, filter } = useFreelancer();
+  const { freelancer, setFilter } = useFreelancer();
   const [currCatSelected, setCurrCatSelected] = useState();
   const [categories, setCategories] = useState([]);
   const [filteredArray, setFilteredArray] = useState([]);
@@ -61,12 +61,11 @@ function Main() {
   const handleButtonClick = () => {};
 
   const handleSelectedCategory = (category) => {
-    // console.log(filter);
     setCurrCatSelected(category);
-
-    setFilteredArray(
-      freelancer.filter((item) => item.attributes.headline === category)
-    );
+    setFilter({ category: category });
+    // setFilteredArray(
+    //   freelancer.filter((item) => item.attributes.headline === category)
+    // );
   };
 
   return (
@@ -78,7 +77,7 @@ function Main() {
       />
       {/* <Text>{freelancer}</Text> */}
       <CardsSection
-        cards={filteredArray}
+        cards={freelancer}
         handleButtonClick={handleButtonClick}
         selectedCategory={currCatSelected}
       />
