@@ -10,6 +10,8 @@ const Text = styled(Typography)`
       ? '#4AA398'
       : props.color === 'gray' // New condition for gray color
       ? '#a6a6a6'
+      : props.color === 'white' // New condition for gray color
+      ? 'white'
       : '#525252'};
   font-size: ${(props) =>
     props.size === 'large'

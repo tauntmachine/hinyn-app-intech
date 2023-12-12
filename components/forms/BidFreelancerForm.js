@@ -15,6 +15,7 @@ import Modal from '../shared/Modal';
 import StyledTextField, { SquareTextField } from '../shared/Textfield';
 import Dropdown3 from '../shared/Dropdown3';
 import Image from 'next/image';
+import { addProposal } from './formService';
 
 const StyledButton = styled(Button)``;
 
@@ -171,12 +172,20 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
     }
 
     if (isValid.form) {
+      const clientId = localStorage.getItem('hinyn-cid');
       const clientData = {
+        status: 1,
         bidAmount: enteredBidAmount,
         bidDescription: enteredBidDescription,
-        isSuccess: isValid.form,
+        client: clientId,
+        bid: pid,
+        isDirectBidAssignment: true,
       };
-      handleBidSubmit(clientData);
+      addProposal(clientData).then((res) => {
+        if (res?.data) {
+          handleBidSubmit(clientData);
+        }
+      });
     }
   }
   return (
@@ -195,8 +204,8 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
           </ImageContainer>
           <Text color="red" size="large">
             <b>
-              Put a bid for
-              {data?.attributes.firstName} {data?.attributes.lastName}
+              Put a bid for {data?.attributes.firstName}{' '}
+              {data?.attributes.lastName}
             </b>
           </Text>
           <Container maxWidth="sm">

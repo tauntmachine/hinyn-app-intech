@@ -111,14 +111,9 @@ const ProjectSuccessPost = () => {
           <IconContainer>
             <StyledCheckIcon />
           </IconContainer>
-          <Typography
-            component="h1"
-            variant="h4"
-            align="center"
-            sx={{ color: '#ffffff' }}
-          >
+          <Text size="xxl" color="white">
             <b>Project Successfully Posted!</b>
-          </Typography>
+          </Text>
           <Container maxWidth="sm">
             <Typography component="p" align="center" sx={{ color: '#ffffff' }}>
               Your project is posted on our platform and we have a sent a
@@ -144,7 +139,7 @@ const ProjectSuccessPost = () => {
         />
       </Modal>
       <Modal handleClose={handleClose} isOpen={openSuccessModal} maxWidth="md">
-        <Box sx={{ padding: '5rem 0' }}>
+        <Box sx={{ padding: '2rem 0 5rem 0' }}>
           <Stack
             direction="column"
             justifyContent="center"
@@ -157,7 +152,7 @@ const ProjectSuccessPost = () => {
               </IconContainer>
             </Box>
             <Box>
-              <Text color="red" fontSize="18px">
+              <Text color="red" size="large">
                 <b>Bid Successfully Sent!</b>
               </Text>
             </Box>

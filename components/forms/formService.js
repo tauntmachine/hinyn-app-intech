@@ -3,19 +3,13 @@ import { origin } from '../../src/config';
 axios.defaults.withCredentials = true;
 
 export const emailVerify = async (email) => {
-  const jwt = localStorage.getItem('hinyn-cjwt');
   return axios
-    .put(
+    .post(
       origin + '/auth/send-email-confirmation',
       {
         email: email,
       },
       {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${jwt}`,
-        },
         withCredentials: true,
         crossDomain: true,
       }
@@ -29,6 +23,30 @@ export const emailVerify = async (email) => {
     })
     .catch(function (error) {
       return { status: false, data: error };
+    });
+};
+export const loginUser = async (clientData) => {
+  return axios
+    .post(
+      origin + '/auth/local',
+      {
+        identifier: clientData.email,
+        password: clientData.password,
+      },
+      {
+        withCredentials: true,
+        crossDomain: true,
+      }
+    )
+    .then(async (response) => {
+      if (response.data) {
+        return { status: true, data: response.data };
+      } else {
+        return { status: false, data: response.data.message };
+      }
+    })
+    .catch(function (error) {
+      return { status: false, data: error.response.data.error.message };
     });
 };
 /* BIDS */
@@ -255,31 +273,6 @@ export const registerUser = async (clientData) => {
       }
     )
     .then((response) => {
-      if (response.data) {
-        return { status: true, data: response.data };
-      } else {
-        return { status: false, data: response.data.message };
-      }
-    })
-    .catch(function (error) {
-      return { status: false, data: error.response.data.error.message };
-    });
-};
-
-export const loginUser = async (clientData) => {
-  return axios
-    .post(
-      origin + '/auth/local',
-      {
-        identifier: clientData.email,
-        password: clientData.password,
-      },
-      {
-        withCredentials: true,
-        crossDomain: true,
-      }
-    )
-    .then(async (response) => {
       if (response.data) {
         return { status: true, data: response.data };
       } else {

@@ -761,9 +761,8 @@ function PostProjectForm1({ handleNextClick }) {
         addBidData(bidData).then((res) => {
           if (res.data) {
             console.log('res -- ', res.data);
-
-            setFilter(selectedCategory?.key);
             handleNextClick(true);
+            setFilter(selectedCategory?.key);
           }
         });
       }

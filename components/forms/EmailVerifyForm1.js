@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CssBaseline, Grid, Box, Container } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
@@ -70,11 +70,28 @@ function EmailVerifyForm1({ handleNextClick, handleBack, name, email }) {
   const handleClose = () => {
     setOpen(false);
   };
-  const EmailVerification = async (email) => {
-    return emailVerify(email).then((response) => {
-      if (response) handleNextClick;
-    });
-  };
+  // const EmailVerification = async (email) => {
+  //   return emailVerify(email).then((response) => {
+  //     if (response) handleNextClick;
+  //   });
+  // };
+  const email1 = 'muhammadassadullah578@gmail.com';
+
+  useEffect(() => {
+    const verifyEmail = async () => {
+      try {
+        const result = await emailVerify(email1);
+        console.log(result);
+        // Handle the result or perform additional actions
+      } catch (error) {
+        console.error('Error verifying email:', error);
+        console.error('Server response data:', error.response.data);
+      }
+    };
+
+    verifyEmail();
+  }, []);
+
   return (
     <>
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>

@@ -71,7 +71,7 @@ const AllProjectsSection = ({ handleScreenChange }) => {
                 noPadding={true}
               >
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                  <ProjectFilterForm filterType={false} />
+                  <ProjectFilterForm />
                 </Box>
               </ContentBox>
             </Grid>

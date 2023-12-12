@@ -139,58 +139,61 @@ interface Project {
 }
 
 const useProjectController = (project: Project[]) => {
-  const [projectFilter, setProjectFilter] = useState(undefined);
+  const [projectFilter, setProjectFilter] = useState<{
+    // budget?: number | null;
+    // location?: string | null;
+    category?: string | null;
+  }>({});
+  console.log('Got FIlter', projectFilter);
+  // const checkBudget = (val) => {
+  //   if (
+  //     typeof projectFilter === 'object' &&
+  //     projectFilter?.budget !== undefined
+  //   ) {
+  //     const budgetFilter = Number(projectFilter?.budget);
 
-  const checkBudget = (val) => {
-    if (typeof projectFilter === 'object' && projectFilter?.budget)
-      return val?.minBudget === parseInt(projectFilter?.budget); //return val?.data.some(category => category?.attributes?.key.toLowerCase().includes(filter?.category?.toLowerCase() ?? ''))
-    return 1;
-  };
+  //     // Now, compare val?.minBudget (presumably a number) with budgetFilter
+  //     return (
+  //       typeof val?.minBudget === 'number' && val?.minBudget === budgetFilter
+  //     );
+  //   }
+  //   return true; // If budget is not specified in the filter, consider it as a match
+  // };
 
-  const checkLocation = (val) => {
-    // console.log()
-    if (typeof projectFilter === 'object' && projectFilter?.location)
-      return val?.city
-        ?.replace(/\s+/g, '')
-        .toLowerCase()
-        .includes(projectFilter?.location); //return val?.data.some(category => category?.attributes?.key.toLowerCase().includes(filter?.category?.toLowerCase() ?? ''))
-    return 1;
-  };
+  // const checkLocation = (val) => {
+  //   if (typeof projectFilter === 'object' && projectFilter?.location)
+  //     return val?.city
+  //       ?.replace(/\s+/g, '')
+  //       .toLowerCase()
+  //       .includes(projectFilter?.location);
+  //   return true; // If location is not specified in the filter, consider it as a match
+  // };
 
   const checkCategories = (val) => {
-    if (projectFilter === '') return val;
-    if (typeof projectFilter === 'object' && projectFilter?.category === 'all')
-      return val;
-    if (typeof projectFilter === 'object')
-      return (
-        val?.categories?.data[0]?.attributes?.key === projectFilter?.category
-      ); //return val?.data.some(category => category?.attributes?.key.toLowerCase().includes(filter?.category?.toLowerCase() ?? ''))
+    if (projectFilter.category === 'all') return true; // Show all categories
     return (
-      (projectFilter &&
-        val?.title?.toLowerCase().includes(projectFilter?.toLowerCase())) ??
-      val
+      val?.categories?.data[0]?.attributes?.key === projectFilter?.category
     );
   };
 
-  const filteredProject = useMemo(
-    () => {
-      return project;
-    },
-    // project &&
-    // project
-    //   .map((p) => {
-    //     return { id: p.id, ...p.attributes };
-    //   })
-    //   .filter((val: Project) => {
-    //     return (
-    //       val?.status < 99 &&
-    //       checkCategories(val) &&
-    //       checkBudget(val) &&
-    //       checkLocation(val)
-    //     ); //&& (val?.title?.toLowerCase().includes(projectFilter.toLowerCase()) || val?.description?.toLowerCase().includes(projectFilter.toLowerCase()))
-    //   }),
-    [projectFilter, project]
-  );
+  const filteredProject = useMemo(() => {
+    console.log('Project:', project);
+    console.log('Project Filter:', projectFilter);
+
+    if (!project || projectFilter.category === null) {
+      return project || []; // Return all projects if category is not selected
+    }
+
+    const result = project.filter((p) => {
+      const match = checkCategories(p);
+      console.log('Filtered Project:', match, p);
+      return match;
+    });
+
+    console.log('Final Result:', result);
+    return result;
+  }, [projectFilter, project]);
+
   return {
     projectFilter,
     setProjectFilter,
@@ -199,7 +202,7 @@ const useProjectController = (project: Project[]) => {
 };
 
 const ProjectContext = createContext<ReturnType<typeof useProjectController>>({
-  projectFilter: '',
+  projectFilter: {},
   setProjectFilter: () => {},
   project: [],
 });
