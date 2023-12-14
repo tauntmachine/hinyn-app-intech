@@ -1,24 +1,23 @@
 import { useRef, useState } from 'react';
-import { useRouter } from 'next/router';
+
 import {
   CssBaseline,
   Grid,
   Box,
-  Typography,
   Container,
   TextareaAutosize,
 } from '@mui/material';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import styled from '@emotion/styled';
-import Text, { SmallText } from '../shared/Typography';
-import Button, { GreenButton } from '../shared/Button';
-import Modal from '../shared/Modal';
-import StyledTextField, { SquareTextField } from '../shared/Textfield';
-import Dropdown3 from '../shared/Dropdown3';
-import Image from 'next/image';
-import Dropdown from '../shared/Dropdown';
 
-const StyledButton = styled(Button)``;
+import styled from '@emotion/styled';
+import Text from '../shared/Typography';
+import Button from '../shared/Button';
+
+import StyledTextField from '../shared/Textfield';
+import DropdownO from '../shared/DropdownO';
+import Image from 'next/image';
+
+import { addProposal } from './formService';
+import DropdownO1 from '../shared/DropdownO1';
 
 const FormContainer = styled(Box)`
   display: flex;
@@ -40,15 +39,6 @@ const ButtonContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin: 20px 0 0 0;
-`;
-const VerticalDivider = styled.div`
-  height: 1rem;
-`;
-
-const CustomDropdown = styled(Dropdown3)`
-  .MuiInputBase-root {
-    border-radius: 10px;
-  }
 `;
 
 const CustomTextField = styled(StyledTextField)`
@@ -100,20 +90,19 @@ const ImageContainer = styled.div`
 const StyledImage = styled(Image)`
   border-radius: 50%;
 `;
-const Capitalize = styled.span`
-  text-transform: capitalize;
-`;
+
 const InputDiv = styled.div`
   display: flex;
   gap: 0 10px;
 `;
-const BidFreelancerForm2 = ({ handleBidSubmit, data }) => {
+const BidFreelancerForm2 = ({ handleBidSubmit, data, bidData, Id }) => {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedC, setSelectedC] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
   let imgpath = '/assets/img/avatars/';
-  const [categories, setCategories] = useState([
-    'photographer',
-    'videographer',
-    'Editor',
-  ]);
+
+  const [categories, setCategories] = useState(bidData);
+
   const currencies = [
     {
       title: 'USD',
@@ -124,9 +113,6 @@ const BidFreelancerForm2 = ({ handleBidSubmit, data }) => {
       value: 'aed',
     },
   ];
-
-  const router = useRouter();
-  const { pid } = router.query;
 
   const [enteredBidDescription, setBidDescription] = useState('');
 
@@ -143,48 +129,68 @@ const BidFreelancerForm2 = ({ handleBidSubmit, data }) => {
 
   function submitHandler(event) {
     event.preventDefault();
-    // const enteredBidAmount = bidAmountInputRef.current.value;
+    const enteredBidAmount = bidAmountInputRef.current.value;
 
-    // if (!enteredBidAmount) {
-    //   setErrorMessage((prevState) => ({
-    //     ...prevState,
-    //     ['bidAmount']: 'Invalid bid amount',
-    //   }));
-    //   setValid((prevState) => ({
-    //     ...prevState,
-    //     ['form']: false,
-    //   }));
-    // }
+    if (!enteredBidAmount) {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        ['bidAmount']: 'Invalid bid amount',
+      }));
+      setValid((prevState) => ({
+        ...prevState,
+        ['form']: false,
+      }));
+    }
 
-    // if (!enteredBidDescription) {
-    //   setErrorMessage((prevState) => ({
-    //     ...prevState,
-    //     ['bidDescription']: 'Provide bid description',
-    //   }));
-    //   setValid((prevState) => ({
-    //     ...prevState,
-    //     ['form']: false,
-    //   }));
-    // }
+    if (!enteredBidDescription) {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        ['bidDescription']: 'Provide bid description',
+      }));
+      setValid((prevState) => ({
+        ...prevState,
+        ['form']: false,
+      }));
+    }
 
-    // if (
-    //   enteredBidAmount &&
-    //   enteredBidDescription &&
-    //   enteredBidAmount !== '' &&
-    //   enteredBidDescription !== ''
-    // ) {
-    //   isValid.form = true;
-    // }
+    if (
+      enteredBidAmount &&
+      enteredBidDescription &&
+      enteredBidAmount !== '' &&
+      enteredBidDescription !== ''
+    ) {
+      isValid.form = true;
+    }
 
-    // if (isValid.form) {
-    //   const clientData = {
-    //     bidAmount: enteredBidAmount,
-    //     bidDescription: enteredBidDescription,
-    //     isSuccess: isValid.form,
-    //   };
-    // handleBidSubmit();
+    if (isValid.form) {
+      const clientId = Id;
+
+      const clientData = {
+        status: 1,
+        budget: enteredBidAmount,
+        description: enteredBidDescription,
+        client: clientId,
+        bid: selectedId,
+        isDirectBidAssignment: true,
+      };
+
+      addProposal(clientData).then((res) => {
+        if (res) {
+          console.log(res);
+          handleBidSubmit();
+        }
+      });
+    }
   }
 
+  const handleCategoryChange = (val) => {
+    setSelectedCategory(() => val);
+    setSelectedId(() => val.id);
+  };
+
+  const handleC = (val) => {
+    setSelectedC(() => val);
+  };
   return (
     <>
       <Container maxWidth="lg" sx={{ margin: '0.45rem 0' }}>
@@ -223,11 +229,15 @@ const BidFreelancerForm2 = ({ handleBidSubmit, data }) => {
                   <b>Select project</b>
                 </GrayText>
 
-                <Dropdown
+                <DropdownO1
                   hasLabel={false}
                   items={categories}
+                  setHandleOnChange={handleCategoryChange}
+                  selected={selectedCategory}
                   width="100%"
-                  typology="okok"
+                  type="standard"
+                  color="red"
+                  defaultLabel="Select Project"
                 />
               </Grid>
             </Grid>
@@ -243,17 +253,16 @@ const BidFreelancerForm2 = ({ handleBidSubmit, data }) => {
                     alignItems: 'center',
                   }}
                 >
-                  <CustomDropdown
+                  <DropdownO
                     hasLabel={false}
                     items={currencies}
                     width="100%"
                     type="outlined"
-                    selected="usd"
+                    selected={selectedC}
+                    setHandleOnChange={handleC}
                     color="red"
-
-                    // bgcolor="transparent"
                   />
-                  <StyledTextArea
+                  <CustomTextField
                     required
                     fullWidth
                     type="number"
@@ -289,6 +298,7 @@ const BidFreelancerForm2 = ({ handleBidSubmit, data }) => {
                   id="bidDescription"
                   name="bidDescription"
                   maxLength={500}
+                  typeh="less"
                   onChange={(event) => {
                     const { value } = event.target;
                     setBidDescription(() => value);
@@ -313,21 +323,6 @@ const BidFreelancerForm2 = ({ handleBidSubmit, data }) => {
                 placeholder="Milestone"
                 typeh="less"
                 maxLength={100}
-                // rowsMin={3}
-
-                // id="bidDescription"
-                // name="bidDescription"
-                // maxLength={500}
-                // onChange={(event) => {
-                //   const { value } = event.target;
-                //   setBidDescription(() => value);
-                //   if (value) {
-                //     setErrorMessage((prevState) => ({
-                //       ...prevState,
-                //       ['bidDescription']: null,
-                //     }));
-                //   }
-                // }}
               />
               {errorMessage.bidDescription && (
                 <Error>{errorMessage.bidDescription}</Error>

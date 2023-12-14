@@ -119,18 +119,18 @@ function Filter() {
               ...temp,
             })
           );
-          if (idx === 0) {
-            setSelectedCategory(() => item.attributes.key);
-            const res = item?.attributes?.skills?.data.map((skill) => {
-              return {
-                id: skill.id,
-                key: skill?.attributes?.slug,
-                ...skill?.attributes,
-              };
-            });
-            setSkills(() => res);
-            setSelectedSkill(() => res[0]?.key);
-          }
+          // if (idx === 0) {
+          //   setSelectedCategory(() => item.attributes.key);
+          //   const res = item?.attributes?.skills?.data.map((skill) => {
+          //     return {
+          //       id: skill.id,
+          //       key: skill?.attributes?.slug,
+          //       ...skill?.attributes,
+          //     };
+          //   });
+          //   setSkills(() => res);
+          //   setSelectedSkill(() => res[0]?.key);
+          // }
         });
       }
     });

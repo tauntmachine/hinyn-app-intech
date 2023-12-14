@@ -172,17 +172,20 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
     }
 
     if (isValid.form) {
+      console.log('okay');
       const clientId = localStorage.getItem('hinyn-cid');
       const clientData = {
         status: 1,
-        bidAmount: enteredBidAmount,
-        bidDescription: enteredBidDescription,
+        Amount: enteredBidAmount,
+        Description: enteredBidDescription,
         client: clientId,
         bid: pid,
-        isDirectBidAssignment: true,
+        isDirectBidAssignment: false,
       };
+      console.log('proposal dta', clientData);
       addProposal(clientData).then((res) => {
-        if (res?.data) {
+        if (res) {
+          console.log(res);
           handleBidSubmit(clientData);
         }
       });

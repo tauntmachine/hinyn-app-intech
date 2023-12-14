@@ -13,10 +13,13 @@ import {
 } from '../../components/shared/Icon';
 import StarRating from '../../components/shared/StarRating';
 import Footer from '../../components/section/Footer';
-import { StaticPill } from '../../components/shared/Pill';
+
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import { getClientData } from '../../components/forms/formService';
+import {
+  getClientData,
+  getClientDataBids,
+} from '../../components/forms/formService';
 import ImageSlider from '../../components/shared/ImageSlider';
 import ReviewBox from '../../components/shared/ReviewBox';
 import { CheckSquareIcon } from '../../components/shared/Icon';
@@ -97,10 +100,8 @@ const LoginHoverBox = styled.div`
   padding: 2px 0;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1; // Make sure it's above other elements
-
-  /* Add some margin to prevent the box from closing when moving to it */
-  margin-top: 10px; // Adjust the value as needed
+  z-index: 1;
+  cursor: pointer;
 `;
 
 const CustomText = styled.div`
@@ -120,14 +121,14 @@ const ProfessionalProfile = () => {
   const router = useRouter();
   let imgPath = '/assets/img/avatars/';
   const [clientData, setClientData] = useState([]);
-  // const [clientSkills, setClientSkills] = useState([]);
-  // const [clientCategories, setClientCategories] = useState(null);
+  const [clientBids, setClientBids] = useState([]);
+  const [selectedClientBid, setSelectedClientBid] = useState(null);
   const [currentTab, setCurrentTab] = useState(0);
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
   const [accountType, setAccountType] = useState();
   const { fid } = router.query;
-
+  console.log(fid);
   const reviews = [
     {
       user: 'Danny Woods',
@@ -157,39 +158,6 @@ const ProfessionalProfile = () => {
     ],
   };
 
-  //  id:localStorage.getItem('hinyn-cid');
-  // useEffect(() => {
-  //   if (fid) {
-  //     const clientData = {
-  //       user: {
-  //         data: {
-  //           id: fid,
-  //         },
-  //       },
-  //     };
-
-  //     getClientData(clientData.user.data).then((res) => {
-  //       if (res?.data?.data) {
-  //         // console.log('res data', res?.data?.data.attributes);
-  //         setClientData(() => res?.data?.data?.attributes);
-  //         // if (res) setClientCategories(() => res);
-  //         console.log(clientData);
-  //       }
-  //     });
-  //   }
-  //   // const clientData = {
-  //   //   id: localStorage.getItem('hinyn-cid'),
-  //   // };
-  //   // getClientData(clientData).then((res) => {
-  //   //   if (res?.data?.data) {
-  //   //     setClientData(() => res?.data?.data?.attributes);
-  //   //     if (res?.data?.data?.attributes?.categories?.data)
-  //   //       setClientCategories(
-  //   //         () => res?.data?.data?.attributes?.categories?.data
-  //   //       );
-  //   //   }
-  //   // });
-  // }, [fid]);
   useEffect(() => {
     const clientData = fid
       ? {
@@ -202,8 +170,6 @@ const ProfessionalProfile = () => {
     getClientData(clientData).then((res) => {
       if (res?.data?.data) {
         setClientData(res?.data?.data?.attributes);
-        // setAccountType(res.data.data.attributes.accountType);
-        // console.log(accountType);
       }
     });
     getClientData(client).then((res) => {
@@ -211,7 +177,27 @@ const ProfessionalProfile = () => {
         setAccountType(res.data.data.attributes.accountType);
       }
     });
+    getClientDataBids(client).then((res) => {
+      if (res) {
+        setClientBids(() => []);
+        const Bids = res.data.data.attributes.bids.data;
+
+        Bids.map((x, id) => {
+          const temp = { id: x.id };
+          setClientBids((prev) =>
+            prev.concat({
+              ...x?.attributes,
+              ...temp,
+            })
+          );
+          if (id === 0) {
+            setSelectedClientBid(x?.attributes.title);
+          }
+        });
+      }
+    });
   }, []);
+
   const handleChangeTab = (val) => {
     setCurrentTab(val);
     router.push('/dashboard');
@@ -230,6 +216,13 @@ const ProfessionalProfile = () => {
   };
 
   const loginHoverOut = () => {
+    setHover(false);
+  };
+  const loginHoverBoxEnter = () => {
+    setHover(true);
+  };
+
+  const loginHoverBoxLeave = () => {
     setHover(false);
   };
   return (
@@ -284,7 +277,11 @@ const ProfessionalProfile = () => {
                         onMouseEnter={loginHover}
                         onMouseLeave={loginHoverOut}
                       />
-                      <LoginHoverBox hover={hover}>
+                      <LoginHoverBox
+                        hover={hover}
+                        onMouseEnter={loginHoverBoxEnter}
+                        onMouseLeave={loginHoverBoxLeave}
+                      >
                         {' '}
                         <CustomText hover={hover}>
                           Add to My Freelancers
@@ -344,15 +341,6 @@ const ProfessionalProfile = () => {
               headerTitle="Portfolio"
               headerColor="green"
             >
-              {/* <Text color="red">Name of Business</Text>
-              <GrayText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                non orci vestibulum, congue est et, lacinia neque. Lorem ipsum
-                dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
-                sit amet, consectetur adipiscing elit. Aliquam non orci
-                vestibulum, congue est et, lacinia neque. Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit.
-              </GrayText> */}
               <VerticalDivider />
               <Row>
                 <ImageSlider images={projectDetails?.attachments} />
@@ -434,6 +422,9 @@ const ProfessionalProfile = () => {
           <BidFreelancerForm2
             handleBidSubmit={handleBidSubmit}
             data={clientData}
+            bidData={clientBids}
+            selectedBid={selectedClientBid}
+            Id={fid}
           />
         </Modal2>
       </Container>
