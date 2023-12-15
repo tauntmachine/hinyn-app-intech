@@ -32,7 +32,7 @@ const MainBox = styled(Box)`
 
 function Professional() {
   const progressRate = 11;
-  const [currentActiveForm, setCurrentActiveForm] = useState(8);
+  const [currentActiveForm, setCurrentActiveForm] = useState(1);
   const [progressPercent, setProgressPercent] = useState(
     progressRate * currentActiveForm
   );
@@ -40,19 +40,17 @@ function Professional() {
   const [email, setEmail] = useState('');
   const [isAccountVerified, setIsAccountVerified] = useState('');
   const [currClientData, setCurrClientData] = useState(null);
-  // const isAccountVerified = true; //fetch from API
+
   useEffect(() => {
-    const req = localStorage.getItem('hinyn-clientData');
-    const res = JSON.parse(req);
-    // const getEmail = (res.id) => {
-    getUserData(res.id).then(async (result) => {
-      if (result?.data) {
+    const clientId = localStorage.getItem('hinyn-cid');
+
+    getUserData(clientId).then(async (result) => {
+      if (result) {
+        console.log(result);
         setEmail(result.data?.email);
         setName(result.data?.username);
       }
     });
-    //     .catch((e) => console.log('request update', e));
-    // };
   }, []);
   const handleNextClick = (value) => {
     console.log('is verified', isAccountVerified);
@@ -80,9 +78,9 @@ function Professional() {
       .then(async (result) => {
         if (result?.data) {
           console.log('stringify client -', JSON.stringify(result?.data));
-          // console.log('is verified - ', result?.data?.attributes?.isEmailVerified);
+
           const res = result?.data?.attributes;
-          // const res = await JSON.parse(result?.data?.attributes);
+
           setIsAccountVerified(
             res?.data?.isEmailVerified == null
               ? false

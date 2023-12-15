@@ -122,7 +122,7 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
 
   const router = useRouter();
   const { pid } = router.query;
-
+  console.log(pid);
   const [enteredBidDescription, setBidDescription] = useState('');
 
   const [isValid, setValid] = useState({

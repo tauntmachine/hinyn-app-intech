@@ -19,11 +19,7 @@ import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button, { GreenButton } from '../shared/Button';
 import Modal from '../shared/Modal';
-import StyledTextField, {
-  NoOutlineTextField,
-  OutlinedTextField,
-  StyledTextField2,
-} from '../shared/Textfield';
+import StyledTextField, { OutlinedTextField } from '../shared/Textfield';
 import Image from 'next/image';
 import {
   OutlineSearchIcon,
@@ -36,11 +32,10 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import moment from 'moment';
 import { Button as CustomButton } from '@mui/material';
-import { useFreelancer } from '../../src/store';
+
 import { addBidData, getCategories } from './formService';
-import DropdownO from '../shared/DropdownO';
+import DropdownO1 from '../shared/DropdownO1';
 import { budget, locations, ageGroupOptions } from '../models/filters.models';
-import { RxValue } from 'react-icons/rx';
 
 const FormContainer = styled(Box)`
   display: flex;
@@ -191,7 +186,7 @@ const StyledCheckbox = styled(Checkbox)`
   }
 `;
 
-const CustomDropdown = styled(DropdownO)`
+const CustomDropdown = styled(DropdownO1)`
   .MuiInputBase-root {
     border-radius: 18px;
     background: red;
@@ -263,12 +258,11 @@ const upgradesData = [
 function PostProjectForm1({ handleNextClick }) {
   const imgsrc = '/assets/img/categories/';
   const [open, setOpen] = useState(false);
-  const [dobValue, setDobValue] = useState(null);
-  const [enteredBroadDescription, setBroadDescription] = useState('');
+
   const handleClose = () => {
     setOpen(false);
   };
-  const { freelancer, filter, setFilter } = useFreelancer();
+
   const [categories, setCategories] = useState([]);
 
   const [selectedGender, setSelectedGender] = useState(null);
@@ -277,7 +271,8 @@ function PostProjectForm1({ handleNextClick }) {
   const [skills, setSkills] = useState([]);
 
   const [selectedSkill, setSelectedSkill] = useState('');
-  const [selectedSkillName, setSelectedSkillName] = useState('');
+  const [selectedSkillId, setSelectedSkillId] = useState('');
+
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [location, setLocation] = useState(null);
@@ -286,16 +281,14 @@ function PostProjectForm1({ handleNextClick }) {
   const [projectDescription, setProjectDescription] = useState(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [filename, setFilename] = useState(null);
-  const [isFetched, setIsFetched] = useState(false);
-  const [deliverables, setDeliverables] = useState(false);
-  const [deliveryDays, setDeliveryDays] = useState(false);
+
   const [activeStates, setActiveStates] = useState(categories.map(() => false));
   const [upgrades, setUpgrades] = useState({
     featured: true,
     urgent: false,
   });
   const [progress, setProgress] = useState(1);
-  const [color, setColor] = useState(false);
+
   const [projectData, setProjectData] = useState({
     title: null,
     category: null,
@@ -345,28 +338,28 @@ function PostProjectForm1({ handleNextClick }) {
     deliveryDays: null,
   });
 
-  const checkDOB = (dobdate) => {
-    const dateFormat = 'YYYY-MM-DD';
-    const dob = moment(dobdate, dateFormat, true).isValid();
-    const today = moment().format('YYYY-MM-DD');
+  // const checkDOB = (dobdate) => {
+  //   const dateFormat = 'YYYY-MM-DD';
+  //   const dob = moment(dobdate, dateFormat, true).isValid();
+  //   const today = moment().format('YYYY-MM-DD');
 
-    if (dob && moment(today).format('YYYY') > moment(dobdate).format('YYYY')) {
-      setErrorMessage((prevState) => ({
-        ...prevState,
-        ['dob']: null,
-      }));
-      setValid((prevState) => ({
-        ...prevState,
-        ['dob']: true,
-      }));
-      setDobValue(moment(dobdate).format('YYYY-MM-DD'));
-    } else {
-      setErrorMessage((prevState) => ({
-        ...prevState,
-        ['dob']: 'Invalid date of birth.',
-      }));
-    }
-  };
+  //   if (dob && moment(today).format('YYYY') > moment(dobdate).format('YYYY')) {
+  //     setErrorMessage((prevState) => ({
+  //       ...prevState,
+  //       ['dob']: null,
+  //     }));
+  //     setValid((prevState) => ({
+  //       ...prevState,
+  //       ['dob']: true,
+  //     }));
+  //     setDobValue(moment(dobdate).format('YYYY-MM-DD'));
+  //   } else {
+  //     setErrorMessage((prevState) => ({
+  //       ...prevState,
+  //       ['dob']: 'Invalid date of birth.',
+  //     }));
+  //   }
+  // };
 
   const onLanguageClick = (clickedLanguage) => {
     let temp = [];
@@ -397,34 +390,9 @@ function PostProjectForm1({ handleNextClick }) {
               ...temp,
             })
           );
-          if (idx === 0) {
-            setSelectedCategory(() => item.attributes.key);
-            const res = item?.attributes?.skills?.data.map((skill) => {
-              return {
-                id: skill.id,
-                key: skill?.attributes?.slug,
-                ...skill?.attributes,
-              };
-            });
-            setSkills(() => res);
-            setSelectedSkill(() => res[0]?.key);
-          }
         });
       }
     });
-    // let catList = [];
-
-    // getCategories().then((result) => {
-    //   if (result?.data) {
-    //     result?.data?.data.map((item) => {
-    //       let temp = { id: item.id, ...item.attributes };
-    //       // setCategories((prev) => prev.concat({ ...item.attributes, ...temp }));
-    //       catList = [...catList, { ...temp }];
-    //     });
-    //     setCategories(catList);
-    //     // console.log(categories);
-    //   }
-    // });
   }, []);
   const onLanguagesSearchChange = (e) => {
     onLanguageClick(e.target.textContent);
@@ -753,16 +721,14 @@ function PostProjectForm1({ handleNextClick }) {
         isFeatured: projectData.upgrades.featured,
         isUrgent: projectData.upgrades.urgent,
         categories: [selectedCategory?.id],
-        skills: projectData.skills,
+        skills: selectedSkillId,
         client: clientId,
       };
-      // console.log(bidData);
+
       if (clientId) {
         addBidData(bidData).then((res) => {
           if (res.data) {
-            console.log('res -- ', res.data);
             handleNextClick(true);
-            setFilter(selectedCategory?.key);
           }
         });
       }
@@ -773,6 +739,7 @@ function PostProjectForm1({ handleNextClick }) {
 
   const handleSkillsChange = (value) => {
     setSelectedSkill(() => value);
+    setSelectedSkillId(() => value.id);
   };
   const handleCategoryChange = (index) => {
     setSelectedCategory(categories[index]);
@@ -783,9 +750,6 @@ function PostProjectForm1({ handleNextClick }) {
       listSkill = [...listSkill, { ...temp }];
     });
     setSkills(listSkill);
-    console.log('PostForm Skills', skills);
-    // getCategorySkills(categoryId);
-    // setSelectedSkill(() => []);
   };
   const progress1 = () => {
     const toggleCategoryActiveState = (index) => {

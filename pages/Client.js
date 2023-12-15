@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Box, Container } from '@mui/material';
 import Logo from '../components/shared/Logo';
 import ProgressBar from '../components/shared/ProgressBar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FirstLastName from '../components/forms/FirstLastName';
 import SelectGender from '../components/forms/SelectGender';
 import Location from '../components/forms/Location';
@@ -11,7 +11,7 @@ import Ott from '../components/forms/Ott';
 import UploadDoc from '../components/forms/UploadDoc';
 import EmailVerifyForm1 from '../components/forms/EmailVerifyForm1';
 import MemberShip from '../components/forms/MemberShip';
-import { updateClientData } from '../components/forms/formService';
+import { getUserData, updateClientData } from '../components/forms/formService';
 
 const MainBox = styled(Box)`
   background-color: #f0f0f0;
@@ -27,8 +27,21 @@ function Client() {
   const [progressPercent, setProgressPercent] = useState(
     progressRate * currentActiveForm
   );
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [isAccountVerified, setIsAccountVerified] = useState('');
   const [currClientData, setCurrClientData] = useState(null);
+  useEffect(() => {
+    const clientId = localStorage.getItem('hinyn-cid');
+
+    getUserData(clientId).then(async (result) => {
+      if (result) {
+        console.log(result);
+        setEmail(result.data?.email);
+        setName(result.data?.username);
+      }
+    });
+  }, []);
 
   const handleNextClick = (value) => {
     console.log('is verified', isAccountVerified);
@@ -107,8 +120,8 @@ function Client() {
         (isAccountVerified == null || !isAccountVerified) ? (
           <EmailVerifyForm1
             handleNextClick={handleNextClick}
-            name={currClientData?.firstName}
-            email={currClientData?.email}
+            name={name}
+            email={email}
             handleBack={goBack}
           />
         ) : null}

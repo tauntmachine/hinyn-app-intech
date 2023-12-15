@@ -93,7 +93,13 @@ const GrayText = styled(Text)`
 const CustomCheckIcon = styled(CheckIcon)`
   font-size: 4rem;
 `;
-
+const Con1 = styled.div`
+  background: #d8ebe8;
+  border: 1px solid #4aa398;
+  border-radius: 6px;
+  padding: 12px 20px;
+  display: ${(props) => (props.openSuccessModal ? 'flex' : 'none')};
+`;
 const Proposals = ({ projectId, bidData, isBidOwner }) => {
   const router = useRouter();
   const [proposals, setProposals] = useState([]);
@@ -127,6 +133,7 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
 
   const handleAcceptBid = (proposalId) => {
     const proposalData = {
+      isDirectBidAssignment: true,
       dateAwarded: new Date(),
     };
     updateProposalData(proposalData, proposalId).then((result) => {
@@ -136,136 +143,110 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
     });
   };
   return (
-    <MainWrapper>
-      {proposals &&
-        proposals.map((proposal, idx) => {
-          let bidder = proposal?.client?.data?.attributes;
-          return (
-            <ProjectContainer key={'project-bid-' + idx}>
-              <Row sx={{ gap: '2rem', width: '100%' }}>
-                <Column sx={{ flexBasis: '10%' }}>
-                  <ImageContainer>
-                    <StyledImage
-                      src={
-                        bidder?.displayPhoto
-                          ? imgPath + bidder?.displayPhoto
-                          : imgPath + 'img-avatar2.png'
-                      }
-                      layout="fill"
-                      alt="icon-img"
-                    />
-                  </ImageContainer>
-                </Column>
-                <Column sx={{ flexBasis: '90%' }}>
-                  <Row sx={{ gap: '14px', justifyContent: 'space-between' }}>
-                    <Box sx={{ display: 'flex' }}>
-                      <Text color="red">
-                        <b>
-                          {bidder?.firstName} {bidder?.lastName}
-                        </b>
-                      </Text>
-                      <GrayText> {bidder?.instagramProfile ?? ''} </GrayText>
-                    </Box>
-                    <Box>
-                      {isBidOwner ? (
-                        <CustomRedButton
-                          onClick={() => handleAcceptBid(proposal?.id)}
-                          className={proposal?.dateAwarded ? 'isAwarded' : ''}
-                        >
-                          {proposal?.dateAwarded
-                            ? 'Bid Accepted'
-                            : 'Accept Bid'}
-                        </CustomRedButton>
-                      ) : (
+    <>
+      <MainWrapper>
+        <Con1>
+          <Text color="green">You have accepted bid</Text>
+        </Con1>
+        {proposals &&
+          proposals.map((proposal, idx) => {
+            let bidder = proposal?.client?.data?.attributes;
+            return (
+              <ProjectContainer key={'project-bid-' + idx}>
+                <Row sx={{ gap: '2rem', width: '100%' }}>
+                  <Column sx={{ flexBasis: '10%' }}>
+                    <ImageContainer>
+                      <StyledImage
+                        src={
+                          bidder?.displayPhoto
+                            ? imgPath + bidder?.displayPhoto
+                            : imgPath + 'img-avatar2.png'
+                        }
+                        layout="fill"
+                        alt="icon-img"
+                      />
+                    </ImageContainer>
+                  </Column>
+                  <Column sx={{ flexBasis: '90%' }}>
+                    <Row sx={{ gap: '14px', justifyContent: 'space-between' }}>
+                      <Box sx={{ display: 'flex' }}>
+                        <Text color="red">
+                          <b>
+                            {bidder?.firstName} {bidder?.lastName}
+                          </b>
+                        </Text>
+                        <GrayText> {bidder?.instagramProfile ?? ''} </GrayText>
+                      </Box>
+                      <Box>
+                        {isBidOwner ? (
+                          <CustomRedButton
+                            onClick={() => handleAcceptBid(proposal?.id)}
+                            className={proposal?.dateAwarded ? 'isAwarded' : ''}
+                          >
+                            {proposal?.dateAwarded
+                              ? 'Bid Accepted'
+                              : 'Accept Bid'}
+                          </CustomRedButton>
+                        ) : (
+                          <Text color="green">
+                            <b>
+                              {proposal?.budget} {proposal.currency ?? 'AED'}
+                            </b>
+                          </Text>
+                        )}
+                      </Box>
+                    </Row>
+                    <Row sx={{ gap: '8px' }}>
+                      <LocationIcon />
+                      <GrayText>
+                        {' '}
+                        {bidder?.city}, {bidder?.country ?? 'UAE'}
+                      </GrayText>
+                    </Row>
+                    <Row>
+                      <Box sx={{ display: 'flex' }}>
+                        <StarRating data={bidder?.rating ?? 3} sz="lg" />
+                        <GrayText> {bidder?.category ?? ''} </GrayText>
+                      </Box>
+                    </Row>
+                    <Row>
+                      <GrayText>{proposal?.description}</GrayText>
+                    </Row>
+                    {isBidOwner ? (
+                      <Row>
+                        <GrayText>Bid Price: </GrayText>
                         <Text color="green">
                           <b>
                             {proposal?.budget} {proposal.currency ?? 'AED'}
                           </b>
                         </Text>
-                      )}
-                    </Box>
-                  </Row>
-                  <Row sx={{ gap: '8px' }}>
-                    <LocationIcon />
-                    <GrayText>
-                      {' '}
-                      {bidder?.city}, {bidder?.country ?? 'UAE'}
-                    </GrayText>
-                  </Row>
-                  <Row>
-                    <Box sx={{ display: 'flex' }}>
-                      <StarRating data={bidder?.rating ?? 3} sz="lg" />
-                      <GrayText> {bidder?.category ?? ''} </GrayText>
-                    </Box>
-                  </Row>
-                  <Row>
-                    <GrayText>{proposal?.description}</GrayText>
-                  </Row>
-                  {isBidOwner ? (
-                    <Row>
-                      <GrayText>Bid Price: </GrayText>
-                      <Text color="green">
-                        <b>
-                          {proposal?.budget} {proposal.currency ?? 'AED'}
-                        </b>
-                      </Text>
-                    </Row>
-                  ) : null}
-                </Column>
-              </Row>
-            </ProjectContainer>
-          );
-        })}
-      {proposals && proposals.length === 0 ? (
-        <ProjectContainer>
-          <Text color="red">No proposals for this project yet.</Text>
-        </ProjectContainer>
-      ) : null}
-      {proposals && proposals.length > 9 ? (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            marginBottom: '2rem',
-          }}
-        >
-          <Stack spacing={2}>
-            <CustomPagination count={10} />
-          </Stack>
-        </Box>
-      ) : null}
-
-      <Modal handleClose={handleClose} isOpen={openSuccessModal} maxWidth="md">
-        <Box sx={{ padding: '5rem 0' }}>
-          <Column sx={{ alignItems: 'center' }}>
-            <Row>
-              <IconContainer>
-                <CustomCheckIcon variant="green" />
-              </IconContainer>
-            </Row>
-            <Row>
-              <Text color="green" size="large">
-                <b>Bid Accepted</b>
-              </Text>
-            </Row>
-            <Row>
-              <Container maxWidth="sm">
-                <GrayText align="center">
-                  You have accepted the bid. Contact them now to start the
-                  project
-                </GrayText>
-              </Container>
-            </Row>
-            <Row>
-              <GreenButton onClick={listAllProjects}>
-                {' '}
-                Browse more projects
-              </GreenButton>
-            </Row>
-          </Column>
-        </Box>
-      </Modal>
-    </MainWrapper>
+                      </Row>
+                    ) : null}
+                  </Column>
+                </Row>
+              </ProjectContainer>
+            );
+          })}
+        {proposals && proposals.length === 0 ? (
+          <ProjectContainer>
+            <Text color="red">No proposals for this project yet.</Text>
+          </ProjectContainer>
+        ) : null}
+        {proposals && proposals.length > 9 ? (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              marginBottom: '2rem',
+            }}
+          >
+            <Stack spacing={2}>
+              <CustomPagination count={10} />
+            </Stack>
+          </Box>
+        ) : null}
+      </MainWrapper>
+    </>
   );
 };
 
