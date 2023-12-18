@@ -13,13 +13,8 @@ import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
 import { SearchIcon } from '../shared/Icon';
 import ScrollableTable from '../shared/ScrollableTable';
-import {
-  addProfessionalCategoriesData,
-  getCategories,
-  getSkills,
-  updateClientData,
-} from './formService';
-import { categoriesForm, categorySkill } from '../models/filters.models';
+import { getCategories, getSkills } from './formService';
+
 import ScrollableTable2 from '../shared/ScrollableTable2';
 
 const StyledButton = styled(Button)``;
@@ -38,10 +33,6 @@ const Error = styled.p`
   font-family: 'Roboto', sans-serif;
 `;
 
-const ButtonContainer = styled.div`
-  margin: auto;
-`;
-
 const ORLine = styled.div`
   color: #b7b7b7;
   display: grid;
@@ -52,9 +43,6 @@ const ORLine = styled.div`
 
 const HR = styled.div`
   border-bottom: 1px solid #b7b7b750;
-`;
-const Mainc = styled.div`
-  margin-bottom: 20px;
 `;
 
 function CategorySkills({ handleNextClick }) {

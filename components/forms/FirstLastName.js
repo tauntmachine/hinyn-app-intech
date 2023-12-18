@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { CssBaseline, Grid, Box, Typography, Container } from '@mui/material';
+import { useRef, useState } from 'react';
+import { CssBaseline, Grid, Box, Container } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
@@ -7,9 +7,7 @@ import Modal2 from '../shared/Modal2';
 import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
 import { BackIcon, UserIcon } from '../shared/Icon';
-import { WebcamCapture } from '../shared/WebcamCapture';
-import AvatarUpload from '../shared/AvatarUpload';
-import { getClientData, updateClientData, updateUserData } from './formService';
+
 import Router from 'next/router';
 import Image from 'next/image';
 import { Button as CustomButton } from '@mui/material';
@@ -85,7 +83,7 @@ const IconCon = styled.div``;
 function FirstLastName({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const [openCameraModal, setOpenCameraModal] = useState(false);
-  const [filename, setFilename] = useState('');
+
   const [selectedImage, setSelectedImage] = useState(null);
   const webRef = useRef(null);
 
@@ -101,11 +99,6 @@ function FirstLastName({ handleNextClick }) {
   //   // }
   // };
 
-  const [isValid, setValid] = useState({
-    firstname: false,
-    lastname: false,
-    form: false,
-  });
   const [errorMessage, setErrorMessage] = useState({
     firstname: null,
     lastname: null,
@@ -113,38 +106,10 @@ function FirstLastName({ handleNextClick }) {
   const firstnameInputRef = useRef();
   const lastnameInputRef = useRef();
 
-  // useEffect(() => {
-  //   const clientData = {
-  //     id: localStorage.getItem('hinyn-cid'),
-  //   };
-  //   const res = localStorage.getItem('hinyn-clientData');
-  // }, []);
-
   function submitHandler(event) {
     event.preventDefault();
     const enteredFirstname = firstnameInputRef.current.value;
     const enteredLastname = lastnameInputRef.current.value;
-
-    // if (
-    //   enteredFirstname &&
-    //   enteredLastname &&
-    //   enteredFirstname !== '' &&
-    //   enteredLastname !== ''
-    // ) {
-    //   isValid.form = true;
-    // }
-
-    // if (isValid.form) {
-    //   const clientId = localStorage.getItem('hinyn-cid');
-    //   const userData = {
-    //     firstName: enteredFirstname,
-    //     lastName: enteredLastname,
-    //   };
-    //   updateClientData(userData, clientId).then((res) => {
-    //     if (res?.data){
-    //         handleNextClick(true);
-    //     }
-    //   });
 
     if (enteredFirstname?.length && enteredLastname?.length) {
       const data = {

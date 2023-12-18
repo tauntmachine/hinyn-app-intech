@@ -14,21 +14,11 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import Button from '../shared/Button';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import LogoImage from '/public/assets/img/logo-hinyn.svg';
-import Modal from '../shared/Modal';
-// import Logo from '../shared/Logo';
 
-// import Axios from 'axios';
-// Axios.defaults.withCredentials = true;
-import { origin } from '../../src/config';
-import { red } from '@mui/material/colors';
+import Modal from '../shared/Modal';
+
 import { OutlinedTextField } from '../shared/Textfield';
-import {
-  loginUser,
-  registerUser,
-  addClientData,
-  logoutUser,
-} from '../forms/formService';
+import { loginUser, registerUser, logoutUser } from '../forms/formService';
 import Link from 'next/link';
 
 const Logo = styled.div`

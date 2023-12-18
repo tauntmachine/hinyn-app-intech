@@ -22,7 +22,7 @@ export const StyledTextField2 = styled.div`
 
 export const OutlinedTextField = styled(TextField)`
   .MuiInputBase-root {
-    background-color: transparent;
+    // background-color: transparent;
     border: none !important;
     outline: none !important;
     color: #474747;

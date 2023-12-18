@@ -9,14 +9,11 @@ import {
 } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
-import Button from '../shared/Button';
+
 import Modal from '../shared/Modal';
-import StyledTextField from '../shared/Textfield';
+
 import { BackIcon } from '../shared/Icon';
 import { getUserData } from './formService';
-import { async } from '../../src/store';
-
-const StyledButton = styled(Button)``;
 
 const FormContainer = styled(Box)`
   display: flex;
@@ -42,21 +39,11 @@ const VerticalDivider = styled.div`
   width: 100%;
 `;
 
-const StyledTextArea = styled(TextareaAutosize)`
-  resize: none;
-  width: 100%;
-  min-height: 15rem;
-  border-radius: 20px;
-  border-color: #ccc;
-  padding: 10px;
-  font-family: inherit;
-`;
-
 function UnverifiedAccountForm({ handleNextClick }) {
   const [open, setOpen] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [userEmail, setUserEmail] = useState('');
-  
+
   useEffect(() => {
     getData();
   }, []);
@@ -64,16 +51,15 @@ function UnverifiedAccountForm({ handleNextClick }) {
   const getData = async () => {
     const userId = localStorage.getItem('hinyn-uid');
     const req = localStorage.getItem('hinyn-clientData');
-    const clientData =  await JSON.parse(req);
-    setFirstName(clientData.firstName)
+    const clientData = await JSON.parse(req);
+    setFirstName(clientData.firstName);
     const data = await getUserData(userId);
     setUserEmail(data.email);
-  }
+  };
 
   const handleClose = () => {
     setOpen(false);
   };
-
 
   const [isValid, setValid] = useState({
     description: false,

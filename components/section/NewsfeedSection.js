@@ -130,16 +130,6 @@ const NewsfeedSection = ({ accountType }) => {
   const showDetails = (projectId) => {
     router.push(`/dashboard?screen=details&project=${projectId}`);
   };
-  // useEffect(() => {
-  //   const clientId = localStorage.getItem('hinyn-cid');
-  //   if(clientId){
-  //     getLoggedInUserData().then((res)=>{
-  //       if(res.data){
-  //         setAccountType(()=>res.data?.client?.accountType);
-  //       }
-  //     })
-  //   }
-  // }, [])
 
   const clientId = localStorage.getItem('hinyn-cid');
   const clientData = {
@@ -476,12 +466,14 @@ const NewsfeedSection = ({ accountType }) => {
     <>
       <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
         <ContainerDiv
-        // sx={{
-        //   marginTop: '5rem',
-        //   marginLeft: '6.5rem',
-        //   background: 'red',
-        //   width: '97rem',
-        // }}
+          sx={
+            {
+              // marginTop: '5rem',
+              // marginLeft: '6.5rem',
+              // background: 'red',
+              // width: '97rem',
+            }
+          }
         >
           {/* <Modal
             handleClose={handleClose}

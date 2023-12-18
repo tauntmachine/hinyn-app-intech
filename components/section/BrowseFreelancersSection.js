@@ -47,9 +47,11 @@ const MyFreelancersSection = () => {
   const handleSearchValue = (e) => {
     e.preventDefault();
     setSearchInput(e.target.value);
-    setFilter(e.target.value);
   };
-
+  const handleFilter = () => {
+    console.log(searchInput);
+    setFilter({ category: searchInput });
+  };
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
       <SearchBarContainer>
@@ -61,6 +63,7 @@ const MyFreelancersSection = () => {
           handleSearchValue={handleSearchValue}
           iconColor="red"
           placeholderText="Search for freelancers"
+          handleFilter={handleFilter}
         />
       </SearchBarContainer>
       <Box>

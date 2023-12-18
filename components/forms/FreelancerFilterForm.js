@@ -50,12 +50,6 @@ const FormContainer = styled(Box)`
   padding: 16px 32px;
 `;
 
-const Error = styled.p`
-  color: red;
-  font-size: 0.75rem;
-  font-family: 'Roboto', sans-serif;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
@@ -186,9 +180,9 @@ function FreelancerFilterForm() {
 
     setFilter({
       category: selectedCategory,
-      skill: selectedSkills,
-      location: selectedLocation,
-      budget: selectedBudget,
+      // skill: selectedSkills,
+      // location: selectedLocation,
+      // budget: selectedBudget,
     });
   };
 

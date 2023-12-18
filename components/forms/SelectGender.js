@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { CssBaseline, Grid, Box, Typography, Container } from '@mui/material';
+import { CssBaseline, Grid, Box, Container } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
@@ -9,7 +9,6 @@ import { BackIcon } from '../shared/Icon';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import moment from 'moment';
-import { updateClientData } from './formService';
 
 const StyledButton = styled(Button)``;
 

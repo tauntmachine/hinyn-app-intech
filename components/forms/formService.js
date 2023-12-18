@@ -674,8 +674,7 @@ export const getCategories = async () => {
 };
 
 /* skills */
-export const getSkills = async (categoryId) => {
-  const jwt = localStorage.getItem('hinyn-cjwt');
+export const getSkills = async () => {
   return axios
     .get(
       // origin + '/categories/' + categoryId + '?populate=*',
@@ -698,10 +697,11 @@ export const getSkills = async (categoryId) => {
     });
 };
 
-export const getApiSkillById = async (id) => {
+export const getApiSkillById = async (categoryId) => {
   return axios
     .get(
-      origin + '/skills/' + id,
+      // origin + '/skills/' + id,
+      origin + '/categories/' + categoryId + '?populate=*',
       {},
       {
         withCredentials: true,

@@ -1,10 +1,9 @@
 import { CssBaseline, Grid, Box, Typography, Container } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
-import Image from 'next/image';
-import LogoImage from '/public/assets/img/logo-hinyn.svg';
+
 import { BackIcon, PhotoIcon, RightArrowIcon } from '../shared/Icon';
-import { addClientData, updateClientData } from './formService';
+
 import Logo from '../shared/Logo';
 
 // const Logo = styled.div`
@@ -52,7 +51,6 @@ const DivLogo = styled.div`
   margin-top: 12px;
 `;
 function AccountTypeForm({ accountType }) {
-
   function submitHandler(event) {
     event.preventDefault();
     //call next one here
@@ -66,9 +64,7 @@ function AccountTypeForm({ accountType }) {
         <FormContainer>
           <DivLogo></DivLogo>
           <Logo />
-          {/* <Logo>
-            <Image src={LogoImage} alt="hinyn logo" />
-          </Logo> */}
+
           <Text fontSize="23px" marginBottom="8px">
             <b>Select Account Type</b>
           </Text>

@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react';
-import { CssBaseline, Grid, Box, Typography, Container } from '@mui/material';
+import { useState } from 'react';
+import { CssBaseline, Grid, Box, Container } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
 import Modal from '../shared/Modal';
-import StyledTextField from '../shared/Textfield';
+
 import { BackIcon, EmailIcon } from '../shared/Icon';
 
 const StyledButton = styled(Button)``;
@@ -41,11 +41,6 @@ const FieldVerify = styled.div`
   height: 40px;
   margin: auto;
 `;
-const Error = styled.p`
-  color: red;
-  font-size: 0.75rem;
-  font-family: 'Roboto', sans-serif;
-`;
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -69,11 +64,6 @@ function EmailVerifyForm2({ handleNextClick, handleBack, name, email }) {
     setOpen(false);
   };
 
-  function submitHandler(event) {
-    event.preventDefault();
-
-    handleNextClick(true);
-  }
   return (
     <>
       <Container maxWidth="sm" sx={{ marginBottom: '2rem', marginTop: '5rem' }}>

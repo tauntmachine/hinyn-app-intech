@@ -1,19 +1,11 @@
 import { useRef, useState } from 'react';
-import {
-  CssBaseline,
-  Grid,
-  Box,
-  Typography,
-  Container,
-  Autocomplete,
-} from '@mui/material';
+import { CssBaseline, Grid, Box, Container } from '@mui/material';
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button from '../shared/Button';
 import Modal from '../shared/Modal';
 import StyledTextField from '../shared/Textfield';
 import { BackIcon } from '../shared/Icon';
-import { updateClientData } from './formService';
 
 const StyledButton = styled(Button)``;
 
@@ -50,38 +42,6 @@ const BackCon = styled.div`
   flex-direction: row;
   cursor: pointer;
 `;
-const locations = {
-  data: [
-    {
-      key: 'dubai',
-      label: 'Dubai',
-    },
-    {
-      key: 'abudhabi',
-      label: 'Abu Dhabi',
-    },
-    {
-      key: 'sharjah',
-      label: 'Sharjah',
-    },
-    {
-      key: 'ajman',
-      label: 'Ajman',
-    },
-    {
-      key: 'umm-al-quwain',
-      label: 'Umm Al Quwain',
-    },
-    {
-      key: 'fujairah',
-      label: 'Fujairah',
-    },
-    {
-      key: 'ras-al-khaimah',
-      label: 'Ras Al Khaimah',
-    },
-  ],
-};
 
 function Location({ handleNextClick, handleBack }) {
   const [open, setOpen] = useState(false);

@@ -21,6 +21,7 @@ import Image from 'next/image';
 import Axios from 'axios';
 Axios.defaults.withCredentials = true;
 import { loginUser, getClientData, getLoggedInUserData } from './formService';
+import { OutlinedTextField } from '../shared/Textfield';
 
 const origin = 'https://ancient-crag-30921.herokuapp.com/api';
 
@@ -130,7 +131,7 @@ function LoginForm(props) {
             >
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <TextField
+                  <OutlinedTextField
                     required
                     fullWidth
                     id="emailAddress"
@@ -141,7 +142,7 @@ function LoginForm(props) {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField
+                  <OutlinedTextField
                     required
                     fullWidth
                     name="password"

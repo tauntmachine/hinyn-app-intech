@@ -136,11 +136,17 @@ function ExpandedSearchBar({ handleCloseExpandedSearchBar }) {
   };
 
   const handleSubmit = () => {
+    console.log(
+      userSelectedDetails?.data?.categories,
+      userSelectedDetails?.data?.skills
+    );
     setFilter({
       category: userSelectedDetails?.data?.categories
         ? userSelectedDetails?.data?.categories.key
         : '',
-      skill: '',
+      skill: userSelectedDetails?.data?.skills
+        ? userSelectedDetails?.data?.skills.key
+        : '',
       location: userSelectedDetails?.data?.location
         ? userSelectedDetails?.data?.location.key
         : '',
@@ -152,6 +158,8 @@ function ExpandedSearchBar({ handleCloseExpandedSearchBar }) {
 
   const showValue = (key, orig) => {
     if (key === 'categories' && userSelectedDetails)
+      return <span className="value active"> {userSelectedDetails} </span>;
+    if (key === 'skill' && userSelectedDetails)
       return <span className="value active"> {userSelectedDetails} </span>;
     if (key === 'location' && userSelectedDetails)
       return <span className="value active">{userSelectedDetails} </span>;

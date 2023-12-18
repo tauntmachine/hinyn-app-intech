@@ -41,8 +41,6 @@ const LoginContainer = styled.div`
   column-gap: ${(props) => (props.account == 1 ? '1rem' : '2.4rem')};
   align-items: center;
   padding-left: 20px;
-  
- =
 `;
 const LoginHoverBox = styled.div`
   background: white;
@@ -272,7 +270,7 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
         </TopBar>
       ) : null}
       <CustomBox>
-        <Head maxWidth="xl">
+        <Head>
           <Box
             sx={{
               display: 'flex',

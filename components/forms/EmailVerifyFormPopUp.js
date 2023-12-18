@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Text from '../shared/Typography';
-import TextGray from '../shared/Typography';
+
 import Logo from '../shared/Logo';
 import Button from '../shared/Button';
 const StyledButton = styled(Button)`

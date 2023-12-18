@@ -2,10 +2,9 @@ import styled from '@emotion/styled';
 import breakpoint from '../../utils/Breakpoints';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-// import { useFreelancer } from '../../../src/store';
-import { getCategories, getSkills } from '../../forms/formService';
-import { locations, budget, skills } from '../../models/filters.models';
-import Modal3 from '../Modal3';
+
+import { getApiSkillById, getCategories } from '../../forms/formService';
+import { locations, budget } from '../../models/filters.models';
 
 const DetailsContainer = styled.div`
   border: 1px solid #ebebeb;
@@ -224,54 +223,60 @@ const CategoriesDetailsContainer = ({ handleSelectedCategory }) => {
     // </Modal3>
   );
 };
-const SkillsDetailsContainer = ({ handleSelectedSkills }) => {
+const SkillsDetailsContainer = ({ category, handleSelectedSkills }) => {
   const [categorySkills, setCategorySkills] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
   useEffect(() => {
-    getSkills().then((result) => {
-      // console.log('Skills' + result);
-      if (result?.data) {
-        setCategorySkills(() => []);
-
-        // const temp = result?.data?.data?.attributes?.skills?.data ?? [];
-        result.data.data.map((item) => {
-          let skillId = { id: item.id };
-          setCategorySkills((prev) =>
-            prev.concat({ ...item.attributes, ...skillId })
-          );
-        });
-      }
-    });
+    if (category) {
+      getApiSkillById(category.id).then((result) => {
+        if (result?.data) {
+          console.log(result?.data, category.id);
+          setCategorySkills(() => []);
+          const temp = result?.data?.data?.attributes?.skills?.data ?? [];
+          temp.map((item) => {
+            let skillId = { id: item.id };
+            setCategorySkills((prev) =>
+              prev.concat({ ...item.attributes, ...skillId })
+            );
+          });
+        }
+      });
+    }
   }, []);
 
-  //   const togglePillActive = (item) => {
-  //     const isActive = selectedSkills.find((data) => data === item)
-  //       ? true
-  //       : false;
-  //     if (!isActive) setSelectedSkills((prev) => prev.concat(item));
-  //     else setSelectedSkills((prev) => prev.filter((data) => data !== item));
-  //   };
-  //   const checkIsActive = (item) => {
-  //     return selectedSkills.find((data) => data === item) ? true : false;
-  //   };
+  const togglePillActive = (item) => {
+    const isActive = selectedSkills.find((data) => data === item)
+      ? true
+      : false;
+    if (!isActive) setSelectedSkills((prev) => prev.concat(item));
+    else setSelectedSkills((prev) => prev.filter((data) => data !== item));
+  };
+  const checkIsActive = (item) => {
+    return selectedSkills.find((data) => data === item) ? true : false;
+  };
   return (
     <DetailsContainer>
       {categorySkills ? (
         <>
-          <DivEx>
-            <TextEx3>Skills related to</TextEx3>
-            <TextEx4>`Make-Up`</TextEx4>
-          </DivEx>
+          <div>
+            Skills related to{' '}
+            {category ? (
+              <Text className="secondary">{category.title}</Text>
+            ) : (
+              ''
+            )}
+          </div>
           <FlexContainer>
             {categorySkills.map((item, idx) => {
               return (
                 <Pill
                   key={'skill-id' + idx}
-                  //   onClick={() => {
-                  //     handleSelectedSkills(selectedSkills);
-                  //     togglePillActive(item?.id);
-                  //   }}
-                  className={item?.id ? 'active' : ''}
+                  onClick={() => {
+                    handleSelectedSkills(selectedSkills);
+                    togglePillActive(item?.id);
+                  }}
+                  className={checkIsActive(item?.id) ? 'active' : ''}
                 >
                   {' '}
                   {item?.title} <span>+</span>
@@ -355,7 +360,7 @@ function DetailsSection({ type, onHandleUserSelectedDetails }) {
   } else if (type === 'skills') {
     return (
       <SkillsDetailsContainer
-        // category={selectedCategory}
+        category={selectedCategory}
         handleSelectedSkills={handleSelectedSkills}
       />
     );

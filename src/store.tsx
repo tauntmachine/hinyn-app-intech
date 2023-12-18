@@ -86,13 +86,13 @@ const useFreelancerController = (freelancer: Freelancer[]) => {
           .includes(filter?.category?.toLowerCase() ?? '')
       );
 
-      // const skillMatch = val.attributes.skills.data.some((skill) =>
-      //   skill.attributes.slug
-      //     .toLowerCase()
-      //     .includes(filter?.skill?.toLowerCase() ?? '')
-      // );
+      const skillMatch = val.attributes.skills.data.some((skill) =>
+        skill.attributes.slug
+          ?.toLowerCase() // Use optional chaining here
+          .includes(filter?.skill?.toLowerCase() ?? '')
+      );
 
-      return categoryMatch;
+      return categoryMatch && skillMatch;
     }
     return false;
   };

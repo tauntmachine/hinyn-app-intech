@@ -4,19 +4,15 @@ import {
   CssBaseline,
   Grid,
   Box,
-  Typography,
   Container,
   TextareaAutosize,
 } from '@mui/material';
 import styled from '@emotion/styled';
 import Text, { SmallText } from '../shared/Typography';
-import Button, { GreenButton } from '../shared/Button';
+import { GreenButton } from '../shared/Button';
 import StyledTextField from '../shared/Textfield';
 import Dropdown from '../shared/Dropdown';
 import { addProposal, updateBidData } from './formService';
-import DropdownO from '../shared/DropdownO';
-
-const StyledButton = styled(Button)``;
 
 const FormContainer = styled(Box)`
   display: flex;

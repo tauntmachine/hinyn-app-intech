@@ -65,11 +65,8 @@ const StyledTextArea = styled(TextareaAutosize)`
     outline: none;
   }
 `;
-const ContainerDiv = styled.div`
-  width: 70rem;
-`;
+
 function ContactUsForm() {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState(null);
   const [mobileNumber, setMobileNumber] = useState(null);

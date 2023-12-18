@@ -21,7 +21,12 @@ const IconBG = styled.div`
   }
 `;
 
-const SimpleSearchBar = ({ handleSearchValue, placeholderText, iconColor }) => {
+const SimpleSearchBar = ({
+  handleSearchValue,
+  placeholderText,
+  iconColor,
+  handleFilter,
+}) => {
   return (
     <Container maxWidth="md">
       <StyledTextField
@@ -35,7 +40,7 @@ const SimpleSearchBar = ({ handleSearchValue, placeholderText, iconColor }) => {
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton edge="end">
+              <IconButton edge="end" onClick={handleFilter}>
                 <IconBG iconColor={iconColor}>
                   <SearchIcon className="icon" />
                 </IconBG>

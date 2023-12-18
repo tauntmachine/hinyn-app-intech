@@ -4,20 +4,17 @@ import {
   CssBaseline,
   Grid,
   Box,
-  Typography,
   Container,
   TextareaAutosize,
 } from '@mui/material';
 import styled from '@emotion/styled';
-import Text, { SmallText } from '../shared/Typography';
-import Button, { GreenButton } from '../shared/Button';
-import Modal from '../shared/Modal';
-import StyledTextField, { SquareTextField } from '../shared/Textfield';
+import Text from '../shared/Typography';
+import Button from '../shared/Button';
+
+import StyledTextField from '../shared/Textfield';
 import Dropdown3 from '../shared/Dropdown3';
 import Image from 'next/image';
 import { addProposal } from './formService';
-
-const StyledButton = styled(Button)``;
 
 const FormContainer = styled(Box)`
   display: flex;
@@ -97,9 +94,6 @@ const ImageContainer = styled.div`
 `;
 const StyledImage = styled(Image)`
   border-radius: 50%;
-`;
-const Capitalize = styled.span`
-  text-transform: capitalize;
 `;
 
 const BidFreelancerForm = ({ handleBidSubmit, data }) => {
