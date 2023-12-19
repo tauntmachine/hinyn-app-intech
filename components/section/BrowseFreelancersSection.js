@@ -32,7 +32,11 @@ const ResultsBox = styled(Box)`
   max-height: 150vh;
 `;
 
-const CustomContentBox = styled(ContentBox)``;
+const ContainerCustom = styled.div`
+  width: 75%;
+  margin: 0 auto;
+  padding: 3rem 0;
+`;
 
 const CustomPagination = styled(Pagination)`
   button {
@@ -67,7 +71,7 @@ const MyFreelancersSection = () => {
         />
       </SearchBarContainer>
       <Box>
-        <Container sx={{ marginTop: '4rem' }}>
+        <ContainerCustom sx={{ marginTop: '4rem' }}>
           <Grid container columnSpacing={4}>
             <Grid item xs={4}>
               <ContentBox
@@ -83,7 +87,7 @@ const MyFreelancersSection = () => {
               </ContentBox>
             </Grid>
             <Grid item xs={8}>
-              <CustomContentBox
+              <ContentBox
                 hasHeader={true}
                 headerTitle="Results"
                 hasBodyIcon={false}
@@ -94,7 +98,7 @@ const MyFreelancersSection = () => {
                 <ResultsBox>
                   <FreelancerConnectedList />
                 </ResultsBox>
-              </CustomContentBox>
+              </ContentBox>
               <Box
                 sx={{
                   display: 'flex',
@@ -108,7 +112,7 @@ const MyFreelancersSection = () => {
               </Box>
             </Grid>
           </Grid>
-        </Container>
+        </ContainerCustom>
       </Box>
     </Box>
   );

@@ -1,16 +1,10 @@
 import styled from '@emotion/styled';
 import { Box } from '@mui/material';
-import { Container } from '@mui/system';
+
 import { useState, useEffect } from 'react';
 import Logo2 from '../shared/Logo2';
-import {
-  BellIcon,
-  ChatIcon,
-  CloseIconCircle,
-  EmailIcon,
-  LogoutIcon,
-} from '../shared/Icon';
-import Button, { GreenButton } from '../shared/Button';
+import { BellIcon, ChatIcon, CloseIconCircle, EmailIcon } from '../shared/Icon';
+import Button from '../shared/Button';
 import Text from '../shared/Typography';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -28,13 +22,13 @@ const CustomBox = styled(Box)`
   right: 0;
   z-index: 10;
 `;
-const Head = styled(Container)`
-  display: grid;
-  grid-template-columns: 4fr 2fr;
+const Head = styled.div`
+  margin: auto;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  width: ${(props) => (props.account == 1 ? '100%' : '88%')};
+  width: ${(props) => (props.account == 1 ? '93%' : '85%')};
 `;
 const LoginContainer = styled.div`
   display: flex;
@@ -54,19 +48,12 @@ const LoginHoverBox = styled.div`
   border-radius: 0 0 10px 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
-const LinkText = styled.div`
-  cursor: pointer;
-
-  &:hover {
-    color: #eb4c60;
-  }
-`;
 
 const Tabs = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   text-align: center;
-  gap: 20px;
+  gap: 30px;
   bottom: -1rem;
   position: relative;
   margin-left: 2rem;
@@ -95,10 +82,6 @@ const StyledImage = styled(Image)`
   border-radius: 50%;
 `;
 
-const StyledLogoutIcon = styled(LogoutIcon)`
-  font-size: 1.5rem;
-  cursor: pointer;
-`;
 const TopBar = styled.div`
   background: #4aa398;
   height: 50px;
@@ -138,10 +121,7 @@ const Box2 = styled.div`
 const Box3 = styled.div`
   display: flex;
 `;
-const IconsDiv = styled.div`
-  width: 30rem;
-  background: green;
-`;
+
 const CustomText = styled.div`
   padding: 13px 20px;
   color: ${(props) => (props.hovered ? '#eb4c60' : '')};
@@ -165,9 +145,7 @@ const Line2 = styled.div`
   opacity: 0.3;
   margin: auto;
 `;
-const ContainerHover = styled.div`
-  width: 15rem;
-`;
+
 function DashboardHeader({ currentTab, setTabChange, account }) {
   const imgpath = '/assets/img/avatars/';
   const [userData, setUserData] = useState({});
@@ -278,11 +256,10 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
               borderRight: '1px solid #E3E3E3',
             }}
           >
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', gap: '3rem' }}>
               <Logo2 />
               {showTabs(account)}
             </Box>
-            {/* {account === 1 ? <IconsDiv></IconsDiv> : ''} */}
           </Box>
           <LoginContainer>
             <Box

@@ -18,9 +18,11 @@ const NoDataContainer = styled.div`
   justify-content: center;
   width: 100%;
 `;
-
+const ContainerCustom = styled.div`
+  width: 80%;
+  margin: auto;
+`;
 const MyProjectsSection = () => {
-  const router = useRouter();
   const [proposals, setProposals] = useState([]);
 
   const sortOptions = [
@@ -77,21 +79,21 @@ const MyProjectsSection = () => {
 
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
-      <Container
-        sx={{
-          display: 'flex',
-          gap: '1rem',
-          marginTop: '1rem',
-          width: '75%',
-        }}
-        maxWidth="xl"
+      <ContainerCustom
+      // sx={{ paddingBottom: '2rem', width: '100%', background: 'green' }}
       >
-        <Dropdown2 hasLabel={true} label="Show" items={showOptions} />
-        <Dropdown2 hasLabel={true} label="Sort" items={sortOptions} />
-      </Container>
-
-      <Container sx={{ paddingBottom: '2rem' }} maxWidth="lg">
-        <Grid container spacing={4} sx={{ marginTop: '0.25rem' }}>
+        <Container
+          sx={{
+            display: 'flex',
+            gap: '1rem',
+            marginTop: '1rem',
+          }}
+          maxWidth="xl"
+        >
+          <Dropdown2 hasLabel={true} label="Show" items={showOptions} />
+          <Dropdown2 hasLabel={true} label="Sort" items={sortOptions} />
+        </Container>
+        <Grid container spacing={1} sx={{ marginTop: '1.5rem' }}>
           {proposals.map((proposal, idx) => {
             return (
               <Grid
@@ -128,7 +130,7 @@ const MyProjectsSection = () => {
             </Stack>
           </Box>
         ) : null}
-      </Container>
+      </ContainerCustom>
     </Box>
   );
 };

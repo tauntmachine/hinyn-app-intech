@@ -1,4 +1,4 @@
-import { Box, Grid, Container, Typography, Modal } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import ContentBox from '../../components/shared/ContentBox';
 import {
   ProjectIcon,
@@ -13,21 +13,12 @@ import ClickableStarRating from '../../components/shared/ClickableStarRating';
 import ProgressBar from '../../components/shared/ProgressBar';
 import Text, { GrayText } from '../../components/shared/Typography';
 import { useEffect, useState } from 'react';
-import {
-  getBidData,
-  getBidsOfClient,
-  getClientData,
-  getClientDataBids,
-  getClientDataProposals,
-  getLoggedInUserData,
-} from '../forms/formService';
-import ProjectDetailsSection from './ProjectDetailsSection';
+import { getBidsOfClient, getClientDataBids } from '../forms/formService';
+
 import { useRouter } from 'next/router';
 const ContainerDiv = styled.div`
-  width: 112rem;
-  margin: 4rem 0 0 0;
-
-  padding: 0 0 0 15rem;
+  padding-top: 2rem;
+  padding-left: 16rem;
 `;
 const ProjectsBox = styled(Box)`
   display: 'flex';
@@ -108,10 +99,7 @@ const StatusText = styled.div`
   text-transform: capitalize;
 `;
 const WelcomeCon = styled.div`
-  height: 10rem;
-  width: 10rem;
-  background: green;
-  margin: auto;
+  // padding: 0 10rem;
 `;
 const ListItemDiv = styled.div`
   color: #707070;
@@ -263,20 +251,22 @@ const NewsfeedSection = ({ accountType }) => {
           <TimeStamp>{item?.time}</TimeStamp>
           <VerticalDivider />
           {item.alert && (
-            <AlertBox>
-              <Typography component="p" sx={{ fontWeight: 600 }}>
-                {item?.alert?.title}
-              </Typography>
-              <Typography component="p">{item?.alert?.desc}</Typography>
-              {item?.alert?.type && item?.alert?.type === 'action-button' ? (
-                <>
-                  <VerticalDivider />
-                  <GrayButton variant="outlined">
-                    {item?.alert?.actionText}
-                  </GrayButton>
-                </>
-              ) : null}
-            </AlertBox>
+            <WelcomeCon>
+              <AlertBox>
+                <Typography component="p" sx={{ fontWeight: 600 }}>
+                  {item?.alert?.title}
+                </Typography>
+                <Typography component="p">{item?.alert?.desc}</Typography>
+                {item?.alert?.type && item?.alert?.type === 'action-button' ? (
+                  <>
+                    <VerticalDivider />
+                    <GrayButton variant="outlined">
+                      {item?.alert?.actionText}
+                    </GrayButton>
+                  </>
+                ) : null}
+              </AlertBox>
+            </WelcomeCon>
           )}
         </>
       );
@@ -358,7 +348,7 @@ const NewsfeedSection = ({ accountType }) => {
         headerColor={'gray'}
         headerIcon={<UsersIcon />}
         hasBodyIcon={false}
-        setWidth={true}
+        // setWidth={true}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -406,7 +396,7 @@ const NewsfeedSection = ({ accountType }) => {
         headerIcon={<ProjectIcon />}
         hasBodyIcon={false}
         padding={true}
-        setWidth={true}
+        // setWidth={true}
       >
         <ProjectsBox>
           {userProjects.length > 0 ? (
@@ -465,23 +455,7 @@ const NewsfeedSection = ({ accountType }) => {
   return (
     <>
       <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
-        <ContainerDiv
-          sx={
-            {
-              // marginTop: '5rem',
-              // marginLeft: '6.5rem',
-              // background: 'red',
-              // width: '97rem',
-            }
-          }
-        >
-          {/* <Modal
-            handleClose={handleClose}
-            handleSubmit={handleSubmit}
-            isOpen={true}
-          >
-            <WelcomeCon>asdasd</WelcomeCon>
-          </Modal> */}
+        <ContainerDiv>
           <Grid container columnSpacing={4}>
             <Grid item xs={6}>
               {newsfeedData &&

@@ -11,6 +11,15 @@ export const StyledTextField = styled(TextField)`
     align-items: center;
   }
 `;
+export const StyledTextFieldBrowse = styled(TextField)`
+  .MuiInputBase-root {
+    background-color: #f2f2f2;
+    border-radius: 40rem;
+    margin: auto;
+    width: 74%;
+    align-items: center;
+  }
+`;
 export const StyledTextField2 = styled.div`
   background-color: #ffffff;
   border-radius: 10rem;

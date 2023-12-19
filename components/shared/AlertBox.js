@@ -9,6 +9,7 @@ const Container = styled.div`
   padding: 23px 35px;
   box-shadow: 0px 3px 20px #00000029;
   color: #555555;
+  // width:100%;
 `;
 const IconContainer = styled.div`
   .icon {

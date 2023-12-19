@@ -9,6 +9,7 @@ import moment from 'moment';
 
 const StyledCard = styled.div`
   min-height: 26rem;
+  max-width: 80%;
   box-shadow: 1px 1px 10px #aaaaaa20;
   border-radius: 25px;
   display: flex;

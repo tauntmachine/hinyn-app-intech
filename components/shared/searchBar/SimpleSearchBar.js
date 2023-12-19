@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Container, InputAdornment, IconButton } from '@mui/material';
 import { SearchIcon } from '../Icon';
-import StyledTextField from '../Textfield';
+import StyledTextField, { StyledTextFieldBrowse } from '../Textfield';
 
 const IconBG = styled.div`
   width: 40px;
@@ -28,8 +28,8 @@ const SimpleSearchBar = ({
   handleFilter,
 }) => {
   return (
-    <Container maxWidth="md">
-      <StyledTextField
+    <Container maxWidth="large">
+      <StyledTextFieldBrowse
         required
         fullWidth
         id="searchInput"

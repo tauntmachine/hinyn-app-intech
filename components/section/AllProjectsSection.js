@@ -29,14 +29,16 @@ const ResultsBox = styled(Box)`
   max-height: 85vh;
 `;
 
-const CustomContentBox = styled(ContentBox)``;
-
 const CustomPagination = styled(Pagination)`
   button {
     color: #4aa398;
   }
 `;
-
+const ContainerCustom = styled.div`
+  width: 75%;
+  margin: 0 auto;
+  padding: 3rem 0;
+`;
 const AllProjectsSection = ({ handleScreenChange }) => {
   const [searchInput, setSearchInput] = useState('');
   const { project, setProjectFilter } = useProject();
@@ -60,7 +62,7 @@ const AllProjectsSection = ({ handleScreenChange }) => {
         />
       </SearchBarContainer>
       <Box>
-        <Container sx={{ marginTop: '4rem' }}>
+        <ContainerCustom>
           <Grid container columnSpacing={4}>
             <Grid item xs={4}>
               <ContentBox
@@ -76,7 +78,7 @@ const AllProjectsSection = ({ handleScreenChange }) => {
               </ContentBox>
             </Grid>
             <Grid item xs={8}>
-              <CustomContentBox
+              <ContentBox
                 hasHeader={true}
                 headerTitle="Results"
                 hasBodyIcon={false}
@@ -85,7 +87,7 @@ const AllProjectsSection = ({ handleScreenChange }) => {
                 <ResultsBox>
                   <ConnectedList projects={project} />
                 </ResultsBox>
-              </CustomContentBox>
+              </ContentBox>
               <Box
                 sx={{
                   display: 'flex',
@@ -99,7 +101,7 @@ const AllProjectsSection = ({ handleScreenChange }) => {
               </Box>
             </Grid>
           </Grid>
-        </Container>
+        </ContainerCustom>
       </Box>
     </Box>
   );

@@ -23,8 +23,7 @@ import { css } from '@emotion/css';
 import Text from '../shared/Typography';
 
 const StyledButton = styled(Button)`
-  margin: auto;
-  margin-top: 2rem;
+  margin: 2rem auto;
   padding: 1rem 2rem;
   border-radius: 45px;
 `;

@@ -1,68 +1,18 @@
-import { Container, Box, Grid, Pagination, Stack } from '@mui/material';
-import ProjectCard from '../shared/myProjects/ProjectCard';
+import { Container, Box, Pagination } from '@mui/material';
+
 import styled from '@emotion/styled';
-import Dropdown from '../shared/Dropdown';
+
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { getBidsOfClient, getProposalsOfClient } from '../forms/formService';
-import Text from '../shared/Typography';
+import { useState } from 'react';
+
 import { useFreelancer } from '../../src/store';
 import Dropdown2 from '../shared/Dropdown2';
 import CardsSection from './CardsSection';
 
-const CustomPagination = styled(Pagination)`
-  button {
-    color: #4aa398;
-  }
-`;
-
-const NoDataContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-`;
-
+const ContainerCustom = styled.div``;
+const ContainerCustom2 = styled.div``;
 const MyFreelancers = () => {
-  const router = useRouter();
-  const { freelancer, filter, setFilter } = useFreelancer();
-  const [clientBids, setClientBids] = useState([
-    {
-      title: 'Kate and Joeys spanish wedding',
-      price: '3000',
-      location: 'Fairmont, The palm Dubai',
-      date: 'Nov, 12 2023',
-    },
-    {
-      title: 'Kate and Joeys spanish wedding',
-      price: '3000',
-      location: 'Fairmont, The palm Dubai',
-      date: 'Nov, 12 2023',
-    },
-    {
-      title: 'Kate and Joeys spanish wedding',
-      price: '3000',
-      location: 'Fairmont, The palm Dubai',
-      date: 'Nov, 12 2023',
-    },
-    {
-      title: 'Kate and Joeys spanish wedding',
-      price: '3000',
-      location: 'Fairmont, The palm Dubai',
-      date: 'Nov, 12 2023',
-    },
-    {
-      title: 'Kate and Joeys spanish wedding',
-      price: '3000',
-      location: 'Fairmont, The palm Dubai',
-      date: 'Nov, 12 2023',
-    },
-    {
-      title: 'Kate and Joeys spanish wedding',
-      price: '3000',
-      location: 'Fairmont, The palm Dubai',
-      date: 'Nov, 12 2023',
-    },
-  ]);
+  const { freelancer } = useFreelancer();
 
   const sortOptions = [
     {
@@ -102,76 +52,28 @@ const MyFreelancers = () => {
     },
   ];
 
-  //   useEffect(() => {
-  //     getBidsOfClient().then((res) => {
-  //       setClientBids(() => []);
-  //       if (res?.data?.data) {
-  //         res?.data?.data.map((item) => {
-  //           let temp = { id: item?.id, ...item?.attributes };
-  //           setClientBids((prevData) => prevData.concat(item));
-  //         });
-  //       }
-  //     });
-  //   }, []);
   const handleButtonClick = () => {};
   return (
-    <Box sx={{ height: 'auto' }}>
+    <Box sx={{ height: 'auto', width: '80%', margin: 'auto' }}>
       <Container
         sx={{
           display: 'flex',
           gap: '2rem',
           marginTop: '1rem',
-          marginLeft: '14rem',
         }}
         maxWidth="xl"
       >
         <Dropdown2 hasLabel={true} label="Show" items={showOptions} />
         <Dropdown2 hasLabel={true} label="Sort" items={sortOptions} />
       </Container>
-      <Container maxWidth="lg" sx={{ marginBottom: '50px' }}>
+      <ContainerCustom2>
         <CardsSection
           cards={freelancer}
           hasTools={false}
           cardText="Hire me"
           handleButtonClick={handleButtonClick}
         />
-      </Container>
-      {/* <Container sx={{ paddingBottom: '2rem' }} maxWidth="lg">
-        <Grid container spacing={4} sx={{ marginTop: '0.25rem' }}>
-          {clientBids.map((bid, idx) => {
-            return (
-              <Grid
-                key={'project-card-' + idx}
-                item
-                xs={12}
-                sm={6}
-                lg={4}
-                sx={{ position: 'relative' }}
-              >
-                <ProjectCard projectDetail={bid} budget={bid?.budget} />
-              </Grid>
-            );
-          })}
-          {clientBids && clientBids.length === 0 ? (
-            <NoDataContainer>
-              <Text color="red">No available data</Text>
-            </NoDataContainer>
-          ) : null}
-        </Grid>
-        {
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              marginTop: '3rem',
-            }}
-          >
-            <Stack spacing={2}>
-              <CustomPagination count={3} />
-            </Stack>
-          </Box>
-        }
-      </Container> */}
+      </ContainerCustom2>
     </Box>
   );
 };
