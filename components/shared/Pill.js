@@ -98,7 +98,7 @@ const IconWrapper = styled(Box)`
   align-items: center;
   gap: 10px;
   border-radius: 32px;
-  padding: ${(props) => (!props.noPadding ? '0.5rem 1.25rem' : '0')};
+  padding: ${(props) => (!props.noPadding ? '0.5rem 2.2rem' : '0')};
   font-size: 12px;
   background-color: ${(props) =>
     props.bg === 'green' ? '#ECF6F5' : '#ffffff'};
@@ -114,18 +114,18 @@ const IconWrapper = styled(Box)`
 
 export const PillWithIcon = ({ color, bg, category, noPadding }) => {
   const iconPath = '/assets/img/categories/';
-  const data = categories.data.find((item) => item.key === category);
+  // const data = categories.data.find((item) => item.key === category);
   return (
     <IconWrapper color={color} bg={bg} noPadding={noPadding}>
       <Icon>
         <Image
-          src={iconPath + data?.icon}
+          src={iconPath + category?.icon}
           alt="hinyn logo"
           layout="fill"
           class="icon-img"
         />
       </Icon>
-      {data?.title}
+      {category?.title}
     </IconWrapper>
   );
 };

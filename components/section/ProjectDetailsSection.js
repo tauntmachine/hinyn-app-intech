@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { MdKeyboardBackspace } from 'react-icons/md';
 import Text, { SmallText, GrayText } from '../shared/Typography';
-import { GrayButton, GreenButton, RedButton } from '../shared/Button';
+import { GreenButton, RedButton } from '../shared/Button';
 import {
   CheckSquareIcon,
   XSquareIcon,
@@ -18,10 +18,8 @@ import Link from 'next/link';
 import {
   deleteBidData,
   getBidData,
-  getClientData,
   getLoggedInUserData,
   getProposalsOfClientOnABid,
-  updateBidData,
 } from '../forms/formService';
 import { useRouter } from 'next/router';
 import moment from 'moment';
@@ -38,16 +36,11 @@ const HeaderContainer = styled.div`
   min-height: 19rem;
 `;
 
-const BackIcon = styled(MdKeyboardBackspace)`
-  font-size: 24px;
-
-  margin: 0 9px 0 0;
-`;
-
 const BackText = styled.div`
   font-size: 12px;
   font-weight: 700;
   margin: 4.2px 0 0 0;
+  cursor: pointer;
 `;
 
 const VerticalDivider = styled.div`
@@ -81,13 +74,6 @@ const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-const MainWrapper = styled.div`
-  padding: 2.5rem 5rem;
-  display: flex;
-  flex-direction: column;
-  row-gap: 1.25rem;
 `;
 
 const SideboxWrapper = styled.div`
@@ -172,14 +158,6 @@ const Title = styled(Text)`
   font-size: 32px;
 `;
 
-const SectionTitle = styled(Text)`
-  font-size: 20px;
-`;
-
-const DescTitle = styled.span`
-  color: #949494;
-`;
-
 const CustomLocationIcon = styled(LocationIcon)`
   font-size: 1.5rem;
   margin-right: 1rem;
@@ -191,6 +169,20 @@ const CustomGreenButton = styled(GreenButton)`
     opacity: 0.7;
   }
 `;
+const ContainerCustom = styled.div`
+  width: 95%;
+  margin: auto;
+`;
+const ContainerBack = styled.div`
+  display: flex;
+  // cursor: pointer;
+  color: white;
+  padding: 0 0 20px 0;
+  width: 86.4%;
+  font: 12px;
+  margin: auto;
+`;
+
 const ProjectDetailsSection = () => {
   const router = useRouter();
   const [currentTab, setCurrentTab] = useState(0);
@@ -272,27 +264,25 @@ const ProjectDetailsSection = () => {
   };
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
-      <HeaderContainer>
-        <Container
-          sx={{
-            display: 'flex',
-            marginLeft: '6.5rem',
-          }}
-        >
-          <BackIconForDetails
-            style={{ marginRight: '14px', marginBottom: '2px' }}
-          />
-          <BackText>
-            <Link href="/dashboard">
-              <a>Back to Project</a>
-            </Link>
-          </BackText>
-        </Container>
-      </HeaderContainer>
+      <HeaderContainer></HeaderContainer>
       <ContentBoxWrapper>
-        <Container maxWidth="xl">
-          <Grid container columnSpacing={1} sx={{ marginLeft: '4rem' }}>
-            <Grid item xs={8}>
+        <ContainerCustom>
+          <ContainerBack>
+            <BackIconForDetails
+              style={{
+                marginRight: '14px',
+                marginBottom: '2px',
+                cursor: ' pointer',
+              }}
+            />
+            <BackText>
+              <Link href="/dashboard">
+                <a>Back to Project</a>
+              </Link>
+            </BackText>
+          </ContainerBack>
+          <Grid container columnSpacing={3} sx={{ justifyContent: 'center' }}>
+            <Grid item xs={8} sx={{}}>
               <ContentBox className="title-wrapper">
                 <TitleWrapper>
                   <Box>
@@ -475,7 +465,7 @@ const ProjectDetailsSection = () => {
               )}
             </Grid>
           </Grid>
-        </Container>
+        </ContainerCustom>
       </ContentBoxWrapper>
       <Modal handleClose={handleClose} isOpen={open} maxWidth="md">
         <BidOnProjectForm

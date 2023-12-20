@@ -43,7 +43,7 @@ const CustomRedButton = styled(RedButton)`
   border: none;
   &.isAwarded {
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.6;
   }
   &:hover {
     border: none;
@@ -136,9 +136,11 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
       isDirectBidAssignment: true,
       dateAwarded: new Date(),
     };
+
     updateProposalData(proposalData, proposalId).then((result) => {
+      setOpenSuccessModal(() => true);
       if (result?.data) {
-        setOpenSuccessModal(() => true);
+        ('');
       }
     });
   };
@@ -181,9 +183,13 @@ const Proposals = ({ projectId, bidData, isBidOwner }) => {
                         {isBidOwner ? (
                           <CustomRedButton
                             onClick={() => handleAcceptBid(proposal?.id)}
-                            className={proposal?.dateAwarded ? 'isAwarded' : ''}
+                            className={
+                              proposal?.dateAwarded || openSuccessModal
+                                ? 'isAwarded'
+                                : ''
+                            }
                           >
-                            {proposal?.dateAwarded
+                            {proposal?.dateAwarded || openSuccessModal
                               ? 'Bid Accepted'
                               : 'Accept Bid'}
                           </CustomRedButton>

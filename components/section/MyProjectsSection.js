@@ -1,11 +1,11 @@
 import { Container, Box, Grid, Pagination, Stack } from '@mui/material';
-import ProjectCard from '../shared/myProjects/ProjectCard';
+import ProjectCard from '../shared/myProjects/ProjectCardClient';
 import styled from '@emotion/styled';
+import Dropdown2 from '../shared/Dropdown2';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getBidsOfClient, getProposalsOfClient } from '../forms/formService';
-// import { useQuery } from 'react-query';
-import Dropdown2 from '../shared/Dropdown2';
+import { getBidsOfClient } from '../forms/formService';
+import Text from '../shared/Typography';
 
 const CustomPagination = styled(Pagination)`
   button {
@@ -19,11 +19,11 @@ const NoDataContainer = styled.div`
   width: 100%;
 `;
 const ContainerCustom = styled.div`
-  width: 80%;
+  width: 82%;
   margin: auto;
 `;
-const MyProjectsSection = () => {
-  const [proposals, setProposals] = useState([]);
+const ClientProjectsSection = () => {
+  const [clientBids, setClientBids] = useState([]);
 
   const sortOptions = [
     {
@@ -72,29 +72,27 @@ const MyProjectsSection = () => {
           resList = [...resList, resObj];
         });
         console.log('list -- ', resList[0]);
-        setProposals(resList);
+        setClientBids(resList);
       }
     });
   }, []);
 
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
-      <ContainerCustom
-      // sx={{ paddingBottom: '2rem', width: '100%', background: 'green' }}
-      >
+      <ContainerCustom>
         <Container
           sx={{
             display: 'flex',
-            gap: '1rem',
-            marginTop: '1rem',
+            gap: '2rem',
+            marginTop: '3rem',
           }}
           maxWidth="xl"
         >
           <Dropdown2 hasLabel={true} label="Show" items={showOptions} />
           <Dropdown2 hasLabel={true} label="Sort" items={sortOptions} />
         </Container>
-        <Grid container spacing={1} sx={{ marginTop: '1.5rem' }}>
-          {proposals.map((proposal, idx) => {
+        <Grid container columnSpacing={5} sx={{ marginTop: '1.5rem' }}>
+          {clientBids.map((bid, idx) => {
             return (
               <Grid
                 key={'project-card-' + idx}
@@ -104,20 +102,17 @@ const MyProjectsSection = () => {
                 lg={4}
                 sx={{ position: 'relative' }}
               >
-                <ProjectCard
-                  projectDetail={proposal}
-                  budget={proposal.budget}
-                />
+                <ProjectCard projectDetail={bid} budget={bid?.budget} />
               </Grid>
             );
           })}
-          {/* {proposals && proposals.length === 0 ? (
+          {clientBids && clientBids.length === 0 ? (
             <NoDataContainer>
               <Text color="red">No available data</Text>
             </NoDataContainer>
-          ) : null} */}
+          ) : null}
         </Grid>
-        {proposals && proposals.length > 9 ? (
+        {
           <Box
             sx={{
               display: 'flex',
@@ -126,13 +121,13 @@ const MyProjectsSection = () => {
             }}
           >
             <Stack spacing={2}>
-              <CustomPagination count={10} />
+              <CustomPagination count={3} />
             </Stack>
           </Box>
-        ) : null}
+        }
       </ContainerCustom>
     </Box>
   );
 };
 
-export default MyProjectsSection;
+export default ClientProjectsSection;

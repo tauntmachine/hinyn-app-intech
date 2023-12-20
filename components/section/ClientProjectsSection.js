@@ -4,11 +4,7 @@ import styled from '@emotion/styled';
 import Dropdown2 from '../shared/Dropdown2';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import {
-  getBidsOfClient,
-  getProposalsOfClient,
-  getClientData,
-} from '../forms/formService';
+import { getBidsOfClient } from '../forms/formService';
 import Text from '../shared/Typography';
 
 const CustomPagination = styled(Pagination)`
@@ -22,9 +18,11 @@ const NoDataContainer = styled.div`
   justify-content: center;
   width: 100%;
 `;
-
+const ContainerCustom = styled.div`
+  width: 82%;
+  margin: auto;
+`;
 const ClientProjectsSection = () => {
-  const router = useRouter();
   const [clientBids, setClientBids] = useState([]);
 
   const sortOptions = [
@@ -77,38 +75,23 @@ const ClientProjectsSection = () => {
         setClientBids(resList);
       }
     });
-    // const id = localStorage.getItem('hinyn-cid');
-    // getClientData({ id }).then((res) => {
-    //   let resList = [];
-    //   if (res?.data?.data) {
-    //     console.log('item - ', res?.data?.data.attributes);
-    // res?.data?.data?.attributes?.bids?.data?.map((item) => {
-    //   let resObj = { id: item?.id, ...item?.attributes };
-    //   resList = [...resList, resObj];
-    // });
-    // console.log('list -- ', resList[0]);
-    // setClientBids(resList);
-    //   }
-    // });
   }, []);
 
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
-      <Container
-        sx={{
-          display: 'flex',
-          gap: '1rem',
-          marginTop: '1rem',
-          marginBottom: '1rem',
-          width: '75%',
-        }}
-        maxWidth="xl"
-      >
-        <Dropdown2 hasLabel={true} label="Show" items={showOptions} />
-        <Dropdown2 hasLabel={true} label="Sort" items={sortOptions} />
-      </Container>
-      <Container sx={{ paddingBottom: '2rem' }} maxWidth="lg">
-        <Grid container spacing={4} sx={{}}>
+      <ContainerCustom>
+        <Container
+          sx={{
+            display: 'flex',
+            gap: '2rem',
+            marginTop: '3rem',
+          }}
+          maxWidth="xl"
+        >
+          <Dropdown2 hasLabel={true} label="Show" items={showOptions} />
+          <Dropdown2 hasLabel={true} label="Sort" items={sortOptions} />
+        </Container>
+        <Grid container columnSpacing={5} sx={{ marginTop: '1.5rem' }}>
           {clientBids.map((bid, idx) => {
             return (
               <Grid
@@ -142,7 +125,7 @@ const ClientProjectsSection = () => {
             </Stack>
           </Box>
         }
-      </Container>
+      </ContainerCustom>
     </Box>
   );
 };

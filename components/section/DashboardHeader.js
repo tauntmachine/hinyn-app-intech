@@ -253,7 +253,6 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              borderRight: '1px solid #E3E3E3',
             }}
           >
             <Box sx={{ display: 'flex', gap: '3rem' }}>
@@ -269,6 +268,7 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
                 fontSize: '20px',
                 gap: '20px',
                 paddingRight: '20px',
+                borderRight: '2px solid #E3E3E3',
               }}
             >
               <Box

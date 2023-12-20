@@ -132,11 +132,11 @@ const Details = ({
           <DescTitle>Looking for</DescTitle>
         </Row>
         <Row>
-          {/* <PillWithIcon
+          <PillWithIcon
             color="green"
             bg="transparent"
-            category={bidData?.categories?.data[0]?.attributes?.slug}
-          /> */}
+            category={bidData?.categories?.data[0]?.attributes}
+          />
         </Row>
         <Row>
           <DescTitle>Skills required for this project</DescTitle>

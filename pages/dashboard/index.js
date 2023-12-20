@@ -6,13 +6,10 @@ import NewsfeedSection from '../../components/section/NewsfeedSection';
 import BrowseProjectsSection from '../../components/section/BrowseProjectsSection';
 import MyProjectsSection from '../../components/section/MyProjectsSection';
 export { getServerSideProps } from '../../src/store';
-import {
-  getClientData,
-  getLoggedInUserData,
-} from '../../components/forms/formService';
+import { getClientData } from '../../components/forms/formService';
 import ClientProjectsSection from '../../components/section/ClientProjectsSection';
 import BrowseFreelancersSection from '../../components/section/BrowseFreelancersSection';
-import MyFreelancersSection from '../../components/section/BrowseFreelancersSection';
+
 import MyFreelancers from '../../components/section/MyFreelancers';
 
 const Index = () => {
@@ -21,8 +18,6 @@ const Index = () => {
   const { screen, project } = router.query;
   const [currentTab, setCurrentTab] = useState(0);
   const [accountType, setAccountType] = useState(0);
-  const [userData, setUserData] = useState({});
-  const [proposals, setProposals] = useState([]);
 
   useEffect(() => {
     if (project && screen) setCurrentTab(1);
