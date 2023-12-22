@@ -6,8 +6,8 @@ import { useRouter } from 'next/router';
 
 const LogoContainer = styled.div`
   position: relative;
-  width: 8rem;
-  height: 3.5rem;
+  width: 9rem;
+  height: 4rem;
   cursor: pointer;
 `;
 const Logo = ({ type }) => {

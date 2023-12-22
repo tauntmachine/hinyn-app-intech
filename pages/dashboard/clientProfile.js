@@ -131,9 +131,13 @@ const ClientProfile = () => {
     <Box sx={{ height: 'auto', background: '#D7DBDD ' }}>
       <DashboardHeader setTabChange={handleChangeTab} currentTab={currentTab} />
 
-      <Container maxWidth="xl">
-        <Grid container spacing={4} sx={{ padding: '5rem 0 7rem 0' }}>
-          <Grid item xs={7.5} sx={{ margin: '0 0 0 5.9rem' }}>
+      <Container maxWidth="xxl">
+        <Grid
+          container
+          spacing={4}
+          sx={{ padding: '5rem 0 7rem 0', justifyContent: 'center' }}
+        >
+          <Grid item xs={7.5}>
             <ContentBox>
               <Row sx={{ gap: '2rem' }}>
                 <Column>
@@ -198,7 +202,7 @@ const ClientProfile = () => {
                     </Row>
                   </Column>
                   <Row>
-                    <GrayText>{clientData?.headline ?? 'Headline'}</GrayText>
+                    <GrayText>{clientData?.description ?? '-'}</GrayText>
                   </Row>
                 </Column>
               </Row>

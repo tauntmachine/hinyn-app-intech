@@ -29,6 +29,7 @@ const LogoDiv = styled.div`
 
 const StyledButton = styled(Button)`
   margin: auto;
+  padding-top: 10px;
   width: 100%;
 `;
 
@@ -111,7 +112,7 @@ function UsernameForm({ onUsernameSubmit }) {
             {/* <Image src={LogoImage} alt="hinyn logo" /> */}
             <Logo />
           </LogoDiv>
-          <Text fontSize="23px" marginTop="10px">
+          <Text size="large" marginTop="10px">
             <b>Choose a username</b>
           </Text>
           <Typography component="p" align="center" marginTop="6px">

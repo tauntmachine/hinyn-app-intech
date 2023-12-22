@@ -1240,14 +1240,9 @@ function PostProjectForm1({ handleNextClick }) {
       >
         <CssBaseline />
 
-        <Typography
-          component="h1"
-          variant="h4"
-          align="center"
-          sx={{ color: '#ffffff' }}
-        >
+        <Text align="center" size="xl" color="white">
           <b>Hey, Tell us what you need!</b>
-        </Typography>
+        </Text>
         <VerticalDivider />
         <Container maxWidth="sm">
           <Typography component="p" align="center" sx={{ color: '#ffffff' }}>
@@ -1266,7 +1261,6 @@ function PostProjectForm1({ handleNextClick }) {
           >
             <Grid container rowSpacing={1} sx={{ marginBottom: '2rem' }}>
               {progress1()}
-
               {progress2()}
               {progress3()}
               {progress4()}

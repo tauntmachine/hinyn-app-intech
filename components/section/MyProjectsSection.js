@@ -91,7 +91,12 @@ const ClientProjectsSection = () => {
           <Dropdown2 hasLabel={true} label="Show" items={showOptions} />
           <Dropdown2 hasLabel={true} label="Sort" items={sortOptions} />
         </Container>
-        <Grid container columnSpacing={5} sx={{ marginTop: '1.5rem' }}>
+        <Grid
+          container
+          columnSpacing={4}
+          rowSpacing={3}
+          sx={{ marginTop: '1.5rem' }}
+        >
           {clientBids.map((bid, idx) => {
             return (
               <Grid

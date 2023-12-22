@@ -313,7 +313,7 @@ const BidFreelancerForm = ({ handleBidSubmit, data }) => {
               </Grid>
             </Grid>
             <GrayText>
-              <b>Bid Proposal</b>
+              <b>Mile payments</b>
             </GrayText>
             <StyledTextArea
               placeholder="Milestone"

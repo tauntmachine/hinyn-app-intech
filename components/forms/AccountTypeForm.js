@@ -6,12 +6,6 @@ import { BackIcon, PhotoIcon, RightArrowIcon } from '../shared/Icon';
 
 import Logo from '../shared/Logo';
 
-// const Logo = styled.div`
-//   position: relative;
-//   width: 8rem;
-//   height: auto;
-// `;
-
 const FormContainer = styled(Box)`
   display: flex;
   flex-direction: column;
@@ -51,11 +45,6 @@ const DivLogo = styled.div`
   margin-top: 12px;
 `;
 function AccountTypeForm({ accountType }) {
-  function submitHandler(event) {
-    event.preventDefault();
-    //call next one here
-  }
-
   return (
     <>
       <Container maxWidth="sm" sx={{ marginBottom: '2rem' }}>
@@ -65,7 +54,7 @@ function AccountTypeForm({ accountType }) {
           <DivLogo></DivLogo>
           <Logo />
 
-          <Text fontSize="23px" marginBottom="8px">
+          <Text size="large" marginBottom="8px">
             <b>Select Account Type</b>
           </Text>
           <Typography component="x" align="center">

@@ -54,9 +54,11 @@ const StyledRightArrowIcon = styled(RightArrowIcon)`
   font-weight: bold;
   color: #ffffff;
 `;
-
+const ContainerCon = styled.div`
+  margin-top: 7%;
+`;
 const ProjectSuccessPost = () => {
-  const { freelancer, filter, setFilter } = useFreelancer();
+  const { freelancer } = useFreelancer();
   const [open, setOpen] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [selectedFreelancer, setSelectedFreelancer] = useState(null);
@@ -82,7 +84,7 @@ const ProjectSuccessPost = () => {
 
   return (
     <>
-      <Container
+      <ContainerCon
         maxWidth="lg"
         sx={{
           marginBottom: '2rem',
@@ -123,7 +125,7 @@ const ProjectSuccessPost = () => {
             </Typography>
           </Container>
         </Stack>
-      </Container>
+      </ContainerCon>
       <Container maxWidth="lg" sx={{ marginBottom: '50px' }}>
         <CardsSection
           cards={freelancer}

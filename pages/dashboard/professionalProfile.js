@@ -232,9 +232,17 @@ const ProfessionalProfile = () => {
         currentTab={currentTab}
         account={accountType}
       />
-      <Container maxWidth="xl">
-        <Grid container spacing={4} sx={{ padding: '5rem 0 7rem 0' }}>
-          <Grid item xs={7.5} sx={{ margin: '0 0 0 5.9rem' }}>
+      <Container maxWidth="xxl">
+        <Grid
+          container
+          spacing={4}
+          sx={{
+            padding: '5rem 0 7rem 0',
+
+            justifyContent: 'center',
+          }}
+        >
+          <Grid item xs={7.5}>
             <ContentBox>
               <Row sx={{ gap: '2rem' }}>
                 <Column>

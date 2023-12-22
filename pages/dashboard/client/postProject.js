@@ -49,7 +49,7 @@ const PostProject = () => {
           <Logo type="white" />{' '}
         </LogoBox>
       </Container>
-      <Container maxWidth="xl" sx={{ position: 'relative' }}>
+      <Container sx={{ position: 'relative' }}>
         {currentActiveForm === 1 ? (
           <Box sx={{ position: 'absolute', left: '0', right: '0' }}>
             <PostProjectForm1 handleNextClick={handleNextClick} />{' '}
