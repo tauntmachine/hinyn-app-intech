@@ -27,6 +27,7 @@ import moment from 'moment';
 
 import BidFreelancerForm2 from '../../components/forms/BidFreelancerForm2';
 import Modal2 from '../../components/shared/Modal2';
+import Settings from '../../components/shared/Settings';
 
 const Row = styled(Box)`
   display: flex;
@@ -87,8 +88,7 @@ const DivButton = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
-  width: 50rem;
+  padding: 0 80px 0 0;
 `;
 const LoginHoverBox = styled.div`
   background: white;
@@ -115,6 +115,9 @@ const CustomText = styled.div`
     background: #ffedef;
   }
 `;
+const ColumnCon = styled.div`
+  width: 100%;
+`;
 
 const DivCon = styled.div``;
 const ProfessionalProfile = () => {
@@ -127,8 +130,8 @@ const ProfessionalProfile = () => {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
   const [accountType, setAccountType] = useState();
-  const { fid } = router.query;
-  console.log(fid);
+  const { fid, val } = router.query;
+  // console.log(fid);
   const reviews = [
     {
       user: 'Danny Woods',
@@ -167,6 +170,7 @@ const ProfessionalProfile = () => {
     const client = {
       id: localStorage.getItem('hinyn-cid'),
     };
+    console.log(fid);
     getClientData(clientData).then((res) => {
       if (res?.data?.data) {
         setClientData(res?.data?.data?.attributes);
@@ -232,210 +236,229 @@ const ProfessionalProfile = () => {
         currentTab={currentTab}
         account={accountType}
       />
-      <Container maxWidth="xxl">
-        <Grid
-          container
-          spacing={4}
-          sx={{
-            padding: '5rem 0 7rem 0',
+      {val == 0 ? (
+        <Container maxWidth="xxl">
+          <Grid
+            container
+            spacing={4}
+            sx={{
+              padding: '5rem 0 7rem 0',
 
-            justifyContent: 'center',
-          }}
-        >
-          <Grid item xs={7.5}>
-            <ContentBox>
-              <Row sx={{ gap: '2rem' }}>
-                <Column>
-                  <ImageContainer>
-                    <StyledImage
-                      src={
-                        clientData?.displayPhoto
-                          ? imgPath + clientData?.displayPhoto
-                          : imgPath + 'img-avatar2.png'
-                      }
-                      layout="fill"
-                      alt="avatar-img"
-                    />
-                  </ImageContainer>
-                </Column>
-                <Column>
-                  <DivButton>
-                    <Row
-                      sx={{
-                        gap: '14px',
-                        alignItems: 'center',
-                        width: '40rem',
-                      }}
-                    >
-                      <Name color="green">
-                        <b>
-                          {clientData?.firstName} {clientData?.lastName}
-                        </b>
-                      </Name>
-                      <GrayText size="large">
-                        {' '}
-                        {clientData?.instagramProfile ??
-                          '@' + clientData?.firstName}
-                      </GrayText>
-                    </Row>
-                    {/* <Button onClick={handleOpen}>Send Bid</Button> */}
-                    <DivCon>
-                      <Dots
-                        color="red"
-                        onMouseEnter={loginHover}
-                        onMouseLeave={loginHoverOut}
+              justifyContent: 'center',
+            }}
+          >
+            <Grid item xs={7.5}>
+              <ContentBox>
+                <Row sx={{ gap: '2rem' }}>
+                  <Column>
+                    <ImageContainer>
+                      <StyledImage
+                        src={
+                          clientData?.displayPhoto
+                            ? imgPath + clientData?.displayPhoto
+                            : imgPath + 'img-avatar2.png'
+                        }
+                        layout="fill"
+                        alt="avatar-img"
                       />
-                      <LoginHoverBox
-                        hover={hover}
-                        onMouseEnter={loginHoverBoxEnter}
-                        onMouseLeave={loginHoverBoxLeave}
-                      >
-                        {' '}
-                        <CustomText hover={hover}>
-                          Add to My Freelancers
-                        </CustomText>
-                        <a onClick={handleOpen}>
-                          <CustomText hover={hover}>send a bid</CustomText>
-                        </a>
-                        <CustomText hover={hover}>send a message</CustomText>
-                        <CustomText hover={hover}>Report</CustomText>
-                      </LoginHoverBox>
-                    </DivCon>
-                  </DivButton>
-                  <Row sx={{ gap: '16px', alignItems: 'center' }}>
-                    <StarRating data={clientData?.rating ?? 3} sz="xl" />
-                    <GrayText>
-                      {' '}
-                      {clientData?.jobsCompleted} 32 Projects Completed
-                    </GrayText>
-                  </Row>
-                  <Column sx={{ rowGap: '10px', margin: '1.5rem 0' }}>
-                    <Row sx={{ gap: '8px' }}>
-                      <LargeIcon>
-                        <LocationIcon />
-                      </LargeIcon>
-                      <GrayText>
-                        {' '}
-                        {clientData?.city}{' '}
-                        {clientData?.country ?? 'United Arab Emirates'}{' '}
-                      </GrayText>
-                    </Row>
-                    <Row sx={{ gap: '8px' }}>
-                      <LargeIcon>
-                        <AwardIcon />
-                      </LargeIcon>
-                      <GrayText>
-                        {' '}
-                        Member Since{' '}
-                        {moment(clientData?.createdAt).format('MMMM YYYY')}{' '}
-                      </GrayText>
-                    </Row>
-                    <Row sx={{ gap: '8px' }}>
-                      <LargeIcon>
-                        <RoundChatIcon className="chatIcon" />
-                      </LargeIcon>
-                      <GrayText key={'user-language'}>English</GrayText>
-                    </Row>
+                    </ImageContainer>
                   </Column>
-                  <Row>
-                    <GrayText>{clientData?.description}</GrayText>
-                  </Row>
-                </Column>
-              </Row>
-            </ContentBox>
-            <VerticalDivider />
-            <ContentBox
-              hasHeader={true}
-              headerTitle="Portfolio"
-              headerColor="green"
-            >
-              <VerticalDivider />
-              <Row>
-                <ImageSlider images={projectDetails?.attachments} />
-              </Row>
-            </ContentBox>
-            <VerticalDivider />
-            <ContentBox
-              hasHeader={true}
-              headerTitle="Reviews"
-              headerColor="green"
-              isScrollable={false}
-            >
-              <Column sx={{ rowGap: '1rem', margin: '1.5rem 0' }}>
-                {reviews &&
-                  reviews.map((review, idx) => {
-                    return (
-                      <ReviewBox borderColor="green" key={'review-' + idx}>
-                        <i>
-                          <Text>{review?.desc}</Text>
-                        </i>
-                        <GrayText component="span" sx={{ marginRight: '1rem' }}>
-                          {review?.user}
-                        </GrayText>
-                        <Text color="red" component="span">
-                          {review?.project}
-                        </Text>
-                      </ReviewBox>
-                    );
-                  })}
-              </Column>
-            </ContentBox>
-            <VerticalDivider />
-          </Grid>
-          <Grid item xs={2.9}>
-            <ContentBox
-              hasHeader={true}
-              headerTitle="Verifications"
-              headerColor="green"
-            >
-              <Box
-                sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
-              >
-                {verifications.map((item, idx) => {
-                  return (
-                    <Row
-                      key={'verification-' + idx}
-                      sx={{ justifyContent: 'space-between' }}
-                    >
-                      <GrayText>{item}</GrayText>
-                      <Box
+                  <ColumnCon>
+                    <DivButton>
+                      <Row
                         sx={{
-                          display: 'flex',
-                          gap: '1rem',
+                          gap: '14px',
                           alignItems: 'center',
                         }}
                       >
-                        <CheckSquareIcon variant="green" />
-                        <Text color="green">Verified</Text>
-                      </Box>
+                        <Name color="green">
+                          <b>
+                            {clientData?.firstName} {clientData?.lastName}
+                          </b>
+                        </Name>
+                        <GrayText size="large">
+                          {' '}
+                          {clientData?.instagramProfile ??
+                            '@' + clientData?.firstName}
+                        </GrayText>
+                      </Row>
+                      {/* <Button onClick={handleOpen}>Send Bid</Button> */}
+                      {fid ? (
+                        <DivCon>
+                          <Dots
+                            color="red"
+                            onMouseEnter={loginHover}
+                            onMouseLeave={loginHoverOut}
+                          />
+                          <LoginHoverBox
+                            hover={hover}
+                            onMouseEnter={loginHoverBoxEnter}
+                            onMouseLeave={loginHoverBoxLeave}
+                          >
+                            {' '}
+                            <CustomText hover={hover}>
+                              Add to My Freelancers
+                            </CustomText>
+                            <a onClick={handleOpen}>
+                              <CustomText hover={hover}>send a bid</CustomText>
+                            </a>
+                            <CustomText hover={hover}>
+                              send a message
+                            </CustomText>
+                            <CustomText hover={hover}>Report</CustomText>
+                          </LoginHoverBox>
+                        </DivCon>
+                      ) : (
+                        ''
+                      )}
+                    </DivButton>
+                    <Row sx={{ gap: '16px', alignItems: 'center' }}>
+                      <StarRating data={clientData?.rating ?? 3} sz="xl" />
+                      <GrayText>
+                        {' '}
+                        {clientData?.jobsCompleted} 32 Projects Completed
+                      </GrayText>
                     </Row>
-                  );
-                })}
-              </Box>
-            </ContentBox>
-            <ContentBox
-              hasHeader={true}
-              headerTitle="Skills"
-              headerColor="green"
-            >
-              <DivB>
-                <ButtonSkills>{clientData.skills}</ButtonSkills>
-                <ButtonSkills>Skills</ButtonSkills>
-                <ButtonSkills>Skills</ButtonSkills>
-              </DivB>
-            </ContentBox>
+                    <Column sx={{ rowGap: '10px', margin: '1.5rem 0' }}>
+                      <Row sx={{ gap: '8px' }}>
+                        <LargeIcon>
+                          <LocationIcon />
+                        </LargeIcon>
+                        <GrayText>
+                          {' '}
+                          {clientData?.city}{' '}
+                          {clientData?.country ?? 'United Arab Emirates'}{' '}
+                        </GrayText>
+                      </Row>
+                      <Row sx={{ gap: '8px' }}>
+                        <LargeIcon>
+                          <AwardIcon />
+                        </LargeIcon>
+                        <GrayText>
+                          {' '}
+                          Member Since{' '}
+                          {moment(clientData?.createdAt).format(
+                            'MMMM YYYY'
+                          )}{' '}
+                        </GrayText>
+                      </Row>
+                      <Row sx={{ gap: '8px' }}>
+                        <LargeIcon>
+                          <RoundChatIcon className="chatIcon" />
+                        </LargeIcon>
+                        <GrayText key={'user-language'}>English</GrayText>
+                      </Row>
+                    </Column>
+                    <Row>
+                      <GrayText>{clientData?.description}</GrayText>
+                    </Row>
+                  </ColumnCon>
+                </Row>
+              </ContentBox>
+              <VerticalDivider />
+              <ContentBox
+                hasHeader={true}
+                headerTitle="Portfolio"
+                headerColor="green"
+              >
+                <VerticalDivider />
+                <Row>
+                  <ImageSlider images={projectDetails?.attachments} />
+                </Row>
+              </ContentBox>
+              <VerticalDivider />
+              <ContentBox
+                hasHeader={true}
+                headerTitle="Reviews"
+                headerColor="green"
+                isScrollable={false}
+              >
+                <Column sx={{ rowGap: '1rem', margin: '1.5rem 0' }}>
+                  {reviews &&
+                    reviews.map((review, idx) => {
+                      return (
+                        <ReviewBox borderColor="green" key={'review-' + idx}>
+                          <i>
+                            <Text>{review?.desc}</Text>
+                          </i>
+                          <GrayText
+                            component="span"
+                            sx={{ marginRight: '1rem' }}
+                          >
+                            {review?.user}
+                          </GrayText>
+                          <Text color="red" component="span">
+                            {review?.project}
+                          </Text>
+                        </ReviewBox>
+                      );
+                    })}
+                </Column>
+              </ContentBox>
+              <VerticalDivider />
+            </Grid>
+            <Grid item xs={2.9}>
+              <ContentBox
+                hasHeader={true}
+                headerTitle="Verifications"
+                headerColor="green"
+              >
+                <Box
+                  sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+                >
+                  {verifications.map((item, idx) => {
+                    return (
+                      <Row
+                        key={'verification-' + idx}
+                        sx={{ justifyContent: 'space-between' }}
+                      >
+                        <GrayText>{item}</GrayText>
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            gap: '1rem',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <CheckSquareIcon variant="green" />
+                          <Text color="green">Verified</Text>
+                        </Box>
+                      </Row>
+                    );
+                  })}
+                </Box>
+              </ContentBox>
+              <ContentBox
+                hasHeader={true}
+                headerTitle="Skills"
+                headerColor="green"
+              >
+                <DivB>
+                  <ButtonSkills>{clientData.skills}</ButtonSkills>
+                  <ButtonSkills>Skills</ButtonSkills>
+                  <ButtonSkills>Skills</ButtonSkills>
+                </DivB>
+              </ContentBox>
+            </Grid>
           </Grid>
-        </Grid>
-        <Modal2 handleClose={handleClose} isOpen={open} maxWidth="md">
-          <BidFreelancerForm2
-            handleBidSubmit={handleBidSubmit}
-            data={clientData}
-            bidData={clientBids}
-            selectedBid={selectedClientBid}
-            Id={fid}
-          />
-        </Modal2>
-      </Container>
+          <Modal2 handleClose={handleClose} isOpen={open} maxWidth="md">
+            <BidFreelancerForm2
+              handleBidSubmit={handleBidSubmit}
+              data={clientData}
+              bidData={clientBids}
+              selectedBid={selectedClientBid}
+              Id={fid}
+            />
+          </Modal2>
+        </Container>
+      ) : val == 1 ? (
+        <Settings />
+      ) : val == 2 ? (
+        <div>Wallet</div>
+      ) : (
+        ''
+      )}
+
       <Footer />
     </Box>
   );

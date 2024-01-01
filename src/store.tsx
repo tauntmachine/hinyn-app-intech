@@ -144,7 +144,7 @@ const useProjectController = (project: Project[]) => {
     // location?: string | null;
     category?: string | null;
   }>({});
-  console.log('Got FIlter', projectFilter);
+  // console.log('Got FIlter', projectFilter);
   // const checkBudget = (val) => {
   //   if (
   //     typeof projectFilter === 'object' &&
@@ -170,6 +170,7 @@ const useProjectController = (project: Project[]) => {
   // };
 
   const checkCategories = (val) => {
+    console.log(val);
     if (projectFilter.category === 'all') return true; // Show all categories
     return (
       val?.categories?.data[0]?.attributes?.key === projectFilter?.category
@@ -177,8 +178,8 @@ const useProjectController = (project: Project[]) => {
   };
 
   const filteredProject = useMemo(() => {
-    console.log('Project:', project);
-    console.log('Project Filter:', projectFilter);
+    // console.log('Project:', project);
+    // console.log('Project Filter:', projectFilter);
 
     if (!project || projectFilter.category === null) {
       return project || []; // Return all projects if category is not selected
@@ -186,11 +187,11 @@ const useProjectController = (project: Project[]) => {
 
     const result = project.filter((p) => {
       const match = checkCategories(p);
-      console.log('Filtered Project:', match, p);
+      // console.log('Filtered Project:', match, p);
       return match;
     });
 
-    console.log('Final Result:', result);
+    // console.log('Final Result:', result);
     return result;
   }, [projectFilter, project]);
 

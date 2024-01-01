@@ -26,6 +26,7 @@ const Text = styled(Typography)`
       ? '34px'
       : '14px'};
   text-align: ${(props) => (props.align === 'center' ? 'center' : 'left')};
+  font-weight: ${(props) => (props.font === 'bold' ? '600' : '300')};
 `;
 
 export const SmallText = styled(Text)`

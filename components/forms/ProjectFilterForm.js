@@ -186,9 +186,9 @@ function ProjectFilterForm() {
 
     setProjectFilter({
       category: selectedCategory,
-      skill: selectedSkills,
-      location: selectedLocation,
-      budget: selectedBudget,
+      // skill: selectedSkills,
+      // location: selectedLocation,
+      // budget: selectedBudget,
     });
   };
 

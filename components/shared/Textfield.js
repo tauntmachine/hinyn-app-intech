@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { TextField } from '@mui/material';
+import { TextField, Input } from '@mui/material';
 
 export const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -9,6 +9,20 @@ export const StyledTextField = styled(TextField)`
     width: 100%;
     // padding: 0 12px;
     align-items: center;
+  }
+`;
+export const SimpleTextField = styled(TextField)`
+  width: 100%;
+  .MuiInputBase-root {
+    background-color: #f0f3f4;
+    border-radius: 10rem;
+    margin: 8px 0;
+
+    align-items: center;
+  }
+  fieldset {
+    border: 1px solid #f0f3f4;
+    width: 100%;
   }
 `;
 export const StyledTextFieldBrowse = styled(TextField)`

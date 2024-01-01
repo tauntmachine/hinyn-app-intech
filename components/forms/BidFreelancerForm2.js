@@ -43,7 +43,7 @@ const ButtonContainer = styled.div`
 
 const CustomTextField = styled(StyledTextField)`
   .MuiInputBase-root {
-    border-radius: 8px;
+    border-radius: 0 12px 12px 0;
     background-color: #f2f2f2;
     border: none;
     color: #ff5a5f;
@@ -253,7 +253,7 @@ const BidFreelancerForm2 = ({ handleBidSubmit, data, bidData, Id }) => {
                     alignItems: 'center',
                   }}
                 >
-                  <DropdownO
+                  <DropdownO1
                     hasLabel={false}
                     items={currencies}
                     width="100%"
@@ -316,7 +316,7 @@ const BidFreelancerForm2 = ({ handleBidSubmit, data, bidData, Id }) => {
               </Grid>
             </Grid>
             <GrayText>
-              <b>Bid Proposal</b>
+              <b>Milestone Payments</b>
             </GrayText>
             <InputDiv>
               <StyledTextArea

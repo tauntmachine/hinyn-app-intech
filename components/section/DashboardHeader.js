@@ -135,7 +135,7 @@ const CustomText = styled.div`
 `;
 const Line = styled.div`
   width: 100%;
-  background: #eb4c60;
+  background: ${(props) => (props.account === 1 ? '#4AA398' : '#eb4c60')};
   height: 3px;
 `;
 const Line2 = styled.div`
@@ -155,8 +155,20 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
   const router = useRouter();
 
   const showUserProfile = () => {
-    if (account === 1) router.push('/dashboard/professionalProfile');
+    if (account === 1) router.push('/dashboard/professionalProfile?val=' + 0);
     else router.push('/dashboard/clientProfile');
+  };
+  const showSettings = () => {
+    // if (account === 1)
+    router.push('/dashboard/professionalProfile?val=' + 1);
+    // else
+    // router.push('/dashboard/');
+  };
+  const showWallet = () => {
+    // if (account === 1)
+    router.push('/dashboard/professionalProfile?val=' + 2);
+    // else
+    // router.push('/dashboard/');
   };
   const loginHover = () => {
     setHover(true);
@@ -194,7 +206,13 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
   const clientTabs = ['Dashboard', 'Browse', 'My Freelancers', 'My Projects'];
 
   const showTabs = (account) => {
-    const tabs = account === 1 ? professionalTabs : clientTabs;
+    const tabs =
+      account === 1
+        ? professionalTabs
+        : account === 2
+        ? clientTabs
+        : clientTabs;
+
     return (
       <Tabs>
         {tabs.map((tabName, idx) => (
@@ -330,8 +348,12 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
                   <CustomText hover={hover}>Profile</CustomText>
                 </a>
 
-                <CustomText hover={hover}>Settings</CustomText>
-                <CustomText hover={hover}>Wallet</CustomText>
+                <CustomText hover={hover} onClick={showSettings}>
+                  Settings
+                </CustomText>
+                <CustomText hover={hover} onClick={showWallet}>
+                  Wallet
+                </CustomText>
                 <CustomText hover={hover}>Support</CustomText>
                 <Line2></Line2>
                 <a onClick={handleLogoutUser}>
