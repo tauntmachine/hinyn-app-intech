@@ -53,19 +53,12 @@ function Main() {
       }
     });
     setFilteredArray(freelancer ?? []);
-
-    // setFilteredArray(
-    //   freelancer.filter((item) => item.attributes.headline === filter)
-    // );
   }, []);
   const handleButtonClick = () => {};
 
   const handleSelectedCategory = (category) => {
     setCurrCatSelected(category);
     setFilter({ category: category });
-    // setFilteredArray(
-    //   freelancer.filter((item) => item.attributes.headline === category)
-    // );
   };
 
   return (
