@@ -28,6 +28,7 @@ import moment from 'moment';
 import BidFreelancerForm2 from '../../components/forms/BidFreelancerForm2';
 import Modal2 from '../../components/shared/Modal2';
 import Settings from '../../components/shared/Settings';
+import Wallet from '../../components/shared/Wallet';
 
 const Row = styled(Box)`
   display: flex;
@@ -454,7 +455,7 @@ const ProfessionalProfile = () => {
       ) : val == 1 ? (
         <Settings />
       ) : val == 2 ? (
-        <div>Wallet</div>
+        <Wallet />
       ) : (
         ''
       )}

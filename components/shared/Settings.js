@@ -8,6 +8,7 @@ import { Box, IconButton, InputAdornment } from '@mui/material';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 import { PhotoIcon, RightArrowIcon } from './Icon';
+import Pill2 from './Pill2';
 
 const Wraper = styled.div`
   height: auto;
@@ -168,6 +169,15 @@ const TypeDiv = styled.div`
   margin: 20px 0;
   gap: 20px;
   width: 70%;
+`;
+const PillDiv = styled.div`
+  width: 24%;
+`;
+const ParaDiv = styled.div`
+  background: #f7f5f5;
+  border-radius: 12px;
+  padding: 23px 34px;
+  margin: 40px 0;
 `;
 function Settings() {
   const [selectedTab, setSelectedTab] = useState('Profile');
@@ -359,7 +369,12 @@ function Settings() {
                 <SimpleTextField />
               </div>
             </FieldWrap>
-            <GreenButton>Update Email Address</GreenButton>
+            {/* <GreenButton>Update Email Address</GreenButton> */}
+            <PillDiv>
+              {' '}
+              <Pill2 title="Update Email Address" color="green" />
+            </PillDiv>
+
             <Text
               color="red"
               size="large"
@@ -575,6 +590,32 @@ function Settings() {
               Deactivate or Delete Account
             </Text>
             <Line></Line>
+            <ParaDiv>
+              <Text size="smd" font="bold">
+                Deactivate
+              </Text>
+              <Text color="gray" sx={{ marginY: '16px' }}>
+                Deactivating your account will cause your profile and listings
+                to disappear, and you will not receive any notifications from
+                us. This can be undone later.
+              </Text>
+              <PillDiv>
+                <Pill2 title="Deactivate my account" color="green" />
+              </PillDiv>
+            </ParaDiv>
+            <ParaDiv>
+              <Text size="smd" font="bold">
+                Delete
+              </Text>
+              <Text color="gray" sx={{ marginY: '16px' }}>
+                Delete your account will cause your profile and listings to
+                disappear, and you will not receive any notifications from us.
+                This can be undone later.
+              </Text>
+              <PillDiv>
+                <Pill2 title="Delete my account" color="green" />
+              </PillDiv>
+            </ParaDiv>
           </ContentBox4>
         ) : (
           ''
