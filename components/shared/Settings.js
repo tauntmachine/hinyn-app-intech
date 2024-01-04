@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { SimpleTextField } from './Textfield';
 import Text from './Typography';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { GreenButton, RedButton } from '../shared/Button';
 import Switch from './Switch';
 import { Box, IconButton, InputAdornment } from '@mui/material';
@@ -9,6 +9,7 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 import { PhotoIcon, RightArrowIcon } from './Icon';
 import Pill2 from './Pill2';
+import { passwordChange, updateClientData } from '../forms/formService';
 
 const Wraper = styled.div`
   height: auto;
@@ -199,6 +200,99 @@ function Settings() {
   const handleMouseDownConfirmPassword = (event) => {
     event.preventDefault();
   };
+  const firstnameInputRef = useRef();
+  const lastnameInputRef = useRef();
+  const addressInputRef = useRef();
+  const cityInputRef = useRef();
+  const zipInputRef = useRef();
+  const stateInputRef = useRef();
+  const countryInputRef = useRef();
+  const TimezoneInputRef = useRef();
+  const LocationInputRef = useRef();
+  const PhoneInputRef = useRef();
+  const npasswordInputRef = useRef();
+  const cpasswordInputRef = useRef();
+  const copasswordInputRef = useRef();
+
+  const submitHandler = async () => {
+    const getStoredClient = async () => {
+      const req = localStorage.getItem('hinyn-clientData');
+      return await JSON.parse(req);
+    };
+    const enteredFirstname = firstnameInputRef.current.value;
+    const enteredLastname = lastnameInputRef.current.value;
+    const enteredaddress = addressInputRef.current.value;
+    const enteredcity = cityInputRef.current.value;
+    const enteredzip = zipInputRef.current.value;
+    const enteredstate = stateInputRef.current.value;
+    const enteredcountry = countryInputRef.current.value;
+    const enteredlocation = LocationInputRef.current.value;
+    const enteredphone = PhoneInputRef.current.value;
+    const enteredTimezone = TimezoneInputRef.current.value;
+    if (
+      enteredFirstname?.length &&
+      enteredLastname?.length &&
+      enteredaddress?.length &&
+      enteredcity?.length &&
+      enteredcountry?.length &&
+      enteredlocation?.length &&
+      enteredphone?.length &&
+      enteredstate?.length &&
+      enteredzip?.length
+    ) {
+      const data = {
+        firstName: enteredFirstname,
+        lastName: enteredLastname,
+        mobileNumber: enteredphone,
+        country: enteredcountry,
+        city: enteredcity,
+        countryCode: enteredzip,
+      };
+      const clientId = await localStorage.getItem('hinyn-cid');
+      let clientData = await getStoredClient();
+      const newData = {
+        ...data,
+        id: clientData.id,
+      };
+      clientData = {
+        ...clientData.attributes,
+        ...newData,
+      };
+
+      updateClientData(clientData, clientId).then(async (result) => {
+        if (result?.data) {
+          console.log('stringify client -', JSON.stringify(result?.data));
+          firstnameInputRef.current.value = '';
+          lastnameInputRef.current.value = '';
+          addressInputRef.current.value = '';
+          cityInputRef.current.value = '';
+          zipInputRef.current.value = '';
+          stateInputRef.current.value = '';
+          countryInputRef.current.value = '';
+          LocationInputRef.current.value = '';
+          PhoneInputRef.current.value = '';
+          TimezoneInputRef.current.value = '';
+        }
+      });
+    } else {
+      ('');
+    }
+  };
+  const submitPassword = async () => {
+    const cp = cpasswordInputRef.current.value;
+    const np = npasswordInputRef.current.value;
+    const cop = copasswordInputRef.current.value;
+
+    const password = {
+      password: np,
+      currentPassword: cp,
+      passwordConfirmation: cop,
+    };
+    console.log(password);
+    passwordChange(password).then((res) => {
+      console.log(res);
+    });
+  };
   return (
     <Wraper>
       <TextCon>
@@ -277,13 +371,25 @@ function Settings() {
                 <Text color="green" size="md">
                   First Name
                 </Text>
-                <SimpleTextField />
+                <SimpleTextField
+                  required
+                  fullWidth
+                  id="firstname"
+                  name="firstname"
+                  inputRef={firstnameInputRef}
+                />
               </div>
               <div style={{ width: '100%' }}>
                 <Text color="green" size="md">
                   Last Name
                 </Text>
-                <SimpleTextField />
+                <SimpleTextField
+                  required
+                  fullWidth
+                  id="lasttname"
+                  name="lasttname"
+                  inputRef={lastnameInputRef}
+                />
               </div>
             </FieldWrap>
             <InnerView>
@@ -294,41 +400,83 @@ function Settings() {
               <Text color="green" size="md">
                 Address Line 1
               </Text>
-              <SimpleTextField />
+              <SimpleTextField
+                required
+                fullWidth
+                id="address"
+                name="address"
+                inputRef={addressInputRef}
+              />
               <Text color="green" size="md" sx={{ marginTop: '20px' }}>
                 City / Town
               </Text>
-              <SimpleTextField />
+              <SimpleTextField
+                required
+                fullWidth
+                id="city"
+                name="city"
+                inputRef={cityInputRef}
+              />
               <FieldWrap>
                 <div style={{ width: '100%' }}>
                   <Text color="green" size="md" sx={{ marginTop: '20px' }}>
                     Zip / Postal Code
                   </Text>
-                  <SimpleTextField />
+                  <SimpleTextField
+                    required
+                    fullWidth
+                    id="zip"
+                    name="zip"
+                    inputRef={zipInputRef}
+                  />
                 </div>
                 <div style={{ width: '100%' }}>
                   <Text color="green" size="md" sx={{ marginTop: '20px' }}>
                     State / Region
                   </Text>
-                  <SimpleTextField />
+                  <SimpleTextField
+                    required
+                    fullWidth
+                    id="state"
+                    name="state"
+                    inputRef={stateInputRef}
+                  />
                 </div>
               </FieldWrap>
               <Text color="green" size="md" sx={{ marginTop: '20px' }}>
                 Country
               </Text>
-              <SimpleTextField />
+              <SimpleTextField
+                required
+                fullWidth
+                id="country"
+                name="country"
+                inputRef={countryInputRef}
+              />
               <FieldWrap>
                 <div style={{ width: '100%' }}>
                   <Text color="green" size="md" sx={{ marginTop: '20px' }}>
                     Timezone
                   </Text>
-                  <SimpleTextField />
+                  <SimpleTextField
+                    required
+                    fullWidth
+                    id="Timezone"
+                    name="Timezone"
+                    inputRef={TimezoneInputRef}
+                  />
                 </div>
                 <div style={{ width: '100%' }}>
                   <Text color="green" size="md" sx={{ marginTop: '20px' }}>
                     Location
                   </Text>
-                  <SimpleTextField />
+                  <SimpleTextField
+                    required
+                    fullWidth
+                    id="Location"
+                    name="Location"
+                    inputRef={LocationInputRef}
+                  />
                 </div>
               </FieldWrap>
               <Text
@@ -343,9 +491,15 @@ function Settings() {
               <Text color="green" size="md">
                 Phone Number
               </Text>
-              <SimpleTextField />
+              <SimpleTextField
+                required
+                fullWidth
+                id="Phone"
+                name="Phone"
+                inputRef={PhoneInputRef}
+              />
               <Bdiv>
-                <GreenButton>Submit</GreenButton>
+                <GreenButton onClick={submitHandler}>Submit</GreenButton>
               </Bdiv>
             </InnerView>
           </ContentBox3>
@@ -431,6 +585,11 @@ function Settings() {
                   </InputAdornment>
                 ),
               }}
+              required
+              fullWidth
+              id="cpassword"
+              name="cpassword"
+              inputRef={cpasswordInputRef}
             />
             <Text color="green" size="md" marginTop="30px">
               New Password
@@ -456,6 +615,11 @@ function Settings() {
                   </InputAdornment>
                 ),
               }}
+              required
+              fullWidth
+              id="npassword"
+              name="npassword"
+              inputRef={npasswordInputRef}
             />
             <Text color="green" size="md" marginTop="30px">
               Confirm Password
@@ -481,9 +645,14 @@ function Settings() {
                   </InputAdornment>
                 ),
               }}
+              required
+              fullWidth
+              id="copassword"
+              name="copassword"
+              inputRef={copasswordInputRef}
             />
             <Bdiv>
-              <GreenButton>Submit</GreenButton>
+              <GreenButton onClick={submitPassword}>Submit</GreenButton>
             </Bdiv>
           </ContentBox4>
         ) : selectedTab === 'Trust' ? (

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { TextField, Input } from '@mui/material';
+import { TextField, Input, InputBase } from '@mui/material';
 
 export const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -23,6 +23,23 @@ export const SimpleTextField = styled(TextField)`
   fieldset {
     border: 1px solid #f0f3f4;
     width: 100%;
+  }
+`;
+
+export const SimpleTextField2 = styled(InputBase)`
+  width: ${(props) => (props.width === 'less' ? '65%' : '100%')};
+  background-color: #f0f3f4;
+  padding: 9px 16px;
+  border-radius: ${(props) =>
+    props.radius === 'one'
+      ? '0 9px 9px 0'
+      : props.radius === 'two'
+      ? '0 9px 9px 0'
+      : '1rem'};
+  margin: 8px 0;
+  color: #a6a6a6;
+  &::placeholder {
+    color: #757575; /* Set the color for the placeholder text */
   }
 `;
 export const StyledTextFieldBrowse = styled(TextField)`

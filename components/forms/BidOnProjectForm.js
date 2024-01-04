@@ -10,9 +10,13 @@ import {
 import styled from '@emotion/styled';
 import Text, { SmallText } from '../shared/Typography';
 import { GreenButton } from '../shared/Button';
-import StyledTextField from '../shared/Textfield';
+import StyledTextField, {
+  SimpleTextField,
+  SimpleTextField2,
+} from '../shared/Textfield';
 import Dropdown from '../shared/Dropdown';
 import { addProposal, updateBidData } from './formService';
+import Pill2 from '../shared/Pill2';
 
 const FormContainer = styled(Box)`
   display: flex;
@@ -96,7 +100,7 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
   const router = useRouter();
   const { project } = router.query;
 
-  const [enteredBidDescription, setBidDescription] = useState('');
+  // const [enteredBidDescription, setBidDescription] = useState('');
 
   const [isValid, setValid] = useState({
     bidAmount: null,
@@ -108,11 +112,13 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
     bidDescription: null,
   });
   const bidAmountInputRef = useRef();
-
+  const proposalInputRef = useRef();
+  const milestoneInputRef = useRef();
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredBidAmount = bidAmountInputRef.current.value;
-
+    const enteredproposal = proposalInputRef.current.value;
+    const enteredBidmilestone = milestoneInputRef.current.value;
     if (!enteredBidAmount) {
       setErrorMessage((prevState) => ({
         ...prevState,
@@ -124,7 +130,7 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
       }));
     }
 
-    if (!enteredBidDescription) {
+    if (!enteredproposal) {
       setErrorMessage((prevState) => ({
         ...prevState,
         ['bidDescription']: 'Provide bid description',
@@ -134,12 +140,21 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
         ['form']: false,
       }));
     }
-
+    if (!enteredBidmilestone) {
+      setErrorMessage((prevState) => ({
+        ...prevState,
+        ['bidDescription']: 'Provide Milestone',
+      }));
+      setValid((prevState) => ({
+        ...prevState,
+        ['form']: false,
+      }));
+    }
     if (
       enteredBidAmount &&
-      enteredBidDescription &&
+      enteredproposal &&
       enteredBidAmount !== '' &&
-      enteredBidDescription !== ''
+      enteredproposal !== ''
     ) {
       isValid.form = true;
     }
@@ -149,12 +164,13 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
       const proposalData = {
         status: 1,
         budget: enteredBidAmount,
-        description: enteredBidDescription,
+        description: enteredproposal,
         client: clientId,
         bid: project,
+        // milestone: enteredBidmilestone,
         isDirectBidAssignment: false,
       };
-
+      console.log(proposalData);
       let existingProposals = proposals?.data.map((item) => item.id) ?? [];
       addProposal(proposalData).then((res) => {
         if (res?.data) {
@@ -186,7 +202,7 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
             <b>Application to the bid</b>
           </Text>
           <Container maxWidth="sm">
-            <Text align="center">
+            <Text align="center" color="gray">
               Interested with this project? Place a bid now and leave a message
               for the client on why you&apos;re the right person for this job!
             </Text>
@@ -200,7 +216,9 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
           >
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
-                <GrayText>Bid</GrayText>
+                <GrayText>
+                  <b>Bid</b>
+                </GrayText>
                 <Box
                   sx={{
                     display: 'flex',
@@ -216,23 +234,14 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
                     setHandleOnChange={handleCurrencyChange}
                     selected={selectedCurrency}
                   />
-                  <CustomTextField
+                  <SimpleTextField2
+                    radius="one"
                     required
                     fullWidth
-                    type="number"
                     id="bidAmount"
-                    label=""
                     name="bidAmount"
                     inputRef={bidAmountInputRef}
-                    onChange={(event) => {
-                      const { value } = event.target;
-                      if (value) {
-                        setErrorMessage((prevState) => ({
-                          ...prevState,
-                          ['bidAmount']: null,
-                        }));
-                      }
-                    }}
+                    placeholder="Enter bid Amount"
                   />
                 </Box>
                 {errorMessage.bidAmount && (
@@ -242,33 +251,53 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
             </Grid>
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
-                <GrayText>Bid Proposal </GrayText>
-                <StyledTextArea
-                  rowsMin={3}
-                  // placeholder="Enter bid proposal"
-                  id="bidDescription"
-                  name="bidDescription"
-                  maxLength={500}
-                  onChange={(event) => {
-                    const { value } = event.target;
-                    setBidDescription(() => value);
-                    if (value) {
-                      setErrorMessage((prevState) => ({
-                        ...prevState,
-                        ['bidDescription']: null,
-                      }));
-                    }
-                  }}
+                <GrayText>
+                  <b>Bid Proposal </b>
+                </GrayText>
+
+                <SimpleTextField2
+                  required
+                  fullWidth
+                  id="proposal"
+                  name="proposal"
+                  inputRef={proposalInputRef}
+                  placeholder="Enter your proposal here"
                 />
-                {errorMessage.bidDescription && (
-                  <Error>{errorMessage.bidDescription}</Error>
-                )}
-                <SmallText>
-                  <GrayText>
-                    <i>Max: 500 characters</i>
-                  </GrayText>
-                </SmallText>
+
+                <GrayText sx={{ marginTop: '20px' }}>
+                  <b>Suggest Milestone payment</b>
+                </GrayText>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <SimpleTextField2
+                    width="less"
+                    id="milestone"
+                    name="milestone"
+                    inputRef={milestoneInputRef}
+                    placeholder="Enter Milestone"
+                  />
+                  <div style={{ display: 'flex' }}>
+                    <div style={{ margin: 'auto' }}>
+                      <div
+                        style={{
+                          background: '#ddf0ed',
+                          padding: '12px',
+                          paddingLeft: '20px',
+                          paddingRight: '20px',
+                          borderRadius: '9px 0 0 9px',
+                          color: '#4AA398',
+                          fontSize: '15px',
+                        }}
+                      >
+                        {selectedCurrency != '' ? selectedCurrency : 'USD'}
+                      </div>
+                    </div>{' '}
+                    <SimpleTextField2 radius="one" placeholder="Enter Amount" />
+                  </div>
+                </div>
               </Grid>
+              <div style={{ width: '31%', marginTop: '20px' }}>
+                <Pill2 title="Add another milestone payment" color="green" />
+              </div>
             </Grid>
             <ButtonContainer>
               <GreenButton>Submit</GreenButton>

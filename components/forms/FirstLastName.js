@@ -22,15 +22,7 @@ const FormContainer = styled(Box)`
   width: 100%;
   border-radius: 20px;
 `;
-const AvatarDiv = styled.div`
-  margin-left: 23px;
-  margin-top: 80px;
-`;
-const ImageDiv = styled(Image)`
-  border-radius: 20px;
-  height: 20rem;
-  width: 20rem;
-`;
+
 const ImageDiv2 = styled.div`
   border-radius: 20px;
   overflow: hidden;

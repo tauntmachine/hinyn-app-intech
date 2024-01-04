@@ -2,6 +2,37 @@ import axios from 'axios';
 import { origin } from '../../src/config';
 axios.defaults.withCredentials = true;
 
+export const passwordChange = async (password) => {
+  const jwt = localStorage.getItem('hinyn-cjwt');
+  return axios
+    .post(
+      origin + '/auth/change-password',
+      {
+        password: password.newPassword,
+        currentPassword: password.currentPassword,
+        passwordConfirmation: password.confirmPassword,
+      },
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${jwt}`,
+        },
+        withCredentials: true,
+        crossDomain: true,
+      }
+    )
+    .then(async (response) => {
+      if (response.data) {
+        return { status: true, data: response.data };
+      } else {
+        return { status: false, data: response.data.message };
+      }
+    })
+    .catch(function (error) {
+      return { status: false, data: error };
+    });
+};
 export const emailVerify = async (email) => {
   return axios
     .post(
