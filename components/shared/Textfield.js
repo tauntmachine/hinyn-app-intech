@@ -29,7 +29,7 @@ export const SimpleTextField = styled(TextField)`
 export const SimpleTextField2 = styled(InputBase)`
   width: ${(props) => (props.width === 'less' ? '65%' : '100%')};
   background-color: #f0f3f4;
-  padding: 9px 16px;
+  padding: ${(props) => (props.height === 'more' ? '12px 16px' : '9px 16px')};
   border-radius: ${(props) =>
     props.radius === 'one'
       ? '0 9px 9px 0'

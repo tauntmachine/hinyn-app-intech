@@ -109,7 +109,7 @@ export const RedButton = styled(Button)`
   padding: ${(props) => (props.width === 'more' ? '0.75rem 1.5rem' : '')};
   color: ${(props) => (props.variant === 'outlined' ? '#EB4C60' : '#ffffff')};
   border: 1px solid #eb4c60;
-  font-size: ${(props) => (props.size === 'small' ? '10px' : '12px')};
+  font-size: ${(props) => (props.size === 'small' ? '10px' : '13.5px')};
   font-weight: bold;
   &:hover {
     box-shadow: 0 0 3px #eb4c60;

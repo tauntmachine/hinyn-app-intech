@@ -1,9 +1,9 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/swiper-bundle.min.css';
-import { useState } from 'react';
+
 import Category from './Category';
-// import { useFreelancer } from '../../../src/store';
+
 import styled from '@emotion/styled';
 
 const SwiperBox = styled.div`

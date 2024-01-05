@@ -4,8 +4,6 @@ import CardsSection from './CardsSection';
 import { useFreelancer } from '../../src/store';
 import { useState, useEffect } from 'react';
 import { getCategories } from '../forms/formService';
-import Text from '../shared/Typography';
-import { category } from '../models/filters.models';
 
 const ContainerCustom = styled.div`
   margin-top: 12rem;
@@ -13,6 +11,9 @@ const ContainerCustom = styled.div`
   width: 80%;
   margin: auto;
   margin-bottom: 5rem;
+
+  @media (max-width: 768px) {
+  }
 `;
 
 function Main() {
@@ -21,28 +22,7 @@ function Main() {
   const [categories, setCategories] = useState([]);
   const [filteredArray, setFilteredArray] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchCategories = async () => {
-  //     const categoriesPromise = getCategories();
-  //     try {
-  //       const result = await categoriesPromise;
-
-  //       if (result.status) {
-  //         const data = result.data;
-  //         setCategory(data.data);
-  //         console.log(category);
-  //       } else {
-  //         console.error('Error fetching categories: ' + result.data);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching categories:', error);
-  //     }
-  //   };
-
-  //   fetchCategories(); // Call the function to fetch categories
-  // }, []);
   useEffect(() => {
-    // console.log(filter);
     getCategories().then((result) => {
       if (result?.data) {
         setCategories(() => []);

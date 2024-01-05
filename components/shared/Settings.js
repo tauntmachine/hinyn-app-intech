@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { SimpleTextField } from './Textfield';
+import { SimpleTextField, SimpleTextField2 } from './Textfield';
 import Text from './Typography';
 import { useRef, useState } from 'react';
 import { GreenButton, RedButton } from '../shared/Button';
@@ -371,24 +371,28 @@ function Settings() {
                 <Text color="green" size="md">
                   First Name
                 </Text>
-                <SimpleTextField
+                <SimpleTextField2
                   required
                   fullWidth
                   id="firstname"
                   name="firstname"
                   inputRef={firstnameInputRef}
+                  height="more"
+                  placeholder="Enter firstname"
                 />
               </div>
               <div style={{ width: '100%' }}>
                 <Text color="green" size="md">
                   Last Name
                 </Text>
-                <SimpleTextField
+                <SimpleTextField2
                   required
                   fullWidth
                   id="lasttname"
                   name="lasttname"
                   inputRef={lastnameInputRef}
+                  height="more"
+                  placeholder="Enter lastname"
                 />
               </div>
             </FieldWrap>
@@ -400,82 +404,96 @@ function Settings() {
               <Text color="green" size="md">
                 Address Line 1
               </Text>
-              <SimpleTextField
+              <SimpleTextField2
                 required
                 fullWidth
                 id="address"
                 name="address"
                 inputRef={addressInputRef}
+                height="more"
+                placeholder="Enter address"
               />
               <Text color="green" size="md" sx={{ marginTop: '20px' }}>
                 City / Town
               </Text>
-              <SimpleTextField
+              <SimpleTextField2
                 required
                 fullWidth
                 id="city"
                 name="city"
                 inputRef={cityInputRef}
+                height="more"
+                placeholder="Enter city"
               />
               <FieldWrap>
                 <div style={{ width: '100%' }}>
                   <Text color="green" size="md" sx={{ marginTop: '20px' }}>
                     Zip / Postal Code
                   </Text>
-                  <SimpleTextField
+                  <SimpleTextField2
                     required
                     fullWidth
                     id="zip"
                     name="zip"
                     inputRef={zipInputRef}
+                    height="more"
+                    placeholder="Enter zip code"
                   />
                 </div>
                 <div style={{ width: '100%' }}>
                   <Text color="green" size="md" sx={{ marginTop: '20px' }}>
                     State / Region
                   </Text>
-                  <SimpleTextField
+                  <SimpleTextField2
                     required
                     fullWidth
                     id="state"
                     name="state"
                     inputRef={stateInputRef}
+                    height="more"
+                    placeholder="Enter state"
                   />
                 </div>
               </FieldWrap>
               <Text color="green" size="md" sx={{ marginTop: '20px' }}>
                 Country
               </Text>
-              <SimpleTextField
+              <SimpleTextField2
                 required
                 fullWidth
                 id="country"
                 name="country"
                 inputRef={countryInputRef}
+                height="more"
+                placeholder="Enter country"
               />
               <FieldWrap>
                 <div style={{ width: '100%' }}>
                   <Text color="green" size="md" sx={{ marginTop: '20px' }}>
                     Timezone
                   </Text>
-                  <SimpleTextField
+                  <SimpleTextField2
                     required
                     fullWidth
                     id="Timezone"
                     name="Timezone"
                     inputRef={TimezoneInputRef}
+                    height="more"
+                    placeholder="Enter timezone"
                   />
                 </div>
                 <div style={{ width: '100%' }}>
                   <Text color="green" size="md" sx={{ marginTop: '20px' }}>
                     Location
                   </Text>
-                  <SimpleTextField
+                  <SimpleTextField2
                     required
                     fullWidth
                     id="Location"
                     name="Location"
                     inputRef={LocationInputRef}
+                    height="more"
+                    placeholder="Enter location"
                   />
                 </div>
               </FieldWrap>
@@ -491,12 +509,14 @@ function Settings() {
               <Text color="green" size="md">
                 Phone Number
               </Text>
-              <SimpleTextField
+              <SimpleTextField2
                 required
                 fullWidth
                 id="Phone"
                 name="Phone"
                 inputRef={PhoneInputRef}
+                height="more"
+                placeholder="Enter phone"
               />
               <Bdiv>
                 <GreenButton onClick={submitHandler}>Submit</GreenButton>
@@ -514,13 +534,13 @@ function Settings() {
                 <Text color="green" size="md">
                   Email
                 </Text>
-                <SimpleTextField />
+                <SimpleTextField2 height="more" placeholder="Enter email" />
               </div>
               <div style={{ width: '100%', marginBottom: '20px' }}>
                 <Text color="green" size="md">
                   Password
                 </Text>
-                <SimpleTextField />
+                <SimpleTextField2 height="more" placeholder="Enter password" />
               </div>
             </FieldWrap>
             {/* <GreenButton>Update Email Address</GreenButton> */}

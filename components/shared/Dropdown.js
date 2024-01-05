@@ -16,13 +16,16 @@ const Option = styled(MenuItem)`
   color: ${(props) => (props.color === 'red' ? '#FF5A5F' : '#0F7669')};
 `;
 const CustomSelect = styled(Select)`
+  .MuiSelect-icon {
+    color: ${(props) => (props.color === 'green' ? '#4AA398' : '')};
+  }
   font-family: 'DM Sans', sans-serif !important;
   background: ${(props) =>
     props.type === 'standard'
       ? '#ffffff'
-      : props.color === 'red'
-      ? '#FADBD8 '
-      : '#e6e6e6'};
+      : props.color === 'green'
+      ? '#ddf0ed'
+      : '#e6e6e6'}; /* Change this line to set the background color */
 
   color: ${(props) => (props.color === 'red' ? '#FF5A5F' : '#0F7669')};
   border: ${(props) =>
@@ -31,9 +34,13 @@ const CustomSelect = styled(Select)`
     props.type === 'standard' || props.typology === 'okok'
       ? 'none'
       : '1px solid #94949470'};
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1rem;
   border-radius: ${(props) =>
-    props.type === 'standard' || props.type === 'outlined' ? '7px' : '7px'};
+    props.type === 'standard' || props.type === 'outlined'
+      ? '7px'
+      : props.typology === 'okok'
+      ? '9px 0 0 9px'
+      : '7px'};
 
   &:before {
     border-bottom: 0;

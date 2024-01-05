@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { StaticPill, PillWithIcon } from '../Pill';
 import ImageSlider from '../ImageSlider';
-import { GreenButton } from '../Button';
+import { GreenButton, RedButton } from '../Button';
 import Text from '../Typography';
 import { useState } from 'react';
 import Modal from '../Modal';
@@ -11,6 +11,8 @@ import BidOnProjectForm from '../../forms/BidOnProjectForm';
 import { Container } from '@mui/system';
 import { CautionIcon, CheckIcon } from '../Icon';
 import moment from 'moment';
+import { SimpleTextField2 } from '../Textfield';
+import StarRating from '../StarRating';
 
 const VerticalDivider = styled.div`
   height: 1rem;
@@ -82,6 +84,7 @@ const Details = ({
   isBidOwner,
   account,
 }) => {
+  // console.log('ggg', userDetails.isProposedProject);
   const projectDetails = {
     attachments: [
       'project-temp-1.jpeg',
@@ -204,27 +207,32 @@ const Details = ({
           <DescTitle>Deadline</DescTitle>
         </Row>
         <Row className="green-bg">{bidData?.deliveryDate ?? 'NA'}</Row>
-        {/* <Row sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Row
+          sx={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}
+        >
           {userHasProposal ? (
-            userDetails?.isProposedProject ? (
-              <CustomGreenButton onClick={() => setOpenFinishModal(true)}>
-                Complete Project
-              </CustomGreenButton>
-            ) : (
-              <CustomGreenButton className="disabled">
-                Applied
-              </CustomGreenButton>
-            )
-          ) : !isBidOwner ? (
+            // userDetails?.isProposedProject ? (
+            <CustomGreenButton onClick={() => setOpenFinishModal(true)}>
+              Complete Project
+            </CustomGreenButton>
+          ) : (
+            // ) : (
+            //   <CustomGreenButton className="disabled">
+            //     Applied
+            //   </CustomGreenButton>
+            // )
+            ''
+          )}
+          {/* {userDetails?.isProposedProject ? (
+            <CustomGreenButton onClick={() => setOpenFinishModal(true)}>
+              Complete Project
+            </CustomGreenButton>
+          ) : (
             <CustomGreenButton onClick={() => setOpen(true)}>
               Apply
             </CustomGreenButton>
-          ) : null} */}
-        {/* {userDetails?.isProposedProject  
-                    ?  <CustomGreenButton onClick={() => setOpenFinishModal(true)}>Complete Project</CustomGreenButton>
-                    : <CustomGreenButton onClick={() => setOpen(true)}>Apply</CustomGreenButton>
-                } */}
-        {/* </Row> */}
+          )} */}
+        </Row>
       </MainWrapper>
       <Modal handleClose={handleClose} isOpen={open} maxWidth="md">
         <BidOnProjectForm
@@ -232,7 +240,7 @@ const Details = ({
           proposals={bidData?.proposals}
         />
       </Modal>
-      <Modal handleClose={handleClose} isOpen={openSuccessModal} maxWidth="md">
+      <Modal handleClose={handleClose} isOpen={openSuccessModal} maxWidth="lg">
         <Box sx={{ padding: '5rem 0' }}>
           <Column>
             <Row>
@@ -241,35 +249,57 @@ const Details = ({
               </IconContainer>
             </Row>
             <Row>
-              <Text color="green" size="large">
+              <Text color="green" size="l2" font="bold">
                 <b>
-                  {userDetails?.isProposedProject
-                    ? modalTexts.projComplete.title
-                    : modalTexts.projBid.title}
+                  {/* {userDetails?.isProposedProject
+                    ? */}
+                  {modalTexts.projComplete.title}
+                  {/* : modalTexts.projBid.title} */}
                 </b>
               </Text>
             </Row>
             <Row>
               <Container maxWidth="sm">
-                <GrayText align="center">
-                  {userDetails?.isProposedProject
-                    ? modalTexts.projComplete.desc
-                    : modalTexts.projBid.desc}
-                </GrayText>
+                <Text align="center" color="gray">
+                  {/* {userDetails?.isProposedProject
+                    ? */}
+                  {modalTexts.projComplete.desc}
+                  {/* // : modalTexts.projBid.desc} */}
+                </Text>
               </Container>
             </Row>
-            <VerticalDivider />
-            <VerticalDivider />
+            <Text
+              color="green"
+              size="smd"
+              font="bold"
+              style={{ margin: '30px' }}
+            >
+              Please take a minute to rate Joe as a client{' '}
+            </Text>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '37.3rem',
+              }}
+            >
+              <Text size="md">Rating:</Text>
+              <div>
+                <StarRating sz="6" />
+              </div>
+            </div>
+            <div style={{ width: '37.3rem' }}>
+              <SimpleTextField2 placeholder="Write your experience" />
+            </div>
             <Row>
-              <GreenButton onClick={listAllProjects}>
-                {' '}
-                Browse more projects
-              </GreenButton>
+              <RedButton width="more" onClick={handleClose}>
+                Submit
+              </RedButton>
             </Row>
           </Column>
         </Box>
       </Modal>
-      <Modal handleClose={handleClose} isOpen={openFinishModal} maxWidth="md">
+      <Modal handleClose={handleClose} isOpen={openFinishModal} maxWidth="lg">
         <Box sx={{ padding: '5rem 0' }}>
           <Column>
             <Row>

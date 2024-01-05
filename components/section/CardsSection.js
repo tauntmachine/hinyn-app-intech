@@ -39,13 +39,7 @@ const NotFoundContainer = styled.div`
   color: #eb4c60;
 `;
 
-function CardsSection({
-  cards,
-  hasTools = true,
-  cardText,
-  handleButtonClick,
-  selectedCategory,
-}) {
+function CardsSection({ cards, hasTools = true, cardText, handleButtonClick }) {
   return (
     <GridContainer>
       {hasTools ? (

@@ -42,10 +42,10 @@ const VerticalDivider = styled.div`
 `;
 
 const CustomDropdown = styled(Dropdown)`
-  .MuiInputBase-root {
-    border-radius: 10px;
-    background: red;
-  }
+  // .MuiInputBase-root {
+  //   border-radius: 10px;
+  //   background: red;
+  // }
 `;
 
 const CustomTextField = styled(StyledTextField)`
@@ -167,6 +167,7 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
         description: enteredproposal,
         client: clientId,
         bid: project,
+
         // milestone: enteredBidmilestone,
         isDirectBidAssignment: false,
       };
@@ -186,8 +187,6 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
           }
         } else handleSubmit(false);
       });
-
-      //
     }
   };
   const handleCurrencyChange = (val) => {
@@ -198,7 +197,7 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
       <Container maxWidth="lg" sx={{ margin: '2rem 0' }}>
         <CssBaseline />
         <FormContainer>
-          <Text color="red" size="large">
+          <Text color="red" size="l2">
             <b>Application to the bid</b>
           </Text>
           <Container maxWidth="sm">
@@ -219,20 +218,19 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
                 <GrayText>
                   <b>Bid</b>
                 </GrayText>
-                <Box
-                  sx={{
+                <div
+                  style={{
                     display: 'flex',
-                    position: 'relative',
-                    alignItems: 'center',
                   }}
                 >
                   <CustomDropdown
                     hasLabel={false}
                     items={currencies}
                     width="100%"
-                    type="outlined"
                     setHandleOnChange={handleCurrencyChange}
-                    selected={selectedCurrency}
+                    typology="okok"
+                    selected={selectedCurrency != '' ? selectedCurrency : 'USD'}
+                    color="green"
                   />
                   <SimpleTextField2
                     radius="one"
@@ -243,7 +241,7 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
                     inputRef={bidAmountInputRef}
                     placeholder="Enter bid Amount"
                   />
-                </Box>
+                </div>
                 {errorMessage.bidAmount && (
                   <Error>{errorMessage.bidAmount}</Error>
                 )}
