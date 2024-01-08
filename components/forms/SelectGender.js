@@ -69,9 +69,9 @@ function SelectGender({ handleNextClick, handleBack }) {
     margin: auto;
     font-size: 16px;
     cursor: pointer;
-    ${isMaleSelected ? 'border: 1px solid #5dade2;' : ''}
-    ${isMaleSelected ? 'color: #5dade2;' : ''}
-  ${isMaleSelected ? 'background: #d6eaf8;' : ''}
+    ${isMaleSelected ? 'border: 1px solid #4AA398;' : ''}
+    ${isMaleSelected ? 'color: #4AA398;' : ''}
+  ${isMaleSelected ? 'background: #d8f0ed;' : ''}
   `;
   const StyledGenderF = styled.div`
     background: white;
@@ -86,9 +86,9 @@ function SelectGender({ handleNextClick, handleBack }) {
     padding: 12px;
     margin: auto;
     cursor: pointer;
-    ${isFemaleSelected ? 'border: 1px solid #ec7063;' : ''}
-    ${isFemaleSelected ? 'color: #ec7063;' : ''}
-  ${isFemaleSelected ? 'background: #fadbd8;' : ''}
+    ${isFemaleSelected ? 'border: 1px solid #EB4C60;' : ''}
+    ${isFemaleSelected ? 'color: #EB4C60;' : ''}
+  ${isFemaleSelected ? 'background: #fce6e9;' : ''}
   `;
   const handleGenderSelect = (gender) => {
     setSelectedGender(gender);
@@ -159,10 +159,10 @@ function SelectGender({ handleNextClick, handleBack }) {
           {/* <Typography component="h1" variant="h4">
             <b>Let&apos;s make your profile</b>
           </Typography> */}
-          <Text color="#424949" fontWeight="bold" marginBottom="4px" size="xxl">
-            Let&apos;s make your profile
+          <Text fontWeight="bold" size="xxl">
+            <b>Let&apos;s make your profile</b>
           </Text>
-          <Text>
+          <Text marginTop="8px">
             Fill out your profile for clients to better understand your
           </Text>
           <Text> services.</Text>

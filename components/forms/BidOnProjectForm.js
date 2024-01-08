@@ -41,12 +41,7 @@ const VerticalDivider = styled.div`
   height: 1rem;
 `;
 
-const CustomDropdown = styled(Dropdown)`
-  // .MuiInputBase-root {
-  //   border-radius: 10px;
-  //   background: red;
-  // }
-`;
+const CustomDropdown = styled(Dropdown)``;
 
 const CustomTextField = styled(StyledTextField)`
   .MuiInputBase-root {

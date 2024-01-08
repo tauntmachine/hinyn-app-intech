@@ -112,7 +112,7 @@ function UsernameForm({ onUsernameSubmit }) {
             {/* <Image src={LogoImage} alt="hinyn logo" /> */}
             <Logo />
           </LogoDiv>
-          <Text size="large" marginTop="10px">
+          <Text size="l2" marginTop="10px">
             <b>Choose a username</b>
           </Text>
           <Typography component="p" align="center" marginTop="6px">

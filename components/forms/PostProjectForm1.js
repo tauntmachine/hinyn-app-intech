@@ -19,7 +19,10 @@ import styled from '@emotion/styled';
 import Text from '../shared/Typography';
 import Button, { GreenButton } from '../shared/Button';
 import Modal from '../shared/Modal';
-import StyledTextField, { OutlinedTextField } from '../shared/Textfield';
+import StyledTextField, {
+  OutlinedTextField,
+  SimpleTextField,
+} from '../shared/Textfield';
 import Image from 'next/image';
 import {
   OutlineSearchIcon,
@@ -196,7 +199,7 @@ const CustomDropdown = styled(DropdownO1)`
 const CustomTab = styled.div`
   border: 1px solid #d8d8d8;
   padding: 14px;
-  width: 10rem;
+  width: 14rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -231,9 +234,7 @@ const CustomTab = styled.div`
     cursor: pointer;
   }
 `;
-const WithoutTextField = styled(TextField)`
-  margin-bottom: 2px;
-`;
+
 const MyOutlinedTextField = styled(TextField)`
   width: 54rem;
   border-radius: 20px;
@@ -760,7 +761,7 @@ function PostProjectForm1({ handleNextClick }) {
     };
     return (
       <>
-        <Text size="md">
+        <Text size="large">
           <b>Choose a name for your project</b>
         </Text>
         <Grid item xs={12}>
@@ -789,7 +790,7 @@ function PostProjectForm1({ handleNextClick }) {
           {errorMessage.title && <Error>{errorMessage.title}</Error>}
         </Grid>
         <VerticalDivider />
-        <Text size="md">
+        <Text size="large">
           <b>Tell us the type of professional you&apos;ll need</b>
         </Text>
         <Grid item xs={12}>
@@ -820,7 +821,7 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         {/* start of gender */}
         <VerticalDivider />
-        <Text size="md">
+        <Text size="large">
           <b>Select the gender of the professional you&apos;ll need</b>
         </Text>
         <Grid item xs={12}>
@@ -848,7 +849,7 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         {/* start of age */}
         <VerticalDivider />
-        <Text size="md">
+        <Text size="large">
           <b>Select the age of the professional you&apos;ll need</b>
         </Text>
         <Grid item xs={12}>
@@ -857,6 +858,7 @@ function PostProjectForm1({ handleNextClick }) {
             items={ageGroupOptions}
             width="100%"
             type="outlined"
+            typology="okok"
             selected={ageGroup}
             setHandleOnChange={onChangeAgeGroup}
             color={'red'}
@@ -864,7 +866,7 @@ function PostProjectForm1({ handleNextClick }) {
           {errorMessage.ageGroup && <Error>{errorMessage.ageGroup}</Error>}
         </Grid>
         <VerticalDivider />
-        <Text size="md">
+        <Text size="large">
           <b>What skills are required?</b>
         </Text>
         <Text marginY="10px">
@@ -887,7 +889,7 @@ function PostProjectForm1({ handleNextClick }) {
 
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="md">
+          <Text size="large">
             <b>Language</b>
           </Text>
           <Typography component="p" align="left" marginY="10px">
@@ -914,7 +916,9 @@ function PostProjectForm1({ handleNextClick }) {
               options={languages.map((language) => language)}
               onChange={onLanguagesSearchChange}
               renderInput={(params) => (
-                <WithoutTextField
+                <SimpleTextField
+                  bcolor="white"
+                  border="white"
                   {...params}
                   label=""
                   placeholder="Search languages here"
@@ -943,7 +947,7 @@ function PostProjectForm1({ handleNextClick }) {
       <>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="md" marginY="6px">
+          <Text size="large" marginY="6px">
             <b>Tell us where is the location of your project</b>
           </Text>
           <Autocomplete
@@ -953,7 +957,10 @@ function PostProjectForm1({ handleNextClick }) {
             options={locations.map((location) => location?.title)}
             onChange={onLocationSearchChange}
             renderInput={(params) => (
-              <OutlinedTextField
+              <SimpleTextField
+                radius="less"
+                bcolor="white"
+                border="gray"
                 {...params}
                 label=""
                 placeholder="Search location here"
@@ -975,7 +982,7 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="md" marginY="6px">
+          <Text size="large" marginY="6px">
             <b>Select the day required for your project</b>
           </Text>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -984,7 +991,13 @@ function PostProjectForm1({ handleNextClick }) {
               value={projectDate}
               onChange={checkProjectDate}
               renderInput={(params) => (
-                <OutlinedTextField sx={{ width: '100%' }} {...params} />
+                <SimpleTextField
+                  border="gray"
+                  bcolor="white"
+                  radius="less"
+                  sx={{ width: '100%' }}
+                  {...params}
+                />
               )}
             />
           </LocalizationProvider>
@@ -994,7 +1007,7 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="md" marginY="6px">
+          <Text size="large" marginY="6px">
             <b>What is your budget?</b>
           </Text>
           <Autocomplete
@@ -1004,7 +1017,10 @@ function PostProjectForm1({ handleNextClick }) {
             options={budget.map((b) => b.title)}
             onChange={onBudgetSearchChange}
             renderInput={(params) => (
-              <OutlinedTextField
+              <SimpleTextField
+                border="gray"
+                bcolor="white"
+                radius="less"
                 {...params}
                 label=""
                 placeholder="Select budget range"
@@ -1035,7 +1051,7 @@ function PostProjectForm1({ handleNextClick }) {
       <>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="md" marginY="6px">
+          <Text size="large" marginY="6px">
             <b>Tell us the story behind your project</b>
           </Text>
           <StyledTextArea
@@ -1072,7 +1088,7 @@ function PostProjectForm1({ handleNextClick }) {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <Text size="md">
+          <Text size="large">
             <b>Upload files</b>
           </Text>
           <Text marginY="6px">
@@ -1115,13 +1131,16 @@ function PostProjectForm1({ handleNextClick }) {
       <>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="md">
+          <Text size="large" marginY="8px">
             <b>Deliverables</b>
           </Text>
-          <Text fontSize="13.7px" fontWeight="bold" marginY="7px">
+          <Text size="smd" font="bold">
             How many pictures will be delivered in total?
           </Text>
-          <MyOutlinedTextField
+          <SimpleTextField
+            border="gray"
+            bcolor="white"
+            radius="less"
             placeholder="Enter number of required images"
             id="deliverables"
             name="deliverables"
@@ -1147,10 +1166,13 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text fontSize="13.7px" fontWeight="bold" marginY="7px">
+          <Text size="smd" font="bold">
             How many days for delivery of pictures?
           </Text>
-          <MyOutlinedTextField
+          <SimpleTextField
+            border="gray"
+            bcolor="white"
+            radius="less"
             placeholder="Enter number of days"
             name="deliveryDate"
             inputRef={deliveryDaysInputRef}
@@ -1175,7 +1197,7 @@ function PostProjectForm1({ handleNextClick }) {
         </Grid>
         <VerticalDivider />
         <Grid item xs={12}>
-          <Text size="md">
+          <Text size="large">
             <b>Choose upgrades for your project</b>
           </Text>
           <FormControl
@@ -1240,16 +1262,16 @@ function PostProjectForm1({ handleNextClick }) {
       >
         <CssBaseline />
 
-        <Text align="center" size="xl" color="white">
+        <Text align="center" size="xxl" color="white">
           <b>Hey, Tell us what you need!</b>
         </Text>
         <VerticalDivider />
         <Container maxWidth="sm">
-          <Typography component="p" align="center" sx={{ color: '#ffffff' }}>
+          <Text color="white" align="center">
             Contact skilled freelancers within minutes. View profiles, ratings,
             portfolios and chat with them. Pay the freelancer only when you are
             100% staisfied with their work.
-          </Typography>
+          </Text>
         </Container>
 
         <FormContainer>

@@ -14,14 +14,20 @@ export const StyledTextField = styled(TextField)`
 export const SimpleTextField = styled(TextField)`
   width: 100%;
   .MuiInputBase-root {
-    background-color: #f0f3f4;
-    border-radius: 10rem;
+    background-color: ${(props) =>
+      props.bcolor === 'white' ? 'white' : '#f0f3f4'};
+    border-radius: ${(props) => (props.radius === 'less' ? '1rem' : '10rem')};
     margin: 8px 0;
 
     align-items: center;
   }
   fieldset {
-    border: 1px solid #f0f3f4;
+    border: ${(props) =>
+      props.border === 'white'
+        ? '1px solid white'
+        : props.border === 'gray'
+        ? '1px solid lightgray'
+        : '1px solid #f0f3f4'};
     width: 100%;
   }
 `;

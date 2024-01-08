@@ -41,7 +41,7 @@ function UserAgreement() {
         <HeaderContainer></HeaderContainer>
         <MyContainer>
           <ActualCon>
-            <Text color="red" fontSize="30px" fontWeight="bold">
+            <Text color="red" size="xl" font="bold">
               User Agreement
             </Text>
             <Text marginTop="25px" fontSize="15px">
@@ -71,12 +71,7 @@ function UserAgreement() {
               cancellations, it important to have a clear refund policy that
               addresses both scenarios.
             </Text>
-            <Text
-              color="red"
-              fontSize="25px"
-              fontWeight="bold"
-              marginTop="25px"
-            >
+            <Text color="red" size="xl" font="bold" marginTop="25px">
               Cancellation Policy
             </Text>
             <Text marginTop="20px" fontSize="15px">
@@ -100,12 +95,7 @@ function UserAgreement() {
               Specify if there will be any fees associated with cancellations,
               including percentages or fixed fees.
             </Text>
-            <Text
-              color="red"
-              fontSize="25px"
-              fontWeight="bold"
-              marginTop="25px"
-            >
+            <Text color="red" size="xl" font="bold" marginTop="25px">
               Refund Policy
             </Text>
             <Text marginTop="20px" fontSize="15px">
@@ -154,12 +144,7 @@ function UserAgreement() {
               factors like the timing of the cancellation and any work already
               completed.
             </Text>
-            <Text
-              color="red"
-              fontSize="25px"
-              fontWeight="bold"
-              marginTop="25px"
-            >
+            <Text color="red" size="xl" font="bold" marginTop="25px">
               Contact Us
             </Text>
             <Text>contact@Hinyn.com</Text>

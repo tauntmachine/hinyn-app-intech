@@ -153,7 +153,7 @@ function ExpandedSearchBar({ handleCloseExpandedSearchBar }) {
       budget: '',
     });
     setShowDetailsSection(() => false);
-    // handleCloseExpandedSearchBar(false)
+    // handleCloseExpandedSearchBar(() => false);
   };
 
   const showValue = (key, orig) => {
@@ -170,7 +170,7 @@ function ExpandedSearchBar({ handleCloseExpandedSearchBar }) {
 
   return (
     <Box sx={{ position: 'relative' }}>
-      <SearchContainer>
+      <SearchContainer onClick={handleCloseExpandedSearchBar}>
         {items &&
           items.map((item, idx) => (
             <Box sx={{ display: 'flex', alignItems: 'center' }} key={item.key}>

@@ -19,7 +19,7 @@ function CategoryList({ categories, handleSelectedCategory, currCatSelected }) {
         // loop={true}
         updateOnWindowResize={true}
       >
-        {categories.map((category, idx) => (
+        {categories?.map((category, idx) => (
           <SwiperSlide
             key={idx}
             onClick={() => handleSelectedCategory(category.title)}

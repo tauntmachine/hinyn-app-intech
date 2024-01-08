@@ -71,6 +71,11 @@ const UploadButton = styled(CustomButton)`
   display: flex;
   flex-direction: column;
 `;
+const TextCon = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
 const IconCon = styled.div``;
 function FirstLastName({ handleNextClick }) {
   const [open, setOpen] = useState(false);
@@ -117,7 +122,7 @@ function FirstLastName({ handleNextClick }) {
   }
 
   const Goback = () => {
-    Router.push('/RegistrationForm');
+    Router.push('/registration');
   };
 
   // const handleUpload = (e) => {
@@ -229,10 +234,10 @@ function FirstLastName({ handleNextClick }) {
               </Grid>
             </Grid>
             <ButtonContainer>
-              <Text>
-                <BackIcon isabsolute={false} onClick={Goback} />
+              <TextCon onClick={Goback}>
+                <BackIcon isabsolute={false} />
                 <span style={{ marginLeft: '1rem' }}>Go Back</span>
-              </Text>
+              </TextCon>
               <StyledButton>NEXT</StyledButton>
             </ButtonContainer>
           </Box>

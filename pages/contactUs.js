@@ -2,10 +2,9 @@ import Header from '../components/section/Header';
 import Footer from '../components/section/Footer';
 import styled from '@emotion/styled';
 import { Grid, Container, Box } from '@mui/material';
-import Text, { GrayText } from '../components/shared/Typography';
+import Text from '../components/shared/Typography';
 import {
   EmailIcon,
-  ImageIcon,
   LocationIcon,
   TelephoneIcon,
 } from '../components/shared/Icon';
@@ -41,56 +40,13 @@ const Subtitle = styled(Text)`
   letter-spacing: 0.75px;
 `;
 
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 1.5rem;
-  width: 16rem;
-  height: auto;
-  background: #ffffff;
-  border-radius: 13px;
-  filter: drop-shadow(0px 3px 30px #9393931a);
-  flex-basis: 35%;
-
-  &.projects-card {
-    padding: 0;
-
-    &:hover {
-      box-shadow: 0px 3px 20px #0000004b;
-    }
-  }
-`;
-
-const CustomImageIcon = styled(ImageIcon)`
-  color: ${(props) => (props?.variant === 'green' ? '#4AA398' : '#EB4C60')};
-  font-size: ${(props) => (props?.sz === 'large' ? '3rem' : '2rem')};
-`;
-const IconContainer = styled.div`
-  width: 2.5rem;
-  height: 2.5rem;
-  position: relative;
-`;
-
-const ImageContainer = styled.div`
-  width: 45rem;
-  height: 48rem;
-  position: relative;
-  overflow: hidden;
-`;
-
 const BGBox = styled(Box)`
   background: ${(props) => (props.color === 'white' ? '#ffffff' : '#f7f7f7')};
   padding: 5rem 0 7rem 7.8rem;
   width: 100%;
   height: 100%;
 `;
-const GridCon = styled.div`
-  dispaly: flex;
-  flex-direction: row;
-`;
+
 const contactDetails = [
   {
     desc: 'info@hinyn.com',
@@ -104,7 +60,6 @@ const contactDetails = [
 ];
 
 function contactUs() {
-  let imgpath = '/assets/img/';
   return (
     <>
       <Header />
