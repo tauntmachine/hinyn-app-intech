@@ -300,6 +300,7 @@ function Wallet() {
                 <Pill2 title="Request Withdrawl" color="green" />
                 <Pill2 title="Request Desposit" color="green" />
               </div>
+              <div style={{}}></div>
             </FieldWrap>
           </ContentBox3>
         ) : selectedTab === 'Email' ? (

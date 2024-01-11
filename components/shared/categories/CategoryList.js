@@ -8,6 +8,9 @@ import styled from '@emotion/styled';
 
 const SwiperBox = styled.div`
   margin-top: 3rem;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 function CategoryList({ categories, handleSelectedCategory, currCatSelected }) {

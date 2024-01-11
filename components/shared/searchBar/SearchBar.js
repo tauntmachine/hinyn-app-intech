@@ -11,7 +11,9 @@ const SearchContainer = styled.div`
   margin: auto;
   padding: 10px 25px;
   opacity: ${(props) => (props.isExpanded ? 0 : 1)};
-
+  @media (max-width: 768px) {
+    display: none;
+  }
   &:hover {
     cursor: pointer;
   }

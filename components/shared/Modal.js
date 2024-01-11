@@ -10,11 +10,15 @@ import { CloseIconCircle } from './Icon';
 
 const CustomDialog = styled(Dialog)`
   font-family: 'DM Sans', sans-serif !important;
+
   .MuiDialog-paper {
     background-color: #f8f8f8;
     box-shadow: 0px 3px 20px #0000003c;
     border-radius: 23px;
     min-height: 15rem;
+    @media (max-width: 768px) {
+      min-height: 80%;
+    }
   }
 `;
 const StyledButton = styled(Button)`

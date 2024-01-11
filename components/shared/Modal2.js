@@ -15,7 +15,11 @@ const CustomDialog = styled(Dialog)`
     box-shadow: 0px 3px 20px #0000003c;
     border-radius: 13px;
     min-height: 42rem;
+
     min-width: ${(props) => (props.Widthmax ? '40rem' : '57rem')};
+    @media (max-width: 768px) {
+      min-width: 90%;
+    }
   }
 `;
 const StyledButton = styled(Button)`

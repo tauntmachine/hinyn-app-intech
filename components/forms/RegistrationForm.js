@@ -20,6 +20,7 @@ import Modal from '../shared/Modal';
 import { OutlinedTextField } from '../shared/Textfield';
 import { loginUser, registerUser, logoutUser } from '../forms/formService';
 import Link from 'next/link';
+import Text from '../shared/Typography';
 
 const Logo = styled.div`
   position: relative;
@@ -60,6 +61,7 @@ const AgreeDiv = styled.div`
   margin-bottom: 1.5rem;
   display: flex;
   direction: row;
+  gap: 10px;
 `;
 const TextLink = styled.span`
   margin-left: 8px;
@@ -67,9 +69,6 @@ const TextLink = styled.span`
   color: #4aa398;
 `;
 
-const Text = styled.span`
-  font-size: 14px;
-`;
 const Text2 = styled.span`
   font-size: 14px;
   color: #ff5a5f;
@@ -89,12 +88,8 @@ const Error = styled.p`
 const ConInput = styled.div`
   margin: 10px;
 `;
-const ConBox = styled.div`
-  margin: 2px 0 0 0;
-`;
-const ConText = styled.div`
-  margin: 0 0 0 4px;
-`;
+const ConBox = styled.div``;
+const ConText = styled.div``;
 function RegistrationForm() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -294,9 +289,9 @@ function RegistrationForm() {
               />
             </Logo>
             <TypoDiv2>
-              <Typography variant="h5">
+              <Text size="large">
                 <b>Sign Up</b>
-              </Typography>
+              </Text>
             </TypoDiv2>
           </TypoDiv>
           <Box
@@ -429,15 +424,13 @@ function RegistrationForm() {
               </ConBox>
 
               <ConText>
-                <Text color="red">I agree to the HINYN</Text>
-                <Link href={'/UserAgreement'}>
-                  <Text2>User Agreement</Text2>
-                </Link>
-
-                <Text>and</Text>
-                <Link href={'/UserAgreement'}>
-                  <Text2>Privacy Policy</Text2>
-                </Link>
+                <div style={{ color: 'red', fontSize: '15px' }}>
+                  <span style={{ color: '#525252' }}>
+                    I agree to the HINYN{' '}
+                  </span>{' '}
+                  User Agreement <span style={{ color: '#525252' }}>and</span>{' '}
+                  Privacy Policy
+                </div>
               </ConText>
             </AgreeDiv>
             {/* <Grid container justifyContent="flex-start">
