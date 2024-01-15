@@ -18,7 +18,7 @@ import { getBidsOfClient, getClientDataBids } from '../forms/formService';
 import { useRouter } from 'next/router';
 const ContainerDiv = styled.div`
   padding-top: 2rem;
-  padding-left: 16rem;
+  // padding-left: 16rem;
 `;
 const ProjectsBox = styled(Box)`
   display: 'flex';
@@ -110,6 +110,29 @@ const ListItemDiv = styled.div`
   justify-content: space-between;
   // font-weight: bold;
   cursor: pointer;
+`;
+const GridCustom = styled.div`
+  display: flex;
+  gap: 30px;
+  width: auto;
+  @media (max-width: 769px) {
+    flex-direction: column;
+  }
+`;
+const BoxCustom = styled.div`
+  display: flex;
+
+  justify-content: center;
+  padding: 3% 0;
+  @media (max-width: 769px) {
+    flex-direction: column;
+    padding: 4%;
+  }
+`;
+const StyledGrid = styled(Grid)`
+  @media (max-width: 768px) {
+    margin: auto;
+  }
 `;
 const NewsfeedSection = ({ accountType }) => {
   const [open, setOpen] = useState(false);
@@ -348,7 +371,7 @@ const NewsfeedSection = ({ accountType }) => {
         headerColor={'gray'}
         headerIcon={<UsersIcon />}
         hasBodyIcon={false}
-        // setWidth={true}
+        setWidth={true}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -396,7 +419,7 @@ const NewsfeedSection = ({ accountType }) => {
         headerIcon={<ProjectIcon />}
         hasBodyIcon={false}
         padding={true}
-        // setWidth={true}
+        setWidth={true}
       >
         <ProjectsBox>
           {userProjects.length > 0 ? (
@@ -454,36 +477,36 @@ const NewsfeedSection = ({ accountType }) => {
 
   return (
     <>
-      <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
-        <ContainerDiv>
-          <Grid container columnSpacing={4}>
-            <Grid item xs={6}>
-              {newsfeedData &&
-                newsfeedData.map((item, idx) => {
-                  return idx === 0 ? (
-                    <ContentBox
-                      hasHeader={true}
-                      headerTitle="Newsfeed"
-                      headerColor={'gray'}
-                      headerIcon={<RssIcon />}
-                      hasBodyIcon={true}
-                    >
-                      {getNewsFeedByType(item)}
-                    </ContentBox>
-                  ) : (
-                    <ContentBox hasBodyIcon={true}>
-                      {getNewsFeedByType(item)}
-                    </ContentBox>
-                  );
-                })}
-            </Grid>
-            <Grid item xs={4}>
-              {userProjects.length > 0 && getUserProjects()}
-              {userData && getUserData()}
-            </Grid>
+      <BoxCustom>
+        {/* <ContainerDiv> */}
+        <GridCustom>
+          <Grid item xs={6} sx={{}}>
+            {newsfeedData &&
+              newsfeedData.map((item, idx) => {
+                return idx === 0 ? (
+                  <ContentBox
+                    hasHeader={true}
+                    headerTitle="Newsfeed"
+                    headerColor={'gray'}
+                    headerIcon={<RssIcon />}
+                    hasBodyIcon={true}
+                  >
+                    {getNewsFeedByType(item)}
+                  </ContentBox>
+                ) : (
+                  <ContentBox hasBodyIcon={true}>
+                    {getNewsFeedByType(item)}
+                  </ContentBox>
+                );
+              })}
           </Grid>
-        </ContainerDiv>
-      </Box>
+          <StyledGrid item xs={4}>
+            {userProjects.length > 0 && getUserProjects()}
+            {userData && getUserData()}
+          </StyledGrid>
+        </GridCustom>
+        {/* </ContainerDiv> */}
+      </BoxCustom>
     </>
   );
 };

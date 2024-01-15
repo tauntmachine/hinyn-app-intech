@@ -36,8 +36,23 @@ const CustomPagination = styled(Pagination)`
 `;
 const ContainerCustom = styled.div`
   width: 75%;
+
+  @media (max-width: 769px) {
+    width: 100%;
+  }
   margin: 0 auto;
   padding: 3rem 0;
+`;
+const StyledGrid = styled(Grid)`
+  @media (max-width: 769px) {
+    display: none;
+  }
+`;
+const StyledGrid2 = styled(Grid)`
+  @media (max-width: 769px) {
+    display: flex;
+    justify-content: center;
+  }
 `;
 const AllProjectsSection = ({ handleScreenChange }) => {
   const [searchInput, setSearchInput] = useState('');
@@ -63,8 +78,8 @@ const AllProjectsSection = ({ handleScreenChange }) => {
       </SearchBarContainer>
       <Box>
         <ContainerCustom>
-          <Grid container columnSpacing={4}>
-            <Grid item xs={4}>
+          <StyledGrid2 container columnSpacing={4}>
+            <StyledGrid item xs={4}>
               <ContentBox
                 hasHeader={true}
                 headerTitle="Filters"
@@ -76,7 +91,7 @@ const AllProjectsSection = ({ handleScreenChange }) => {
                   <ProjectFilterForm />
                 </Box>
               </ContentBox>
-            </Grid>
+            </StyledGrid>
             <Grid item xs={8}>
               <ContentBox
                 hasHeader={true}
@@ -100,7 +115,7 @@ const AllProjectsSection = ({ handleScreenChange }) => {
                 </Stack>
               </Box>
             </Grid>
-          </Grid>
+          </StyledGrid2>
         </ContainerCustom>
       </Box>
     </Box>

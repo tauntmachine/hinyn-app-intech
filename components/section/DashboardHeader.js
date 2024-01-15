@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { logoutUser } from '../forms/formService';
 import { getLoggedInUserData } from '../forms/formService';
-
+import { FaBars, FaTimes } from 'react-icons/fa';
 const CustomBox = styled(Box)`
   box-shadow: 0px 3px 6px #00000029;
   background: #ebebeb;
@@ -35,6 +35,9 @@ const LoginContainer = styled.div`
   column-gap: ${(props) => (props.account == 1 ? '1rem' : '2.4rem')};
   align-items: center;
   padding-left: 20px;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 const LoginHoverBox = styled.div`
   background: white;
@@ -57,15 +60,29 @@ const Tabs = styled.div`
   bottom: -1rem;
   position: relative;
   margin-left: 2rem;
+  @media (max-width: 769px) {
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    bottom: 0;
+    padding: 10px 0;
+  }
 `;
 
 const TabItem = styled.div`
   cursor: pointer;
-
+  border-bottom: 1px solid #e0e0e0;
   &.active {
-    border-bottom: 4px solid
-      ${(props) => (props.account === 1 ? '#4AA398' : '#ff5a5f')};
     color: ${(props) => (props.account === 1 ? '#4AA398' : '#ff5a5f')};
+  }
+  @media (max-width: 769px) {
+    padding: 16px 0;
+    &.active {
+      font-weight: bold;
+      border-bottom: 1px solid #a7d4ce;
+      color: ${(props) => (props.account === 1 ? '#4AA398' : '#ff5a5f')};
+    }
   }
 `;
 
@@ -87,6 +104,9 @@ const TopBar = styled.div`
   height: 50px;
   padding: 0 8rem;
   width: 100%;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 const Text1 = styled.div`
   color: white;
@@ -131,6 +151,7 @@ const CustomText = styled.div`
   &:hover {
     color: #eb4c60;
     background: #ffedef;
+    cursor: pointer;
   }
 `;
 const Line = styled.div`
@@ -145,13 +166,89 @@ const Line2 = styled.div`
   opacity: 0.3;
   margin: auto;
 `;
+const MobileMenuIcon = styled(FaBars)`
+  font-size: 24px;
+  cursor: pointer;
 
+  @media (min-width: 769px) {
+    display: none; // Hide the icon on larger screens
+  }
+`;
+const MobileMenuContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  // top: 0;
+  width: 100%;
+  padding: 1px 1px;
+  background-color: #fff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  background: white;
+  border-top: 1px solid #a6a6a6;
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
+const CustomPhoneText = styled.div`
+  padding: 18px 30px;
+  width: 100%;
+  background: #ebebeb;
+  cursor: pointer;
+  color: #4aa398;
+`;
+const LinkText = styled.div`
+  cursor: pointer;
+
+  &:hover {
+    color: #4aa398;
+  }
+`;
+const BurgerHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: ${(props) => props.minWidth - 85}px;
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+const BoxCon = styled.div`
+  display: flex;
+  gap: 3rem;
+  @media (max-width: 769px) {
+    display: none;
+  }
+`;
+const CloseIcon = styled(FaTimes)`
+  font-size: 24px;
+  cursor: pointer;
+  display: ${(props) => (props.isMobileMenuOpen ? 'block' : 'none')};
+`;
+
+const CustomTextPhone = styled.div``;
 function DashboardHeader({ currentTab, setTabChange, account }) {
   const imgpath = '/assets/img/avatars/';
   const [userData, setUserData] = useState({});
-  // const [account, setaccount] = useState(account);
-  const [hover, setHover] = useState(false);
 
+  const [hover, setHover] = useState(false);
+  const [minWidth, setMinWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setMinWidth(window.innerWidth);
+    };
+    console.log(minWidth);
+    // Attach the event listener
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   const router = useRouter();
 
   const showUserProfile = () => {
@@ -238,7 +335,29 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
         </Button>
       );
   };
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [currentForm, setCurrentForm] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState({});
 
+  const handleMobileMenuToggle = () => {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+  const showForm = (form) => {
+    setOpen(true);
+    setCurrentForm(form);
+  };
+  const handleLogging = () => {
+    if (isLoggedIn) logoutUser();
+    else showForm('login');
+    setIsLoggedIn(() => !isLoggedIn);
+    return localStorage.getItem('hinyn-cjwt') ? true : false;
+  };
   return (
     <>
       {currentTab == 0 ? (
@@ -273,10 +392,24 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
               justifyContent: 'space-between',
             }}
           >
-            <Box sx={{ display: 'flex', gap: '3rem' }}>
+            <BurgerHeader minWidth={minWidth}>
+              <Logo2 />
+              {isMobileMenuOpen ? (
+                <CloseIcon
+                  onClick={closeMobileMenu}
+                  isMobileMenuOpen={isMobileMenuOpen}
+                />
+              ) : (
+                <MobileMenuIcon
+                  onClick={handleMobileMenuToggle}
+                  isMobileMenuOpen={isMobileMenuOpen}
+                />
+              )}
+            </BurgerHeader>
+            <BoxCon>
               <Logo2 />
               {showTabs(account)}
-            </Box>
+            </BoxCon>
           </Box>
           <LoginContainer>
             <Box
@@ -364,6 +497,13 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
           </LoginContainer>
         </Head>
       </CustomBox>
+      {isMobileMenuOpen ? (
+        <MobileMenuContainer id="mobileMenuContainer">
+          {showTabs(account)}
+        </MobileMenuContainer>
+      ) : (
+        ''
+      )}
     </>
   );
 }

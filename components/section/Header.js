@@ -10,20 +10,27 @@ import RegistrationForm from '../forms/RegistrationForm';
 import Modal from '../shared/Modal';
 import Logo2 from '../shared/Logo2';
 import LoginForm from '../forms/LoginForm';
-import BidFreelancerForm from '../forms/BidFreelancerForm';
-import PhoneNo from '../forms/PhoneNo';
-import { getClientData, getClients, logoutUser } from '../forms/formService';
-import Image from 'next/image';
-import { useFreelancer } from '../../src/store';
-import { FaBars } from 'react-icons/fa';
+
+import { logoutUser } from '../forms/formService';
+
+import { FaBars, FaTimes } from 'react-icons/fa';
+import Text from '../shared/Typography';
 const MobileMenuIcon = styled(FaBars)`
   font-size: 24px;
   cursor: pointer;
-
   @media (min-width: 769px) {
     display: none; // Hide the icon on larger screens
   }
+
+  display: ${(props) => (props.isMobileMenuOpen ? 'none' : 'block')};
 `;
+
+const CloseIcon = styled(FaTimes)`
+  font-size: 24px;
+  cursor: pointer;
+  display: ${(props) => (props.isMobileMenuOpen ? 'block' : 'none')};
+`;
+
 const CustomGlobeIcon = styled(FiGlobe)`
   margin-top: 4px;
   font-size: 20px;
@@ -32,14 +39,7 @@ const CustomGlobeIcon = styled(FiGlobe)`
     color: #eb4c60;
   }
 `;
-const LogoDiv = styled.div`
-  position: relative;
-  width: 8rem;
-  height: 2rem;
-  cursor: pointer;
-  background: green;
-`;
-// const SearchAdjust = styled.div``;
+
 const CustomBox = styled(Box)`
   box-shadow: 0px 3px 30px #00000029;
   background: #ffffff;
@@ -93,26 +93,40 @@ const LinkText = styled.div`
 const ExpandedSearchBarContainer = styled.div`
   transition: all 0.5s ease;
 `;
-const SearchAdjust = styled.div`
-  width: 100%;
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
+
 const MobileMenuContainer = styled.div`
-  position: absolute;
-  top: 60px; /* Adjust this value based on your header's height */
-  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  // top: 0;
   width: 100%;
+  // padding: 6px 0;
   background-color: #fff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  background: white;
+  border-top: 1px solid #a6a6a6;
 `;
+
+const CustomPhoneText = styled.div`
+  padding: 18px 30px;
+  width: 100%;
+  background: lightgray;
+  cursor: pointer;
+  border-bottom: 1px solid #a6a6a6;
+  color: #eb4c60;
+`;
+const LineDiv = styled.div`
+  height: 1px;
+  background: lightgray;
+  width: 80%;
+  margin: auto;
+`;
+
 const Header = () => {
-  const { categories } = useFreelancer();
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
     if (localStorage.getItem('hinyn-cjwt')) {
@@ -123,11 +137,7 @@ const Header = () => {
   const toggleIsExpanded = () => {
     setIsExpanded(() => !isExpanded);
   };
-  const closeIt = () => {
-    {
-      isExpanded ? setIsExpanded(false) : '';
-    }
-  };
+
   const [open, setOpen] = useState(false);
   const [currentForm, setCurrentForm] = useState(null);
   const handleClose = () => {
@@ -157,13 +167,27 @@ const Header = () => {
   const handleMobileMenuToggle = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <>
       <ParentContainer>
         <CustomBox isExpanded={isExpanded}>
           <Head maxWidth="xl">
             <Logo2 />
-            <MobileMenuIcon onClick={handleMobileMenuToggle} />
+            {isMobileMenuOpen ? (
+              <CloseIcon
+                onClick={closeMobileMenu}
+                isMobileMenuOpen={isMobileMenuOpen}
+              />
+            ) : (
+              <MobileMenuIcon
+                onClick={handleMobileMenuToggle}
+                isMobileMenuOpen={isMobileMenuOpen}
+              />
+            )}
             {/* <SearchAdjust> */}
             <SearchBar
               toggleIsExpanded={toggleIsExpanded}
@@ -189,6 +213,7 @@ const Header = () => {
               </span>
             </LoginContainer>
           </Head>
+
           {isExpanded ? (
             <ExpandedSearchBarContainer>
               <ExpandedSearchBar
@@ -209,7 +234,17 @@ const Header = () => {
           {currentForm === 'register' ? <RegistrationForm /> : <LoginForm />}
         </Modal>
       </ParentContainer>
-      {isMobileMenuOpen && <MobileMenuContainer></MobileMenuContainer>}
+
+      {isMobileMenuOpen && (
+        <MobileMenuContainer id="mobileMenuContainer">
+          <CustomPhoneText onClick={() => showForm('register')}>
+            Create an account
+          </CustomPhoneText>
+          <CustomPhoneText onClick={() => showForm('login')}>
+            Login
+          </CustomPhoneText>
+        </MobileMenuContainer>
+      )}
     </>
   );
 };
