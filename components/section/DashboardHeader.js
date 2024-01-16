@@ -210,7 +210,7 @@ const BurgerHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-width: 20rem;
+
   @media (min-width: 769px) {
     display: none;
   }
@@ -227,28 +227,16 @@ const CloseIcon = styled(FaTimes)`
   cursor: pointer;
   display: ${(props) => (props.isMobileMenuOpen ? 'block' : 'none')};
 `;
-
+const BoxCustom = styled.div`
+  width: 100%;
+`;
 const CustomTextPhone = styled.div``;
 function DashboardHeader({ currentTab, setTabChange, account }) {
   const imgpath = '/assets/img/avatars/';
   const [userData, setUserData] = useState({});
 
   const [hover, setHover] = useState(false);
-  // const [minWidth, setMinWidth] = useState(window.innerWidth);
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setMinWidth(window.innerWidth);
-  //   };
-  //   console.log(minWidth);
-  //   // Attach the event listener
-  //   window.addEventListener('resize', handleResize);
-
-  //   // Clean up the event listener when the component unmounts
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []);
   const router = useRouter();
 
   const showUserProfile = () => {
@@ -296,19 +284,6 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
         }
       });
     }
-    // const handleResize = () => {
-    //   if (typeof window !== 'undefined') {
-    //     setMinWidth(window.innerWidth);
-    //   }
-    // };
-
-    // if (typeof window !== 'undefined') {
-    //   window.addEventListener('resize', handleResize);
-
-    //   return () => {
-    //     window.removeEventListener('resize', handleResize);
-    //   };
-    // }
   }, []);
 
   const professionalTabs = ['Dashboard', 'Browse', 'My Projects'];
@@ -399,12 +374,7 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
       ) : null}
       <CustomBox>
         <Head>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
-          >
+          <BoxCustom>
             <BurgerHeader>
               <Logo2 />
               {isMobileMenuOpen ? (
@@ -423,7 +393,7 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
               <Logo2 />
               {showTabs(account)}
             </BoxCon>
-          </Box>
+          </BoxCustom>
           <LoginContainer>
             <Box
               sx={{

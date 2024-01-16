@@ -21,6 +21,14 @@ const NoDataContainer = styled.div`
 const ContainerCustom = styled.div`
   width: 82%;
   margin: auto;
+  @media (max-width: 769px) {
+    width: 92%;
+  }
+`;
+const ContainerStyle = styled(Container)`
+  flex-direction: column;
+  gap: 0px;
+  margin-top: 10px;
 `;
 const ClientProjectsSection = () => {
   const [clientBids, setClientBids] = useState([]);
@@ -80,7 +88,7 @@ const ClientProjectsSection = () => {
   return (
     <Box sx={{ background: '#EBEBEB', height: 'auto' }}>
       <ContainerCustom>
-        <Container
+        <ContainerStyle
           sx={{
             display: 'flex',
             gap: '2rem',
@@ -90,7 +98,7 @@ const ClientProjectsSection = () => {
         >
           <Dropdown2 hasLabel={true} label="Show" items={showOptions} />
           <Dropdown2 hasLabel={true} label="Sort" items={sortOptions} />
-        </Container>
+        </ContainerStyle>
         <Grid
           container
           columnSpacing={4}

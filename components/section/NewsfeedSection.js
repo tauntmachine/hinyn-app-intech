@@ -131,7 +131,7 @@ const BoxCustom = styled.div`
 `;
 const StyledGrid = styled(Grid)`
   @media (max-width: 768px) {
-    margin: auto;
+    // margin: auto;
   }
 `;
 const NewsfeedSection = ({ accountType }) => {

@@ -17,6 +17,9 @@ const SwiperSlide2 = styled.div`
   display: flex;
   flex-direction: row;
   gap: 16px;
+  @media (max-width: 769px) {
+    flex-direction: column;
+  }
 `;
 const SwiperSlide3 = styled.div``;
 const ImageSlider = ({ images }) => {

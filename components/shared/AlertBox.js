@@ -10,10 +10,18 @@ const Container = styled.div`
   box-shadow: 0px 3px 20px #00000029;
   color: #555555;
   // width:100%;
+  @media (max-width: 769px) {
+    padding: 23px 10px;
+  }
 `;
 const IconContainer = styled.div`
   .icon {
     font-size: 20px;
+  }
+  @media (max-width: 769px) {
+    .icon {
+      font-size: 16px;
+    }
   }
 `;
 

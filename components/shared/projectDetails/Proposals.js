@@ -13,6 +13,9 @@ import { RedButton, GreenButton } from '../Button';
 import Modal from '../Modal';
 
 const MainWrapper = styled.div`
+  @media (max-width: 769px) {
+    padding: 2.5rem 1.8rem;
+  }
   padding: 2.5rem 5rem;
   display: flex;
   flex-direction: column;

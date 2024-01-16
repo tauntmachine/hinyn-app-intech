@@ -5,6 +5,9 @@ import { UserIcon } from './Icon';
 const Container = styled.div`
   margin-bottom: 1rem;
   width: ${(props) => (props.setWidth ? '32rem' : '')};
+  @media (max-width: 769px) {
+    width: 100%;
+  }
 `;
 
 const Header = styled.div`
@@ -37,6 +40,10 @@ const Main = styled.div`
 
 const UserIconContainer = styled.div`
   border-radius: 50%;
+  @media (max-width: 769px) {
+    width: 22px;
+    height: 22px;
+  }
   width: 40px;
   height: 40px;
   display: flex;

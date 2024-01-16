@@ -52,6 +52,9 @@ const ContentBoxWrapper = styled(Box)`
   right: 0;
   margin: auto;
   top: -12rem;
+  @media (max-width: 769px) {
+    top: -15.5rem;
+  }
 `;
 
 const ContentBox = styled.div`
@@ -69,7 +72,11 @@ const ContentBox = styled.div`
 `;
 
 const TitleWrapper = styled.div`
+  @media (max-width: 769px) {
+    padding: 2.5rem 1.7rem 0 1.7rem;
+  }
   padding: 2.5rem 5rem 0 5rem;
+
   height: 12rem;
   display: flex;
   flex-direction: column;
@@ -182,7 +189,24 @@ const ContainerBack = styled.div`
   font: 12px;
   margin: auto;
 `;
+const StyledGrid = styled.div`
+  @media (min-width: 769px) {
+    display: none;
+  }
 
+  flex-direction: column;
+`;
+const StyledGrid2 = styled(Grid)`
+  @media (max-width: 769px) {
+    display: none;
+  }
+`;
+const Grid2 = styled(Grid)`
+  @media (max-width: 769px) {
+    width: 100%;
+  }
+`;
+const Row2 = styled.div``;
 const ProjectDetailsSection = () => {
   const router = useRouter();
   const [currentTab, setCurrentTab] = useState(0);
@@ -281,8 +305,12 @@ const ProjectDetailsSection = () => {
               </Link>
             </BackText>
           </ContainerBack>
-          <Grid container columnSpacing={3} sx={{ justifyContent: 'center' }}>
-            <Grid item xs={8} sx={{}}>
+          <StyledGrid2
+            container
+            columnSpacing={3}
+            sx={{ justifyContent: 'center' }}
+          >
+            <Grid2 item xs={8} sx={{}}>
               <ContentBox className="title-wrapper">
                 <TitleWrapper>
                   <Box>
@@ -340,7 +368,7 @@ const ProjectDetailsSection = () => {
                   ></Proposals>
                 )}
               </ContentBox>
-            </Grid>
+            </Grid2>
             <Grid item xs={2.4}>
               <ContentBox className="title-wrapper">
                 <Box sx={{ display: 'flex', padding: '1.3rem ' }}>
@@ -464,7 +492,195 @@ const ProjectDetailsSection = () => {
                 </ContentBox>
               )}
             </Grid>
-          </Grid>
+          </StyledGrid2>
+          <StyledGrid>
+            <Grid2 item xs={8} sx={{}}>
+              <ContentBox className="title-wrapper">
+                <TitleWrapper>
+                  <Box>
+                    <Row
+                      sx={{
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      <Title color="red">
+                        <b>{bidData?.title}</b>
+                      </Title>
+                      <Column>
+                        <Text color="green" fontWeight="bold">
+                          {bidData?.maxBudget}
+                          {bidData?.currency ?? ' AED'}
+                        </Text>
+                        <Text>
+                          {moment(bidData?.createdDate).format('DD-MMM-YYYY')}
+                        </Text>
+                      </Column>
+                    </Row>
+
+                    <Row>
+                      <SmallText>Project ID {bidData?.id}</SmallText>
+                    </Row>
+                  </Box>
+                  <Row2>
+                    <Tabs>
+                      {tabs?.map((item, idx) => {
+                        return (
+                          <TabItem
+                            key={'tab-' + idx}
+                            className={idx === currentTab ? 'active' : ''}
+                            onClick={() => setCurrentTab(idx)}
+                          >
+                            {item}
+                          </TabItem>
+                        );
+                      })}
+                    </Tabs>
+                  </Row2>
+                </TitleWrapper>
+              </ContentBox>
+              <ContentBox className="main-wrapper">
+                {currentTab === 0 ? (
+                  <Details
+                    // userDetails={userDetails}
+                    account={accountType}
+                    bidData={bidData}
+                    userHasProposal={userHasProposal}
+                    isBidOwner={isBidOwner}
+                  ></Details>
+                ) : (
+                  <Proposals
+                    account={accountType}
+                    projectId={project}
+                    bidData={bidData}
+                    isBidOwner={isBidOwner}
+                  ></Proposals>
+                )}
+              </ContentBox>
+            </Grid2>
+            <Grid item xs={2.4} sx={{ marginTop: '2rem' }}>
+              <ContentBox className="title-wrapper">
+                <Box sx={{ display: 'flex', padding: '1.3rem ' }}>
+                  <Text color="green" size="large">
+                    Client Information
+                  </Text>
+                </Box>
+              </ContentBox>
+              <ContentBox className="main-wrapper">
+                <SideboxWrapper>
+                  <Row>
+                    <Text color="red" size="md">
+                      {clientData?.firstName} {clientData?.lastName}
+                    </Text>
+                  </Row>
+                  <Row sx={{ alignItems: 'center' }}>
+                    <CustomLocationIcon color="#4aa398" />
+                    <Text>
+                      {clientData?.city}{' '}
+                      {clientData?.country ?? 'United Arab Emirates'}
+                    </Text>
+                  </Row>
+                  <Row sx={{ gap: '1rem' }}>
+                    <StarRating data={bidData?.client?.rating} sz="lg" />
+                    <div>( {bidData?.client?.ratingNUmber} )</div>
+                  </Row>
+                  <Row>
+                    <Text>
+                      Member since{' '}
+                      {moment(clientData?.createdDate).format('MMM YYYY')}
+                    </Text>
+                  </Row>
+                  <VerticalDivider />
+                  <Text color="green" size="md">
+                    Client Verification
+                  </Text>
+                  {bidData?.client?.verified &&
+                    bidData?.client?.verified.map((item, idx) => {
+                      return (
+                        <Row
+                          sx={{ alignItems: 'center', gap: '1rem' }}
+                          key={'verified-item-' + idx}
+                        >
+                          <CustomCheckSquareIcon />
+                          <Text>{item}</Text>
+                        </Row>
+                      );
+                    })}
+                  {bidData?.client?.unverified &&
+                    bidData?.client?.unverified.map((item, idx) => {
+                      return (
+                        <Row
+                          sx={{ alignItems: 'center', gap: '1rem' }}
+                          key={'unverified-item-' + idx}
+                        >
+                          <CustomXSquareIcon />
+                          <Text>{item}</Text>
+                        </Row>
+                      );
+                    })}
+                </SideboxWrapper>
+              </ContentBox>
+              <VerticalDivider />
+              {userDetails?.isProposedProject ? (
+                <ContentBox>
+                  <BidBoxWrapper>
+                    <Column>
+                      <Row>
+                        <Text color="green">Payment Status</Text>
+                      </Row>
+                      <Row>
+                        <Text color="red" size="large">
+                          {userDetails?.paymentStatus}
+                        </Text>
+                      </Row>
+                      <Row>
+                        <Text>{userDetails?.paymentDescription}</Text>
+                      </Row>
+                    </Column>
+                  </BidBoxWrapper>
+                </ContentBox>
+              ) : (
+                <ContentBox>
+                  <BidBoxWrapper>
+                    <Column
+                      sx={{
+                        borderRight: '1px solid #ACCECA',
+                        width: '25%',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Text>Bids</Text>
+                      <Text color="green" size="large">
+                        {bidData?.proposals?.data?.length ?? 0}
+                      </Text>
+                    </Column>
+                    <Column
+                      sx={{
+                        alignItems: 'center',
+                        width: '75%',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {userHasProposal ? (
+                        <CustomGreenButton className="disabled">
+                          Applied
+                        </CustomGreenButton>
+                      ) : accountType === 1 ? (
+                        <CustomGreenButton onClick={() => setOpen(true)}>
+                          Apply
+                        </CustomGreenButton>
+                      ) : isBidOwner ? (
+                        <RedButton onClick={() => setOpenCancelProject(true)}>
+                          Cancel Project
+                        </RedButton>
+                      ) : (
+                        ''
+                      )}
+                    </Column>
+                  </BidBoxWrapper>
+                </ContentBox>
+              )}
+            </Grid>
+          </StyledGrid>
         </ContainerCustom>
       </ContentBoxWrapper>
       <Modal handleClose={handleClose} isOpen={open} maxWidth="md">

@@ -55,6 +55,9 @@ export const StyledTextFieldBrowse = styled(TextField)`
     margin: auto;
     width: 74%;
     align-items: center;
+    @media (max-width: 769px) {
+      width: 95%;
+    }
   }
 `;
 export const StyledTextField2 = styled.div`

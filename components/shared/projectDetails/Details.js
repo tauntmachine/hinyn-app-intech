@@ -19,6 +19,9 @@ const VerticalDivider = styled.div`
 `;
 
 const MainWrapper = styled.div`
+  @media (max-width: 769px) {
+    padding: 2.5rem 1.8rem;
+  }
   padding: 2.5rem 5rem;
   display: flex;
   flex-direction: column;
@@ -34,7 +37,9 @@ const Column = styled(Box)`
 
 const Row = styled(Box)`
   display: flex;
-
+  &.attachment {
+    flex-direction: column;
+  }
   &.green-bg {
     background: #ecf6f5;
     padding: 10px 20px;
@@ -84,7 +89,6 @@ const Details = ({
   isBidOwner,
   account,
 }) => {
-  // console.log('ggg', userDetails.isProposedProject);
   const projectDetails = {
     attachments: [
       'project-temp-1.jpeg',
