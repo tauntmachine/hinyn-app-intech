@@ -210,7 +210,7 @@ const BurgerHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-width: ${(props) => props.minWidth - 85}px;
+  min-width: 20rem;
   @media (min-width: 769px) {
     display: none;
   }
@@ -234,21 +234,21 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
   const [userData, setUserData] = useState({});
 
   const [hover, setHover] = useState(false);
-  const [minWidth, setMinWidth] = useState(window.innerWidth);
+  // const [minWidth, setMinWidth] = useState(window.innerWidth);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setMinWidth(window.innerWidth);
-    };
-    console.log(minWidth);
-    // Attach the event listener
-    window.addEventListener('resize', handleResize);
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setMinWidth(window.innerWidth);
+  //   };
+  //   console.log(minWidth);
+  //   // Attach the event listener
+  //   window.addEventListener('resize', handleResize);
 
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  //   // Clean up the event listener when the component unmounts
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []);
   const router = useRouter();
 
   const showUserProfile = () => {
@@ -296,6 +296,19 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
         }
       });
     }
+    // const handleResize = () => {
+    //   if (typeof window !== 'undefined') {
+    //     setMinWidth(window.innerWidth);
+    //   }
+    // };
+
+    // if (typeof window !== 'undefined') {
+    //   window.addEventListener('resize', handleResize);
+
+    //   return () => {
+    //     window.removeEventListener('resize', handleResize);
+    //   };
+    // }
   }, []);
 
   const professionalTabs = ['Dashboard', 'Browse', 'My Projects'];
@@ -392,7 +405,7 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
               justifyContent: 'space-between',
             }}
           >
-            <BurgerHeader minWidth={minWidth}>
+            <BurgerHeader>
               <Logo2 />
               {isMobileMenuOpen ? (
                 <CloseIcon

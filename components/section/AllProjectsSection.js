@@ -1,5 +1,5 @@
 import SimpleSearchBar from '../shared/searchBar/SimpleSearchBar';
-import { Box, Typography, Grid, Container } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import ContentBox from '../shared/ContentBox';
