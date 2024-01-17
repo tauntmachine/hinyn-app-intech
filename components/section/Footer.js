@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 
 const FooterContainer = styled.div`
-  display: flex;
   flex-direction: column;
   align-items: center;
   color: #555555;
@@ -15,10 +14,12 @@ const FooterContainer = styled.div`
   background: #fdfdfd;
   margin: ${(props) => (props.margin === 'top' ? '20px ' : '')};
   padding: 20px 0;
+  display: none;
   @media (min-width: 768px) {
     flex-direction: row;
     justify-content: center;
     height: 4rem;
+    display: flex;
   }
 `;
 
@@ -26,11 +27,12 @@ const List = styled.ul`
   display: flex;
   flex-direction: column;
   width: 100%;
-
+  display: none;
   @media (min-width: 768px) {
     flex-direction: row;
     justify-content: space-evenly;
     width: 60%;
+    display: flex;
   }
 `;
 

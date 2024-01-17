@@ -26,9 +26,14 @@ const ContainerCustom = styled.div`
   }
 `;
 const ContainerStyle = styled(Container)`
-  flex-direction: column;
-  gap: 0px;
-  margin-top: 10px;
+  @media (max-width: 769px) {
+    flex-direction: column;
+    gap: 0px;
+    margin-top: 10px;
+  }
+
+  gap: 40px;
+  margin-top: 30px;
 `;
 const ClientProjectsSection = () => {
   const [clientBids, setClientBids] = useState([]);

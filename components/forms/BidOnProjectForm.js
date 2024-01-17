@@ -78,7 +78,9 @@ const StyledTextArea = styled(TextareaAutosize)`
     outline: none;
   }
 `;
-
+const ContainerCustom = styled(Container)`
+  padding: 20px 0;
+`;
 const BidOnProjectForm = ({ handleSubmit, proposals }) => {
   const [selectedCurrency, setSelectedCurrency] = useState([]);
   const currencies = [
@@ -189,7 +191,7 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
   };
   return (
     <>
-      <Container maxWidth="lg" sx={{ margin: '2rem 0' }}>
+      <ContainerCustom maxWidth="lg">
         <CssBaseline />
         <FormContainer>
           <Text color="red" size="l2">
@@ -206,7 +208,7 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
             component="form"
             noValidate
             onSubmit={submitHandler}
-            sx={{ mt: 3, width: '100%' }}
+            sx={{ mt: 1, width: '100%' }}
           >
             <Grid container spacing={2} sx={{ marginBottom: '2rem' }}>
               <Grid item xs={12}>
@@ -288,16 +290,16 @@ const BidOnProjectForm = ({ handleSubmit, proposals }) => {
                   </div>
                 </div>
               </Grid>
-              <div style={{ width: '31%', marginTop: '20px' }}>
+              {/* <div style={{ width: '31%', marginTop: '20px' }}>
                 <Pill2 title="Add another milestone payment" color="green" />
-              </div>
+              </div> */}
             </Grid>
             <ButtonContainer>
               <GreenButton>Submit</GreenButton>
             </ButtonContainer>
           </Box>
         </FormContainer>
-      </Container>
+      </ContainerCustom>
     </>
   );
 };

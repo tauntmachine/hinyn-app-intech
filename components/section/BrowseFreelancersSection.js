@@ -43,7 +43,23 @@ const CustomPagination = styled(Pagination)`
     color: #4aa398;
   }
 `;
-
+const StyledGrid = styled(Grid)`
+  @media (max-width: 769px) {
+    display: none;
+  }
+`;
+const StyledGrid2 = styled.div`
+  display: none;
+  @media (max-width: 769px) {
+    display: flex;
+    justify-content: center;
+  }
+`;
+const StyledGrid3 = styled(Grid)`
+  @media (max-width: 769px) {
+    display: none;
+  }
+`;
 const MyFreelancersSection = () => {
   const [searchInput, setSearchInput] = useState('');
   const { freelancer, filter, setFilter } = useFreelancer();
@@ -72,8 +88,8 @@ const MyFreelancersSection = () => {
       </SearchBarContainer>
       <Box>
         <ContainerCustom sx={{ marginTop: '4rem' }}>
-          <Grid container columnSpacing={4}>
-            <Grid item xs={4}>
+          <StyledGrid3 container columnSpacing={4}>
+            <StyledGrid item xs={4}>
               <ContentBox
                 hasHeader={true}
                 headerTitle="Filters"
@@ -85,7 +101,7 @@ const MyFreelancersSection = () => {
                   <FreelancerFilterForm />
                 </Box>
               </ContentBox>
-            </Grid>
+            </StyledGrid>
             <Grid item xs={8}>
               <ContentBox
                 hasHeader={true}
@@ -111,7 +127,47 @@ const MyFreelancersSection = () => {
                 </Stack> */}
               </Box>
             </Grid>
-          </Grid>
+          </StyledGrid3>
+          <StyledGrid2>
+            <StyledGrid item xs={4}>
+              <ContentBox
+                hasHeader={true}
+                headerTitle="Filters"
+                headerColor={'darkGray'}
+                hasBodyIcon={false}
+                noPadding={true}
+              >
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                  <FreelancerFilterForm />
+                </Box>
+              </ContentBox>
+            </StyledGrid>
+            <Grid item xs={8}>
+              <ContentBox
+                hasHeader={true}
+                headerTitle="Results"
+                hasBodyIcon={false}
+                noPadding={true}
+                giveh={true}
+                headerColor="red"
+              >
+                <ResultsBox>
+                  <FreelancerConnectedList />
+                </ResultsBox>
+              </ContentBox>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  marginBottom: '2rem',
+                }}
+              >
+                {/* <Stack spacing={2}>
+                  <CustomPagination count={10} />
+                </Stack> */}
+              </Box>
+            </Grid>
+          </StyledGrid2>
         </ContainerCustom>
       </Box>
     </Box>

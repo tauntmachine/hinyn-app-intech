@@ -1,16 +1,22 @@
-import { Container, Box, Pagination } from '@mui/material';
+import { Container, Box } from '@mui/material';
 
 import styled from '@emotion/styled';
-
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 
 import { useFreelancer } from '../../src/store';
 import Dropdown2 from '../shared/Dropdown2';
 import CardsSection from './CardsSection';
 
-const ContainerCustom = styled.div``;
 const ContainerCustom2 = styled.div``;
+const ContainerStyle = styled(Container)`
+  @media (max-width: 769px) {
+    flex-direction: column;
+    gap: 0px;
+    margin-top: 10px;
+  }
+
+  gap: 40px;
+  margin-top: 30px;
+`;
 const MyFreelancers = () => {
   const { freelancer } = useFreelancer();
 
@@ -55,7 +61,7 @@ const MyFreelancers = () => {
   const handleButtonClick = () => {};
   return (
     <Box sx={{ height: 'auto', width: '80%', margin: 'auto' }}>
-      <Container
+      <ContainerStyle
         sx={{
           display: 'flex',
           gap: '2rem',
@@ -65,7 +71,7 @@ const MyFreelancers = () => {
       >
         <Dropdown2 hasLabel={true} label="Show" items={showOptions} />
         <Dropdown2 hasLabel={true} label="Sort" items={sortOptions} />
-      </Container>
+      </ContainerStyle>
       <ContainerCustom2>
         <CardsSection
           cards={freelancer}

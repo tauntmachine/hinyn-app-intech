@@ -61,12 +61,16 @@ const Tabs = styled.div`
   position: relative;
   margin-left: 2rem;
   @media (max-width: 769px) {
-    margin-left: 0;
+    position: fixed;
     display: flex;
-    flex-direction: column;
-    gap: 0;
+    justify-content: center;
+    padding-horizontal: auto;
+
+    background: white;
+    width: 100%;
+    z-index: 1000;
     bottom: 0;
-    padding: 10px 0;
+    margin: 0;
   }
 `;
 
@@ -77,10 +81,13 @@ const TabItem = styled.div`
     color: ${(props) => (props.account === 1 ? '#4AA398' : '#ff5a5f')};
   }
   @media (max-width: 769px) {
-    padding: 16px 0;
+    padding: ${(props) => (props.account === 1 ? '13px 20px' : '13px 0')};
+    border: none;
+
     &.active {
       font-weight: bold;
-      border-bottom: 1px solid #a7d4ce;
+      border-top: 3px solid
+        ${(props) => (props.account === 1 ? '#4AA398' : '#ff5a5f')};
       color: ${(props) => (props.account === 1 ? '#4AA398' : '#ff5a5f')};
     }
   }
@@ -180,8 +187,9 @@ const MobileMenuContainer = styled.div`
   align-items: center;
   position: fixed;
   // top: 0;
-  width: 100%;
-  padding: 1px 1px;
+  right: 0;
+  width: 45%;
+  padding: 1px 0 10px 0;
   background-color: #fff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -229,6 +237,11 @@ const CloseIcon = styled(FaTimes)`
 `;
 const BoxCustom = styled.div`
   width: 100%;
+`;
+const BottomTabs = styled.div`
+  @media (min-width: 769px) {
+    display: none;
+  }
 `;
 const CustomTextPhone = styled.div``;
 function DashboardHeader({ currentTab, setTabChange, account }) {
@@ -480,13 +493,71 @@ function DashboardHeader({ currentTab, setTabChange, account }) {
           </LoginContainer>
         </Head>
       </CustomBox>
+
       {isMobileMenuOpen ? (
         <MobileMenuContainer id="mobileMenuContainer">
-          {showTabs(account)}
+          <Box
+            onClick={showUserProfile}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '20px',
+              cursor: 'pointer',
+
+              marginY: '13px',
+            }}
+          >
+            <ImageContainer>
+              <StyledImage
+                src={
+                  userData?.displayPhoto
+                    ? imgpath + userData?.displayPhoto
+                    : imgpath + 'img-avatar1.png'
+                }
+                layout="fill"
+                alt="icon-img"
+              />
+            </ImageContainer>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '8rem',
+              }}
+            >
+              <Text color={account === 1 ? 'green' : 'red'}>
+                <b> Hi, {userData?.firstName}!</b>
+              </Text>
+              <Text>
+                {userData?.cash?.toLocaleString() ?? ''} {'$49,320 USD'}
+              </Text>
+            </Box>
+          </Box>
+
+          <Line></Line>
+
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              gap: '10px',
+              marginTop: '10px',
+            }}
+          >
+            <CustomText onClick={showSettings}>Settings</CustomText>
+            <CustomText onClick={showWallet}>Wallet</CustomText>
+            <CustomText>Support</CustomText>
+            <Line2></Line2>
+            <a onClick={handleLogoutUser}>
+              <CustomText>Logout</CustomText>
+            </a>
+          </div>
         </MobileMenuContainer>
       ) : (
         ''
       )}
+      <BottomTabs>{showTabs(account)}</BottomTabs>
     </>
   );
 }
